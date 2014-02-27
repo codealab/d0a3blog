@@ -9,7 +9,6 @@ class Family < ActiveRecord::Base
 
 	validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
 
-	# belongs_to :address
 	has_one :address, :dependent => :destroy
 
 	def styled_address
@@ -21,18 +20,6 @@ class Family < ActiveRecord::Base
 	end
 
 	private
-
-	  # def downcase_names
-	  #   [:name].each do |name|
-	  #     self.send("#{name}=", self.send(name).downcase) if self.send(name)
-	  #   end
-	  # end
-
-	  # def titleize_names
-	  #   [:name].each do |name|
-	  #     self.send("#{name}=", self.send(name).titleize) if self.send(name)
-	  #   end
-	  # end
 
 	  def downcase_names
 	    self.send("#{:name}=", self.send(:name).downcase) if self.send(:name)
