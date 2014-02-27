@@ -7,8 +7,8 @@
 	<th>Nombre</th>
 	<th>Apellido Paterno</th>
 	<th>Apellido Materno</th>
-	<th>Sexo</th>
-	<th>Fecha de Nacimiento</th>
+	<th class="td_center">Sexo</th>
+	<th class="td_center">Fecha de Nacimiento</th>
 	<th>Relación</th>
 
 </tr>
@@ -17,8 +17,8 @@
 	<td><%= link_to member.name, member %></td>
 	<td><%= member.first_last_name %></td>
 	<td><%= member.second_last_name %></td>
-	<td><%= member.sex %></td>
-	<td><%= member.dob %></td>
+	<td class="td_center"><%= member.sex %></td>
+	<td class="td_center"><%= member.dob %></td>
 	<td><%= member.family_roll %></td>
 </tr>
 <% end %>

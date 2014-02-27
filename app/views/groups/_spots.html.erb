@@ -1,13 +1,10 @@
 <h1>Inscritos<span class="line"></span></h1>
 <% if(@group.spots.empty?) %>
-	<!--<h2>No hay spots</h2>
-	<p>
-		<button type="button" class="btn btn-default"><%= link_to "Nuevo Spot", new_group_spot_path(@group) %></button>
-	</p>-->
+	<h2>No hay spots</h2>
 <% else %>
 	<table class="table table-striped">
 		<tr>
-			<th>spot</th>
+			<th>Spot</th>
 			<th>Niño</th>
 			<th>Cuidador</th>
 			<th>Pagos</th>
@@ -15,8 +12,7 @@
 		</tr>
 		<% @group.spots.each_with_index do |spot,index| %>
 			<tr>
-
-				<td><%= link_to index, group_spot_path(@group, spot) %></td>
+				<td><%= link_to "Spot - #{index}", group_spot_path(@group, spot) %></td>
 				<td><%= link_to "#{spot.child.name} #{spot.child.first_last_name} #{spot.child.second_last_name}", person_path(spot.child.id) %></td>
 				<td>
 					<% if(spot.tutor) %>

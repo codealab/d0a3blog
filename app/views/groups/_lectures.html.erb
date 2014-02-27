@@ -1,5 +1,5 @@
 <% if(@group.lectures.empty?) %>
-		<h1>No Hay Clases</h1>
+		<h1>No Hay Clases<span class="line"></span></h1>
 	<% else %>
 	<h1>Clases<span class="line"></span></h1>
 	<table class="table table-striped">
@@ -7,7 +7,7 @@
 			<th>Fecha</th>
 			<th>Hora</th>
 			<th>Observación</th>
-			<th>Editar</th>
+			<th class="td_center">Editar</th>
 			<!--<th>Borrar</th>-->
 		</tr>	
 		<% @group.lectures.each do |lecture| %>
@@ -15,7 +15,7 @@
 				<td><%= link_to "#{lecture.date.strftime('%m/%d/%Y')}", group_lecture_path(@group, lecture) %></td>
 				<td><%= lecture.date.strftime('%I:%M %p') %></td>
 				<td><%= lecture.observation %></td>
-				<td><button type="button" class="btn btn-default btn-xs"><%= link_to "Editar Clase", edit_group_lecture_path(@group, lecture) %></button></td>
+				<td class="td_center"><button type="button" class="btn btn-default btn-xs"><%= link_to "Editar Clase", edit_group_lecture_path(@group, lecture) %></button></td>
 				<!--<td><button type="button" class="btn btn-danger btn-xs"><%= link_to "Borrar Clase", group_lecture_path(@group, lecture), method: :delete, data: { confirm: "Estas Seguro?" } %></button></td>-->
 			</tr>
 		<% end %>

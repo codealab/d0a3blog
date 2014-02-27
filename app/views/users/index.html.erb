@@ -27,12 +27,12 @@
 	<% if user.facilitator %><td>Sí</td><% else %><td>No</td><% end %>
 	<% if user.coordinator %><td>Sí</td><% else %><td>No</td><% end %>
 	<% if current_user.admin? %>
-		<th><button type="button" class="btn btn-default"><%= link_to "Editar Usuario", edit_user_path(user)  %></button></th>
+		<th><button type="button" class="btn btn-default btn-xs"><%= link_to "Editar", edit_user_path(user)  %></button></th>
 		<% if !current_user?(user) %>
-			<th><button type="button" class="btn btn-danger"><%= link_to "Borrar Usuario", user, method: :delete, data: { confirm: "¿Estás seguro de borrar a #{user.name}?" } %></button></th>
+			<th><button type="button" class="btn btn-danger btn-xs"><%= link_to "Borrar", user, method: :delete, data: { confirm: "¿Estás seguro de borrar a #{user.name}?" } %></button></th>
 		<% else %>
 			<th>
-				<button type="button" class="btn btn-danger disabled">Borrar Usuario</button>
+				<button type="button" class="btn btn-danger btn-xs disabled">Borrar</button>
 			</th>
 		<% end %>
 	<% end %>
