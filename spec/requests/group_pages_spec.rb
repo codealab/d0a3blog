@@ -78,7 +78,7 @@ describe 'Group pages' do
 		before { visit group_path(group) }
 
 		describe 'Show group information' do
-			it { should have_title("Grupo #{group.name}") }
+			it { should have_title("Grupo #{group.name.titleize}") }
 			it { should have_link('Nueva Clase') }
 			it { should have_link('Editar Grupo') }
 		end
@@ -243,7 +243,7 @@ describe 'Group pages' do
 
 				it { should have_selector("div.alert.alert-success") }
 				it { should have_content('Clase borrada') }
-				it { should have_title("Grupo #{group.name}") }
+				it { should have_title("Grupo #{group.name.titleize}") }
 				it { should have_link("Nueva Clase") }
 
 			end
@@ -296,7 +296,7 @@ describe 'Group pages' do
 
 			before { visit group_spot_path(group, group.spots.first) }
 			it { should have_title(hijo.child.name) }
-			it { should have_button('Regresar a Spots') }
+			it { should have_button('Regresar a Grupo') }
 			it { should have_button('Editar Spot') }
 			it { should have_content('Pagos') }
 			

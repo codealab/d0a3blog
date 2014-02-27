@@ -77,7 +77,7 @@ describe Group do
  
 	subject { create(:group) }
 
-	its(:name) { should == "Primer Clase" }
+	its(:name) { should == "primer clase" }
 	its(:cost) { should ==  280 }
 	its(:min_age) { should ==  0 }
 	its(:max_age) { should ==  120 }

@@ -1,5 +1,6 @@
 class Group < ActiveRecord::Base
-	before_validation { |group| group.name.downcase! }
+	before_save :downcase_names
+  after_initialize :titleize_names
 
 	belongs_to :user
 	has_many :spots, :dependent => :restrict_with_error
@@ -15,22 +16,28 @@ class Group < ActiveRecord::Base
 	validate :min_age_cannot_be_greater_than_max_age
 	validate :init_date_cannot_be_greater_than_finish_date
 
-	def name
-		read_attribute(:name).try(:titleize)
-	end
-
 	def facilitador
 		self.user.name
 	end
 
-	def min_age_cannot_be_greater_than_max_age
-    errors.add(:min_age, "La edad minima es mayor a la maxima") if 
-    !min_age.blank? and !max_age.blank? and min_age > max_age
-  end
+	private
 
-  def init_date_cannot_be_greater_than_finish_date
-    errors.add(:init_date, "La fecha de inicio de curso es mayor a la de fin curso") if 
-    !init_date.blank? and !finish_date.blank? and init_date > finish_date
-  end
+		def min_age_cannot_be_greater_than_max_age
+	    errors.add(:min_age, "La edad minima es mayor a la maxima") if 
+	    !min_age.blank? and !max_age.blank? and min_age > max_age
+	  end
+
+	  def init_date_cannot_be_greater_than_finish_date
+	    errors.add(:init_date, "La fecha de inicio de curso es mayor a la de fin curso") if 
+	    !init_date.blank? and !finish_date.blank? and init_date > finish_date
+	  end
+
+	  def downcase_names
+	      self.send("#{:name}=", self.send(:name).downcase) if self.send(:name)
+	  end
+
+	  def titleize_names
+	      self.send("#{:name}=", self.send(:name).titleize) if self.send(:name)
+	  end
 
 end
