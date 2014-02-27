@@ -50,7 +50,6 @@ class GroupsController < ApplicationController
 	private
 
 	def group_params
-	  params["group"]["name"].downcase!
       params.require(:group).permit(:name, :user_id, :location, :cost, :min_age, :max_age, :init_date, :finish_date)
     end
 

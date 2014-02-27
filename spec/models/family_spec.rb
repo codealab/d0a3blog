@@ -42,7 +42,7 @@ describe Family do
  
 		subject {create(:family)}
 
-		its(:name) { should include("Family") }
+		its(:name) { should include("family") }
 		its(:status) { should be_true }
 		its(:observations) { should == "Esta es una observación de la Familia Perez Lopez" }
 end

@@ -12,19 +12,20 @@
 			<%= f.label "Observaciones", :for => 'lecture_observation' %>
 			<%= f.text_area :observation %>
 		</p>
-		<% if(@lecture.attendances.empty?) %>
-			<p>
-				<%= f.label "Esta clase no tiene aún asistencias" %>
-				<button type="button" class="btn btn-default">Agregar asistencias</button>
-			</p>
-		<% else %>
-			<p>
-				<%= f.label "Asistencias" %>
-			</p>
-			<% @lecture.attendances.each do |a| %>
-				<%= a.person.name %>
+		<% if params[:action] == 'edit' %>
+			<% if(@lecture.attendances.empty?) %>
+				<p>
+					<%= f.label "Esta clase no tiene aún asistencias" %>
+				</p>
+			<% else %>
+				<p>
+					<%= f.label "Asistencias" %>
+				</p>
+				<% @lecture.attendances.each do |a| %>
+					<%= a.person.name %>
+				<% end %>
 			<% end %>
-		<% end %>
+    <% end %>
 		<p>
 			<%= f.submit "Guardar", class: "btn btn-sm btn-primary" %>
 		</p>

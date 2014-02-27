@@ -1,8 +1,5 @@
 <div class="boton_der">
 	<p>
-		<button type="button" class="btn btn-info"><%= link_to "Regresar a Grupo", group_path(@group) %></button>
-	</p>
-	<p>
 	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Spot", group_spot_path(@group,@spot) %></button>
 	</p>
 	<p>
@@ -27,24 +24,6 @@
 	    <%= f.submit "Guardar", class: "btn btn-sm btn-primary" %>
 	  </p>
 	<% end %>
-	<h2>Pagos</h2>
-	<table class="table table-striped">
-		<tr>
-			<th>Fecha</th>
-			<td>Monto</td>
-			<td>Beca</td>
-			<!--<td>Editar</td>
-			<td>Borrar</td>-->
-		</tr>
-		<% @spot.payments.each do |payment| %>
-			<tr>
-				<td><%= payment.date %></td>
-				<td>$<%= payment.amount %>.00</td>
-				<td><%= payment.scholarship %></td>
-				<!--<td><button type="button" class="btn btn-default btn-xs"><%= link_to "Editar Pago", edit_group_spot_payment_path(@group, @spot, payment) %></button></td>
-				<td><button type="button" class="btn btn-danger btn-xs"><%= link_to "Borrar Pago", group_spot_payment_path(@group, @spot, payment), method: :delete, data: { confirm: "Estas Seguro?" } %></button></td>-->
-			</tr>
-		<% end %>
 	</table>
   </div>
 </div>

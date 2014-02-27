@@ -1,8 +1,9 @@
 # encoding: UTF-8
 class User < ActiveRecord::Base
-
-	before_save { self.email = email.downcase }
+	before_save :downcase_names
+  after_initialize :titleize_names
 	before_create :create_remember_token
+	before_save { self.email = email.downcase }
 	
 	has_many :groups, :dependent => :restrict_with_error
 
@@ -26,7 +27,7 @@ class User < ActiveRecord::Base
 
 	def User.new_remember_token
 		SecureRandom.urlsafe_base64
-	end
+	end 
 
 	def User.encrypt(token)
     	Digest::SHA1.hexdigest(token.to_s)
@@ -38,4 +39,11 @@ class User < ActiveRecord::Base
 			self.remember_token = User.encrypt(User.new_remember_token)
 		end
 
+	  def downcase_names
+	      self.send("#{:name}=", self.send(:name).downcase) if self.send(:name)
+	  end
+
+	  def titleize_names
+	      self.send("#{:name}=", self.send(:name).titleize) if self.send(:name)
+	  end
 end

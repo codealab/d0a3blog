@@ -6,9 +6,15 @@ $grayDarker: #222222;
 $grayLight: #999999;
 $grayMediumLight: #eaeaea;
 $morado: #81519C;
+$morado_obscuro: #73488b;
 $morado_claro:#d3c0de;
-$verde:#82C87D;
+$verde:#71c06b;
+$verde_obscuro:#60b959;
 $negro_opaco:#444444;
+$rojo:#D9534F;
+$rojo_obscuro:#D43F3A;
+$naranja:#F0AD4E;
+$naranja_obscuro:#EEA236;
 
 /* universal */
 
@@ -62,16 +68,48 @@ text-decoration: none;
   }
 }
 
-/* buttons */
+/* Botones */
 
+.boton_der {
+  float: right;
+  margin-left:8px;
+}
+
+.boton_der p{
+  float: right;
+  margin-left:8px;
+}
+
+.boton_izq {
+  float: left;
+  margin-right:8px;
+}
 
 .btn-default {
     background-color:$verde;
     border-color:$verde;
   &:hover {
-    background-color: #71c06b;
-    border-color: #71c06b;
+    background-color: $verde_obscuro;
+    border-color: $verde_obscuro;
   }
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  color: $verde_obscuro;
+  background-color: $verde_obscuro;
+  border-color: $verde_obscuro;
+}
+
+
+.btn-default:active,
+.btn-default.active {
+  color: $verde_obscuro;
+  background-color: $verde_obscuro;
+  border-color: $verde_obscuro;
 }
 
 .btn-default a{
@@ -85,9 +123,19 @@ text-decoration: none;
   background-color:$morado;
   border-color:$morado;
   &:hover {
-    background-color:#73488b;
-    border-color:#73488b;
+    background-color:$morado_obscuro;
+    border-color:$morado_obscuro;
   }
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.open .dropdown-toggle.btn-info {
+  color: $morado_obscuro;
+  background-color: $morado_obscuro;
+  border-color: $morado_obscuro;
 }
 
 .btn-info a{
@@ -98,11 +146,11 @@ text-decoration: none;
 }
 
 .btn-danger {
-    background-color:#D9534F;
-    border-color:#D9534F;
+    background-color:$rojo;
+    border-color:$rojo;
   &:hover {
-    background-color: #D43F3A;
-    border-color: #D43F3A;
+    background-color: $rojo_obscuro;
+    border-color: $rojo_obscuro;
   }
 }
 
@@ -113,12 +161,13 @@ text-decoration: none;
   }
 }
 
+
 .btn-warning {
-    background-color:#F0AD4E;
-    border-color:#F0AD4E;
+    background-color:$naranja;
+    border-color:$naranja;
   &:hover {
-    background-color: #EEA236;
-    border-color: #EEA236;
+    background-color: $naranja_obscuro;
+    border-color: $naranja_obscuro;
   }
 }
 
@@ -234,24 +283,14 @@ footer {
   }
 }
 
-/* Botones */
-
-.boton_der {
- 	float: right;
- 	margin-left:8px;
-}
-
-.boton_der p{
-  float: right;
-  margin-left:8px;
-}
-
-.boton_izq {
-  float: left;
-  margin-right:8px;
-}
 
 .clear { clear: both; }
+
+/* Table */
+
+.td_center {
+   text-align: center;   
+}
 
 /* Group show */
 

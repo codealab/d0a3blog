@@ -1,16 +1,11 @@
 <% provide(:title, "#{@group.name} / #{@spot.child.name} #{@spot.child.first_last_name} #{@spot.child.second_last_name}") %>
 <div class="boton_der">
 	<p>
-	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Spots", group_path(@group) %></button>
+	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Grupo", group_path(@group) %></button>
 	</p>
 	<% if @spot.child.family_relations.first.family.status? %>
 		<p>
-			<button type="button" class="btn btn-default btn-xs"><%= link_to "Editar Spot", edit_group_spot_path(@group,@spot) %></button>
-		</p>
-		<p>
-			<button type="button" class="btn btn-default">
-				<%= link_to "Nuevo Pago", new_group_spot_payment_path(@group, @spot) %>
-			</button>
+			<button type="button" class="btn btn-default"><%= link_to "Editar Spot", edit_group_spot_path(@group,@spot) %></button>
 		</p>
 	<% end %>
 </div>
@@ -39,4 +34,13 @@
 		<% end %>
 	</table>
   </div>
+  	<% if @spot.child.family_relations.first.family.status? %>
+		<p>
+			<div class="boton_der">
+				<button type="button" class="btn btn-default">
+					<%= link_to "Nuevo Pago", new_group_spot_payment_path(@group, @spot) %>
+				</button>
+		  </div>
+		</p>
+	<% end %>
 </div>

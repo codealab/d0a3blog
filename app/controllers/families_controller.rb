@@ -60,7 +60,6 @@ class FamiliesController < ApplicationController
 	private
 
 		def family_params
-			params["family"]["name"].downcase!
 			params.require(:family).permit(:name)
 		end
 

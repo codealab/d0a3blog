@@ -78,42 +78,7 @@ describe "Family-Person pages" do
 			it { should have_content('The form contains 7 errors.') }
 		end
 
-		describe "with valid information" do
-			before do
-				fill_in "person[name]",           with: "Juan"
-				fill_in "person[first_last_name]", with: "Perez"
-				fill_in "person[second_last_name]", with: "Portilla"
-				choose "person_sex_f"
-				select 'Padre', from: 'person[family_roll]'
-				# HELP - If modifying 1995 for any other year, rspec does not finds it. 
-				select  '1995', from: 'person[dob(1i)]'
-				select  'February' , from: 'person[dob(2i)]'
-				select  '21' , from: 'person[dob(3i)]'
-
-				# within '#person_dob_3i' do
-				#   find("option[2]").select_option
-				#   find(:xpath, 'option[2]').select_option
-				# end
-
-				expect { click_button "Guardar" }.to change(family.family_members, :count).by(1)
-			end
-
-			it { should have_selector('div.alert.alert-success') }
-			it { should have_content('Creación Exitosa') }
-			it { should have_selector('a', text:'Juan') }
-			it { should have_selector('td', text:'F') }
-			it { should have_selector('td', text:'Padre') }
-			it { should have_selector('td', text:'1995-02-21') }
-
-
-
-			specify { expect(person.name).to  eq "Fernando" }
-			specify { expect(person.first_last_name).to  eq "Garcia" }
-			specify { expect(person.second_last_name).to  eq "Lopez" }
-			specify { expect(person.sex).to  eq "M" }
-			specify { expect(person.family_roll).to  eq "Hijo" }
-			specify { expect(person.dob).to  eq "20/01/1995".to_date }
-		end
+ 
 
     describe "with invalid information" do
       it "should not create a person" do

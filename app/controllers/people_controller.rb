@@ -58,9 +58,6 @@ class PeopleController < ApplicationController
 	private
 
 		def persons_params
-			params["person"]["name"].downcase!
-			params["person"]["first_last_name"].downcase!
-			params["person"]["second_last_name"].downcase!
 			params.require(:person).permit(:name, :first_last_name, :second_last_name, :sex, :dob, :family_roll, :photo)
 		end
 

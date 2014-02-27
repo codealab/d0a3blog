@@ -15,22 +15,22 @@
 	<th>Nombre</th>
 	<th>Apellido Paterno</th>
 	<th>Apellido Materno</th>
-	<th>Sexo</th>
-	<th>Fecha de Nacimiento</th>
+	<th class="td_center">Sexo</th>
+	<th class="td_center">Fecha de Nacimiento</th>
 	<th>Relación</th>
-	<th>Editar</th>
-	<th>Borrar</th>
+	<th class="td_center">Editar</th>
+	<th class="td_center">Borrar</th>
 </tr>
 <% @family.family_members.order("name ASC").each do |member| %>
 <tr>
 	<td><%= link_to member.name, member %></td>
 	<td><%= member.first_last_name %></td>
 	<td><%= member.second_last_name %></td>
-	<td><%= member.sex %></td>
-	<td><%= member.dob %></td>
+	<td class="td_center"><%= member.sex %></td>
+	<td class="td_center"><%= member.dob %></td>
 	<td><%= member.family_roll %></td>
-	<td><button type="button" class="btn btn-default btn-xs"><%= link_to "Editar", edit_family_person_path(@family, member) %></button></td>
-	<td><button type="button" class="btn btn-danger btn-xs"><%= link_to "Borrar", family_person_path(@family, member), method: :delete, data: { confirm: "Estas Seguro?" } %></button></td>
+	<td class="td_center"><button type="button" class="btn btn-default btn-xs"><%= link_to "Editar", edit_family_person_path(@family, member) %></button></td>
+	<td class="td_center"><button type="button" class="btn btn-danger btn-xs"><%= link_to "Borrar", family_person_path(@family, member), method: :delete, data: { confirm: "Estas Seguro?" } %></button></td>
 </tr>
 <% end %>
 </table>

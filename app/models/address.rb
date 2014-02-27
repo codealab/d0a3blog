@@ -1,5 +1,4 @@
 class Address < ActiveRecord::Base
-	# has_one :family
 	belongs_to :family
 
 	validates_presence_of :calle, :num_ext, :ciudad, :estado, :pais
