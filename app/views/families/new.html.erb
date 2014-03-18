@@ -1,22 +1,2 @@
 <% provide(:title, 'Nueva Familia') %>
-
-<div class="boton_der">
-	<p>
-	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Socios", families_path %></button>
-	</p>
-</div>
-
-<div class="row">
-  <div class="col-md-8 col-md-offset-3">
-	<%= form_for(@family) do |f| %>
-	<%= render 'shared/error_messages', object: f.object %>
-	  <p>
-	    <%= f.label "Nombre de la familia", :for => "family_name" %>
-	    <%= f.text_field :name %>
-	  </p>
-	  <p>
-	    <%= f.submit "Crear Familia", class: "btn btn-sm btn-primary" %>
-	  </p>
-	<% end %>
-  </div>
-</div>
+<%= render 'families/form' %>

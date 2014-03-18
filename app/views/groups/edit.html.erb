@@ -1,15 +1,6 @@
 <% provide(:title, "Editar Grupo") %>
 
-<div class="boton_der">
-	<p>
-	  <button type="button" class="btn btn-info"><%= link_to "Regresar a los Grupos", groups_path %></button>
-	</p>
-</div>
-<div class="row">
-	<div class="span6 offset3">
-		<%= render 'groups/form' %>
-	</div>
-</div>
+<%= render 'groups/form' %>
 
 <% if(@group.can_destroy?) %>
 	<div class="boton_der">

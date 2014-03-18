@@ -4,11 +4,11 @@
 	<p><button type="button" class="btn btn-default"><%= link_to "Regresar a usuarios", users_path %></button></p>
 </div>
 <div class="row">
-  <div class="span10 offset1">
+  <div class="col-md-8 col-md-offset-2">
   	<h1>Info</h1>
-  	<%= image_tag @user.photo_url(:thumb).to_s  %>
 	<table class="table table-striped">
 		<tr>
+			<th>Foto</th>
 			<th>Nombre</th>
 			<th>Email</th>
 			<th>Administrador</th>
@@ -16,6 +16,7 @@
 			<th>Coordinador</th>
 		</tr>
 		<tr>
+			<td><%= image_tag @user.photo_url.to_s, id: "image_url" %></td>
 			<td><%= @user.name %></td>
 			<td><%= @user.email %></td>
 			<% if @user.admin %>
@@ -38,5 +39,5 @@
   </div>
 </div>
 <div class="boton_der">
-	<p><button type="button" class="btn btn-default"><%= link_to "Editar perfil", edit_user_path %></button></p>
+	<p><%= link_to edit_user_path do %><button type="button" class="btn btn-default">Editar perfil</button><% end %></p>
 </div>

@@ -1,7 +1,6 @@
 # encoding: UTF-8
 class LecturesController < ApplicationController
 
-
 	def create
 		@group = Group.find(params[:group_id])
 		@lecture = @group.lectures.build(lecture_params)

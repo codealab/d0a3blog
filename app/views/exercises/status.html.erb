@@ -1,0 +1,5 @@
+<% if @exercise.lectures.include?(@lecture) %>
+	<button type="button" class="btn status_button btn-danger btn-xs">DESACTIVAR</button>
+<% else %>
+	<button type="button" class="btn status_button btn-success btn-xs">ACTIVAR</button>
+<% end %>

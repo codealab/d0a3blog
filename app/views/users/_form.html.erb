@@ -2,46 +2,27 @@
 	<p>	<button type="button" class="btn btn-info"><%= link_to "Regresar a Usuarios", users_path %></button></p>
 </div>
 <div class="row">
-  <div class="span6 offset3">
-    <%= form_for @user, :html => { :multipart => true } do |f| %>
+  <div class="col-md-4 col-md-offset-4">
+    <%= simple_form_for @user, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
-		<p>
-			<%= f.label "Nombre", :for => 'user_name' %>
-			<%= f.text_field :name %>
-		</p>
-		<p>
-			<%= f.label :photo, "Foto"  %>
-			<%= f.file_field :photo  %>
-		</p>
-		<p>
-			<%= f.label "Email", :for => 'user_email' %>
-			<%= f.text_field :email %>
-		</p>
+			<p><%= f.input :name, label:"Nombre" %></p>
+			<% if @user.photo_url.to_s.include?('user/default') %>
+				<img src="" id="image_url" alt="">
+			<% else %>
+				<%= image_tag @user.photo_url.to_s, id: 'image_url' %>
+			<% end %>
+			<p><%= f.input :photo, label:"Foto" %></p>
+			<p><%= f.input :email, label:"Email" %></p>
 		<% if current_user.admin? %>
 			<% if !current_user?(@user) %>
-				<p>
-					<%= f.check_box :admin  %>
-					<%= f.label 'admin', "Administrador", { :class => "checkbox inline" } %>
-				</p>
+				<p><%= f.input :admin, label:"Administrador" %></p>
 			<% end %>
-			<p>
-				<%= f.check_box :coordinator  %>
-				<%= f.label 'coordinator', "Coordinador", { :class => "checkbox inline" } %>
-			</p>
-			<p>
-				<%= f.check_box :facilitator  %>
-				<%= f.label 'facilitator', "Facilitador", { :class => "checkbox inline" } %>
-			</p>
+				<p><%= f.input :coordinator, label:"Coordinador" %></p>
+				<p><%= f.input :facilitator, label:"Facilitador" %></p>
 		<% end %>
 		<% if params[:action] == 'new' || params[:action] == 'create' %>
-			<p>
-				<%= f.label "Contraseña", :for => 'user_password' %>
-				<%= f.password_field :password, :value => @user.password %>
-			</p>
-			<p>
-				<%= f.label "Confirmación de Contraseña", :for => 'user_password_confirmation' %>
-				<%= f.password_field :password_confirmation, :value => @user.password %>
-			</p>
+			<p><%= f.input :password, label:"Contraseña" %></p>
+			<p><%= f.input :password_confirmation, label:"Confirmación de Contraseña" %></p>
 		<% end %>
 		<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
     <% end %>
@@ -52,3 +33,9 @@
 		<p><button type="button" class="btn btn-default"><%= link_to "Cambiar contraseña", edit_password_reset_path(@user) %></button></p>
 	</div>
 <% end %>
+
+<script>
+	$(document).ready(function($) {
+	    $('#user_photo').imagePreview();
+	});
+</script>

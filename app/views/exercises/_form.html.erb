@@ -1,45 +1,27 @@
 <div class="boton_der">
 	<p>
-	  <button type="button" class="btn btn-default"><%= link_to "Regresar a Ejercicios", exercises_path %></button>
+	  <button type="button" class="btn btn-default"><%= link_to "Regresar a Ejercicios", group_lecture_exercises_path(@group, @lecture) %></button>
 	</p>
 </div>
 <div class="row">
-	<div class="span6 offset3">
-		<%= form_for(@exercise) do |f| %>
+	<div class="col-md-4 col-md-offset-4">
+		<%= simple_form_for @exercise, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
-		<p>
-			<%= f.label "Area" %>
-			<%= select("exercise", "area", [[ 'Motricidad Gruesa', 'Motricidad Gruesa' ],[ 'Motricidad Fina', 'Motricidad Fina' ],[ 'Lenguaje', 'Lenguaje' ],[ 'Sensorial Cognositiva', 'Sensorial Cognositiva' ],[ 'Socio Emocional', 'Socio Emocional' ],[ 'Otro', 'Otro' ]], { include_blank: 'Selecciona un area'}) %>
-			<br>
-			<input id="other_name" type="text" placeholder="Escribe el area" style="margin-top: -48px; width: 185px; display:none; " name="person[other]">
-		</p>
-		<p>
-			<%= f.label "Edad Mínima", :for => 'exercise_min_age' %>
-			<%= f.number_field :min_age %>
-		</p>
-		<p>
-			<%= f.label "Edad Máxima", :for => 'exercise_max_age' %>
-			<%= f.number_field :max_age %>
-		</p>
-		<p>
-			<%= f.label "Objetivo", :for => 'exercise_objective' %>
-			<%= f.text_area :objective %>
-		</p>
-		<p>
-			<%= f.label "Descripción", :for => 'exercise_description' %>
-			<%= f.text_area :description %>
-		</p>
-		<p>
-			<%= f.label "Material", :for => 'exercise_material' %>
-			<%= f.text_area :material %>
-		</p>
-		<p>
-			<%= f.label "Música", :for => 'exercise_music' %>
-			<%= f.text_area :music %>
-		</p>
-		<p>
-			<%= f.submit "Guardar", class: "btn btn-sm btn-primary" %>
-		</p>
+		<% areas = ['Motricidad Gruesa','Motricidad Fina','Lenguaje','Sensorial Cognositiva','Socio Emocional','',nil] %>
+		<% if areas.include?(@exercise.area) %>
+			<%= f.input :area, label: "Area", include_blank: 'Selecciona un área', collection: [[ 'Motricidad Gruesa', 'Motricidad Gruesa' ],[ 'Motricidad Fina', 'Motricidad Fina' ],[ 'Lenguaje', 'Lenguaje' ],[ 'Sensorial Cognositiva', 'Sensorial Cognositiva' ],[ 'Socio Emocional', 'Socio Emocional' ],[ 'Otro', 'Otro', :id => 'other_value' ]] %>
+		<% else %>
+			<%= f.input :area, label: "Area", include_blank: 'Selecciona un área', collection: [[ 'Motricidad Gruesa', 'Motricidad Gruesa' ],[ 'Motricidad Fina', 'Motricidad Fina' ],[ 'Lenguaje', 'Lenguaje' ],[ 'Sensorial Cognositiva', 'Sensorial Cognositiva' ],[ 'Socio Emocional', 'Socio Emocional' ],[@exercise.area,@exercise.area],[ 'Otro', 'Otro', :id => 'other_value' ]] %>
+		<% end %>
+		<input id="other_name" type="text" placeholder="Escribe el area" style="margin-top: -34px; width: 95%; z-index: 9; position: relative;border-bottom-right-radius: 0px;border-top-right-radius: 0px; display:none;" name="person[other]" class="form-control">
+		<%= f.input :min_age, label:"Edad Mínima" %>
+		<%= f.input :max_age, label:"Edad Máxima" %>
+		<%= f.input :objective, label:"Objetivo" %>
+		<%= f.input :description, label:"Descripción" %>
+		<%= f.input :material, label:"Material" %>
+		<%= f.input :music, label:"Música" %>
+		<br>
+		<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
 		<% end %>
 	</div>
 </div>
@@ -53,6 +35,7 @@
 
 		$("#other_name").on('keyup',function(e){
 			var newOption = $(this).val();
+			$("#other_value").val(newOption);
 		});
 
 	});

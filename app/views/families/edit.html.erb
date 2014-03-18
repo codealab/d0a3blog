@@ -1,22 +1,2 @@
 <% provide(:title, 'Editar Familia') %>
-
-<div class="boton_der">
-	<p>
-	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Familia", @family %></button>
-	</p>
-</div>
-
-<div class="row">
-  <div class="span6 offset3">
-	<%= form_for(@family) do |f| %>
-	  <p>
-	    <%= f.label "Nombre de la familia", :for => "family_name" %>
-	    <%= f.text_field :name %>
-	  </p>
-	  
-	  <p>
-	    <%= f.submit "Salvar Cambios", class: "btn btn-sm btn-primary" %>
-	  </p>
-	<% end %>
-  </div>
-</div>
+<%= render 'families/form' %>

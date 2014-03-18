@@ -11,8 +11,9 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       flash.now[:success] = 'Bienvenido a "De Cero a Tres"'
       sign_in user
+      #redirect_back_or user
     else
-      flash.now[:error] = 'Combinación de email/password errónea.'
+      flash.now[:danger] = 'Combinación de email/password errónea.'
       render 'new'
     end
   end
@@ -29,7 +30,7 @@ class SessionsController < ApplicationController
         redirect_to @user
       end
     else
-      flash[:error] = "La contraseña actual"
+      flash[:danger] = "La contraseña actual"
     end
   end 
 

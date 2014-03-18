@@ -6,5 +6,6 @@ class CreatePlans < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :plans, [:lecture_id, :exercise_id], unique: true
   end
 end

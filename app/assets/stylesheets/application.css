@@ -11,3 +11,26 @@
  *= require_self
  *= require_tree .
  */
+
+ /* Group view */
+#container_lectures{
+	height: 700px;
+	overflow: hidden;
+}
+#lectures_dates {
+	width: 20%;
+	height: 600px;
+	overflow-y: scroll;
+	float: left;
+}
+#refresh_lecture_info {
+	width: 80%;
+	float: left;
+	height: 600px;
+	overflow-y: scroll;
+	padding: 0px 20px 20px 20px;
+}
+/*Default to user*/
+#image_url{
+	width: 100px;
+}

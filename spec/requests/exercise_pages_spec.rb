@@ -2,17 +2,20 @@
 require 'spec_helper'
 
 describe 'Exercise pages' do
+	
 	subject { page }
 
 	let(:user) { create(:user, :is_admin) }
 	let(:exercise) { create(:exercise) }
+	let(:lecture) { create(:lecture) }
+	let(:group) { create(:group) }
 
   	before { sign_in user }
 
 	describe 'Index Exercises' do
 		before do
 	  		10.times { create(:exercise) }
-			visit exercises_path
+			visit group_lecture_exercises_path(group,lecture)
 		end
 
 		it { should have_title('Todos los Ejercicios') }
@@ -21,17 +24,17 @@ describe 'Exercise pages' do
 			it "should list each exercise" do
 				Exercise.all.each do |exercise|
 					expect(page).to have_content(exercise.objective)
-					expect(page).to have_link("Detalle", href: exercise_path(exercise))					
+					expect(page).to have_content(exercise.description)
 				end
 			end
 		end
 	end
 
 	describe 'New exercise' do
-		before { visit new_exercise_path }
+		before { visit new_group_lecture_exercise_path(group,lecture) }
 		it { should have_title('Nuevo Ejercicio') }
 		it { should have_button("Regresar a Ejercicios") }
-		it { should have_link("Regresar a Ejercicios", href: exercises_path ) }
+		it { should have_link("Regresar a Ejercicios", href: group_lecture_exercises_path(group,lecture) ) }
 		
 		describe "with invalid information" do
 			before { click_button("Guardar") }
@@ -52,14 +55,14 @@ describe 'Exercise pages' do
 
 			end
 
-			it { should have_title("Todos los Ejercicios") }
+			it { should have_title("Nuestros Grupos") }
 			it { should have_content("Ejercicio creado exitosamente") }
 
 		end
 	end
 
 	describe 'Show exercise' do
-		before { visit exercise_path(exercise) }
+		before { visit group_lecture_exercise_path(group,lecture,exercise) }
 
 		it { should have_content(exercise.material) }
 		it { should have_title(exercise.full_name) }
@@ -71,7 +74,7 @@ describe 'Exercise pages' do
 	end
 
 	describe 'Edit exercise' do
-		before { visit edit_exercise_path(exercise) }
+		before { visit edit_group_lecture_exercise_path(group,lecture,exercise) }
 
 		it { should have_title("Editar #{exercise.full_name}") }
 		it { should have_button("Regresar a Ejercicios") }
@@ -99,7 +102,7 @@ describe 'Exercise pages' do
 
 			end
 
-			it { should have_title("Todos los Ejercicios") }
+			it { should have_title("Grupo ") }
 			it { should have_content("Actualización exitosa") }
 
 		end
@@ -107,10 +110,10 @@ describe 'Exercise pages' do
 
 	describe 'Destroy exercise' do
 		
-		before { visit exercise_path(exercise) }
+		before { visit group_lecture_exercise_path(group,lecture,exercise) }
 		
 		it { should have_button('Borrar Ejercicio') }
-		it { should have_link('Borrar Ejercicio', href: exercise_path(exercise) ) }
+		it { should have_link('Borrar Ejercicio', href: group_lecture_exercise_path(group,lecture,exercise) ) }
 		
 		describe "should delete an exercise" do
 
@@ -118,7 +121,7 @@ describe 'Exercise pages' do
 				expect { click_link "Borrar Ejercicio" }.to change(Exercise, :count).by(-1)
 			end
 
-			it { should have_title('Todos los Ejercicios') }
+			it { should have_title('D0A3') }
 			it { should have_content("Ejercicio borrado") }
 
 		end

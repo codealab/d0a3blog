@@ -1,3 +1,3 @@
-$("#family_<%= @family.id %>").hide(function(){
-	$(this).html("<%= escape_javascript(render('status')) %>").show();
+$("#family_<%= @family.id %>").hide(100,function(){
+	$(this).html("<%= escape_javascript(render('status')) %>").show(100);
 });

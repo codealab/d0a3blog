@@ -1,0 +1,4 @@
+$("#total_attendances span").html("<%= @lecture.attendances.count %>");
+$(".child_<%= @child.id %>").fadeIn();
+$("#child_spot_<%= @attendance.id %>").remove();
+$(".child_<%= @attendance.id %>").find('.child_selected').hide();

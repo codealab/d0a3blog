@@ -7,5 +7,6 @@ class CreateLectures < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :lectures, [:group_id, :date], unique: true
   end
 end

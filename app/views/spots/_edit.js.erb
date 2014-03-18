@@ -1,21 +1,10 @@
 	//Initialize vars on 0
 	var min_age = parseInt('<%= @group.min_age %>'),
 		max_age = parseInt('<%= @group.max_age %>');
-
 	$(document).ready(function() {
-		$(".search_input").on("keyup",function(){
+		$("#query").on("keyup",function(){
 			var name = $(this).val();
 			if(name.length>=3) $("#search_form").submit();
-		});
-		//Add hover to child_selector
-		$('.child_selector').hover(function() {
-			$(this).find('.child_selected').fadeIn(250);
-		}, function() {
-			$(this).find('.child_selected').fadeOut(250);
-		});
-
-		$(".inscrito").on("click",function(){
-			$(this).remove();
 		});
 
 		<% @group.spots.each do |c| %>
@@ -31,7 +20,7 @@
 		<% else %>
 			$('.child_selector').on("click",function(){
 				var childId = $(this).data('childid'),
-				$$ = $('.child_'+childId);
+					$$ = $('.child_'+childId);
 
 				$$.find('.child_selected').fadeIn(250);
 

@@ -14,7 +14,7 @@ class SpotsController < ApplicationController
 		@group = Group.find(params[:group_id])
 		person = Person.find(params[:child_id])
 		tutor = person.family_relations.first.family.responsible_id
-		@spot = @group.spots.build( child_id: person.id, tutor_id: tutor, group_id: params[:group_id] )
+		@spot = @group.spots.build( tutor_id: tutor, child_id: person.id )
 		@group.save
 	end
 
@@ -39,7 +39,7 @@ class SpotsController < ApplicationController
 	def update
 		@group = Group.find(params[:group_id])
 		@spot = Spot.find(params[:id])
-	    if @spot.update_attributes(lecture_params)
+	    if @spot.update_attributes(spot_params)
 	    	flash[:success] = "Actualización Exitosa"
 	    	redirect_to @group
 	    else
@@ -63,11 +63,9 @@ class SpotsController < ApplicationController
 
 	private
 
-	def lecture_params
-		params.require(:spot).permit( :child_id, :tutor_id, :group_id)
-	end
-
-	protected
+	def spot_params
+      params.require(:spot).permit(:tutor_id)
+    end
 
     def correct_user
 		redirect_to(:back, notice: "No tienes permitido crear, editar o borrar grupos.") unless valid_user
