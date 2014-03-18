@@ -10,10 +10,10 @@
 	<% end %>
 </div>
 <% if !@spot.child.family_relations.first.family.status? %>
-	<div class="alert alert-error">La familia está en modo pasivo. No puede llevar a cabo esta acción.</div>
+	<div class="alert alert-danger">La familia está en modo pasivo. No puede llevar a cabo esta acción.</div>
 <% end %>
 <div class="row">
-  <div class="span10 offset1">
+  <div class="col-md-4 col-md-offset-4">
   	<h1>Pagos</h1>
 	<table class="table table-striped">
 		<tr>
@@ -35,12 +35,12 @@
 	</table>
   </div>
   	<% if @spot.child.family_relations.first.family.status? %>
-		<p>
-			<div class="boton_der">
+		<div class="boton_der">
+			<p>
 				<button type="button" class="btn btn-default">
 					<%= link_to "Nuevo Pago", new_group_spot_payment_path(@group, @spot) %>
 				</button>
-		  </div>
-		</p>
+			</p>
+		</div>
 	<% end %>
 </div>

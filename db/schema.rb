@@ -125,6 +125,8 @@ ActiveRecord::Schema.define(version: 20140213184330) do
     t.datetime "updated_at"
   end
 
+  add_index "plans", ["lecture_id", "exercise_id"], name: "index_plans_on_lecture_id_and_exercise_id", unique: true, using: :btree
+
   create_table "spots", force: true do |t|
     t.integer  "child_id"
     t.integer  "tutor_id"

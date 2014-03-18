@@ -5,83 +5,30 @@
 </div>
 
 <div class="row">
-  <div class="span6 offset3">
-	<%= form_for([@family, @address]) do |f| %>
-	<%= render 'shared/error_messages', object: f.object %>
-	  <p>
-	    <%= f.label "Calle", :for => 'address_calle' %>
-	    <%= f.text_field :calle %>
-	  </p>
-	  <p>
-	    <%= f.label "Número Exterior", :for => "address_num_ext" %>
-	    <%= f.text_field :num_ext %>
-	  </p>
-	  <p>
-	    <%= f.label "Número Interior", :for => "address_num_int" %>
-	    <%= f.text_field :num_int %>
-	  </p>
-	  <p>
-	    <%= f.label "Localidad", :for => "address_localidad" %>
-	    <%= f.text_field :localidad %>
-	  </p>
-	  <p>
-	    <%= f.label "Referencia", :for => "address_referencia" %>
-	    <%= f.text_field :referencia %>
-	  </p>
-	  <p>
-	    <%= f.label "Colonia", :for => "address_colonia" %>
-	    <%= f.text_field :colonia %>
-	  </p>
-	  <p>
-	    <%= f.label "Delegación o Municipio", :for => "address_municipio" %>
-	    <%= f.text_field :municipio %>
-	  </p>
-	  <% if @address.calle %>
-		  <p>
-		    <%= f.label "Ciudad", :for => "address_ciudad" %>
-		    <%= f.text_field :ciudad %>
-		  </p>
-		  <p>
-		    <%= f.label "Estado", :for => "address_estado" %>
-		    <%= f.text_field :estado %>
-		  </p>
-		  <p>
-		    <%= f.label "País", :for => "address_pais" %>
-		    <%= f.text_field :pais %>
-		  </p>
-	  <% else %>
-		  <p>
-		    <%= f.label "Ciudad", :for => "address_ciudad" %>
-		    <%= f.text_field :ciudad, :value => "México" %>
-		  </p>
-		  <p>
-		    <%= f.label "Estado", :for => "address_estado" %>
-		    <%= f.text_field :estado, :value => "Distrito Federal" %>
-		  </p>
-		  <p>
-		    <%= f.label "País", :for => "address_pais" %>
-		    <%= f.text_field :pais, :value => "México" %>
-		  </p>
-	  <% end %>
-	  <p>
-	    <%= f.label "Código Postal", :for => "address_codigo_postal" %>
-	    <%= f.text_field :codigo_postal %>
-	  </p>
-	  <p>
-	    <%= f.label "Teléfono", :for => "address_telefono" %>
-	    <%= f.text_field :telefono %>
-	  </p>
-	  <p>
-	    <%= f.label "Celular", :for => "address_celular" %>
-	    <%= f.text_field :celular %>
-	  </p>
-	  <p>
-	    <%= f.label "Email", :for => "address_email" %>
-	    <%= f.text_field :email %>
-	  </p>
-
-	    <%= f.submit "Guardar", class: "btn btn-sm btn-primary" %>
-	  </p>
+	<div class="col-md-4 col-md-offset-4">
+	<%= simple_form_for [@family, @address], :html => {:multipart => true, :class => 'form-horizontal'}  do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<p><%= f.input :calle, label: "Calle" %></p>
+		<p><%= f.input :num_ext, label: "Número Exterior" %></p>
+		<p><%= f.input :num_int, label: "Número Interior" %></p>
+		<p><%= f.input :localidad, label: "Localidad" %></p>
+		<p><%= f.input :referencia, label: "Referencia" %></p>
+		<p><%= f.input :colonia, label: "Colonia" %></p>
+		<p><%= f.input :municipio, label: "Delegación o Municipio" %></p>
+		<% if @address.calle %>
+			<p><%= f.input :ciudad, label: "Ciudad" %></p>
+			<p><%= f.input :estado, label: "Estado" %></p>
+			<p><%= f.input :pais, label: "País" %></p>
+		<% else %>
+			<p><%= f.input :ciudad, :input_html => { :value => "México" }, label: "Ciudad" %></p>
+			<p><%= f.input :estado, :input_html => { :value => "Distrito Federal" }, label: "Estado" %></p>
+			<p><%= f.input :pais, :input_html => { :value => "México" }, label: "País" %></p>
+		<% end %>
+		<p><%= f.input :codigo_postal, label: "Código Postal" %></p>
+		<p><%= f.input :telefono, label: "Teléfono" %></p>
+		<p><%= f.input :celular, label: "Celular" %></p>
+		<p><%= f.input :email, label: "Email" %></p>
+		<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
 	<% end %>
   </div>
 </div>

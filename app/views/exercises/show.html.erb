@@ -27,11 +27,11 @@
 <div class="boton_der">
 	<% if(@exercise.lectures.empty?) %>
 		<p>
-			<button type="button" class="btn btn-danger btn-xs"><%= link_to "Borrar Ejercicio", exercise_path(@exercise),
+			<button type="button" class="btn btn-danger btn-xs"><%= link_to "Borrar Ejercicio", group_lecture_exercise_path(@group,@lecture,@exercise),
 				method: :delete, data: { confirm: "Estas Seguro?" } %></button>
 		</p>
 	<% end %>
 	<p>
-		<button type="button" class="btn btn-default"><%= link_to "Editar Ejercicio", edit_exercise_path %></button>
+		<button type="button" class="btn btn-default btn-xs"><%= link_to "Editar Ejercicio", edit_group_lecture_exercise_path(@group,@lecture,@exercise) %></button>
 	</p>
 </div>

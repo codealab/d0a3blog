@@ -55,18 +55,10 @@ textarea {
   text-shadow:none;
   &:hover {
     color: $verde;
-    text-decoration: none;
   }
 }
 
-a {
-color: #81519C;
-text-decoration: none;
-  &:hover {
-    color: #81519C;
-    text-decoration:underline;
-  }
-}
+a, a:visited, a:hover, a:focus, .btn-link:hover, .btn-link:focus { text-decoration: none; }
 
 /* Botones */
 
@@ -88,18 +80,24 @@ text-decoration: none;
 .btn-default {
     background-color:$verde;
     border-color:$verde;
+    color: #ffffff;
   &:hover {
     background-color: $verde_obscuro;
     border-color: $verde_obscuro;
+    color: #ffffff;
   }
 }
+.btn-default.disabled, .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled:active, .btn-default.disabled.active, .btn-default[disabled], .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled]:active, .btn-default[disabled].active, fieldset[disabled] .btn-default, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .btn-default.active {
+    background-color: #71c06b;
+    border-color: #71c06b;
+  }
 
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: $verde_obscuro;
+  color: #ffffff;
   background-color: $verde_obscuro;
   border-color: $verde_obscuro;
 }
@@ -107,16 +105,13 @@ text-decoration: none;
 
 .btn-default:active,
 .btn-default.active {
-  color: $verde_obscuro;
+  color: #ffffff;
   background-color: $verde_obscuro;
   border-color: $verde_obscuro;
 }
 
 .btn-default a{
   color: white;
-  &:hover {
-   text-decoration: none;
-  }
 }
 
 .btn-info {
@@ -133,16 +128,13 @@ text-decoration: none;
 .btn-info:active,
 .btn-info.active,
 .open .dropdown-toggle.btn-info {
-  color: $morado_obscuro;
+  color: white;
   background-color: $morado_obscuro;
   border-color: $morado_obscuro;
 }
 
 .btn-info a{
   color: white;
-  &:hover {
-   text-decoration: none;
-  }
 }
 
 .btn-danger {
@@ -156,9 +148,6 @@ text-decoration: none;
 
 .btn-danger a{
   color: white;
-  &:hover {
-   text-decoration: none;
-  }
 }
 
 
@@ -173,9 +162,6 @@ text-decoration: none;
 
 .btn-warning a{
   color: white;
-  &:hover {
-   text-decoration: none;
-  }
 }
 
 /* typography */
@@ -243,19 +229,9 @@ input {
 #logo {
   float: left;
   margin-right: 10px;
-  font-size: 1.7em;
-  color: white;
-  letter-spacing: -1px;
   padding-top: 2px;
   padding-bottom: 2px;
-  font-weight: bold;
-  line-height: 1;
-  &:hover {
-    color: white;
-    text-decoration: none;
-  }
 }
-
 /* footer */
 
 footer {
@@ -283,7 +259,13 @@ footer {
   }
 }
 
-
+.boton_der {
+  float: right;
+  margin-left: 8px;
+  width: 100%;
+  z-index: 9;
+  position: relative;
+}
 .clear { clear: both; }
 
 /* Table */
@@ -318,12 +300,32 @@ footer {
 
 
 /* Group select */
-.date_selector:nth-child(1){ width: 55px; }
-.date_selector:nth-child(2){ width: 110px; }
-.date_selector:nth-child(3),
-.date_selector:nth-child(4),
-.date_selector:nth-child(5){ width: 70px;}
-.child_selected, .child_spot {
+.date_selector{ display: inline-block; }
+.datetime label, .person_family_roll label, #selector_fecha label{
+  width: 100%;
+  clear: both;
+}
+.hour_select{
+  position: relative;
+  top: 105px;
+}
+.date_selector:nth-child(1){ width: auto; }
+
+.date_selector:nth-child(2){ width: 80px; }
+.date_selector:nth-child(3){ width: 150px; }
+.date_selector:nth-child(4){ width: 100px; }
+.date_selector:nth-child(5),
+.date_selector:nth-child(6){
+  margin-top: 35px;
+  width: 65px;
+}
+.time_selector{ height: 40px; }
+.time_select{
+  display: none;
+  width: 65px;
+  margin-bottom: 5px;
+}
+.child_attendance, .child_selected, .child_spot {
   width: 100px;
   height: 120px;
   float: left;
@@ -332,6 +334,15 @@ footer {
   position: relative;
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+.child_attendance{
+  width: 80px;
+  height: 96px;
+  margin: 2px;
+}
+.kid_attendance_photo{
+  width: 80px;
+  height: 96px;
 }
 .child_remove{
   position: absolute;
@@ -346,9 +357,23 @@ footer {
 }
 .child_active .child_selected{ display: block; }
 #posibble_childs .child_active{ display: none; }
-#child_results, #searcher, #posibble_childs{
+#posible_attendances .child_selector{ display: block; }
+.all_width {
+  min-height: 125px;
   float: left;
   width: 100%;
+  border: 1px solid #FFFDFD;
+  border-radius: 4px;
+  margin-top: 5px;
+  background-color: #FAFAFA;
+  padding: 5px;
+}
+#attendances{ overflow: hidden; }
+#scroll_attendances{
+  width: 1000px;
+}
+#attendances .kid_stats {
+  height: 20%;
 }
 .kid_stats {
   width: 100%;
@@ -381,7 +406,21 @@ footer {
   width: 100%;
   height: 5px;
 }
-
 #enlist_childs .child_selector, #posibble_childs .child_selector{ display: none; }
-
 #alert_notice{ display: none; }
+/*Error>>simple form*/
+.error{
+  color: #b94a48;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 5px;
+}
+.field_with_errors label{
+  color: #b94a48;
+}
+.field_with_errors .form-control {
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}

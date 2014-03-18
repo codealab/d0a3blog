@@ -1,7 +1,7 @@
 <% provide(:title, "Editar Clase") %>
 <div class="boton_der">
 	<p>
-	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Grupo", group_path(@group) %></button>
+		<button type="button" class="btn btn-info"><%= link_to "Regresar a la Clase", :controller => "groups", :action => "show", :id => @group.id, :lecture => @lecture.id %></button>
 	</p>
 </div>
 <%= render "/lectures/form" %>

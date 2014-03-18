@@ -1,0 +1,20 @@
+$(document).ready(function() {
+	<% if !manager %>
+		$('.child_remove, .child_selected').on("click", function(){
+			$("#alert_notice").stop().fadeIn(300, function(){
+				$(this).delay(5000).fadeOut();
+			});
+		});
+	<% else %>
+		$('.child_selector').on("click", function(){
+			$(this).fadeOut();
+		});
+	<% end %>
+	showSpots();
+});
+
+function showSpots(){
+	<% @lecture.attendances.each do |c| %>
+		$('.child_<%= c.person.id  %>').hide();
+	<% end %>
+}

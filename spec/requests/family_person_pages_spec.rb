@@ -75,9 +75,8 @@ describe "Family-Person pages" do
 		describe "just clicking" do
 			before { click_button "Guardar" }
 
-			it { should have_content('The form contains 7 errors.') }
+			it { should have_title("Nuevo Miembro: Vega") }
 		end
-
  
 
     describe "with invalid information" do
@@ -88,8 +87,7 @@ describe "Family-Person pages" do
       describe "after submission" do
         before { click_button "Guardar" }
 
-       	it { should have_title("Nuevo Miembro:") }
-        it { should have_content('The form contains 7 errors.') }
+       	it { should have_title("Nuevo Miembro: Vega") }
       end
     end
 

@@ -1,34 +1,27 @@
 <div class="row">
-	<div class="span6 offset3">
-		<%= form_for([@group, @lecture]) do |f| %>
-		<%= render 'shared/error_messages', object: f.object %>
-		<p>
-			<%= f.label "Fecha & hora" %>
-			<span id="selector_fecha">
-				<%= f.datetime_select :date,  { :include_blank  => true, :order => [:day, :month, :year] }, :class => 'date_selector' %>
-			</span>
-		</p>
-		<p>
-			<%= f.label "Observaciones", :for => 'lecture_observation' %>
-			<%= f.text_area :observation %>
-		</p>
-		<% if params[:action] == 'edit' %>
-			<% if(@lecture.attendances.empty?) %>
-				<p>
-					<%= f.label "Esta clase no tiene aún asistencias" %>
-				</p>
-			<% else %>
-				<p>
-					<%= f.label "Asistencias" %>
-				</p>
-				<% @lecture.attendances.each do |a| %>
-					<%= a.person.name %>
+	<div class="col-md-4 col-md-offset-4">
+		<%= simple_form_for [@group, @lecture], :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+			<p>
+				<span id="selector_fecha">
+					<label class="hour_select"><abbr title="required">*</abbr> Hora</label>
+					<%= f.input :date, label: "Fecha", include_blank: true, :order => [:day, :month, :year], :start_year => @group.init_date.year, :end_year => @group.finish_date.year, start_hour: 7, end_hour: 21, :minute_step => 30, :input_html => { :class => 'date_selector' }  %>
+				</span>
+			</p>
+			
+			<p><%= f.input :observation, label:"Observaciones" %></p>
+
+			<% if params[:action] == 'edit' %>
+				<% if(@lecture.attendances.empty?) %>
+					<p><%= f.label "Esta clase no tiene aún asistencias" %></p>
+				<% else %>
+					<p><%= f.label "Asistencias" %></p>
+					<% @lecture.attendances.each do |a| %>
+						<p><%= a.person.name %></p>
+					<% end %>
 				<% end %>
-			<% end %>
-    <% end %>
-		<p>
-			<%= f.submit "Guardar", class: "btn btn-sm btn-primary" %>
-		</p>
+	   		<% end %>
+			<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
 		<% end %>
 	</div>
 </div>

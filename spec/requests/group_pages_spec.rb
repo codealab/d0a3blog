@@ -177,7 +177,7 @@ describe 'Group pages' do
 			end
 			describe "error messages" do
 				before { click_button "Guardar" }
-				it { should have_content('error') }
+				it { should have_title('Nueva Clase') }
 			end
 		end
 
@@ -185,18 +185,33 @@ describe 'Group pages' do
 			before do
 				fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
 				select '2014', from: 'lecture[date(1i)]'
-				select 'January', from: 'lecture[date(2i)]'
+				select 'February', from: 'lecture[date(2i)]'
 				select '12', from: 'lecture[date(3i)]'
-				select '09', from: 'lecture[date(4i)]'
+				select '11', from: 'lecture[date(4i)]'
 				select '30', from: 'lecture[date(5i)]'
 				
 				expect { click_button "Guardar" }.to change(Lecture, :count).by(1)
 			end
 			it { should have_selector("div.alert.alert-success") }
 			it { should have_content('Clase creada exitosamente') }
-			it { should have_selector('td', text: "01/12/2014" ) }
-			it { should have_selector('td', text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam." ) }
+			it { should have_selector('td', text: "02/12/2014" ) }
 		end
+
+		describe "with date out of range" do
+			before do
+				fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
+				select '2014', from: 'lecture[date(1i)]'
+				select 'March', from: 'lecture[date(2i)]'
+				select '30', from: 'lecture[date(3i)]'
+				select '12', from: 'lecture[date(4i)]'
+				select '00', from: 'lecture[date(5i)]'
+				
+				expect { click_button "Guardar" }.not_to change(Lecture, :count)
+			end
+			it { should have_selector("div.alert.alert-danger") }
+			it { should have_content('La fecha que seleccionaste está fuera de la duración del curso') }
+		end
+
 	end
 
 	describe 'edit lecture' do
@@ -204,14 +219,14 @@ describe 'Group pages' do
 		before { visit edit_group_lecture_path(group, lecture) }
 
 		it { should have_title('Editar Clase') }
-		it { should have_button('Regresar a Grupo') }
+		it { should have_button('Regresar a la Clase') }
 		it { should have_button('Guardar') }
-		it { should have_content('Fecha & hora') }
+		it { should have_content('Fecha') }
 
 		describe 'with valid information' do
 			before do
 				fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
-				select '2016', from: 'lecture[date(1i)]'
+				select '2014', from: 'lecture[date(1i)]'
 				select 'February', from: 'lecture[date(2i)]'
 				select '24', from: 'lecture[date(3i)]'
 				select '12', from: 'lecture[date(4i)]'
@@ -230,7 +245,6 @@ describe 'Group pages' do
 			describe 'Show class information' do
 		
 				it { should have_title('Editar Clase') }
-				it { should have_link("Regresar a Grupo") }
 				it { should have_button("Borrar Clase") }
 
 			end

@@ -1,0 +1,2 @@
+$('#attendances').append("<%= escape_javascript(render('create')) %>").fadeIn();
+$("#total_attendances span").html("<%= @lecture.attendances.count %>");

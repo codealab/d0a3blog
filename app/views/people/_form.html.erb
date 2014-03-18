@@ -1,54 +1,37 @@
 <div class="row">
-  <div class="span6 offset3">
-
-	<%= form_for [@family, @person], :html => {:multipart => true} do |f| %>
-	<%= render 'shared/error_messages', object: f.object %>
-	<p>
-	    <%= f.label "Nombre", :for => "person_name" %>
-	    <%= f.text_field :name %>
-	</p>
-	<p>
-	    <%= f.label :photo, "Foto" %>
-	    <%= f.file_field :photo %>
-	</p>
-	<p>
-	    <%= f.label "Apellido Paterno", :for => "person_first_last_name" %>
-
-	    <%= f.text_field :first_last_name %>
-	</p>
-	<p>
-	    <%= f.label "Apellido Materno", :for => "person_second_last_name" %>
-	    <%= f.text_field :second_last_name %>
-	</p>
-	<p>
-	  	<%= f.label "Sex" %>
-	  	<%= f.label "M" ,:class => "checkbox inline", :for => "person_sex_m" %>
-	  	<%= radio_button("person", "sex", "M") %>
-	  	<%= f.label "F" ,:class => "checkbox inline", :for => "person_sex_f" %>
-		  <%= radio_button("person", "sex", "F") %>
-	  </p><br>
-	  <p>
-	    <%= f.label "Fecha de Nacimiento" %>
-	    <span class="selector_fecha">
-				<%= f.date_select :dob,{ :include_blank => true ,:order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year-100}, { :class => 'date_selector'}  %>
+	<div class="col-md-4 col-md-offset-4">
+		<%= simple_form_for [@family, @person], :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+			<p><%= f.input :name, label:"Nombre"  %></p>
+			<p><%= f.input :first_last_name, label: "Apellido Paterno" %></p>
+			<p><%= f.input :second_last_name, label: "Apellido Materno" %></p>
+			<p><%= f.input :sex, label: "Genero", collection: ["M", "F"], :as => :radio_buttons %></p>
+			<span id="selector_fecha">
+				<%= f.input :dob, label: "Fecha de Nacimiento", :order => [:day, :month, :year],:start_year => Time.now.year, :end_year => Time.now.year-100, :input_html => { :class => 'date_selector' } %>
 			</span>
-	  </p>
-
-	  <p>
-	  	<%= f.label "Roll Familiar" %>
-	  	<%= select("person", "family_roll", [[ 'Hijo', 'Hijo', :class => 'man' ], [ 'Hija', 'Hija', :class => 'woman' ], [ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tio', 'Tio', :class => 'man' ], [ 'Tia', 'Tia', :class => 'woman' ], [ 'Otro', 'Otro' ]], { include_blank: 'Selecciona un rol'}) %>
-	  	<br>
-	  	<input id="other_name" type="text" placeholder="Escribe el parentesco" style="margin-top: -48px; width: 185px; display:none; " name="person[other]">
-	</p><br>
-	<p>
-	    <%= f.submit "Guardar", class: "btn btn-sm btn-primary" %>
-	</p>
-	<% end %>
-  </div>
+			<p>
+				<% relations = ["Hijo","Hija","Padre","Madre","Abuelo","Tío","Tía","",nil] %>
+				<% if relations.include?(@person.family_roll) %>
+					<%= f.input :family_roll, label: "Roll Familiar", include_blank: 'Selecciona un roll', collection: [[ 'Hijo', 'Hijo', :class => 'man' ], [ 'Hija', 'Hija', :class => 'woman' ], [ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tío', 'Tío', :class => 'man' ], [ 'Tía', 'Tía', :class => 'woman' ], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
+				<% else %>
+					<%= f.input :family_roll, label: "Roll Familiar",include_blank: 'Selecciona un rol', collection: [[ 'Hijo', 'Hijo', :class => 'man' ], [ 'Hija', 'Hija', :class => 'woman' ], [ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tío', 'Tío', :class => 'man' ], [ 'Tía', 'Tía', :class => 'woman' ], [@person.family_roll,@person.family_roll], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
+				<% end %>
+				<input id="other_name" type="text" placeholder="Escribe el parentesco" style="margin-top: -34px; width: 95%; display:none; z-index: 1; position: relative; border-bottom-right-radius: 0px; border-top-right-radius: 0px;" name="person[other]" class="form-control">
+			</p>
+			<% if @person.photo_url.to_s.include?('user/default') %>
+				<img src="" id="image_url" alt="">
+			<% else %>
+				<%= image_tag @person.photo_url.to_s, id: 'image_url' %>
+			<% end %>
+			<p><%= f.input :photo, label: "Foto" %></p>
+			<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
+		<% end %>
+	</div>
 </div>
 
 <script>
 	$(document).ready(function() {
+		$('#person_photo').imagePreview();
 		$("#person_family_roll").change(function () {
 			var value = $(this).val();
 			if(value=='Otro') $("#other_name").val("").show().focus();
@@ -56,6 +39,7 @@
 		});
 		$("#other_name").on('keyup',function(e){
 			var newOption = $(this).val();
+			$("#other_value").val(newOption);
 		});
 		$('input:radio').on("click",checkSex);
 		checkSex();

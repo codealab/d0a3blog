@@ -6,12 +6,17 @@ D0A3::Application.routes.draw do
   end
 
   resources :groups do
-    resources :lectures
+    resources :lectures do
+      resources :attendances
+      resources :exercises
+    end
+    resources :calendars
     resources :spots do
       resources :payments
     end
   end
 
+  resources :calendars
   resources :users
   resources :exercises
   resources :password_resets
@@ -25,7 +30,6 @@ D0A3::Application.routes.draw do
   get "sessions/create"
   get "sessions/destroy"
 
-  #get "spots/create"
   match '/user',    to: 'users#show',           via: 'get'
   match '/edit',    to: 'users#edit',           via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

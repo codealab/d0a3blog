@@ -1,5 +1,5 @@
 <div class="child_spot" id="child_spot_<%= @spot.child.id %>">
-	<img src="/assets/kid.jpg" alt="<%= @spot.child.name %>" class="kid_photo">
+	<img src="<%= @spot.child.photo %>" alt="<%= @spot.child.name %>" class="kid_photo">
 	<div class="weeks_stat">
 		<p><span><%= ((Date.today.to_date - @spot.child.dob.to_date).to_i)/7 %></span><br>Semanas</p>
 	</div>

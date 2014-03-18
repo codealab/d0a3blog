@@ -1,0 +1,52 @@
+<% provide(:title, "Asistencias") %>
+<div class="boton_der">
+	<p>
+		<button type="button" class="btn btn-info"><%= link_to "Regresar a la Clase", :controller => "groups", :action => "show", :id => @group.id, :lecture => @lecture.id %></button>
+	</p>
+</div>
+<div class="col-md-12">
+		<div id="total_attendances">
+			<h1><span><%= @lecture.attendances.count %></span> Asistentes</h1>
+		</div>
+ 		<div id="attendances" class="all_width<% if @lecture.attendances.empty? %> empty_box<% end %>">
+			<% @lecture.attendances.each do |c| %>
+				<div class="child_attendance" id="child_spot_<%= c.id %>">
+					<img src="<%= c.person.photo %>" alt="<%= c.person.name %>" class="kid_photo">
+					<div class="kid_stats">
+						<p><%= c.person.name %></p>
+					</div>
+					<% if c.can_destroy? %>
+						<div class="child_remove">
+							<button type="button" class="btn btn-danger btn-xs">
+								<a href="/attendances/destroy?id=<%= c.id %>&lecture_id=<%= @lecture.id %>" data-remote="true">Quitar</a>
+							</button>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+		<h1>Inscritos</h1>
+		<div id="posible_attendances" class="all_width">
+			<% @group.spots.each_with_index do |c,index| %>
+				<% if c.child.family_relations.first.family.status? %>
+					<a href="/attendances/create?person_id=<%= c.child.id %>&lecture_id=<%= @lecture.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.child.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>">
+						<div class="child_attendance">
+							<img src="<%= c.child.photo %>" alt="<%= c.child.name %>" class="kid_photo">
+							<div class="kid_stats">
+								<p><%= c.child.name %></p>
+								<p><%= ("#{ c.child.first_last_name } #{ c.child.second_last_name }").slice(0..13) %>.</p>
+							</div>
+							<div class="child_selected">
+								activar
+							</div>
+						</div>
+					</a>
+				<% end %>
+			<% end %>
+		</div>
+</div>
+<script>
+	$(document).ready(function() {
+		<%= render "/attendances/edit.js.erb" %>
+	});
+</script>

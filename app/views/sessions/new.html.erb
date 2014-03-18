@@ -1,13 +1,13 @@
 <% unless signed_in? %>
 	<% provide(:title, "Iniciar Sesión") %>
-	<div>
+	<div class="col-md-4 col-md-offset-4">
 	    <%= form_for(:session, url: sessions_path) do |f| %>
 
-			<%= f.label :email, :for => "session_email" %>
-			<%= f.text_field :email %>
+			<%= f.label :email %>
+			<%= f.text_field :email, { :class => "form-control" } %>
 
 			<%= f.label :password, :for => "session_password" %>
-			<%= f.password_field :password %>
+			<%= f.password_field :password, { :class => "form-control" } %>
 			<br>
 	      	<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
 

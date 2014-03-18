@@ -28,6 +28,13 @@ class GroupsController < ApplicationController
 
 	def show
 		@group = Group.find(params[:id])
+		@lecture = @group.lectures.where( "date >= :start_date", { start_date: Date.today }).order('date ASC').first
+		if !@lecture
+			@lecture = @group.lectures.where( "date <= :start_date", { start_date: Date.today }).order('date DESC').first
+		end
+		if params[:lecture]
+			@lecture = @group.lectures.find(params[:lecture])
+		end
 	end
 
 	def update

@@ -11,17 +11,16 @@ describe "Authentication" do
     describe "with invalid information" do
       
       before { click_button "Sign in" }
-      it { should have_link('Sign in', href: signin_path) }
-      it { should have_selector('div.alert.alert-error') }
+      it { should have_selector('div.alert.alert-danger') }
       
       describe "after visiting another page" do
-        before { click_link "Sign in" }
-        it { should_not have_content('div.alert.alert-error') }
+        before { visit signin_path }
+        it { should_not have_content('div.alert.alert-danger') }
       end
 
       describe "visiting groups page" do
         before { visit groups_path }
-        it { should_not have_content('div.alert.alert-error') }
+        it { should_not have_content('div.alert.alert-danger') }
         it { should have_content('Inicia sesión') }
       end
 
@@ -73,7 +72,7 @@ describe "Authentication" do
           describe "with invalid information" do
             before { click_button "Guardar" }
             it { should have_button('Guardar') }
-            it { should have_selector('div.alert.alert-error') }
+            it { should have_selector('div.alert.alert-danger') }
           end
 
           describe "with valid information" do
@@ -110,7 +109,7 @@ describe "Authentication" do
           describe "with invalid information" do
             before { click_button "Crear Familia" }
             it { should have_button('Crear Familia') }
-            it { should have_selector('div.alert.alert-error') }
+            it { should have_selector('div.alert.alert-danger') }
             it { should have_content('1 error') }
           end
 
@@ -140,7 +139,7 @@ describe "Authentication" do
           describe "with invalid information" do
             before { click_button "Guardar" }
             it { should have_button('Guardar') }
-            it { should have_selector('div.alert.alert-error') }
+            it { should have_selector('div.alert.alert-danger') }
           end
 
           describe "with valid information" do
@@ -174,7 +173,7 @@ describe "Authentication" do
           describe "with invalid information" do
             before { click_button "Guardar" }
             it { should have_button('Guardar') }
-            it { should have_selector('div.alert.alert-error') }
+            it { should have_selector('div.alert.alert-danger') }
           end
 
           describe "with valid information" do
@@ -211,7 +210,7 @@ describe "Authentication" do
           describe "with invalid information" do
             before { click_button "Guardar" }
             it { should have_button('Guardar') }
-            it { should have_selector('div.alert.alert-error') }
+            it { should have_selector('div.alert.alert-danger') }
             it { should have_content('1 error') }
           end
 
@@ -259,7 +258,7 @@ describe "Authentication" do
           describe "with invalid information" do
             before { click_button "Guardar" }
             it { should have_button('Guardar') }
-            it { should have_selector('div.alert.alert-error') }
+            it { should have_selector('div.alert.alert-danger') }
           end
 
           describe "with valid information" do

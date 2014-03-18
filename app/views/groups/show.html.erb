@@ -1,4 +1,4 @@
-<% provide(:title, "Grupo #{ @group.name }") %>
+<% provide(:title, "Grupo #{ @group.name }: #{@group.min_age} a #{@group.max_age} meses") %>
 <div class="boton_der">
 	<p>
 	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Grupos", groups_path %></button>
@@ -17,19 +17,29 @@
 		<li><strong>Facilitadora:</strong><%= @group.facilitador %></li>
   </div>
 </div>
-
-<%= render 'groups/lectures'  %>
-<div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-default"><%= link_to "Nueva Clase", new_group_lecture_path(@group) %></button>
-	</p>
+<div class="col-md-12" id="container_lectures">
+	<%= render 'groups/lectures' %>
 </div>
-<br><br>
-
-<%= render 'groups/spots'  %>
-
 <div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-default"><%= link_to "Inscripciones", new_group_spot_path(@group) %></button>
-	</p>
+	<% if @group.lectures.count > 3 %>
+		<p><button type="button" class="btn btn-default"><%= link_to "Generar Clases", new_group_calendar_path(@group) %></button></p>
+	<% end %>
+	<p><button type="button" class="btn btn-default"><%= link_to "Nueva Clase", new_group_lecture_path(@group) %></button></p>
 </div>
+<div class="col-md-12">
+	<%= render 'groups/spots'  %>
+</div>
+
+<script>
+	$(document).ready(function() {
+		<% if(@lecture) %>
+		var lecture = "lecture_<%= @lecture.id %>";
+		var totalTop = $("#lectures_dates").offset().top;
+		var lectureTop = $("#"+lecture).offset().top;
+
+		$("#"+lecture).addClass('success');
+		$("#lectures_dates").animate({scrollTop:((lectureTop-totalTop)-75)},0);
+		<% end %>
+
+	});
+</script>
