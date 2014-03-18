@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140213184330) do
   end
 
   create_table "exercises", force: true do |t|
+    t.string   "name"
     t.string   "area"
     t.integer  "min_age"
     t.integer  "max_age"
@@ -94,6 +95,8 @@ ActiveRecord::Schema.define(version: 20140213184330) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "lectures", ["group_id", "date"], name: "index_lectures_on_group_id_and_date", unique: true, using: :btree
 
   create_table "payments", force: true do |t|
     t.integer  "amount"
