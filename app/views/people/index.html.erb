@@ -1,26 +1,35 @@
 <% provide(:title, "Todos los Miembros") %>
 
-<h2>Total de Miembros: <%= @people.count %></h2>
-<%= will_paginate %>
-<table class="table table-striped">
-<tr>
-	<th>Nombre</th>
-	<th>Apellido Paterno</th>
-	<th>Apellido Materno</th>
-	<th class="td_center">Sexo</th>
-	<th class="td_center">Fecha de Nacimiento</th>
-	<th>Relación</th>
+<div class="boton_der">
+	<h1>Todos los Miembros<span class="line"></span></h1>
+</div>
 
-</tr>
-<% @people.each do |member| %>
-<tr>
-	<td><%= link_to member.name, member %></td>
-	<td><%= member.first_last_name %></td>
-	<td><%= member.second_last_name %></td>
-	<td class="td_center"><%= member.sex %></td>
-	<td class="td_center"><%= member.dob %></td>
-	<td><%= member.family_roll %></td>
-</tr>
-<% end %>
-</table>
-<%= will_paginate %>
+<div class="all_width blue_box">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Apellido Paterno</th>
+				<th>Apellido Materno</th>
+				<th class="td_center">Sexo</th>
+				<th class="td_center">Fecha de Nacimiento</th>
+				<th>Relación</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<% @people.each do |member| %>
+				<tr>
+					<td><%= link_to member.name, member %></td>
+					<td><%= member.first_last_name %></td>
+					<td><%= member.second_last_name %></td>
+					<td class="td_center"><%= member.sex %></td>
+					<td class="td_center"><%= member.dob %></td>
+					<td><%= member.family_roll %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<%= will_paginate @groups, renderer: BootstrapPagination::Rails %>
+</div>
+<h6>Total de Miembros: <%= @people.count %></h6>

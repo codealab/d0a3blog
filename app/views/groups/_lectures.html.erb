@@ -1,27 +1,55 @@
-<% if(@group.lectures.empty?) %>
-	<h1>Este grupo no tiene clases aún<span class="line"></span></h1>
-<% else %>
-	<h1>Planeación de las Clases<span class="line"></span></h1>
-	<nav id="lectures_dates">
-		<table class="table table-striped">
-			<tr>	
-				<th>Fecha</th>
-			</tr>	
-			<% @group.lectures.order('date ASC').each do |lecture| %>
-				<% if lecture.date.past? %>
-					<tr id="lecture_<%= lecture.id %>" class="danger">
-						<td><%= link_to "#{lecture.date.strftime('%m/%d/%Y')}", group_lecture_path(@group, lecture), :remote => true %></td>
-					</tr>
-				<% else %>
-					<tr id="lecture_<%= lecture.id %>">
-						<td><%= link_to "#{lecture.date.strftime('%m/%d/%Y')}", group_lecture_path(@group, lecture), :remote => true %></td>
-					</tr>
+	<div id="date_title" class="date_class_selector">
+		<h4>Fecha</h4>
+	</div>
+	<div class="container_large_scroll" id="date_selector">
+		<nav id="lectures_dates" class="large_scroll">
+			<div id="dates_container" class="children_scroll">
+				<% @group.lectures.order('date ASC').each do |lecture| %>
+					<% if lecture.date.past? %>
+						<%= link_to group_lecture_path(@group, lecture), :remote => true do %>
+							<div class="date_over date_class_selector past" id="lecture_<%= lecture.id %>">
+								<div class="bg_contour"></div>
+								<div class="text_container">
+									<div class="day"><%= lecture.date.strftime('%A') %></div>
+									<div class="hours">
+										<span><%= lecture.date.strftime('%d') %></span>
+									<%= lecture.date.strftime('%b') %>
+									</div>
+									<!-- <span class="hour"> <%= lecture.date.strftime('%H:%M') %> </span> -->
+								</div>
+							</div>
+						<% end %>
+					<% else %>
+						<%= link_to group_lecture_path(@group, lecture), :remote => true do %>
+							<div class="date_over date_class_selector future" id="lecture_<%= lecture.id %>">
+								<div class="bg_contour"></div>
+								<div class="text_container">
+									<div class="day"><%= lecture.date.strftime('%A') %></div>
+									<div class="hours">
+										<span><%= lecture.date.strftime('%d') %></span>
+									<%= lecture.date.strftime('%b') %>
+									</div>
+									<!-- <span class="hour"> <%= lecture.date.strftime('%H:%M') %> </span> -->
+								</div>
+							</div>
+						<% end %>
+					<% end %>
+					<!--<%= link_to edit_group_lecture_path(@group, lecture) do %><button type="button" class="btn btn-default btn-xs">Editar Clase</button><% end %> -->
 				<% end %>
-				<!-- <button type="button" class="btn btn-default btn-xs"><%= link_to "Editar Clase", edit_group_lecture_path(@group, lecture) %></button> -->
-			<% end %>
-		</table>
-	</nav>
+			</div>
+		</nav>
+	</div>
 	<div id="refresh_lecture_info">
 		<%= render 'lectures/show' %>
 	</div>
-<% end %>
+
+<script>
+	$(document).ready(function() {
+
+		$('.date_over').on('click',function(){
+			$('.date_over').removeClass('date_active');
+			$(this).addClass('date_active');
+		});
+
+	});
+</script>

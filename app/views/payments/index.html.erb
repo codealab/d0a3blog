@@ -1,0 +1,33 @@
+<% provide(:title, "Todos los Miembros") %>
+
+<div class="boton_der">
+	<h1>Todos los Pagos<span class="line"></span></h1>
+</div>
+
+<div class="all_width blue_box">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Fecha</th>
+				<th>Niño</th>
+				<th>Tutor</th>
+				<th>Grupo</th>
+				<th>Cantidad</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @payments.each do |p| %>
+				<tr>
+					<td><%= p.date %></td>
+					<td><%= link_to p.spot.child.name, p.spot.child %></td>
+					<td><%= link_to p.spot.tutor.name, p.spot.tutor %></td>
+					<td><%= link_to p.spot.group.name, p.spot.group %></td>
+					<td>$<%= p.amount %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<%= will_paginate @payments, renderer: BootstrapPagination::Rails %>
+</div>
+
+<h6>Total de Pagos: <%= @payments.count %></h6>

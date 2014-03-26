@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
 	<div class="group_info">
-		<li><strong>Fecha:</strong> <%= @lecture.date.strftime('%m/%d/%Y') %></li>
+		<li><strong>Fecha:</strong> <%= @lecture.date.strftime('%d/%m/%Y') %></li>
 		<li><strong>Hora:</strong> <%= @lecture.date.strftime('%I:%M %p') %></li>
   </div>
 </div>
@@ -12,7 +12,7 @@
 			<th>Objetivo</th>
 			<th>Descripción</th>
 			<th>Material</th>
-			<th>Área</th>
+			<th>Nombre</th>
 		</tr>
 		<% @lecture.exercises.each do |ex| %>
 			<tr>
@@ -25,9 +25,9 @@
 	</table>
 </div>
 <div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-default btn-xs"><%= link_to "Seleccionar Ejercicios",  group_lecture_exercises_path(@group, @lecture) %></button>
-	</p>
+	<%= link_to group_lecture_exercises_path(@group, @lecture) do %>
+		<p><button type="button" class="btn btn-default btn-xs">Seleccionar Ejercicios</button></p>
+	<% end %>
 </div>
 <h1>Asistencia</h1>
 <div id="attendances" class="all_width">
@@ -43,19 +43,19 @@
 	</div>
 </div>
 <div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-default btn-xs"><%= link_to "Tomar Asistencia",  new_group_lecture_attendance_path(@group, @lecture) %></button>
-	</p>
+	<%= link_to new_group_lecture_attendance_path(@group, @lecture) do %>
+		<p><button type="button" class="btn btn-default btn-xs">Tomar Asistencia</button></p>
+	<% end %>
 </div>
 <h1>Observación</h1>
 <div class="all_width">
 	<p><%= @lecture.observation %></p>
 </div>
 <div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-danger btn-xs"><%= link_to "Borrar Clase", group_lecture_path(@group, @lecture), method: :delete, data: { confirm: "Estas Seguro?" } %></button>
-	</p>
-	<p>
-		<button type="button" class="btn btn-default btn-xs"><%= link_to "Editar Clase", edit_group_lecture_path(@group, @lecture) %></button>
-	</p>
+	<%= link_to group_lecture_path(@group, @lecture), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
+		<p><button type="button" class="btn btn-danger btn-xs">Borrar Clase</button></p>
+	<% end %>
+	<%= link_to edit_group_lecture_path(@group, @lecture) do %>
+		<p><button type="button" class="btn btn-default btn-xs">Editar Clase</button></p>
+	<% end %>
 </div>

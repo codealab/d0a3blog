@@ -3,6 +3,7 @@ class CreateAttendances < ActiveRecord::Migration
     create_table :attendances do |t|
       t.integer :person_id
       t.integer :lecture_id
+      t.text :observation
 
       t.timestamps
     end

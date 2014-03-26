@@ -1,2 +1,12 @@
 <% provide(:title, 'Crear Usuario') %>
+
+<div class="boton_der">
+	<div class="top_buttons">
+		<%= link_to users_path do %>
+			<p><button type="button" class="btn btn-info">Regresar a Usuarios</button></p>
+		<% end %>
+	</div>
+	<h1>Crear Usuario<span class="line"></span></h1>
+</div>
+
 <%= render 'users/form' %>

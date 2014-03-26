@@ -1,4 +1,4 @@
-# encoding: UTF-8
+	# encoding: UTF-8
 require 'spec_helper'
 
 describe 'Person pages' do
@@ -26,9 +26,12 @@ describe 'Person pages' do
 	end
 
 	describe 'Show person' do
-		let(:member) { FactoryGirl.create(:person) }
-		before { visit person_path(member) }
-		it { should have_title(member.name.titleize) }
+		let(:family) { FactoryGirl.create(:family) }
+		let(:member) { family.family_members.create( name: "Rodrigo", first_last_name:"Garcia", second_last_name:"Lopez",  sex:"M", dob:"22/03/1969", family_roll: "Padre") }
+		before { visit family_person_path(family,member) }
+		it { should have_content("Edad") }
+		it { should have_content("Tutor") }
+		it { should have_content("Familia") }
 	end
 
 end

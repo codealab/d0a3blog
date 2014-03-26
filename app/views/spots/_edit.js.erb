@@ -1,10 +1,12 @@
 	//Initialize vars on 0
-	var min_age = parseInt('<%= @group.min_age %>'),
-		max_age = parseInt('<%= @group.max_age %>');
+	var min_age = parseInt('<%= @group.min_age %>'), max_age = parseInt('<%= @group.max_age %>'), word = "";
 	$(document).ready(function() {
 		$("#query").on("keyup",function(){
 			var name = $(this).val();
-			if(name.length>=3) $("#search_form").submit();
+			if(word!=name){
+				word = name;
+				if(name.length>=3) $("#search_form").submit();
+			}
 		});
 
 		<% @group.spots.each do |c| %>

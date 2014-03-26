@@ -1,34 +1,88 @@
 <% provide(:title, 'Todos los Ejercicios') %>
 
 <div class="boton_der">
-	<p><button type="button" class="btn btn-default"><%= link_to "Nuevo Ejercicio", new_group_lecture_exercise_path(@group, @lecture) %></button></p>
-</div>
-
-<h2>Total de Ejercicios: <%= @exercises.count %></h2>
-
-<table class="table table-striped">
-<tr>
-	<th>Area</th>
-	<th>Rango de edad</th>
-	<th>Objetivo</th>
-	<th>Descripción</th>
-	<th>Seleccionar</th>
-</tr>
-<% @exercises.each_with_index do |exercise, index| %>
-	<tr>
-		<td><%= exercise.area %></td>
-		<td><%= "#{exercise.min_age} - #{exercise.max_age}" %></td>
-		<td><%= exercise.objective %></td>
-		<td><%= exercise.description %></td>
-		<td>
-			<a href=<%= "/exercises/status/#{exercise.id}?lecture_id=#{@lecture.id}" %> data-remote="true" id="exercise_<%= exercise.id %>">
-				<% if exercise.lectures.include?(@lecture) %>
-					<button type="button" class="btn status_button btn-danger btn-xs">DESACTIVAR</button>
-				<% else %>
-					<button type="button" class="btn status_button btn-success btn-xs">ACTIVAR</button>
-				<% end %>
+	<div class="top_buttons">
+		<% if @group && @lecture %>
+			<a href=<%= "/groups/#{@group.id}?lecture=#{@lecture.id}" %>>
+				<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
 			</a>
-		</td>
-	</tr>
+			<%= link_to new_group_lecture_exercise_path(@group, @lecture) do %>
+				<p><button type="button" class="btn btn-default">Nuevo Ejercicio</button></p>
+			<% end %>
+		<% else %>
+			<%= link_to new_exercise_path do %>
+				<p><button type="button" class="btn btn-default">Nuevo Ejercicio</button></p>
+			<% end %>
+		<% end %>
+	</div>
+	<h1>Todos los Ejercicios<span class="line"></span></h1>
+</div>
+<% if @group && @lecture %>
+	<div class="all_width blue_box">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Area</th>
+					<th>Descripción</th>
+					<th>Objetivo</th>
+					<th>Seleccionar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @exercises.each_with_index do |exercise, index| %>
+					<tr>
+						<td><%= link_to exercise.name, group_lecture_exercise_path(@group, @lecture, exercise) %></td>
+						<td><%= exercise.area %></td>
+						<td><button type="button" class="btn btn-primary pops btn-xs" data-container="body" data-toggle="popover" data-placement="left" data-content="<%= exercise.objective %>">Descripción</button></td>
+						<td>
+							<button type="button" class="btn btn-primary pops btn-xs" data-container="body" data-toggle="popover" data-placement="left" data-content="<%= exercise.objective %>">Objetivo</button>
+						</td>
+						<td>
+							<a href=<%= "/exercises/status/#{exercise.id}?lecture_id=#{@lecture.id}" %> data-remote="true" id="exercise_<%= exercise.id %>">
+								<% if exercise.lectures.include?(@lecture) %>
+									<button type="button" class="btn status_button btn-danger btn-xs">DESACTIVAR</button>
+								<% else %>
+									<button type="button" class="btn status_button btn-success btn-xs">ACTIVAR</button>
+								<% end %>
+							</a>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
+	</div>
+	<% else %>
+		<div class="all_width blue_box">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Area</th>
+					<th>Rango</th>
+					<th>Objetivo</th>
+					<th>Descripción</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @exercises.each_with_index do |exercise, index| %>
+					<tr>
+						<td><%= link_to exercise.name, exercise_path(exercise) %></td>
+						<td><%= exercise.area %></td>
+						<td><%= "#{exercise.min_age} - #{exercise.max_age}" %></td>
+						<td><%= exercise.objective %></td>
+						<td><%= exercise.description %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
+	</div>
 <% end %>
-</table>
+<h6>Total de Ejercicios: <%= @exercises.count %></h6>
+<script>
+	$(document).ready(function() {
+		$('.pops').popover();
+	});
+</script>

@@ -1,6 +1,10 @@
 # encoding: UTF-8
 class LecturesController < ApplicationController
 
+	def index
+		@lectures = Lecture.all
+	end
+
 	def create
 		@group = Group.find(params[:group_id])
 		@lecture = @group.lectures.build(lecture_params)
@@ -24,7 +28,7 @@ class LecturesController < ApplicationController
 
 	def show
 		@lecture = Lecture.find(params[:id])
-		@group = Group.find(params[:group_id])
+		@group = @lecture.group
 	end
 
 	def update
@@ -36,6 +40,14 @@ class LecturesController < ApplicationController
 	    else
 	    	render 'edit'
 	    end
+	end
+
+	def observation
+		@lecture = Lecture.find(params[:id])
+		puts '============================='
+		puts params
+		@lecture.observation = params[:observation]
+		@lecture.save
 	end
 
 	def destroy

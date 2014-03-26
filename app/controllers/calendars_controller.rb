@@ -17,7 +17,7 @@ class CalendarsController < ApplicationController
 		@group = Group.find(params[:calendar][:group_id])
 		@calendar = Calendar.new(@group)
 		if @calendar.submit(params[:calendar])
-			flash[:succes] = 'El calendario de clases se ha creado exitosamente'
+			flash[:success] = 'El calendario de clases se ha creado exitosamente'
 			redirect_to group_path(@group)
 		else
 			render 'new'

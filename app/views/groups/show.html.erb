@@ -1,45 +1,76 @@
 <% provide(:title, "Grupo #{ @group.name }: #{@group.min_age} a #{@group.max_age} meses") %>
+
 <div class="boton_der">
-	<p>
-	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Grupos", groups_path %></button>
-	</p>
-	<p>
-		<button type="button" class="btn btn-default"><%= link_to "Editar Grupo", edit_group_path(@group) %></button>
-	</p>
+	<div class="top_buttons">
+		<%= link_to groups_path do %>
+			<p><button type="button" class="btn btn-info">Regresar a los Grupos</button></p>
+		<% end %>
+		<%= link_to edit_group_path(@group) do %>
+			<p><button type="button" class="btn btn-default">Editar Grupo</button></p>
+		<% end %>
+	</div>
+	<h1><%= "Grupo #{ @group.name }: #{@group.min_age} a #{@group.max_age} meses" %><span class="line"></span></h1>
 </div>
-<br><br><br>
-<div class="panel panel-primary">
+<div class="panel panel-primary top_panel">
 	<div class="group_info">
 		<li><strong>Edad:</strong> <%= @group.min_age %> - <%= @group.max_age %></li>
-		<li><strong>Periodo:</strong> <%= @group.init_date.strftime('%m/%d/%Y') %> - <%= @group.finish_date.strftime('%m/%d/%Y') %></li>
+		<li><strong>Periodo:</strong> <%= @group.init_date.strftime('%d/%m/%Y') %> - <%= @group.finish_date.strftime('%d/%m/%Y') %></li>
 		<li><strong>Costo:</strong>$<%= @group.cost %></li>
 		<li><strong>Ubicación:</strong><%= @group.location %></li>
 		<li><strong>Facilitadora:</strong><%= @group.facilitador %></li>
   </div>
 </div>
-<div class="col-md-12" id="container_lectures">
-	<%= render 'groups/lectures' %>
-</div>
-<div class="boton_der">
-	<% if @group.lectures.count > 3 %>
-		<p><button type="button" class="btn btn-default"><%= link_to "Generar Clases", new_group_calendar_path(@group) %></button></p>
+<div class="container_big_buttons">
+	<%= link_to new_group_spot_path(@group) do %>
+		<div class="big_button">
+			<span data-toggle="tooltip" data-placement="left" title="Tooltip on left" id="tip" class="glyphicon glyphicon-list-alt"></span>Inscripciones
+		</div>
 	<% end %>
-	<p><button type="button" class="btn btn-default"><%= link_to "Nueva Clase", new_group_lecture_path(@group) %></button></p>
-</div>
-<div class="col-md-12">
-	<%= render 'groups/spots'  %>
+	<%= link_to new_group_lecture_path(@group) do %>
+		<div class="big_button" id="new_class_icon">
+			<span data-toggle="tooltip" data-placement="left" title="Tooltip on left" id="tip" class="tip glyphicon glyphicon-plus-sign"></span>Nueva Clase
+		</div>
+	<% end %>
 </div>
 
+<% if(@group.lectures.empty?) %>
+	<% if @group.lectures.count < 3 %>
+		<%= link_to new_group_calendar_path(@group) do %>
+			<div class="big_button" id="new_class_icon" style="width: 100%; ">
+				<span data-toggle="tooltip" data-placement="left" title="Tooltip on left" id="tip" class="tip glyphicon glyphicon-cog"></span>Generar Clases
+			</div>
+		<% end %>
+	<% end %>
+<% else %>
+	<% if @group.lectures.count < 3 %>
+		<%= link_to new_group_calendar_path(@group) do %>
+			<div class="big_button" id="new_class_icon" style="width: 100%; ">
+				<span data-toggle="tooltip" data-placement="left" title="Tooltip on left" id="tip" class="tip glyphicon glyphicon-cog"></span>Generar Clases
+			</div>
+		<% end %>
+		<div class="spacer"></div>
+	<% end %>
+	<div class="col-md-12 light_box" id="container_lectures">
+		<%= render 'groups/lectures' %>
+	</div>
+<% end %>
+
+<h6>Total de Clases: <%= @group.lectures.count %></h6>
 <script>
 	$(document).ready(function() {
-		<% if(@lecture) %>
-		var lecture = "lecture_<%= @lecture.id %>";
-		var totalTop = $("#lectures_dates").offset().top;
-		var lectureTop = $("#"+lecture).offset().top;
-
-		$("#"+lecture).addClass('success');
-		$("#lectures_dates").animate({scrollTop:((lectureTop-totalTop)-75)},0);
+	 	<% if(@lecture) %>
+			var lecture = "lecture_<%= @lecture.id %>";
+			$("#"+lecture).addClass('date_active');
 		<% end %>
-
 	});
+
+	// 	<% if(@lecture) %>
+	// 		var lecture = "lecture_<%= @lecture.id %>";
+	// 		var totalTop = $("#lectures_dates").offset().top;
+	// 		var lectureTop = $("#"+lecture).offset().top;
+
+	// 		$("#"+lecture).addClass('success');
+	// 		$("#lectures_dates").animate({scrollTop:((lectureTop-totalTop)-75)},0);
+	// 	<% end %>
+	// });
 </script>

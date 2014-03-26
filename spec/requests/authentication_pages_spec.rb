@@ -31,12 +31,9 @@ describe "Authentication" do
       let(:user) { FactoryGirl.create(:user) }
       before { sign_in user }
 
-      it { should have_link('Sign out',    href: signout_path) }
-      it { should have_link('Familias',    href: families_path) }
-      it { should have_link('Grupos',      href: groups_path) }
-      it { should have_link('Home',        href: root_path) }
-      it { should have_link('Sign out',    href: signout_path) }
-      it { should_not have_link('Sign in', href: signout_path ) }
+      it { should have_link('Cuenta') }
+      it { should have_link('Familias') }
+      it { should have_link('Grupos') }
 
       describe "visit families" do
         before { visit families_path }

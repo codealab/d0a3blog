@@ -1,50 +1,62 @@
 <% provide(:title, "Asistencias") %>
+
 <div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-info"><%= link_to "Regresar a la Clase", :controller => "groups", :action => "show", :id => @group.id, :lecture => @lecture.id %></button>
-	</p>
+	<div class="top_buttons">
+		<a href=<%= "/groups/#{@group.id}?lecture=#{@lecture.id}" %>>
+			<p><button type="button" class="btn btn-info">Regresar a la Clase</button></p>
+		</a>
+	</div>
+	<h1>Asistencias<span class="line"></span></h1>
 </div>
-<div class="col-md-12">
+
+<div class="all_width light_box">
 		<div id="total_attendances">
-			<h1><span><%= @lecture.attendances.count %></span> Asistentes</h1>
+			<h4><span><%= @lecture.attendances.count %></span> Asistentes</h4>
 		</div>
- 		<div id="attendances" class="all_width<% if @lecture.attendances.empty? %> empty_box<% end %>">
-			<% @lecture.attendances.each do |c| %>
-				<div class="child_attendance" id="child_spot_<%= c.id %>">
-					<img src="<%= c.person.photo %>" alt="<%= c.person.name %>" class="kid_photo">
-					<div class="kid_stats">
-						<p><%= c.person.name %></p>
+		<div class="under_pressure"></div>
+ 		<div class="all_width blue_box<% if @lecture.attendances.empty? %> empty_box<% end %>">
+			<div class="white_box" id="attendances">
+				<% @lecture.attendances.each do |c| %>
+					<div class="child_spot" id="child_spot_<%= c.id %>">
+						<img src="<%= c.person.photo %>" alt="<%= c.person.name %>" class="kid_photo">
+						<div class="kid_stats">
+							<p><%= c.person.name %></p>
+						</div>
+						<% if c.can_destroy? %>
+							<div class="child_remove">
+								<a href="/attendances/destroy?id=<%= c.id %>&lecture_id=<%= @lecture.id %>" data-remote="true">
+									<span class="glyphicon glyphicon-remove"></span>
+								</a>
+							</div>
+						<% end %>
 					</div>
-					<% if c.can_destroy? %>
-						<div class="child_remove">
-							<button type="button" class="btn btn-danger btn-xs">
-								<a href="/attendances/destroy?id=<%= c.id %>&lecture_id=<%= @lecture.id %>" data-remote="true">Quitar</a>
-							</button>
-						</div>
-					<% end %>
-				</div>
-			<% end %>
-		</div>
-		<h1>Inscritos</h1>
-		<div id="posible_attendances" class="all_width">
-			<% @group.spots.each_with_index do |c,index| %>
-				<% if c.child.family_relations.first.family.status? %>
-					<a href="/attendances/create?person_id=<%= c.child.id %>&lecture_id=<%= @lecture.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.child.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>">
-						<div class="child_attendance">
-							<img src="<%= c.child.photo %>" alt="<%= c.child.name %>" class="kid_photo">
-							<div class="kid_stats">
-								<p><%= c.child.name %></p>
-								<p><%= ("#{ c.child.first_last_name } #{ c.child.second_last_name }").slice(0..13) %>.</p>
-							</div>
-							<div class="child_selected">
-								activar
-							</div>
-						</div>
-					</a>
 				<% end %>
-			<% end %>
+			</div>
 		</div>
-</div>
+		<div class="spacer"></div>
+		<h4>Inscritos</h4>
+		<div class="under_pressure"></div>
+		<div id="posible_attendances" class="all_width blue_box">
+			<div class="white_box">
+				<% @group.spots.each_with_index do |c,index| %>
+					<% if c.child.family_relations.first.family.status? %>
+						<a href="/attendances/create?person_id=<%= c.child.id %>&lecture_id=<%= @lecture.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.child.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>">
+							<div class="child_spot">
+								<img src="<%= c.child.photo %>" alt="<%= c.child.name %>" class="kid_photo attendance_img">
+								<div class="kid_stats">
+									<p><%= c.child.name %></p>
+									<p><%= ("#{ c.child.first_last_name } #{ c.child.second_last_name }").slice(0..13) %>.</p>
+								</div>
+								<div class="child_selected">
+									<span class="glyphicon glyphicon-ok"></span>
+								</div>
+							</div>
+						</a>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
 <script>
 	$(document).ready(function() {
 		<%= render "/attendances/edit.js.erb" %>

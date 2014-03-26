@@ -1,9 +1,12 @@
 <% provide(:title, "Editar a: #{ @person.full_name }") %>
 
 <div class="boton_der">
-	<p>
-	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Familia", @family %></button>
-	</p>
+	<div class="top_buttons">
+		<%= link_to @family do %>
+			<p><button type="button" class="btn btn-info">Regresar a Familia</button></p>
+		<% end %>
+	</div>
+	<h1><%= "Editar a: #{ @person.full_name }" %><span class="line"></span></h1>
 </div>
 
 <%= render 'people/form' %>

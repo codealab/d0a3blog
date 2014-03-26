@@ -16,7 +16,7 @@
 				<td><%= link_to "#{spot.child.name} #{spot.child.first_last_name} #{spot.child.second_last_name}", person_path(spot.child.id) %></td>
 				<td>
 					<% if(spot.tutor) %>
-					<%= link_to "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}", person_path(spot.tutor.id)  %>
+						<%= link_to "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}", person_path(spot.tutor.id) %>
 					<% end %>
 				</td>
 				<% total = 0 %>
@@ -29,8 +29,3 @@
 		<% end %>
 	</table>
 <% end %>
-<div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-default"><%= link_to "Inscripciones", new_group_spot_path(@group) %></button>
-	</p>
-</div>

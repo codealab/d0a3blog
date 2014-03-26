@@ -16,15 +16,18 @@ D0A3::Application.routes.draw do
     end
   end
 
-  resources :calendars
   resources :users
+  resources :lectures
+  resources :payments
   resources :exercises
+  resources :calendars
   resources :password_resets
   resources :people, only: [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]
 
   root 'sessions#new'
 
+  get "/lectures/observation"
   get "sessions/new"
   get "sessions/edit"
   get "sessions/create"

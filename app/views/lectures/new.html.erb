@@ -1,7 +1,12 @@
 <% provide(:title, "Nueva Clase") %>
+
 <div class="boton_der">
-	<p>
-	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Grupo", group_path(@group) %></button>
-	</p>
+	<div class="top_buttons">
+		<%= link_to group_path(@group) do %>
+			<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
+		<% end %>
+	</div>
+	<h1>Nueva Clase<span class="line"></span></h1>
 </div>
+
 <%= render "/lectures/form" %>

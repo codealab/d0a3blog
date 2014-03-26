@@ -1,21 +1,7 @@
-<div class="boton_der">
+<%= simple_form_for [@group, @spot], :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
 	<p>
-	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Spot", group_spot_path(@group,@spot) %></button>
+		<%= f.input :tutor_id, label: "Tutor", include_blank: 'Selecciona un tutor', collection: @spot.child.family_relations.first.family.family_members.collect {|p| [ "#{p.name} #{p.first_last_name} #{p.second_last_name} ", p.id ] } %>
 	</p>
-	<p>
-		<button type="button" class="btn btn-default"><%= link_to "Nuevo Pago", new_group_spot_payment_path(@group, @spot) %></button>
-	</p>
-</div>
-<div class="row">
-  <div class="col-md-4 col-md-offset-4">
-	<%= simple_form_for [@group, @spot], :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
-		<%= render 'shared/error_messages', object: f.object %>
-		<p>
-			<%= f.input :tutor_id, label: "Tutor", include_blank: 'Selecciona un tutor', collection: @spot.child.family_relations.first.family.family_members.collect {|p| [ "#{p.name} #{p.first_last_name} #{p.second_last_name} ", p.id ] } %>
-		</p>
-		<p>
-		<%= f.submit "Guardar", class: "btn btn-sm btn-primary" %>
-	  </p>
-	<% end %>
-  </div>
-</div>
+	<p> <%= f.submit "Guardar", class: "btn btn-sm btn-primary" %> </p>
+<% end %>

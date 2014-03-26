@@ -1,10 +1,12 @@
 class Group < ActiveRecord::Base
 	before_save :downcase_names
-  after_initialize :titleize_names
+	after_initialize :titleize_names
 
 	belongs_to :user
 	has_many :spots, :dependent => :restrict_with_error
 	has_many :lectures, :dependent => :restrict_with_error
+
+	has_many :attendances, through: :lectures
 
 	validates_presence_of :name, :user_id, :cost, :location, :min_age, :max_age, :init_date, :finish_date
 	validates :name, length: { maximum: 50 }
@@ -15,6 +17,8 @@ class Group < ActiveRecord::Base
 	#Custom Methods
 	validate :min_age_cannot_be_greater_than_max_age
 	validate :init_date_cannot_be_greater_than_finish_date
+
+	self.per_page = 15
 
 	def facilitador
 		self.user.name

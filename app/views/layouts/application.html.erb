@@ -11,9 +11,6 @@
   <body>
 	<%= render 'layouts/header' %>
     <div class="container">
-      
-      <h1><%= full_title(yield(:title)).gsub('D0A3 |','') %><span class="line"></span></h1>
-
       <% flash.each do |key, value| %>
         <%= content_tag(:div, value, class: "alert alert-#{key}") %>
       <% end %>
@@ -22,4 +19,11 @@
     </div>
     <%= render 'layouts/footer' %>
   </body>
+  <script>
+    $(document).ready(function() {
+      over_and_clicks();
+      $("table").tablesorter();
+      $('.large_scroll').large_scroll();
+    });
+  </script>
 </html>
