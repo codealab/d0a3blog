@@ -5,13 +5,57 @@
       <nav>
         <ul class="nav navbar-nav navbar-right">
           <% if signed_in? %>
-            <li><%= link_to "#{current_user.name}:", user_path(current_user) %></li>
-            <li><%= link_to "Home", root_path %></li>
-            <li><%= link_to "Familias", families_path %></li>
-            <li><%= link_to "Grupos", groups_path %></li>
-            <li><%= link_to "Miembros", people_path %></li>
-            <li><%= link_to "Usuarios", users_path %></li>
-            <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+
+            <li id="fat-menu" class="dropdown">
+              <a href="#" id="drop3" role="button" class="dropdown-toggle families_icon" data-toggle="dropdown">Familias<b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1" href="<%= families_path %>">Familias</a>
+                </li>
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1" href="<%= people_path %>">Miembros</a>
+                </li>
+              </ul>
+            </li>
+
+            <li id="fat-menu" class="dropdown">
+              <a href="#" id="drop3" role="button" class="dropdown-toggle groups_icon" data-toggle="dropdown">Grupos<b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1" href="<%= groups_path %>">Grupos</a>
+                </li>
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1" href="<%= exercises_path %>">Ejercicios</a>
+                </li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1" href="<%= payments_path %>">Pagos</a>
+                </li>
+              </ul>
+            </li>
+
+            <li id="fat-menu" class="dropdown">
+              <a href="#" id="drop3" role="button" class="dropdown-toggle account_icon" data-toggle="dropdown">Cuenta<b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1" href="<%= user_path(current_user) %>">Perfil</a>
+                </li>
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1" href="<%= edit_user_path(current_user) %>">Editar Perfil</a>
+                </li>
+                <% if current_user.admin? %>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="<%= users_path %>">Usuarios</a>
+                  </li>
+                <% end %>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1" data-method="delete" href="<%= signout_path %>">Log Out</a>
+                </li>
+              </ul>
+            </li>
+
           <% end %>
         </ul>
       </nav>

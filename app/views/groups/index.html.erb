@@ -1,32 +1,132 @@
 <% provide(:title, "Nuestros Grupos") %>
 
 <div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-default"><%= link_to "Nuevo Grupo", new_group_path %></button>
-	</p>
+	<div class="top_buttons">
+		<%= link_to new_group_path do %>
+			<p><button type="button" class="btn btn-default">Nuevo Grupo</button></p>
+		<% end %>
+	</div>
+	<h1>Nuestros Grupos<span class="line"></span></h1>
 </div>
 
-<h2>Total de Grupos: <%= @groups.count %></h2>
-
-<table class="table table-striped">
-<tr>
-	<th>Grupo</th>
-	<td>Facilitadora</td>
-	<td>Costo</td>
-	<td>Edad recomendada</td>
-	<td class="td_center">Inicio de curso</td>
-	<td class="td_center">Fin de curso</td>
-	<td>ubicación</td>
-</tr>
-	<% @groups.each do |group| %>
-		<tr>
-			<td><%= link_to group.name, group %></td>
-			<td><%= group.user.name %></td>
-			<td><%= group.cost %></td>
-			<td><%= "De #{group.min_age} a #{group.max_age} Semanas" %></td>
-			<td class="td_center"><%= group.init_date.strftime('%m/%d/%Y') %></td>
-			<td class="td_center"><%= group.finish_date.strftime('%m/%d/%Y') %></td>
-			<td><%= group.location %></td>
-		</tr>
-	<% end %>
-</table>
+<div class="all_width blue_box">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Grupo</th>
+				<th>Facilitadora</th>
+				<th>Costo</th>
+				<th>Edad recomendada</th>
+				<th>Inicio de curso</th>
+				<th>Fin de curso</th>
+				<th>ubicación</th>
+				<th>Inscripciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @groups.each_with_index do |group,index| %>
+				<tr>
+					<td><%= link_to group.name, group %></td>
+					<td><%= group.user.name %></td>
+					<td><%= group.cost %></td>
+					<td><%= "De #{group.min_age} a #{group.max_age} Semanas" %></td>
+					<td><%= group.init_date.strftime('%d/%m/%Y') %></td>
+					<td><%= group.finish_date.strftime('%d/%m/%Y') %></td>
+					<td><%= group.location %></td>
+					<td>
+						<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#group_pop_<%= index %>">Inscripciones</button>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<div class="boton_der">
+		<%= will_paginate @groups, renderer: BootstrapPagination::Rails %>
+		<% if !params[:filter] %>
+			<a href="/groups?filter=past">
+				<p><button type="button" class="btn btn-warning" id="admin_families">Grupos Pasados</button></p>
+			</a>
+		<% else %>
+			<a href="/groups">
+				<p><button type="button" class="btn btn-default" id="admin_families">Grupos en Curso</button></p>
+			</a>
+		<% end %>
+	</div>
+</div>
+<h6>Total de Grupos: <%= @groups.count %></h6>
+<% @groups.each_with_index do |group,index| %>
+	<div class="modal fade" id="group_pop_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<% passed = 0 %>
+					<% group.lectures.each do |lecture|
+							if lecture.date.past?
+								passed = passed + 1
+							end
+						end %>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel"><%= group.name %>.</h4>
+				</div>
+			<div class="modal-body">
+				<div class="all_width blue_box">
+					<table class="table table-striped">
+						<thead>
+							<th class="td_center">Registro</th>
+							<th>Inscritos</th>
+							<th>Tutor</th>
+							<th>Pagos</th>
+							<th>Saldos</th>
+						</thead>
+						<tbody>
+							<% grantotal = 0
+							granfaltante = 0 %>
+							<% group.spots.each_with_index do |spot,index| %>
+								<tr>
+									<td class="td_center">
+										<%= link_to edit_group_spot_path(group, spot), :title => "Editar" do %>
+											<span class="glyphicon glyphicon-pencil"></span>
+										<% end %>
+									</td>
+									<td>
+										<%= link_to "#{spot.child.name} #{spot.child.first_last_name} #{spot.child.second_last_name}", person_path(spot.child.id) %>
+									</td>
+									<td>
+										<% if(spot.tutor) %>
+											<%= link_to "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}", person_path(spot.tutor.id) %>
+										<% end %>
+									</td>
+									<% total = 0
+									faltante = 0 %>
+									<% spot.payments.each do |p|
+										total = total + p.amount
+										end %>
+									<% faltante = group.cost-total
+										granfaltante = granfaltante + faltante
+										grantotal = grantotal + total %>
+									<td>$<%= total %></td>
+									<td>$<%= faltante %></td>
+								</tr>
+							<% end %>
+								<tr class="total_blue">
+									<td></td>
+									<td></td>
+									<td><b>Total:</b></td>
+									<td>$<%= grantotal %></td>
+									<td>$<%= granfaltante %></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="spacer"></div>
+				<div class="modal-footer">
+					<%= link_to new_group_spot_path(group) do %>
+						<button type="button" class="btn btn-warning btn-xs">Inscribir</button>
+					<% end %>
+					<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>

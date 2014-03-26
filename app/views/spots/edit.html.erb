@@ -1,2 +1,50 @@
-<% provide(:title, "Editar: #{@spot.child.name} #{@spot.child.first_last_name} #{@spot.child.second_last_name}") %>
-<%= render "/spots/form" %>
+<% provide(:title, "#{@spot.child.name} #{@spot.child.first_last_name} #{@spot.child.second_last_name}") %>
+
+<div class="boton_der">
+	<div class="top_buttons">
+		<%= link_to groups_path do %>
+			<p><button type="button" class="btn btn-info">Regresar a Grupos</button></p>
+		<% end %>
+		<%= link_to new_group_spot_payment_path(@group, @spot) do %>
+			<p><button type="button" class="btn btn-default">Nuevo Pago</button></p>
+		<% end %>
+	</div>
+	<h1><%= "#{@spot.child.name} #{@spot.child.first_last_name} #{@spot.child.second_last_name}" %><span class="line"></span></h1>
+</div>
+
+<% if !@spot.child.family_relations.first.family.status? %>
+	<div class="alert alert-danger">La familia está en modo pasivo. No puede llevar a cabo esta acción.</div>
+<% end %>
+	<div class="all_width light_box">
+		<div class="col-md-4">
+			<%= render "/spots/form" %>
+		</div>
+	<div class="col-md-8">
+		<h4>Pagos</h4>
+		<div class="blue_box">
+			<table class="table table-striped">
+				<tr>
+					<th>Fecha</th>
+					<td>Monto</td>
+					<td>Beca</td>
+				</tr>
+				<% @spot.payments.each do |payment| %>
+					<tr>
+						<td><%= payment.date %></td>
+						<td>$<%= payment.amount %>.00</td>
+						<% if(payment.scholarship) %>
+							<td>SI</td>
+						<% else %>
+							<td>NO</td>
+						<% end %>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+	<div style="float: right; padding-right: 15px; padding-top: 13px;">
+		<%= link_to group_spot_path(@group, @spot), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
+			<p><button type="button" class="btn btn-danger">Desinscripción</button></p>
+		<% end %>
+	</div>
+</div>

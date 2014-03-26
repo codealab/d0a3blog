@@ -1,0 +1,10 @@
+table.table-striped thead tr .header {
+	background-image: url(/assets/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center left;
+	cursor: pointer;
+	text-indent: 10px;
+}
+table.table-striped thead tr .headerSortUp { background-image: url(/assets/asc.gif); }
+table.table-striped thead tr .headerSortDown { background-image: url(/assets/desc.gif); }
+table.table-striped thead tr .headerSortDown, table.table-striped thead tr .headerSortUp { background-color: rgba(240, 241, 241, 1); }

@@ -1,13 +1,18 @@
-<div class="child_attendance" id="child_spot_<%= @attendance.id %>">
+<div class="child_spot child_appended" id="child_spot_<%= @attendance.id %>">
 	<img src="<%= @attendance.person.photo %>" alt="<%= @attendance.person.name %>" class="kid_attendance_photo">
 	<div class="kid_stats">
 		<p><%= @attendance.person.name %></p>
 	</div>
 	<% if @attendance.can_destroy? %>
 		<div class="child_remove">
-			<button type="button" class="btn btn-danger btn-xs">
-				<a href="/attendances/destroy?id=<%= @attendance.id %>&lecture_id=<%= @lecture.id %>" data-remote="true">Quitar</a>
-			</button>
+			<a href="/attendances/destroy?id=<%= @attendance.id %>&lecture_id=<%= @lecture.id %>" data-remote="true">
+				<span class="glyphicon glyphicon-remove"></span>
+			</a>
 		</div>
 	<% end %>
 </div>
+<script>
+	$(document).ready(function() {
+		$(".child_appended").animate({top:0,opacity:1},600,'easeOutQuart');
+	});
+</script>

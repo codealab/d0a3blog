@@ -1,2 +1,18 @@
 <% provide(:title, 'Nuevo Ejercicio') %>
-<%= render 'exercises/form'  %>
+
+<div class="boton_der">
+	<div class="top_buttons">
+		<% if @group && @lecture %>
+			<%= link_to group_lecture_exercises_path(@group, @lecture) do %>
+				<p><button type="button" class="btn btn-info">Regresar a Ejercicios</button></p>
+			<% end %>
+		<% else %>
+			<%= link_to exercises_path do %>
+				<p><button type="button" class="btn btn-info">Regresar a Ejercicios</button></p>
+			<% end %>
+		<% end %>
+	</div>
+	<h1>Nuevo Ejercicio<span class="line"></span></h1>
+</div>
+
+<%= render 'exercises/form' %>

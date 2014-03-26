@@ -1,12 +1,13 @@
-<div class="boton_der">
-	<p>
-	  <button type="button" class="btn btn-default"><%= link_to "Regresar a Ejercicios", group_lecture_exercises_path(@group, @lecture) %></button>
-	</p>
-</div>
 <div class="row">
 	<div class="col-md-4 col-md-offset-4">
 		<%= simple_form_for @exercise, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
+		<% if @group && @lecture %>
+			<%= f.number_field :group_id, value: @group.id, :readonly => true, :class => 'disabled form-control', :type=>"hidden" %>
+			<%= f.number_field :lecture_id, value: @lecture.id, :readonly => true, :class => 'disabled form-control', :type=>"hidden" %>
+		<% end %>
+
+		<p><%= f.input :name, label:"Nombre"  %></p>
 		<% areas = ['Motricidad Gruesa','Motricidad Fina','Lenguaje','Sensorial Cognositiva','Socio Emocional','',nil] %>
 		<% if areas.include?(@exercise.area) %>
 			<%= f.input :area, label: "Area", include_blank: 'Selecciona un área', collection: [[ 'Motricidad Gruesa', 'Motricidad Gruesa' ],[ 'Motricidad Fina', 'Motricidad Fina' ],[ 'Lenguaje', 'Lenguaje' ],[ 'Sensorial Cognositiva', 'Sensorial Cognositiva' ],[ 'Socio Emocional', 'Socio Emocional' ],[ 'Otro', 'Otro', :id => 'other_value' ]] %>
@@ -14,12 +15,12 @@
 			<%= f.input :area, label: "Area", include_blank: 'Selecciona un área', collection: [[ 'Motricidad Gruesa', 'Motricidad Gruesa' ],[ 'Motricidad Fina', 'Motricidad Fina' ],[ 'Lenguaje', 'Lenguaje' ],[ 'Sensorial Cognositiva', 'Sensorial Cognositiva' ],[ 'Socio Emocional', 'Socio Emocional' ],[@exercise.area,@exercise.area],[ 'Otro', 'Otro', :id => 'other_value' ]] %>
 		<% end %>
 		<input id="other_name" type="text" placeholder="Escribe el area" style="margin-top: -34px; width: 95%; z-index: 9; position: relative;border-bottom-right-radius: 0px;border-top-right-radius: 0px; display:none;" name="person[other]" class="form-control">
-		<%= f.input :min_age, label:"Edad Mínima" %>
-		<%= f.input :max_age, label:"Edad Máxima" %>
-		<%= f.input :objective, label:"Objetivo" %>
-		<%= f.input :description, label:"Descripción" %>
-		<%= f.input :material, label:"Material" %>
-		<%= f.input :music, label:"Música" %>
+			<%= f.input :min_age, label:"Edad Mínima" %>
+			<%= f.input :max_age, label:"Edad Máxima" %>
+			<%= f.input :objective, label:"Objetivo" %>
+			<%= f.input :description, label:"Descripción" %>
+			<%= f.input :material, label:"Material" %>
+			<%= f.input :music, label:"Música" %>
 		<br>
 		<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
 		<% end %>

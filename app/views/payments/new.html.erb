@@ -1,2 +1,15 @@
 <% provide(:title, "Nuevo Pago") %>
+
+<div class="boton_der">
+  <div class="top_buttons">
+  	<%= link_to group_path(@group) do %>
+    	<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
+    <% end %>
+    <%= link_to group_spot_path(@group,@spot) do %>
+		<p><button type="button" class="btn btn-info">Regresar a Spot</button></p>
+	<% end %>
+  </div>
+  <h1>Nuevo pago<span class="line"></span></h1>
+</div>
+
 <%= render "/payments/form" %>

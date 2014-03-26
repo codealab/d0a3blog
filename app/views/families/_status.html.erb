@@ -1,10 +1,7 @@
-<td><%= link_to @family.name, @family %></td>
-<td>
-	<a href="/families/status/<%= @family.id %>" data-remote="true">
-		<% if @family.status %>
-			<button type="button" class="btn status_button btn-danger btn-xs">DESACTIVAR</button>
-		<% else %>
-			<button type="button" class="btn status_button btn-success btn-xs">ACTIVAR</button>
-		<% end %>
-	</a>
-</td>
+<a href="/families/status/<%= @family.id %>" data-remote="true">
+	<% if @family.status %>
+		<button type="button" class="btn status_button btn-success btn-xs">ACTIVA</button>
+	<% else %>
+		<button type="button" class="btn status_button btn-danger btn-xs">PASIVA</button>
+	<% end %>
+</a>

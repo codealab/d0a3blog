@@ -8,8 +8,8 @@
 		<p><%= ("#{ @spot.child.first_last_name } #{ @spot.child.second_last_name }").slice(0..13) %>.</p>
 	</div>
 	<div class="child_remove">
-		<button type="button" class="btn btn-danger btn-xs">
-			<a href="/spots/destroy?id=<%= @spot.id %>&group_id=<%= @group.id %>" data-remote="true" class="<% if(@spot.can_destroy?) %>inscrito <% end %>">Quitar</a>
-		</button>
+		<a href="/spots/destroy?id=<%= @spot.id %>&group_id=<%= @group.id %>" data-remote="true" class="<% if(@spot.can_destroy?) %>inscrito <% end %>">
+			<span class="glyphicon glyphicon-remove"></span>
+		</a>
 	</div>
 </div>

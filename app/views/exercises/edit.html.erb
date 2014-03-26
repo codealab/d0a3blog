@@ -1,2 +1,24 @@
 <% provide(:title, "Editar #{@exercise.full_name}") %>
-<%= render 'exercises/form'  %>
+
+<div class="boton_der">
+	<div class="top_buttons">
+		<% if @group && @lecture %>
+			<%= link_to group_lecture_exercises_path(@group, @lecture) do %>
+				<p><button type="button" class="btn btn-info">Regresar a Ejercicios</button></p>
+			<% end %>
+			<%= link_to new_group_lecture_exercise_path(@group, @lecture) do %>
+				<p><button type="button" class="btn btn-default">Nuevo Ejercicio</button></p>
+			<% end %>
+		<% else %>
+			<%= link_to exercises_path do %>
+				<p><button type="button" class="btn btn-info">Regresar a Ejercicios</button></p>
+			<% end %>
+			<%= link_to new_exercise_path do %>
+				<p><button type="button" class="btn btn-default">Nuevo Ejercicio</button></p>
+			<% end %>
+		<% end %>
+	</div>
+	<h1>Editar <%= @exercise.full_name %><span class="line"></span></h1>
+</div>
+
+<%= render 'exercises/form' %>

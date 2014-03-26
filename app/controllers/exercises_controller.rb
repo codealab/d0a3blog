@@ -2,22 +2,31 @@
 class ExercisesController < ApplicationController
 
 	def index
-		@exercises = Exercise.all
-		@group = Group.find(params[:group_id])
-		@lecture = Lecture.find(params[:lecture_id])
+		@exercises = Exercise.all.paginate(page: params[:page])
+		if params[:group_id] && params[:lecture_id]
+			@group = Group.find(params[:group_id])
+			@lecture = Lecture.find(params[:lecture_id])
+			@exercises = Exercise.where("min_age >= #{@group.min_age} AND max_age<= #{@group.max_age} ").paginate(page: params[:page])
+		end
 	end
 
 	def new
 		@exercise = Exercise.new
-		@group = Group.find(params[:group_id])
-		@lecture = Lecture.find(params[:lecture_id])
+		if params[:group_id] && params[:lecture_id]
+			@group = Group.find(params[:group_id])
+			@lecture = Lecture.find(params[:lecture_id])
+		end
 	end
 
 	def create
 		@exercise = Exercise.new(exercise_params)
 		if(@exercise.save)
 			flash[:success] = 'Ejercicio creado exitosamente'
-			redirect_to groups_path
+			if  params[:exercise][:group_id] && params[:exercise][:lecture_id]
+				redirect_to group_lecture_exercises_path(params[:exercise][:group_id],params[:exercise][:lecture_id])
+			else
+				redirect_to exercises_path
+			end
 		else
 			render 'new'
 		end
@@ -35,21 +44,25 @@ class ExercisesController < ApplicationController
 
 	def edit
 		@exercise = Exercise.find(params[:id])
-		@group = Group.find(params[:group_id])
-		@lecture = Lecture.find(params[:lecture_id])
+		if params[:group_id] && params[:lecture_id]
+			@group = Group.find(params[:group_id])
+			@lecture = Lecture.find(params[:lecture_id])
+		end
 	end
 
 	def show
 		@exercise = Exercise.find(params[:id])
-		@group = Group.find(params[:group_id])
-		@lecture = Lecture.find(params[:lecture_id])
+		if params[:group_id] && params[:lecture_id]
+			@group = Group.find(params[:group_id])
+			@lecture = Lecture.find(params[:lecture_id])
+		end
 	end
 
 	def update
 		@exercise = Exercise.find(params[:id])
 		if @exercise.update_attributes(exercise_params)
 			redirect_to group_path(@group)
-			flash[:succes] ="Actualización exitosa"
+			flash[:success] ="Actualización exitosa"
 		else
 			@exercise.reload
 			render 'edit'
@@ -59,15 +72,19 @@ class ExercisesController < ApplicationController
 	def destroy
 		Exercise.find(params[:id]).destroy
 		flash[:success] = "Ejercicio borrado"
-		@group = Group.find(params[:group_id])
-		@lecture = Lecture.find(params[:lecture_id])
-		redirect_to group_lecture_path(@group,@lecture)
+		if params[:group] && params[:lecture]
+			@group = Group.find(params[:group_id])
+			@lecture = Lecture.find(params[:lecture_id])
+			redirect_to group_lecture_path(@group,@lecture)
+		else
+			redirect_to exercises_path
+		end
 	end 
 
 	private
 
 	def exercise_params
-		params.require(:exercise).permit(:area, :min_age, :max_age, :objective, :description, :material, :music)
+		params.require(:exercise).permit(:name, :area, :min_age, :max_age, :objective, :description, :material, :music)
     end
 
 end

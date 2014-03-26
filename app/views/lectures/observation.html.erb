@@ -1,0 +1,21 @@
+<div id="lecture_observation_<%= @lecture.id %>">
+	<div class="modal fade" id="lecture_observation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Observación de la clase</h4>
+				</div>
+				<%= form_tag("/lectures/observation/#{@lecture.id}", :method => "get", remote: true ) do %>
+					<div class="modal-body">
+						<%= text_area_tag "observation", @lecture.observation, :class => "form-control", placeholder: "Escribe una observación" %>
+					</div>
+					<div class="modal-footer">
+						<%= submit_tag "Guardar Cambios", :class => "btn btn-default btn-xs" %>
+						<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Cerrar</button>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

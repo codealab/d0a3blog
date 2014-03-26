@@ -1,0 +1,5 @@
+$("#lecture_observation_<%= @lecture.id %>").fadeOut(300,function(){
+	$(this).html("<%= escape_javascript(render('observation')) %>").fadeIn(300);
+	$('#popover_observation_<%= @lecture.id %>').popover();
+	$('.modal-backdrop').fadeOut().removeClass('in');
+});

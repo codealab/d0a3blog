@@ -10,8 +10,12 @@ class SessionsController < ApplicationController
   	user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       flash.now[:success] = 'Bienvenido a "De Cero a Tres"'
+      if cookies[:previous]
+        redirect_to cookies[:previous]
+      else
+        redirect_to root_url
+      end
       sign_in user
-      #redirect_back_or user
     else
       flash.now[:danger] = 'Combinación de email/password errónea.'
       render 'new'

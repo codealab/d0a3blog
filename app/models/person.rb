@@ -1,15 +1,19 @@
 # encoding: UTF-8
 class Person < ActiveRecord::Base
 	before_save :downcase_names
-  after_initialize :titleize_names
+	after_initialize :titleize_names
 
 	has_many :family_relations
 	has_many :families, through: :family_relations, source: :family
 	has_many :attendances, :dependent => :restrict_with_error
 	has_many :tutoring, :foreign_key => :tutor_id, :class_name => 'Spot', :dependent => :restrict_with_error
 	has_many :spots, :foreign_key => :child_id, :dependent => :restrict_with_error
+
+	has_many :groups, through: :spots, source: :group
 	
 	mount_uploader :photo, PhotoUploader
+
+	self.per_page = 15
 	
 	scope :children, proc { where("dob > :years", { years: Date.today - 5.years} )}
 	
@@ -26,6 +30,7 @@ class Person < ActiveRecord::Base
   end
 
 	include PgSearch
+	
 	pg_search_scope :search, against: [:name, :first_last_name, :second_last_name],
 	ignoring: :accents
 	# using: { tsearch: { dictionary: "spanish" } }
@@ -62,4 +67,5 @@ class Person < ActiveRecord::Base
 	    errors.add(:dob, "Según la fecha de nacimiento la persona no ha nacido") if
 	      !dob.blank? and dob > Date.today
 	  end
+
 end

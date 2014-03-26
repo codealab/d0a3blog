@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20140213184330) do
   create_table "attendances", force: true do |t|
     t.integer  "person_id"
     t.integer  "lecture_id"
+    t.text     "observation"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,43 +1,76 @@
 <% provide(:title, "#{@user.name}") %>
+
 <div class="boton_der">
-	<p>	<button type="button" class="btn btn-info"><%= link_to "Regresar a home", root_path %></button></p>
-	<p><button type="button" class="btn btn-default"><%= link_to "Regresar a usuarios", users_path %></button></p>
+	<div class="top_buttons">
+		<%= link_to root_path do %>
+			<p><button type="button" class="btn btn-info">Regresar a home</button></p>
+		<% end %>
+		<%= link_to users_path do %>
+			<p><button type="button" class="btn btn-default">Regresar a usuarios</button></p>
+		<% end %>
+	</div>
+	<h1><%= @user.name %><span class="line"></span></h1>
 </div>
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-  	<h1>Info</h1>
-	<table class="table table-striped">
-		<tr>
-			<th>Foto</th>
-			<th>Nombre</th>
-			<th>Email</th>
-			<th>Administrador</th>
-			<th>Facilitador</th>
-			<th>Coordinador</th>
-		</tr>
-		<tr>
-			<td><%= image_tag @user.photo_url.to_s, id: "image_url" %></td>
-			<td><%= @user.name %></td>
-			<td><%= @user.email %></td>
-			<% if @user.admin %>
-				<td>Sí</td>
-			<% else %>
-				<td>No</td>
-			<% end %>
-			<% if @user.facilitator %>
-				<td>Sí</td>
-			<% else %>
-				<td>No</td>
-			<% end %>
-			<% if @user.coordinator %>
-				<td>Sí</td>
-			<% else %>
-				<td>No</td>
-			<% end %>
-		</tr>
-	</table>
-  </div>
-</div>
-<div class="boton_der">
-	<p><%= link_to edit_user_path do %><button type="button" class="btn btn-default">Editar perfil</button><% end %></p>
+<div class="all_width light_box">
+	<h4>Perfil</h4>
+	<div class="under_pressure"></div>
+	<div class="col-md-12 blue_box">
+		<table class="table table-striped">
+			<tr>
+				<th>Foto</th>
+				<th>Nombre</th>
+				<th>Email</th>
+				<th>Administrador</th>
+				<th>Facilitador</th>
+				<th>Coordinador</th>
+			</tr>
+			<tr>
+				<td><%= image_tag @user.photo_url.to_s, id: "image_url" %></td>
+				<td><%= @user.name %></td>
+				<td><%= @user.email %></td>
+				<% if @user.admin %>
+					<td>Sí</td>
+				<% else %>
+					<td>No</td>
+				<% end %>
+				<% if @user.facilitator %>
+					<td>Sí</td>
+				<% else %>
+					<td>No</td>
+				<% end %>
+				<% if @user.coordinator %>
+					<td>Sí</td>
+				<% else %>
+					<td>No</td>
+				<% end %>
+			</tr>
+		</table>
+	</div>
+	<div class="spacer"></div>
+	<h4>Grupos</h4>
+	<div class="under_pressure"></div>
+	<div class="col-md-12 blue_box">
+		<% if @user.facilitator? %>
+			<table class="table table-striped">
+				<thead>
+					<th>Grupo</th>
+					<th>Edad</th>
+					<th>Período</th>
+					<th>Costo</th>
+					<th>Ubicación</th>
+				</thead>
+				<tbody>
+					<% @user.groups.each do |g|  %>
+						<tr>
+							<td><%= g.name %></td>
+							<td><%= "#{g.min_age} a #{g.max_age} meses"%></td>
+							<td><%= g.init_date.strftime('%d/%m/%Y') %> - <%= g.finish_date.strftime('%d/%m/%Y') %></td>
+							<td><%= g.cost %></td>
+							<td><%= g.location %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% end %>
+	</div>
 </div>

@@ -2,6 +2,10 @@
 class PaymentsController < ApplicationController
 	before_action :pasive_family, only: [:create, :new]
 
+	def index
+		@payments = Payment.all.paginate(page: params[:page])
+	end
+
 	def create
 		@group = Group.find(params[:group_id])
 		@spot = Spot.find(params[:spot_id])

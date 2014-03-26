@@ -25,7 +25,7 @@ gem "rmagick"
 gem "carrierwave"
 gem "fog"
 gem "unf"
-
+gem 'will_paginate-bootstrap'
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

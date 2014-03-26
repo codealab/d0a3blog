@@ -1,8 +1,113 @@
 <% provide(:title, @person.full_name) %>
+<div class="boton_der">
+	<h1><%= @person.full_name %><span class="line"></span></h1>
+</div>
+<div class="all_width light_box">
+	<div class="col-md-4">
+		<h4>Perfil</h4>
+		<div class="under_pressure"></div>
+		<div class="all_width blue_box">
+			<div class="white_box">
+				<div class="td_center">
+					<%= image_tag @person.photo_url(:thumb).to_s %>
+				</div>
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<th>Familia</th>
+							<td><%= link_to @person.families.first.name, @person.families.first %></td>
+						</tr>
+						<tr>
+							<th>Tutor</th>
+							<% if @person.families.first.responsible %>
+								<td><%= link_to @person.families.first.responsible.full_name, @person.families.first.responsible %></td>
+							<% else %>
+								<td><%= @person.full_name %></td>
+							<% end %>
+						</tr>
+						<tr>
+							<th>Edad</th>
+							<td><%= ((Date.today.to_date - @person.dob.to_date)/365).to_i %> años</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<% if (((Date.today.to_date - @person.dob.to_date)/365).to_i)<5  %>
 
-<h2>Pertenece a la familia
-	<% @person.families.each do |family| %>
-		<strong><%= "#{family.name} " %></strong>
+		<div class="col-md-8">
+			<!-- <h4>Familias</h4>
+			<div class="under_pressure"></div>
+			<div class="all_width blue_box">
+				<table class="table table-striped">
+					<% @person.families.each do |family| %>
+						<tr>
+							<td><%= link_to family.name, family %></td>
+						</tr>
+					<% end %>
+				</table>
+			</div>
+			<div class="spacer"></div> -->
+			<h4>Grupos</h4>
+			<div class="under_pressure"></div>
+			<div class="all_width blue_box">
+				<table class="table table-striped">
+					<tr>
+						<th>Nombre</th>
+						<th>Asistencias</th>
+						<th>Observaciones</th>
+					</tr>
+					<% @person.spots.each_with_index do |spot,index| %>
+						<tr>
+							<td><%= link_to spot.group.name, spot.group %></td>
+							<% spot.group.lectures.each do |l| %>
+								<% l.attendances.each do |a| %>
+									<%= a.person.name %>
+								<% end %>
+							<% end %>
+							<td><%= spot.group.lectures.count %></td>
+							<td>
+								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#per_<%= index %>">
+								  Observaciones
+								</button>
+								<div class="modal fade" id="per_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								        <h4 class="modal-title" id="myModalLabel">Observaciones en clases del grupo <%= spot.group.name %></h4>
+								      </div>
+								      <div class="modal-body">
+								      	<div class="observation_container blue_box">
+									        <% spot.group.lectures.each do |lec| %>
+									        	<% if lec.observation != "" && lec.observation != nil %>
+									        		<table class="table table-striped">
+														<tr>
+															<th>Fecha</th>
+															<th>Observación</th>
+														</tr>
+														<tr>
+															<td><%= lec.date.strftime('%d/%m/%Y') %></td>
+															<td><%= lec.observation %></td>
+														</tr>
+													</table>
+									        	<% end %>
+									        <% end %>
+									    </div>
+								        <div class="spacer"></div>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+							</td>
+						</tr>
+					<% end %>
+				</table>
+			</div>
+		</div>
 	<% end %>
-	<%= image_tag @person.photo_url(:thumb).to_s %>
-</h2>
+</div>

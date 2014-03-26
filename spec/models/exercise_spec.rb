@@ -4,6 +4,7 @@ require 'spec_helper'
 describe 'Exercise' do
 	before do
 		@exercise = Exercise.new(
+			name: 'Ejercicio Uno',
 			area:'Motriz Gruesa',
 			min_age:0, max_age: 48,
 			objective: 'Este es un objetivo en ejercicio',
@@ -14,6 +15,7 @@ describe 'Exercise' do
 
 	subject { @exercise }
 
+	it { should respond_to(:name) }
 	it { should respond_to(:area) }
 	it { should respond_to(:min_age) }
 	it { should respond_to(:max_age) }
@@ -28,6 +30,7 @@ describe 'Exercise' do
 
 	describe "when invalid atribute" do
 		before do
+			@exercise.name = " "
 			@exercise.area = " "
 			@exercise.min_age = " "
 			@exercise.max_age = " "
@@ -35,6 +38,7 @@ describe 'Exercise' do
 			@exercise.description = " "
 		end
 
+		it { should have(1).error_on(:name) }
 		it { should have(1).error_on(:area) }
 		it { should have(1).error_on(:min_age) }
 		it { should have(1).error_on(:max_age) }
@@ -51,6 +55,7 @@ describe 'Exercise' do
 	describe "has relation with classes" do
 		let(:lecture) { create(:lecture) }
 		let(:exercise) { lecture.exercises.create(
+			name:'Ejercicio',
 			area:'Motriz Gruesa',
 			min_age:0, max_age: 48,
 			objective: 'Este es un objetivo en ejercicio',

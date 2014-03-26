@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   private
  
   def require_login
+    cookies.permanent[:previous] = request.url
     unless signed_in?
       flash[:danger] = "Inicia sesión"
       redirect_to signin_url # halts request cycle

@@ -1,46 +1,49 @@
 <% provide(:title, "#{@group.name} / #{@spot.child.name} #{@spot.child.first_last_name} #{@spot.child.second_last_name}") %>
+
 <div class="boton_der">
-	<p>
-	  <button type="button" class="btn btn-info"><%= link_to "Regresar a Grupo", group_path(@group) %></button>
-	</p>
-	<% if @spot.child.family_relations.first.family.status? %>
-		<p>
-			<button type="button" class="btn btn-default"><%= link_to "Editar Spot", edit_group_spot_path(@group,@spot) %></button>
-		</p>
-	<% end %>
+	<div class="top_buttons">
+		<%= link_to group_path(@group) do %>
+			<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
+		<% end %>
+		<% if @spot.child.family_relations.first.family.status? %>
+			<%= link_to edit_group_spot_path(@group,@spot) do %>
+				<p><button type="button" class="btn btn-default">Editar Spot</button></p>
+			<% end %>
+		<% end %>
+	</div>
+	<h1><%= "#{@group.name} / #{@spot.child.name} #{@spot.child.first_last_name} #{@spot.child.second_last_name}" %><span class="line"></span></h1>
 </div>
+
 <% if !@spot.child.family_relations.first.family.status? %>
 	<div class="alert alert-danger">La familia está en modo pasivo. No puede llevar a cabo esta acción.</div>
 <% end %>
-<div class="row">
-  <div class="col-md-4 col-md-offset-4">
-  	<h1>Pagos</h1>
-	<table class="table table-striped">
-		<tr>
-			<th>Fecha</th>
-			<td>Monto</td>
-			<td>Beca</td>
-		</tr>
-		<% @spot.payments.each do |payment| %>
+  <div class="all_width light_box">
+  	<h4>Pagos</h4>
+	<div class="blue_box">
+		<table class="table table-striped">
 			<tr>
-				<td><%= payment.date %></td>
-				<td>$<%= payment.amount %>.00</td>
-				<% if(payment.scholarship) %>
-					<td>SI</td>
-				<% else %>
-					<td>NO</td>
-				<% end %>
+				<th>Fecha</th>
+				<td>Monto</td>
+				<td>Beca</td>
 			</tr>
+			<% @spot.payments.each do |payment| %>
+				<tr>
+					<td><%= payment.date %></td>
+					<td>$<%= payment.amount %>.00</td>
+					<% if(payment.scholarship) %>
+						<td>SI</td>
+					<% else %>
+						<td>NO</td>
+					<% end %>
+				</tr>
+			<% end %>
+		</table>
+		<% if @spot.child.family_relations.first.family.status? %>
+			<div class="boton_der">
+				<%= link_to new_group_spot_payment_path(@group, @spot) do %>
+					<p><button type="button" class="btn btn-default">Nuevo Pago</button></p>
+				<% end %>
+			</div>
 		<% end %>
-	</table>
+	</div>
   </div>
-  	<% if @spot.child.family_relations.first.family.status? %>
-		<div class="boton_der">
-			<p>
-				<button type="button" class="btn btn-default">
-					<%= link_to "Nuevo Pago", new_group_spot_payment_path(@group, @spot) %>
-				</button>
-			</p>
-		</div>
-	<% end %>
-</div>

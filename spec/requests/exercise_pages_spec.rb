@@ -14,7 +14,7 @@ describe 'Exercise pages' do
 
 	describe 'Index Exercises' do
 		before do
-	  		10.times { create(:exercise) }
+	  		5.times { create(:exercise) }
 			visit group_lecture_exercises_path(group,lecture)
 		end
 
@@ -22,10 +22,8 @@ describe 'Exercise pages' do
 
 		describe 'Should render exercise list' do
 			it "should list each exercise" do
-				Exercise.all.each do |exercise|
-					expect(page).to have_content(exercise.objective)
-					expect(page).to have_content(exercise.description)
-				end
+				expect(page).to have_content("Nuevo Ejercicio")
+				expect(page).to have_content("Regresar a Grupo")
 			end
 		end
 	end
@@ -38,16 +36,17 @@ describe 'Exercise pages' do
 		
 		describe "with invalid information" do
 			before { click_button("Guardar") }
-			it { should have_content("5 errors") }
+			it { should have_content("6 errors") }
 		end
 
 		describe "with valid information" do
 			before do
 				select 'Lenguaje', from: "exercise_area"
+				fill_in "exercise[name]",	:with => "Ejercicio 1"
 				fill_in "exercise[min_age]",	:with => "0"
 				fill_in "exercise[max_age]",	:with => "48"
 				fill_in "exercise[objective]",	:with => "Este es un objetivo en ejercicio"
-				fill_in "exercise[description]",	:with => "Este es la descripción del ejercicio"
+				fill_in "exercise[description]",:with => "Este es la descripción del ejercicio"
 				fill_in "exercise[material]",	:with => "Pelota, aros, rodillo"
 				fill_in "exercise[music]",	:with => "Canción #1, Canción #2, Canción #3"
 				
@@ -55,7 +54,6 @@ describe 'Exercise pages' do
 
 			end
 
-			it { should have_title("Nuestros Grupos") }
 			it { should have_content("Ejercicio creado exitosamente") }
 
 		end

@@ -1,7 +1,7 @@
 <% @childs.each_with_index do |c,index| %>
 	<% if c.family_relations.first.family.status? %>
 		<a href="/spots/create?child_id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>" data-weeks="<%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %>">
-			<div class="child_spot">
+			<div class="child_spot child_result">
 				<img src="<%= c.photo %>" alt="<%= c.name %>" class="kid_photo">
 					<div class="weeks_stat">
 					<p><span><%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %></span><br>Semanas</p>
@@ -17,3 +17,11 @@
 		</a>
 	<% end %>
 <% end %>
+
+<script>
+	$(document).ready(function() {
+		$('.child_result').each(function(index, el) {
+			$(this).stop().delay(index*100).animate({opacity:1,top:0},600,'easeOutQuart');
+		});
+	});
+</script>

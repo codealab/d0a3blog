@@ -1,36 +1,86 @@
-<div class="panel panel-primary">
-	<div class="group_info">
-		<li><strong>Fecha:</strong> <%= @lecture.date.strftime('%m/%d/%Y') %></li>
-		<li><strong>Hora:</strong> <%= @lecture.date.strftime('%I:%M %p') %></li>
-  </div>
-</div>
-<h1>Ejercicios</h1>
-<div class="all_width">
-	<table class="table table-striped">
-		<tr>	
-		<th>Ejercicio</th>
-			<th>Objetivo</th>
-			<th>Descripción</th>
-			<th>Material</th>
-			<th>Área</th>
-		</tr>
-		<% @lecture.exercises.each do |ex| %>
-			<tr>
-				<td><%= ex.objective %></td>
-				<td><%= ex.description %></td>
-				<td><%= ex.material %></td>
-				<td><%= ex.area %></td>
+<div id="exercises_container">
+	<div class="boton_der" id="header_buttons_class">
+		<div id="buttons_edit_observation">
+			<%= link_to edit_group_lecture_path(@group, @lecture) do %>
+				<p><button type="button" class="btn btn-default btn-xs">Editar Clase</button></p>
+			<% end %>
+			<p><button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lecture_observation">Observación</button></p>
+		</div>
+		<h4>Clase del <%= @lecture.date.strftime('%A') %> <%= @lecture.date.strftime('%d') %> de <%= @lecture.date.strftime('%B') %> / <%= @lecture.date.strftime('%H:%M') %></h4>
+	</div>
+	<div class="boton_der">
+		<div class="top_buttons top_buttons_group">
+			<%= link_to group_lecture_exercises_path(@group, @lecture) do %>
+				<span data-toggle="tooltip" data-placement="left" title="Seleccionar Ejercicios" class="tip glyphicon glyphicon-plus-sign" style="
+				    margin: 10px;
+				    font-size: 24px;
+				    position: relative;
+				    top: 7px;
+				    margin-left: 0px;
+				    right: 0;
+				    position: absolute;
+				    top: -46px;
+				    color: #107BD8;
+				"></span>
+			<% end %>
+		</div>
+		<h1>Ejercicios</h1>
+	</div>
+	<div class="all_width blue_box" id="exercises_container_table">
+		<div class="all_width white_box">
+			<table class="table table-striped">
+			<tr>	
+				<th>Nombre</th>
+				<th>Área</th>
+				<th>Detalles</th>
 			</tr>
-		<% end %>
-	</table>
+			<% if @lecture.exercises %>
+				<% @lecture.exercises.each_with_index do |ex,index| %>
+					<tr>
+						<td><%= link_to ex.name, group_lecture_exercise_path(@group, @lecture, ex) %></td>
+						<td><%= ex.area %></td>
+						<td>
+							<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= index %>">Leer más</button>
+							<div class="modal fade" id="ex_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title" id="myModalLabel"><%= ex.area %>: <%= ex.name %></h4>
+										</div>
+										<div class="modal-body">
+											<p><strong>Descripción:</strong> <%= ex.description %></p>
+											<p><strong>Objetivo:</strong> <%= ex.objective %></p>
+											<p><strong>Material:</strong> <%= ex.material %></p>
+											<p><strong>Música:</strong> <%= ex.music %></p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Cerrar</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				<% end %>
+			<% else %>
+			<h1>No Hay ejercicios</h1>
+			<% end %>
+		</table>
+		</div>
+	</div>
 </div>
+
 <div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-default btn-xs"><%= link_to "Seleccionar Ejercicios",  group_lecture_exercises_path(@group, @lecture) %></button>
-	</p>
+	<div class="top_buttons top_buttons_group">
+		<%= link_to new_group_lecture_attendance_path(@group, @lecture) do %>
+			<span data-toggle="tooltip" data-placement="left" title="Seleccionar Ejercicios" class="tip glyphicon glyphicon-plus-sign" style="margin: 10px; font-size: 24px; position: relative; float: right; color: #107BD8; "></span>
+		<% end %>
+	</div>
+	<h1>Asistencia</h1>
 </div>
-<h1>Asistencia</h1>
-<div id="attendances" class="all_width">
+
+<div id="attendances" class="all_width blue_box">
 	<div id="scroll_attendances">
 		<% @lecture.attendances.each do |c| %>
 			<div class="child_attendance" id="child_spot_<%= c.person.id %>">
@@ -42,20 +92,25 @@
 		<% end %>
 	</div>
 </div>
-<div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-default btn-xs"><%= link_to "Tomar Asistencia",  new_group_lecture_attendance_path(@group, @lecture) %></button>
-	</p>
-</div>
-<h1>Observación</h1>
-<div class="all_width">
-	<p><%= @lecture.observation %></p>
-</div>
-<div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-danger btn-xs"><%= link_to "Borrar Clase", group_lecture_path(@group, @lecture), method: :delete, data: { confirm: "Estas Seguro?" } %></button>
-	</p>
-	<p>
-		<button type="button" class="btn btn-default btn-xs"><%= link_to "Editar Clase", edit_group_lecture_path(@group, @lecture) %></button>
-	</p>
+
+<div id="lecture_observation_<%= @lecture.id %>">
+	<div class="modal fade" id="lecture_observation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Observación de la clase</h4>
+				</div>
+				<%= form_tag("/lectures/observation/#{@lecture.id}", :method => "get", remote: true ) do %>
+					<div class="modal-body">
+						<%= text_area_tag "observation", @lecture.observation, :class => "form-control", placeholder: "Escribe una observación" %>
+					</div>
+					<div class="modal-footer" id="fadebackdrop">
+						<%= submit_tag "Guardar Cambios", :class => "btn btn-default btn-xs" %>
+						<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Cerrar</button>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
 </div>

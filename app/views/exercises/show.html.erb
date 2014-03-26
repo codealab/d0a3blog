@@ -1,37 +1,67 @@
 <% provide(:title, @exercise.full_name) %>
+
 <div class="boton_der">
-	<p>
-		<button type="button" class="btn btn-info"><%= link_to "Regresar a Ejercicios", exercises_path %></button>
-	</p>
+	<div class="top_buttons">
+		<% if @group && @lecture %>
+			<%= link_to group_lecture_exercises_path(@group, @lecture) do %>
+				<p><button type="button" class="btn btn-info">Regresar a Ejercicios</button></p>
+			<% end %>
+		<% else %>
+			<%= link_to exercises_path do %>
+				<p><button type="button" class="btn btn-info">Regresar a Ejercicios</button></p>
+			<% end %>
+		<% end %>
+	</div>
+	<h1><%= @exercise.full_name %><span class="line"></span></h1>
 </div>
-<table class="table table-striped">
-	<tr>
+<div class="col-md-12 blue_box">
+	<table class="table table-striped">
 		<tr>
-			<th>Objectivo</th>
-			<td><%= @exercise.objective %></td>
+			<tr>
+				<th>Objectivo</th>
+				<td><%= @exercise.objective %></td>
+			</tr>
+			<tr>
+				<th>Descripción</th>
+				<td><%= @exercise.description %></td>
+			</tr>
+			<tr>
+				<th>Material</th>
+				<td><%= @exercise.material %></td>
+			</tr>
+			<tr>
+				<th>Música</th>
+				<td><%= @exercise.music %></td>
+			</tr>
 		</tr>
-		<tr>
-			<th>Descripción</th>
-			<td><%= @exercise.description %></td>
-		</tr>
-		<tr>
-			<th>Material</th>
-			<td><%= @exercise.material %></td>
-		</tr>
-		<tr>
-			<th>Música</th>
-			<td><%= @exercise.music %></td>
-		</tr>
-	</tr>
-</table>
-<div class="boton_der">
-	<% if(@exercise.lectures.empty?) %>
-		<p>
-			<button type="button" class="btn btn-danger btn-xs"><%= link_to "Borrar Ejercicio", group_lecture_exercise_path(@group,@lecture,@exercise),
-				method: :delete, data: { confirm: "Estas Seguro?" } %></button>
-		</p>
-	<% end %>
-	<p>
-		<button type="button" class="btn btn-default btn-xs"><%= link_to "Editar Ejercicio", edit_group_lecture_exercise_path(@group,@lecture,@exercise) %></button>
-	</p>
+	</table>
+	<div class="boton_der">
+		<% if @group && @exercise %>
+			<% if(@exercise.lectures.empty?) %>
+				<%= link_to group_lecture_exercise_path(@group,@lecture,@exercise), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
+					<p><button type="button" class="btn btn-danger">Borrar Ejercicio</button></p>
+				<% end %>
+			<% else %>
+				<%= link_to group_lecture_exercise_path(@group,@lecture,@exercise), method: :delete, data: { confirm: "Este ejercicio esta asignado a una o varias clases. \nNo puede llevarse a cabo esta acción." } do %>
+					<p><button type="button" class="btn btn-danger">Borrar Ejercicio</button></p>
+				<% end %>
+			<% end %>
+			<%= link_to edit_group_lecture_exercise_path(@group,@lecture,@exercise) do %>
+				<p><button type="button" class="btn btn-default">Editar Ejercicio</button></p>
+			<% end %>
+		<% else %>
+			<% if(@exercise.lectures.empty?) %>
+				<%= link_to exercise_path(@exercise), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
+					<p><button type="button" class="btn btn-danger">Borrar Ejercicio</button></p>
+				<% end %>
+			<% else %>
+				<%= link_to exercise_path(@exercise), data: { confirm: "Este ejercicio esta asignado a una o varias clases. \nNo puede llevarse a cabo esta acción." } do %>
+					<p><button type="button" class="btn btn-danger">Borrar Ejercicio</button></p>
+				<% end %>
+			<% end %>
+			<%= link_to edit_exercise_path(@exercise) do %>
+				<p><button type="button" class="btn btn-default">Editar Ejercicio</button></p>
+			<% end %>
+		<% end %>
+	</div>
 </div>

@@ -5,7 +5,11 @@ class GroupsController < ApplicationController
 	before_action :correct_user, only: [:edit, :update, :new, :create, :destroy, :delete]
 
 	def index
-		@groups = Group.all
+		if params[:filter]
+			@groups = Group.where("finish_date <= :start_date", { start_date: Date.today }).paginate(page: params[:page])
+		else
+			@groups = Group.where("finish_date >= :start_date", { start_date: Date.today }).paginate(page: params[:page])
+		end
 	end
 
 	def create

@@ -1,7 +1,3 @@
-<div class="boton_der">
-	<p><button type="button" class="btn btn-info"><%= link_to "Regresar a Grupo", group_path(@group) %></button></p>
-	<p><button type="button" class="btn btn-info"><%= link_to "Regresar a Spot", group_spot_path(@group,@spot) %></button></p>
-</div>
 <div class="row">
 	<div class="col-md-4 col-md-offset-4">
 		<%= simple_form_for [@group, @spot, @payment] do |f| %>

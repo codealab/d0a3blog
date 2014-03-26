@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-// require turbolinks
+//= require bootstrap
+//= require turbolinks
 //= require_tree .
 
 $(document).ready(over_and_clicks);
@@ -20,7 +21,7 @@ $(document).ready(over_and_clicks);
 // Generate preview ehen select image on input type=file
 (function($) {
 
-	$.extend( true, jQuery.fn, {        
+	$.extend( true, jQuery.fn, {
         imagePreview: function( options ){          
             var defaults = {};
             if( options ){
@@ -54,16 +55,39 @@ $(document).ready(over_and_clicks);
         }   
     });
 
+    $.extend( true, jQuery.fn, {
+        large_scroll: function(){
+            $.each( this, function(){
+                $(".large_scroll").on('mouseenter',function(){
+                    var $daChild = $(this).find('.children_scroll'),
+                        maxHeight = $(this).height(),
+                        totalTop = $(this).offset().top,
+                        childHeight = $daChild.height();
+
+                    $(this).on('mousemove',function(e){
+                        var onSet = (e.pageY)-totalTop,
+                            daTop = ((onSet*childHeight)/maxHeight);
+                            if(daTop>200) $daChild.css({top:-(daTop-300)});
+                    });
+                });
+            });
+        }
+    });
+
 })(jQuery);
 
 function over_and_clicks(){
 	
 	//Hovers & clicks for Views => spot_new & attendance_new
-
+    
 	$('.child_selector, .child_attendance').hover(function() {
 		$(this).find('.child_selected').fadeIn(250);
+        $(this).find('.child_selected span').stop().animate({ opacity:1, top:36 },600,'easeOutQuart');
 	}, function() {
 		$(this).find('.child_selected').fadeOut(250);
+        $(this).find('.child_selected span').stop().animate({ opacity:0, top:105 },600,'easeOutQuart',function(){
+            $(this).removeAttr('style');
+        });
 	});
 
 	$(".asistente, .inscrito").on("click", function(){

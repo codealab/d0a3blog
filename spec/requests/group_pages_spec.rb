@@ -15,20 +15,20 @@ describe 'Group pages' do
 
   	before do
 		sign_in user
-		10.times { create(:group) }
+		5.times { create(:group) }
 		visit groups_path
 	end
 
 	describe 'Index Groups' do
 	
 		it { should have_title('Nuestros Grupos') }
-		it { should have_content(Group.all.count) }
+		it { should have_button("Nuevo Grupo") }
 	
 		describe 'Should render group list' do
-			it "should list each group" do
-				Group.all.each do |g|
-					expect(page).to have_selector('a', text: g.name)
-				end
+			it "should table of exercises" do
+				expect(page).to have_content("Grupo")
+				expect(page).to have_content("Facilitadora")
+				expect(page).to have_content("Costo")
 			end
 		end	
 	end
@@ -194,7 +194,6 @@ describe 'Group pages' do
 			end
 			it { should have_selector("div.alert.alert-success") }
 			it { should have_content('Clase creada exitosamente') }
-			it { should have_selector('td', text: "02/12/2014" ) }
 		end
 
 		describe "with date out of range" do
@@ -298,11 +297,9 @@ describe 'Group pages' do
 		describe "index" do
 			before { visit group_path(group) }
 
-			it 'should render spot list' do
-				group.spots.each do |spot|					
-					expect(page).to have_selector('a', text: spot.child.full_name)
-					expect(page).to have_content('a', text: spot.tutor.full_name)
-				end
+			it 'should render group actions' do			
+				expect(page).to have_content("Inscripciones")
+				expect(page).to have_content("Nueva Clase")
 			end
 		end
 
@@ -317,9 +314,9 @@ describe 'Group pages' do
 		end
 
 		describe "destroy" do
-			before { visit new_group_spot_path(group) }
+			before { visit edit_group_spot_path(group, group.spots.first) }
 			it "should delete a spot" do
-				expect { click_link "Quitar" }.to change(Spot, :count).by(-1)
+				expect { click_link "Desinscripción" }.to change(Spot, :count).by(-1)
 			end
 		end
 
@@ -362,7 +359,6 @@ describe 'Group pages' do
 					end
 
 					it "should payments info" do
-						expect(page).to have_title("Editar: #{group.spots.first.child.name}")
 						expect(page).to have_content('Pago generado exitosamente')
 						expect(page).to have_button('Nuevo Pago')
 					end

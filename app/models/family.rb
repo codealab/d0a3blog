@@ -1,6 +1,6 @@
 class Family < ActiveRecord::Base
 	before_save :downcase_names
-  after_initialize :titleize_names
+	after_initialize :titleize_names
 
 	has_many :family_relations
 	has_many :family_members, through: :family_relations, source: :person, :dependent => :restrict_with_error
@@ -10,6 +10,8 @@ class Family < ActiveRecord::Base
 	validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
 
 	has_one :address, :dependent => :destroy
+
+	self.per_page = 15
 
 	def styled_address
 	 direccion = "#{self.address.calle},#{self.address.num_ext} ,int #{self.address.num_int},#{self.address.localidad},#{self.address.colonia}, #{self.address.municipio}, #{self.address.ciudad}, #{self.address.estado}, #{self.address.pais}, #{self.address.codigo_postal}"
