@@ -1,4 +1,8 @@
-<div class="row">
+<div id="loader">
+	<img src="/assets/calendar_loader.GIF" alt="">
+	CREANDO CLASES
+</div>
+<div class="row" id="calendar_container">
 	<div class="col-md-4 col-md-offset-4">
 	  	<h1>Datos del grupo</h1>
 	  	<%= simple_form_for @calendar, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
@@ -39,6 +43,10 @@
 		$('input:checkbox').on("click",function(){
 			var day = $(this).attr('id');
 			$(this).is(':checked')? $("#"+day+"_hour_4i, #"+day+"_hour_5i").show().attr('required', 'required') : $("#"+day+"_hour_4i, #"+day+"_hour_5i").hide().removeAttr('required');
+		});
+		$("#new_calendar").submit(function(event) {
+			$("#loader").fadeIn();
+			$("#calendar_container").fadeOut();
 		});
 	});
 </script>

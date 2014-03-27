@@ -5,6 +5,9 @@
 		<a href=<%= "/groups/#{@group.id}?lecture=#{@lecture.id}" %>>
 			<p><button type="button" class="btn btn-info">Regresar a la Clase</button></p>
 		</a>
+		<%= link_to new_group_spot_path(@group) do %>
+			<p><button type="button" class="btn btn-warning">Inscripciones</button></p>
+		<% end %>
 	</div>
 	<h1>Asistencias<span class="line"></span></h1>
 </div>
@@ -34,25 +37,29 @@
 			</div>
 		</div>
 		<div class="spacer"></div>
-		<h4>Inscritos</h4>
+		<h4><%= @group.spots.count %> Inscritos</h4>
 		<div class="under_pressure"></div>
 		<div id="posible_attendances" class="all_width blue_box">
 			<div class="white_box">
-				<% @group.spots.each_with_index do |c,index| %>
-					<% if c.child.family_relations.first.family.status? %>
-						<a href="/attendances/create?person_id=<%= c.child.id %>&lecture_id=<%= @lecture.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.child.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>">
-							<div class="child_spot child_appended">
-								<img src="<%= c.child.photo %>" alt="<%= c.child.name %>" class="kid_photo attendance_img">
-								<div class="kid_stats">
-									<p><%= c.child.name %></p>
-									<p><%= ("#{ c.child.first_last_name } #{ c.child.second_last_name }").slice(0..13) %>.</p>
+				<% if @group.spots.count>0 %>
+					<% @group.spots.each_with_index do |c,index| %>
+						<% if c.child.family_relations.first.family.status? %>
+							<a href="/attendances/create?person_id=<%= c.child.id %>&lecture_id=<%= @lecture.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.child.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>">
+								<div class="child_spot child_appended">
+									<img src="<%= c.child.photo %>" alt="<%= c.child.name %>" class="kid_photo attendance_img">
+									<div class="kid_stats">
+										<p><%= c.child.name %></p>
+										<p><%= ("#{ c.child.first_last_name } #{ c.child.second_last_name }").slice(0..13) %>.</p>
+									</div>
+									<div class="child_selected">
+										<span class="glyphicon glyphicon-ok"></span>
+									</div>
 								</div>
-								<div class="child_selected">
-									<span class="glyphicon glyphicon-ok"></span>
-								</div>
-							</div>
-						</a>
+							</a>
+						<% end %>
 					<% end %>
+				<% else %>
+					<h4 style="text-align: center;">Debes realizar inscripciones al grupo antes de tomar lista</h4>
 				<% end %>
 			</div>
 		</div>

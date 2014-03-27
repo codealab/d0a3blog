@@ -5,7 +5,9 @@ class PhotoUploader < CarrierWave::Uploader::Base
   #s3_access_policy :public_read #Access policy error
 
   # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
+  if RUBY_PLATFORM =~ /darwin/i
+    include CarrierWave::RMagick
+  end
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
@@ -36,10 +38,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
-    process :resize_to_limit => [50, 50]
-    # s3_access_policy :public
-  end
+  # version :thumb do
+  #   process :resize_to_limit => [50, 50]
+  #   # s3_access_policy :public
+  # end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

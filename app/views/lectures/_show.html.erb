@@ -15,7 +15,7 @@
 				"></span>
 			<% end %>
 		</div>
-		<h1>Ejercicios</h1>
+		<h1>Ejercicios <%= @lecture.exercises.count %></h1>
 	</div>
 	<div class="all_width blue_box" id="exercises_container_table">
 		<div class="all_width white_box">
@@ -55,7 +55,7 @@
 					</tr>
 				<% end %>
 			<% else %>
-			<h1>No Hay ejercicios</h1>
+				<h1>No Hay ejercicios</h1>
 			<% end %>
 		</table>
 		</div>
@@ -68,13 +68,13 @@
 			<span data-toggle="tooltip" data-placement="left" title="Tomar Asistencia" class="tip glyphicon glyphicon-plus-sign" style="margin: 10px; font-size: 24px; position: relative; float: right; color: #107BD8; "></span>
 		<% end %>
 	</div>
-	<h1>Asistencia</h1>
+	<h1>Asistencia <%= "#{@lecture.attendances.count} / #{@group.spots.count}" %></h1>
 </div>
 
 <div id="attendances" class="all_width blue_box">
 	<div id="scroll_attendances">
 		<% @lecture.attendances.each_with_index do |c,index| %>
-			<div class="child_attendance" id="child_spot_<%= c.person.id %>"  data-toggle="modal" data-target="#att_<%= index %>">
+			<div class="child_attendance" id="child_spot_<%= c.person.id %>"  data-toggle="modal" data-target="#att_<%= c.id %>">
 				<div class="child_attendance_over">
 					<span class="glyphicon glyphicon-eye-open"></span>
 				</div>
@@ -84,7 +84,7 @@
 				</div>
 			</div>
 			<div id="lecture_observation_<%= c.id %>">
-				<div class="modal fade" id="att_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal fade" id="att_<%= c.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -108,7 +108,6 @@
 	</div>
 </div>
 
-<div id="lecture_observation_<%= @lecture.id %>">
 	<div class="modal fade" id="lecture_observation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -128,7 +127,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 <script>
 	$(document).ready(function() {
 		$('.child_attendance').hover(function() {
