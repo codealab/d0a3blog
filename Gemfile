@@ -21,10 +21,10 @@ gem 'simple_form'
 # gem 'therubyracer', platforms: :ruby
 # Use bycrypt to encode keys and restore on cookies sessions
 # Use jquery as the JavaScript library
-gem "rmagick"
+#gem "rmagick"
 gem "carrierwave"
-gem "fog"
-gem "unf"
+#gem "fog"
+#gem "unf"
 gem 'will_paginate-bootstrap'
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
