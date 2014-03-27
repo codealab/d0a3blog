@@ -12,9 +12,9 @@
 			<p>
 				<% relations = ["Hijo","Hija","Padre","Madre","Abuelo","Tío","Tía","",nil] %>
 				<% if relations.include?(@person.family_roll) %>
-					<%= f.input :family_roll, label: "Roll Familiar", include_blank: 'Selecciona un roll', collection: [[ 'Hijo', 'Hijo', :class => 'man' ], [ 'Hija', 'Hija', :class => 'woman' ], [ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tío', 'Tío', :class => 'man' ], [ 'Tía', 'Tía', :class => 'woman' ], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
+					<%= f.input :family_roll, label: "Roll Familiar", :include_blank => false, collection: [[ 'Otro', 'Otro', :id => 'other_value' ]] %>
 				<% else %>
-					<%= f.input :family_roll, label: "Roll Familiar",include_blank: 'Selecciona un rol', collection: [[ 'Hijo', 'Hijo', :class => 'man' ], [ 'Hija', 'Hija', :class => 'woman' ], [ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tío', 'Tío', :class => 'man' ], [ 'Tía', 'Tía', :class => 'woman' ], [@person.family_roll,@person.family_roll], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
+					<%= f.input :family_roll, label: "Roll Familiar", :include_blank => false, collection: [[@person.family_roll,@person.family_roll], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
 				<% end %>
 				<input id="other_name" type="text" placeholder="Escribe el parentesco" style="margin-top: -34px; width: 95%; display:none; z-index: 1; position: relative; border-bottom-right-radius: 0px; border-top-right-radius: 0px;" name="person[other]" class="form-control">
 			</p>
@@ -46,11 +46,11 @@
 	});
 	function checkSex(){
 		if($("#person_sex_m").is(':checked')){
-			$('.man').show();
-			$('.woman').hide();
+			$('.woman').remove();
+			$("#person_family_roll").prepend("<option class='man' value='Hijo'>Hijo</option> <option class='man' value='Padre'>Padre</option> <option class='man' value='Abuelo'>Abuelo</option> <option class='man' value='Tío'>Tío</option>");
 		}else{
-			$('.man').hide();
-			$('.woman').show();
+			$('.man').remove();
+			$("#person_family_roll").prepend("<option class='woman' value='Hija'>Hija</option> <option class='woman' value='Madre'>Madre</option> <option class='woman' value='Abuela'>Abuela</option> <option class='woman' value='Tía'>Tía</option>");
 		}
 	}
 </script>
