@@ -17,7 +17,7 @@
  		<div class="all_width blue_box<% if @lecture.attendances.empty? %> empty_box<% end %>">
 			<div class="white_box" id="attendances">
 				<% @lecture.attendances.each do |c| %>
-					<div class="child_spot" id="child_spot_<%= c.id %>">
+					<div class="child_spot child_appended" id="child_spot_<%= c.id %>">
 						<img src="<%= c.person.photo %>" alt="<%= c.person.name %>" class="kid_photo">
 						<div class="kid_stats">
 							<p><%= c.person.name %></p>
@@ -41,7 +41,7 @@
 				<% @group.spots.each_with_index do |c,index| %>
 					<% if c.child.family_relations.first.family.status? %>
 						<a href="/attendances/create?person_id=<%= c.child.id %>&lecture_id=<%= @lecture.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.child.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>">
-							<div class="child_spot">
+							<div class="child_spot child_appended">
 								<img src="<%= c.child.photo %>" alt="<%= c.child.name %>" class="kid_photo attendance_img">
 								<div class="kid_stats">
 									<p><%= c.child.name %></p>
@@ -60,5 +60,8 @@
 <script>
 	$(document).ready(function() {
 		<%= render "/attendances/edit.js.erb" %>
+		$(".child_appended").each(function(index, el) {
+			$(this).delay(index*80).animate({top:0,opacity:1},600,'easeOutQuart');
+		});
 	});
 </script>

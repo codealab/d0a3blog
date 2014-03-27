@@ -45,12 +45,13 @@ class Calendar
 	def generate_lectures(days,hour)
 		no_errors = true
 		
-		days.each do |day|			
+		days.each do |day|	
 			@calendar.lectures.build({ date: "#{day}+" "#{hour}" })
-			if !@calendar.save!
-				errors.add :classes, "Ocurrió algún error al generar las clases"
-				no_errors = false
-			end
+			@calendar.save
+			# if !
+			# errors.add :classes, "Ocurrió algún error al generar las clases"
+			# 	no_errors = false
+			# end
 		end
 
 		return no_errors
