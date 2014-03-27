@@ -19,7 +19,7 @@
  		<div class="all_width blue_box">
  			<div id="enlist_childs" class="white_box">
 				<% @group.spots.each do |c| %>
-					<div class="child_spot" id="child_spot_<%= c.child.id %>">
+					<div class="child_spot child_appended" id="child_spot_<%= c.child.id %>">
 						<img src="<%= c.child.photo %>" alt="<%= c.child.name %>" class="kid_photo">
 						<div class="weeks_stat">
 							<p><span><%= ((Date.today.to_date - c.child.dob.to_date).to_i)/7 %></span><br>Semanas</p>
@@ -46,20 +46,14 @@
 
 		<div class="under_pressure"></div>
 		<h4><%= "Niños de #{@group.min_age} a #{@group.max_age} meses" %></h4>
-		<% if !@childs %>
-			<div class="under_pressure"></div>
-			<div id="posibble_childs" class="all_width blue_box">
-				<h4 style="text-align: center; text-align: center; color: rgb(206, 203, 203); ">No se encontraron niños dentro del rango de edad</h4>
-			</div>
-
-		<% else %>
+		<% if @childs.count>0 %>
 			<div class="under_pressure"></div>
 			<div id="posibble_childs" class="all_width blue_box">
 				<div class="white_box">
 					<% @childs.each_with_index do |c,index| %>
 						<% if c.family_relations.first.family.status? %>
 							<a href="/spots/create?child_id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>" data-weeks="<%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %>">
-								<div class="child_spot">
+								<div class="child_spot child_appended">
 									<img src="<%= c.photo %>" alt="<%= c.name %>" class="kid_photo">
 									<div class="weeks_stat">
 										<p><span><%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %></span><br>Semanas</p>
@@ -76,6 +70,11 @@
 						<% end %>
 					<% end %>
 				</div>
+			</div>
+		<% else %>
+			<div class="under_pressure"></div>
+			<div id="posibble_childs" class="all_width blue_box">
+				<h4 style="text-align: center; text-align: center; color: rgb(206, 203, 203); ">No se encontraron niños dentro del rango de edad</h4>
 			</div>
 		<% end %>
 
@@ -96,5 +95,8 @@
 <script>
 	$(document).ready(function() {
 		<%= render "/spots/edit.js.erb" %>
+		$(".child_appended").each(function(index, el) {
+			$(this).delay(index*80).animate({top:0,opacity:1},600,'easeOutQuart');
+		});
 	});
 </script>

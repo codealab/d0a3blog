@@ -1,23 +1,26 @@
-<% @childs.each_with_index do |c,index| %>
-	<% if c.family_relations.first.family.status? %>
-		<a href="/spots/create?child_id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>" data-weeks="<%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %>">
-			<div class="child_spot child_result">
-				<img src="<%= c.photo %>" alt="<%= c.name %>" class="kid_photo">
-					<div class="weeks_stat">
-					<p><span><%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %></span><br>Semanas</p>
+<% if @childs.count>0 %>
+	<% @childs.each_with_index do |c,index| %>
+		<% if c.family_relations.first.family.status? %>
+			<a href="/spots/create?child_id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>" data-weeks="<%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %>">
+				<div class="child_spot child_result">
+					<img src="<%= c.photo %>" alt="<%= c.name %>" class="kid_photo">
+						<div class="weeks_stat">
+						<p><span><%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %></span><br>Semanas</p>
+					</div>
+					<div class="kid_stats">
+						<p><%= c.name %></p>
+						<p><%= ("#{ c.first_last_name } #{ c.second_last_name }").slice(0..13) %>.</p>
+					</div>
+					<div class="child_selected">
+						activar
+					</div>
 				</div>
-				<div class="kid_stats">
-					<p><%= c.name %></p>
-					<p><%= ("#{ c.first_last_name } #{ c.second_last_name }").slice(0..13) %>.</p>
-				</div>
-				<div class="child_selected">
-					activar
-				</div>
-			</div>
-		</a>
+			</a>
+		<% end %>
 	<% end %>
+<% else %>
+	<h4 style=" text-align: center; color: rgb(206, 203, 203); top: 55px;position: relative;">No se encontraron niños con ese nombre</h4>
 <% end %>
-
 <script>
 	$(document).ready(function() {
 		$('.child_result').each(function(index, el) {

@@ -23,6 +23,12 @@ class AttendancesController < ApplicationController
 		flash[:success] = "Asistencia eliminada"
 	end
 
+	def observation
+		@attendance = Attendance.find(params[:id])
+		@attendance.observation = params[:observation]
+		@attendance.save
+	end
+
 	private
 
 	def attendance_params

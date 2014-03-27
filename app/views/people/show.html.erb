@@ -57,6 +57,7 @@
 						<th>Nombre</th>
 						<th>Asistencias</th>
 						<th>Observaciones</th>
+						<th>Pagos</th>
 					</tr>
 					<% @person.spots.each_with_index do |spot,index| %>
 						<tr>
@@ -104,10 +105,60 @@
 								  </div>
 								</div>
 							</td>
-						</tr>
-					<% end %>
-				</table>
-			</div>
+							<td>
+								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#payment_<%= index %>">
+								  Pagos
+								</button>
+								<div class="modal fade" id="payment_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								        <h4 class="modal-title" id="myModalLabel">Pagos en el grupo <%= spot.group.name %></h4>
+								      </div>
+								      <div class="modal-body">
+								      	<div class="observation_container blue_box">
+								      		<% if spot.payments.count>0 %>
+										        <% spot.payments.each do |payment| %>
+										        	<table class="table table-striped">
+														<tr>
+															<th>Fecha</th>
+															<th>Cantidad</th>
+															<th>Beca</th>
+														</tr>
+														<tr>
+															<td><%= payment.date.strftime('%d/%m/%Y') %></td>
+															<td>$<%= payment.amount %></td>
+															<td>
+																<% if payment.scholarship %>
+																	SI
+																<% else %>
+																	NO
+																<% end %>
+															</td>
+														</tr>
+													</table>
+												<% end %>
+											<% else %>
+												No hay ningún pago realizado
+											<% end %>
+										</div>
+										<div class="spacer"></div>
+									</div>
+									<div class="modal-footer">
+										<%= link_to new_group_spot_payment_path(spot.group, spot) do %>
+											<button type="button" class="btn btn-warning">Realizar Pagos</button>
+										<% end %>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<% end %>
+			</table>
 		</div>
+	</div>
 	<% end %>
 </div>

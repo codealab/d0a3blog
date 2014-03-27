@@ -44,8 +44,6 @@ class LecturesController < ApplicationController
 
 	def observation
 		@lecture = Lecture.find(params[:id])
-		puts '============================='
-		puts params
 		@lecture.observation = params[:observation]
 		@lecture.save
 	end
