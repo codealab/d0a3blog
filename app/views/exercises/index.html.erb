@@ -41,9 +41,9 @@
 						<td>
 							<a href=<%= "/exercises/status/#{exercise.id}?lecture_id=#{@lecture.id}" %> data-remote="true" id="exercise_<%= exercise.id %>">
 								<% if exercise.lectures.include?(@lecture) %>
-									<button type="button" class="btn status_button btn-danger btn-xs">DESACTIVAR</button>
+									<button type="button" class="btn status_button btn-danger btn-xs">DESAGREGAR</button>
 								<% else %>
-									<button type="button" class="btn status_button btn-success btn-xs">ACTIVAR</button>
+									<button type="button" class="btn status_button btn-success btn-xs">AGREGAR</button>
 								<% end %>
 							</a>
 						</td>

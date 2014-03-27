@@ -23,12 +23,12 @@
 <div class="container_big_buttons">
 	<%= link_to new_group_spot_path(@group) do %>
 		<div class="big_button">
-			<span data-toggle="tooltip" data-placement="left" title="Tooltip on left" id="tip" class="glyphicon glyphicon-list-alt"></span>Inscripciones
+			<span class="glyphicon glyphicon-list-alt"></span>Inscripciones
 		</div>
 	<% end %>
 	<%= link_to new_group_lecture_path(@group) do %>
 		<div class="big_button" id="new_class_icon">
-			<span data-toggle="tooltip" data-placement="left" title="Tooltip on left" id="tip" class="tip glyphicon glyphicon-plus-sign"></span>Nueva Clase
+			<span class="tip glyphicon glyphicon-plus-sign"></span>Nueva Clase
 		</div>
 	<% end %>
 </div>
@@ -37,7 +37,7 @@
 	<% if @group.lectures.count < 3 %>
 		<%= link_to new_group_calendar_path(@group) do %>
 			<div class="big_button" id="new_class_icon" style="width: 100%; ">
-				<span data-toggle="tooltip" data-placement="left" title="Tooltip on left" id="tip" class="tip glyphicon glyphicon-cog"></span>Generar Clases
+				<span class="tip glyphicon glyphicon-cog"></span>Generar Clases
 			</div>
 		<% end %>
 	<% end %>
@@ -45,7 +45,7 @@
 	<% if @group.lectures.count < 3 %>
 		<%= link_to new_group_calendar_path(@group) do %>
 			<div class="big_button" id="new_class_icon" style="width: 100%; ">
-				<span data-toggle="tooltip" data-placement="left" title="Tooltip on left" id="tip" class="tip glyphicon glyphicon-cog"></span>Generar Clases
+				<span class="tip glyphicon glyphicon-cog"></span>Generar Clases
 			</div>
 		<% end %>
 		<div class="spacer"></div>

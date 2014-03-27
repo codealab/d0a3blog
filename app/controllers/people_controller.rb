@@ -12,6 +12,7 @@ class PeopleController < ApplicationController
 	def create
 		@family = Family.find(params[:family_id])
 		@person = @family.family_members.build(persons_params)
+		@oldphoto = params[:person][:oldphoto]
 		if @family.save  
 			flash[:success] = "Creación Exitosa"
 			redirect_to @family
@@ -23,11 +24,13 @@ class PeopleController < ApplicationController
 	def new
 	   @family = Family.find(params[:family_id])
 	   @person = @family.family_members.build
+	   @oldphoto = @person.photo_url
 	end
 
 	def edit
 		@family = Family.find(params[:family_id])
 		@person = @family.family_members.find(params[:id])
+		@oldphoto = @person.photo_url
 	end
 
 	def show
@@ -37,6 +40,7 @@ class PeopleController < ApplicationController
 	def update
 		@family = Family.find(params[:family_id])
 		@person = Person.find(params[:id])
+		@oldphoto = params[:person][:oldphoto]
 	    if @person.update_attributes(persons_params)
 		    if @person.family_roll=='Otro'
 				@person.update_attributes(family_roll:params[:person][:other])

@@ -4,7 +4,7 @@
 		<li><strong>Hora:</strong> <%= @lecture.date.strftime('%I:%M %p') %></li>
   </div>
 </div>
-<h1>Ejercicios</h1>
+<h1>Ejercicios <%= @lecture.exercises.count %></h1>
 <div class="all_width">
 	<table class="table table-striped">
 		<tr>	
@@ -29,7 +29,7 @@
 		<p><button type="button" class="btn btn-default btn-xs">Seleccionar Ejercicios</button></p>
 	<% end %>
 </div>
-<h1>Asistencia</h1>
+<h1>Asistencia <%= "#{@lecture.attendances.count} / #{@group.spots.count}" %></h1>
 <div id="attendances" class="all_width">
 	<div id="scroll_attendances">
 		<% @lecture.attendances.each do |c| %>
@@ -47,7 +47,8 @@
 		<p><button type="button" class="btn btn-default btn-xs">Tomar Asistencia</button></p>
 	<% end %>
 </div>
-<h1>Observación</h1>
+
+<!-- <h1>Observación</h1>
 <div class="all_width">
 	<p><%= @lecture.observation %></p>
 </div>
@@ -58,4 +59,4 @@
 	<%= link_to edit_group_lecture_path(@group, @lecture) do %>
 		<p><button type="button" class="btn btn-default btn-xs">Editar Clase</button></p>
 	<% end %>
-</div>
+</div> -->
