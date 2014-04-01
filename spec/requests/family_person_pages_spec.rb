@@ -122,7 +122,7 @@ describe "Family-Person pages" do
 				choose "person_sex_f"
 				select 'Padre', from: 'person[family_roll]'
 				select  '2002', from: 'person[dob(1i)]'
-				select  'February' , from: 'person[dob(2i)]'
+				select  'Febrero' , from: 'person[dob(2i)]'
 				select  '21' , from: 'person[dob(3i)]'
 				# Otra forma de hacerlo	
 				# within '#person_dob_3i' do

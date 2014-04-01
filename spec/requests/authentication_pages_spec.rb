@@ -223,9 +223,9 @@ describe "Authentication" do
               within '#group_finish_date_1i' do
                 find("option[2]").select_option
               end
-              select "January", from: "group[init_date(2i)]"
+              select "Enero", from: "group[init_date(2i)]"
               select "12", from: "group[init_date(3i)]"
-              select "January", from: "group[finish_date(2i)]"
+              select "Enero", from: "group[finish_date(2i)]"
               select "12", from: "group[finish_date(3i)]"
               fill_in "group[min_age]", :with => "0"
               fill_in "group[max_age]", :with => "100"

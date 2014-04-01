@@ -54,7 +54,38 @@ class PaymentsController < ApplicationController
 		# redirect_to group_spot_path(@group, @spot)
 	end
 
+	def search
+		init_date = (params[:init][0]).to_date
+		ended_date = (params[:end][0]).to_date
+
+		@payments = Payment.all
+
+		if params[:group_id]
+			@group = Group.find_by_id(params[:group_id])
+		end
+		if @group
+			@payments = @group.payments
+		end
+		if init_date && ended_date
+			@payments = @payments.where("date >= :start_date AND date<= :end_date ", { start_date: init_date, end_date: ended_date })
+		end
+		if init_date && !ended_date
+			@payments = @payments.where("date >= :start_date", { start_date: init_date })
+		end
+		if !init_date && ended_date
+			@payments = @payments.where("date<= :end_date ", { end_date: ended_date })
+		end
+	end
+
 	private
+
+	# def convert_date(hash)
+	# 	if hash['(1i)'] != '' && hash['(2i)'] != '' && hash['(3i)'] != ''
+	#     	return Date.new(hash['(1i)'].to_i, hash['(2i)'].to_i, hash['(3i)'].to_i)
+	#     else
+	#     	return false
+	#     end
+ #    end
 
 	def payment_params
       params.require(:payment).permit( :date, :spot_id, :scholarship, :amount )

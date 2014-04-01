@@ -94,4 +94,10 @@ function over_and_clicks(){
 		$(this).remove();
 	});
 
+    $('.pops').hover(function(event) {
+        $(this).popover('show');
+    },function(){
+        $('.btn').popover('hide');
+    });
+
 }

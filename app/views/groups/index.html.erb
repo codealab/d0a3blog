@@ -13,22 +13,22 @@
 	<table class="table table-striped tablesorter">
 		<thead>
 			<tr>
-				<th>Grupo</th>
-				<th>Facilitadora</th>
-				<th>Costo</th>
-				<th>Edad recomendada</th>
-				<th>Inicio de curso</th>
-				<th>Fin de curso</th>
-				<th>ubicación</th>
-				<th>Inscripciones</th>
+				<th class="td_center">Grupo</th>
+				<th class="td_center">Facilitadora</th>
+				<th class="td_center">Costo</th>
+				<th class="td_center">Edad recomendada</th>
+				<th class="td_center">Inicio de curso</th>
+				<th class="td_center">Fin de curso</th>
+				<th class="td_center">Ubicación</th>
+				<th class="td_center">Inscripciones</th>
 			</tr>
 		</thead>
 		<tbody>
 			<% @groups.each_with_index do |group,index| %>
-				<tr>
+				<tr class="td_center">
 					<td><%= link_to group.name, group %></td>
 					<td><%= group.user.name %></td>
-					<td><%= group.cost %></td>
+					<td>$<%= group.cost %></td>
 					<td><%= "De #{group.min_age} a #{group.max_age} Semanas" %></td>
 					<td><%= group.init_date.strftime('%d/%m/%Y') %></td>
 					<td><%= group.finish_date.strftime('%d/%m/%Y') %></td>
@@ -66,7 +66,7 @@
 							end
 						end %>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel"><%= group.name %>.</h4>
+					<h4 class="modal-title" id="myModalLabel">Inscripciones en grupo <%= group.name %> / Costo Total: <b>$<%= (group.cost).to_i * group.spots.count %></b></h4>
 				</div>
 			<div class="modal-body">
 				<div class="all_width blue_box">
@@ -77,10 +77,12 @@
 							<th>Tutor</th>
 							<th>Pagos</th>
 							<th>Saldos</th>
+							<th>Beca</th>
 						</thead>
 						<tbody>
 							<% grantotal = 0
-							granfaltante = 0 %>
+								granfaltante = 0
+								becas = 0 %>
 							<% group.spots.each_with_index do |spot,index| %>
 								<tr>
 									<td class="td_center">
@@ -97,34 +99,44 @@
 										<% end %>
 									</td>
 									<% total = 0
-									faltante = 0 %>
-									<% spot.payments.each do |p|
-										total = total + p.amount
-										end %>
+										faltante = 0
+										beca = 0 %>
+									<% spot.payments.each do |p| %>
+										<% if p.scholarship %>
+											<% beca += p.amount %>
+										<% else %>
+											<% total += p.amount %>
+										<% end %>
+									<% end %>
 									<% faltante = group.cost-total
 										granfaltante = granfaltante + faltante
-										grantotal = grantotal + total %>
+										grantotal = grantotal + total
+										becas += beca %>
 									<td>$<%= total %></td>
 									<td>$<%= faltante %></td>
+									<td>$<%= beca %></td>
 								</tr>
 							<% end %>
-								<tr class="total_blue">
-									<td></td>
-									<td></td>
-									<td><b>Total:</b></td>
-									<td>$<%= grantotal %></td>
-									<td>$<%= granfaltante %></td>
-								</tr>
 							</tbody>
+							<tr class="total_blue">
+								<td></td>
+								<td></td>
+								<td><b>Total:</b></td>
+								<td class="td_center">$<%= grantotal %></td>
+								<td class="td_center">$<%= granfaltante %></td>
+								<td class="td_center">$<%= becas %></td>
+							</tr>
 						</table>
 					</div>
 				</div>
 				<div class="spacer"></div>
 				<div class="modal-footer">
 					<%= link_to new_group_spot_path(group) do %>
-						<button type="button" class="btn btn-warning btn-xs">Inscribir</button>
+						<button type="button" class="btn btn-warning" data-original-title="" title="" style="width: 150px;">
+							Inscribir
+						</button>
 					<% end %>
-					<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 				</div>
 			</div>
 		</div>

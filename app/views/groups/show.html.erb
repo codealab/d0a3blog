@@ -21,17 +21,92 @@
   </div>
 </div>
 <div class="container_big_buttons">
-	<%= link_to new_group_spot_path(@group) do %>
-		<div class="big_button">
-			<span class="glyphicon glyphicon-list-alt"></span>Inscripciones
-		</div>
-	<% end %>
+	<div class="big_button" data-toggle="modal" data-target="#group_pop_<%= @group.id %>">
+		<span class="glyphicon glyphicon-list-alt"></span>Inscripciones
+	</div>
 	<%= link_to new_group_lecture_path(@group) do %>
 		<div class="big_button" id="new_class_icon">
 			<span class="tip glyphicon glyphicon-plus-sign"></span>Nueva Clase
 		</div>
 	<% end %>
 </div>
+
+<div class="modal fade" id="group_pop_<%= @group.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<% passed = 0 %>
+					<% @group.lectures.each do |lecture|
+							if lecture.date.past?
+								passed = passed + 1
+							end
+						end %>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Detalles de inscripción en: <%= @group.name %>.</h4>
+				</div>
+			<div class="modal-body">
+				<div class="all_width blue_box">
+					<table class="table table-striped tablesorter">
+						<thead>
+							<th class="td_center">Registro</th>
+							<th>Inscritos</th>
+							<th>Tutor</th>
+							<th>Pagos</th>
+							<th>Saldos</th>
+						</thead>
+						<tbody>
+							<% grantotal = 0
+							granfaltante = 0 %>
+							<% @group.spots.each_with_index do |spot,index| %>
+								<tr>
+									<td class="td_center">
+										<%= link_to edit_group_spot_path(@group, spot), :title => "Editar" do %>
+											<span class="glyphicon glyphicon-pencil"></span>
+										<% end %>
+									</td>
+									<td>
+										<%= link_to "#{spot.child.name} #{spot.child.first_last_name} #{spot.child.second_last_name}", person_path(spot.child.id) %>
+									</td>
+									<td>
+										<% if(spot.tutor) %>
+											<%= link_to "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}", person_path(spot.tutor.id) %>
+										<% end %>
+									</td>
+									<% total = 0
+									faltante = 0 %>
+									<% spot.payments.each do |p|
+										total = total + p.amount
+										end %>
+									<% faltante = @group.cost-total
+										granfaltante = granfaltante + faltante
+										grantotal = grantotal + total %>
+									<td>$<%= total %></td>
+									<td>$<%= faltante %></td>
+								</tr>
+							<% end %>
+								<tr class="total_blue">
+									<td></td>
+									<td></td>
+									<td><b>Total:</b></td>
+									<td>$<%= grantotal %></td>
+									<td>$<%= granfaltante %></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="spacer"></div>
+				<div class="modal-footer">
+					<%= link_to new_group_spot_path(@group) do %>
+						<button type="button" class="btn btn-warning" data-original-title="" title="" style="width: 150px;">
+							Inscribir
+						</button>
+					<% end %>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <% if(@group.lectures.empty?) %>
 	<% if @group.lectures.count < 3 %>

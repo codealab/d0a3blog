@@ -55,9 +55,9 @@ describe 'Group pages' do
 				within '#group_finish_date_1i' do
 					find("option[2]").select_option
 				end
-				select "January", from: "group[init_date(2i)]"
+				select "Enero", from: "group[init_date(2i)]"
 				select "12", from: "group[init_date(3i)]"
-				select "January", from: "group[finish_date(2i)]"
+				select "Enero", from: "group[finish_date(2i)]"
 				select "12", from: "group[finish_date(3i)]"
 				fill_in "group[min_age]", :with => "0"
 				fill_in "group[max_age]", :with => "100"
@@ -108,10 +108,10 @@ describe 'Group pages' do
 		# 		visit edit_group_path(group)
 		# 		fill_in "group[name]", :with => "Renamed Group"
 		# 		select 2014, from: "group[init_date(1i)]"
-		# 		select "January", from: "group[init_date(2i)]"
+		# 		select "Enero", from: "group[init_date(2i)]"
 		# 		select "12", from: "group[init_date(3i)]"
 		# 		select 2014, from: "group[finish_date(1i)]"
-		# 		select "January", from: "group[finish_date(2i)]"
+		# 		select "Enero", from: "group[finish_date(2i)]"
 		# 		select "12", from: "group[finish_date(3i)]"
 		# 		fill_in "group[min_age]", :with => "0"
 		# 		fill_in "group[max_age]", :with => "100"
@@ -185,7 +185,7 @@ describe 'Group pages' do
 			before do
 				fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
 				select '2014', from: 'lecture[date(1i)]'
-				select 'February', from: 'lecture[date(2i)]'
+				select 'Febrero', from: 'lecture[date(2i)]'
 				select '12', from: 'lecture[date(3i)]'
 				select '11', from: 'lecture[date(4i)]'
 				select '30', from: 'lecture[date(5i)]'
@@ -200,7 +200,7 @@ describe 'Group pages' do
 			before do
 				fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
 				select '2014', from: 'lecture[date(1i)]'
-				select 'March', from: 'lecture[date(2i)]'
+				select 'Marzo', from: 'lecture[date(2i)]'
 				select '30', from: 'lecture[date(3i)]'
 				select '12', from: 'lecture[date(4i)]'
 				select '00', from: 'lecture[date(5i)]'
@@ -226,7 +226,7 @@ describe 'Group pages' do
 			before do
 				fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
 				select '2014', from: 'lecture[date(1i)]'
-				select 'February', from: 'lecture[date(2i)]'
+				select 'Febrero', from: 'lecture[date(2i)]'
 				select '24', from: 'lecture[date(3i)]'
 				select '12', from: 'lecture[date(4i)]'
 				select '00', from: 'lecture[date(5i)]'
@@ -352,7 +352,7 @@ describe 'Group pages' do
 
 					before do
 						select "12", from: "payment[date(3i)]"
-						select "January", from: "payment[date(2i)]"
+						select "Enero", from: "payment[date(2i)]"
 						select "2014", from: "payment[date(1i)]"
 						fill_in "payment[amount]", :with => "999"
 						expect { click_button "Guardar" }.to change(Payment, :count).by(1)

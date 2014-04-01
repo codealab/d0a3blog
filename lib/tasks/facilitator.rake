@@ -3,6 +3,7 @@ namespace :facilitator do
   task mailing: :environment do
   	lectures = Lecture.where('date > ? AND date < ?', Date.today, Date.tomorrow+1.day)
   	lectures.each do |lecture|
+  		user = lecture.group.user
   		UserMailer.user_added(user,lecture).deliver
   	end
   end

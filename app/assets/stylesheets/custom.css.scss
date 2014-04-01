@@ -316,10 +316,8 @@ footer {
 
 /* Table */
 
-.td_center {
-   text-align: center;   
-}
-
+.td_center { text-align: center; }
+.td_left { text-align: left; }
 /* Group show */
 
 .panel-primary {
@@ -331,6 +329,7 @@ footer {
 
 #new_class_icon{ float: right; }
 .big_button{
+  cursor: pointer;
   width: 49%;
   background: #f1f1f1;
   height: 35px;

@@ -230,3 +230,19 @@ body{
 	position: relative;
 	top: -5px;
 }
+/*PAYMENTS*/
+.search_half {
+	float: left;
+	width: 32%;
+	margin-right: 1%;
+}
+.search_half .form-control{
+	margin-right: 1%;
+	float: left;
+}
+#group_id{ width: 100%; }
+#search_payments{
+	top: 10px;
+	width: 97%;
+	float: left;
+}

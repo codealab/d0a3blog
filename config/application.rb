@@ -22,12 +22,13 @@ module D0A3
     # config.time_zone = 'Central Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    
+    # config.i18n.load_path += Dir[Rails.root.join('lib', 'locale', '*.{rb,yml}').to_s]
+    # config.i18n.default_locale = :es
 
     config.time_zone = 'Guadalajara'
 
-    config.i18n.enforce_available_locales = true
+    config.i18n.enforce_available_locales = false
     config.assets.initialize_on_precompile = false
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 

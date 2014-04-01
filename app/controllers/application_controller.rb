@@ -9,9 +9,14 @@ class ApplicationController < ActionController::Base
 
   before_action :require_login
   before_action :user_visor, only: [:update, :create, :destroy]
+  before_action :set_locale
 
+  def set_locale
+    I18n.locale = :es
+  end
+  
   private
- 
+
   def require_login
     cookies.permanent[:previous] = request.url
     unless signed_in?
