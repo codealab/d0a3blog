@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20140213184330) do
     t.integer  "amount"
     t.date     "date"
     t.integer  "spot_id"
+    t.integer  "group_id"
     t.boolean  "scholarship", default: false
     t.datetime "created_at"
     t.datetime "updated_at"

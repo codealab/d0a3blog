@@ -1,9 +1,12 @@
-<% provide(:title, "Todos los Miembros") %>
+<% provide(:title, "Todos los Pagos") %>
 
 <div class="boton_der">
 	<h1>Todos los Pagos<span class="line"></span></h1>
 </div>
 
+<%= render '/payments/searchform' %>
+
+<div class="spacer"></div>
 <div class="all_width blue_box">
 	<table class="table table-striped tablesorter">
 		<thead>
@@ -16,16 +19,58 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% @payments.each do |p| %>
+			<% total = 0 %>
+			<% @payments.where(:scholarship => false).each do |p| %>
 				<tr>
 					<td><%= p.date %></td>
-					<td><%= link_to p.spot.child.name, p.spot.child %></td>
-					<td><%= link_to p.spot.tutor.name, p.spot.tutor %></td>
+					<td><%= link_to p.spot.child.full_name, p.spot.child %></td>
+					<td><%= link_to p.spot.tutor.full_name, p.spot.tutor %></td>
 					<td><%= link_to p.spot.group.name, p.spot.group %></td>
 					<td>$<%= p.amount %></td>
+					<% total += p.amount %>
 				</tr>
 			<% end %>
 		</tbody>
+			<tr class="total_blue">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>Total:</td>
+				<td>$<%= total %></td>
+			</tr>
+	</table>
+	<h4>Becas</h4>
+	<div class="under_pressure"></div>
+	<table class="table table-striped tablesorter">
+		<thead>
+			<tr>
+				<th>Fecha</th>
+				<th>Niño</th>
+				<th>Tutor</th>
+				<th>Grupo</th>
+				<th>Cantidad</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% total = 0 %>
+			<% @payments.where(:scholarship => true).each do |p| %>
+				<tr>
+					<td><%= p.date %></td>
+					<td><%= link_to p.spot.child.full_name, p.spot.child %></td>
+					<td><%= link_to p.spot.tutor.full_name, p.spot.tutor %></td>
+					<td><%= link_to p.spot.group.name, p.spot.group %></td>
+					<td>$<%= p.amount %></td>
+					<% total += p.amount %>
+				</tr>
+			<% end %>
+		</tbody>
+			<tr class="total_blue">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>Total:</td>
+				<td>$<%= total %></td>
+			</tr>
 	</table>
 	<%= will_paginate @payments, renderer: BootstrapPagination::Rails %>
 </div>

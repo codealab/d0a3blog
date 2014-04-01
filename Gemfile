@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 gem 'bootstrap-sass', '~> 3.0.0.0.rc2'
-
 # Use postgresql as the database for Active Record
 gem 'pg'
 #gem 'texticle', require: 'texticle/rails'
@@ -21,7 +20,7 @@ gem 'simple_form'
 # gem 'therubyracer', platforms: :ruby
 # Use bycrypt to encode keys and restore on cookies sessions
 # Use jquery as the JavaScript library
-
+gem 'i18n', '~> 0.6.9'
 gem "carrierwave"
 
 if RUBY_PLATFORM =~ /darwin/i

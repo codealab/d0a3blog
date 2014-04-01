@@ -6,7 +6,7 @@
 			<% end %>
 			<p><button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lecture_observation">Observación</button></p>
 		</div>
-		<h4>Clase del <%= @lecture.date.strftime('%A') %> <%= @lecture.date.strftime('%d') %> de <%= @lecture.date.strftime('%B') %> / <%= @lecture.date.strftime('%H:%M') %></h4>
+		<h4>Clase del <%= @lecture.date.to_s(:standard) %></h4>
 	</div>
 	<div class="boton_der">
 		<div class="top_buttons top_buttons_group">
@@ -89,7 +89,7 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel"><%= c.person.full_name %></h4>
+								<h4 class="modal-title" id="myModalLabel"><%= link_to c.person.full_name, c.person %></h4>
 							</div>
 							<%= form_tag("/attendances/observation/#{c.id}", :method => "get", remote: true ) do %>
 								<div class="modal-body">

@@ -19,24 +19,35 @@
 			<thead>
 				<tr>
 					<th>Nombre</th>
-					<th>Apellido Paterno</th>
-					<th>Apellido Materno</th>
 					<th class="td_center">Sexo</th>
 					<th class="td_center">Fecha de Nacimiento</th>
 					<th>Relación</th>
+					<th class="td_center">Pagos</th>
+					<th class="td_center">Saldo</th>
 					<th class="td_center">Editar</th>
 					<th class="td_center">Borrar</th>
 				</tr>
 			</thead>
 			<tbody>
+				<% totalFamily = 0
+					totalGroupsFamily = 0 %>
 				<% @family.family_members.order("name ASC").each do |member| %>
 					<tr>
-						<td><%= link_to member.name, member %></td>
-						<td><%= member.first_last_name %></td>
-						<td><%= member.second_last_name %></td>
+						<td><%= link_to member.full_name, member %></td>
 						<td class="td_center"><%= member.sex %></td>
 						<td class="td_center"><%= member.dob %></td>
 						<td><%= member.family_roll %></td>
+						<% total = 0
+							totalGroups = 0 %>
+						<% member.spots.each do |spot| %>
+							<% spot.payments.each { |p| total += p.amount } %>
+						<% end %>
+						<% member.groups.each { |g| totalGroups += g.cost } %>
+						<% totalpergroup = totalGroups-total
+						   totalFamily += total
+						   totalGroupsFamily += totalpergroup %>
+						<td class="td_center">$<%= total %></td>
+						<td class="td_center">$<%= totalpergroup %></td>
 						<td class="td_center">
 							<%= link_to edit_family_person_path(@family, member) do %>
 								<button type="button" class="btn btn-default btn-xs">Editar</button>
@@ -50,6 +61,16 @@
 					</tr>
 				<% end %>
 			</tbody>
+			<tr class="total_blue">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><b>Total</b></td>
+				<td class="td_center">$<%= totalFamily %></td>
+				<td class="td_center">$<%= totalGroupsFamily %></td>
+				<td></td>
+				<td></td>
+			</tr>
 		</table>
 		<div class="boton_der">
 			<% if @family.can_destroy? %>

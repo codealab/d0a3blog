@@ -10,6 +10,8 @@ class Person < ActiveRecord::Base
 	has_many :spots, :foreign_key => :child_id, :dependent => :restrict_with_error
 
 	has_many :groups, through: :spots, source: :group
+	has_many :payments, through: :spots
+	# has_many :lectures, through: :groups, source: :lectures	
 	
 	mount_uploader :photo, PhotoUploader
 

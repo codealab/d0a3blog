@@ -2,7 +2,7 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_to @family do %>
+		<%= link_to @person.families.first do %>
 			<p><button type="button" class="btn btn-info">Regresar a Familia</button></p>
 		<% end %>
 		<%= link_to edit_family_person_path(@person.families.first, @person) do %>
@@ -44,131 +44,174 @@
 			</div>
 		</div>
 	</div>
-	<% if (((Date.today.to_date - @person.dob.to_date)/365).to_i)<5  %>
 
+	<% if is_child %>
 		<div class="col-md-8">
-			<!-- <h4>Familias</h4>
-			<div class="under_pressure"></div>
-			<div class="all_width blue_box">
-				<table class="table table-striped">
-					<% @person.families.each do |family| %>
-						<tr>
-							<td><%= link_to family.name, family %></td>
-						</tr>
-					<% end %>
-				</table>
-			</div>
-			<div class="spacer"></div> -->
 			<h4>Grupos</h4>
 			<div class="under_pressure"></div>
 			<div class="all_width blue_box">
 				<table class="table table-striped">
-					<tr>
-						<th>Nombre</th>
+					<tr class="td_center">
+						<th>Registro</th>
+						<th>Grupo</th>
+						<th>Costo</th>
 						<th>Asistencias</th>
-						<th>Observaciones</th>
+						<th>Faltas</th>
+						<th>Saldos</th>
 						<th>Pagos</th>
+						<th>Observaciones</th>
 					</tr>
-					<% @person.spots.each_with_index do |spot,index| %>
-						<tr>
-							<td><%= link_to spot.group.name, spot.group %></td>
-							<% spot.group.lectures.each do |l| %>
-								<% l.attendances.each do |a| %>
-									<%= a.person.name %>
+					<% totalgroups = 0
+						allattendances = 0
+						allfouls = 0
+						saldos = 0 %>
+					<% @person.groups.each_with_index do |group,index| %>
+						<tr class="td_center">
+							<td class="td_center">
+								<%= link_to edit_group_spot_path(group, @person.spots.find_by_group_id(group.id )), :title => 'Editar' do %>
+									<span class="glyphicon glyphicon-pencil"></span>
+								<% end %>
+							</td>
+							<td class="td_left"><%= link_to group.name, group %></td>
+							<td>$<%= group.cost %></td>
+
+							<% totalgroups += group.cost
+								totalpergroup = 0 %>
+
+							<% @person.payments.where(:group_id=>group.id).each do |p| %>
+								<% totalpergroup += p.amount %>
+							<% end %>
+
+							<% totalclases = 0
+								asistencias = 0 %>
+
+							<% group.lectures.each_with_index do |lecture,index| %>
+								<% if lecture.date.past? %>
+									<% totalclases += 1 %>
+									<% lecture.attendances.each_with_index do |attendance,index| %>
+										<% if attendance.person_id == @person.id %>
+											<% asistencias += 1 %>
+										<% end %>
+									<% end %>
 								<% end %>
 							<% end %>
-							<td><%= spot.group.lectures.count %></td>
+
+							<% attendancepercent = (asistencias.to_f*100)/totalclases
+								foulspercent = ((totalclases.to_f-asistencias)*100)/totalclases
+								allattendances += attendancepercent
+								allfouls += foulspercent
+								saldo = (group.cost).to_i-totalpergroup
+								saldos += saldo %>
+
+							<td><%= attendancepercent.round(2) %>%</td>
+							<td><%= foulspercent.round(2) %>%</td>
+							<td>$<%= saldo %></td>
 							<td>
-								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#per_<%= index %>">
-								  Observaciones
-								</button>
-								<div class="modal fade" id="per_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								  <div class="modal-dialog">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								        <h4 class="modal-title" id="myModalLabel">Observaciones en clases del grupo <%= spot.group.name %></h4>
-								      </div>
-								      <div class="modal-body">
-								      	<div class="observation_container blue_box">
-									        <% spot.group.lectures.each do |lec| %>
-									        	<% if lec.observation != "" && lec.observation != nil %>
-									        		<table class="table table-striped">
-														<tr>
-															<th>Fecha</th>
-															<th>Observación</th>
-														</tr>
-														<tr>
-															<td><%= lec.date.strftime('%d/%m/%Y') %></td>
-															<td><%= lec.observation %></td>
-														</tr>
-													</table>
-									        	<% end %>
-									        <% end %>
-									    </div>
-								        <div class="spacer"></div>
-								      </div>
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-								      </div>
-								    </div>
-								  </div>
-								</div>
+								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#totalpergroup_<%= index %>"> Pagos </button>
 							</td>
 							<td>
-								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#payment_<%= index %>">
-								  Pagos
-								</button>
-								<div class="modal fade" id="payment_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								  <div class="modal-dialog">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								        <h4 class="modal-title" id="myModalLabel">Pagos en el grupo <%= spot.group.name %></h4>
-								      </div>
-								      <div class="modal-body">
-								      	<div class="observation_container blue_box">
-								      		<% if spot.payments.count>0 %>
-										        <% spot.payments.each do |payment| %>
-										        	<table class="table table-striped">
-														<tr>
-															<th>Fecha</th>
-															<th>Cantidad</th>
-															<th>Beca</th>
-														</tr>
-														<tr>
-															<td><%= payment.date.strftime('%d/%m/%Y') %></td>
-															<td>$<%= payment.amount %></td>
-															<td>
-																<% if payment.scholarship %>
-																	SI
-																<% else %>
-																	NO
-																<% end %>
-															</td>
-														</tr>
-													</table>
-												<% end %>
-											<% else %>
-												No hay ningún pago realizado
-											<% end %>
-										</div>
-										<div class="spacer"></div>
-									</div>
-									<div class="modal-footer">
-										<%= link_to new_group_spot_payment_path(spot.group, spot) do %>
-											<button type="button" class="btn btn-warning">Realizar Pagos</button>
-										<% end %>
-										<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</td>
-				</tr>
-				<% end %>
-			</table>
+								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#attpergroup_<%= index %>"> Observaciones </button>
+							</td>
+						</tr>
+					<% end %>
+					<tr class="total_blue">
+						<td></td>
+						<td>Total</td>
+						<td class="td_center">$<%= totalgroups %></td>
+						<td class="td_center"><%= (allattendances/@person.groups.count).round(2) %>%</td>
+						<td class="td_center"><%= (allfouls/@person.groups.count).round(2) %>%</td>
+						<td class="td_center">$<%= saldos %></td>
+						<td></td>
+						<td><%  %></td>
+					</tr>
+				</table>
 		</div>
 	</div>
 	<% end %>
 </div>
+
+
+<% @person.groups.each_with_index do |group,index| %>
+	<div class="modal fade" id="totalpergroup_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Pagos en el grupo <%= group.name %></h4>
+				</div>
+				<div class="modal-body">
+					<div class="observation_container blue_box">
+						<table class="table table-striped">
+							<tr>
+								<th>Fecha</th>
+								<th>Pago</th>
+								<th>Saldo</th>
+							</tr>
+							<% totalpergroup = 0 %>
+							<% @person.payments.where(:group_id=>group.id).each do |p| %>
+								<tr>
+									<td><%= p.date %></td>
+									<td>$<%= p.amount %></td>
+									<td>$<%= (group.cost).to_i-totalpergroup %></td>
+								</tr>
+								<% totalpergroup += p.amount %>
+							<% end %>
+							<tr class="total_blue">
+								<td>Total</td>
+								<td>$<%= totalpergroup  %></td>
+								<td>$<%= (group.cost).to_i-totalpergroup  %></td>
+							</tr>
+						</table>
+					</div>
+					<div class="spacer"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="attpergroup_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Observaciones en clases del grupo <%= group.name %></h4>
+				</div>
+				<div class="modal-body">
+					<div class="observation_container blue_box">
+						<table class="table table-striped">
+							<tr>
+								<th>Fecha</th>
+								<th>Observación</th>
+							</tr>
+							<% group.attendances.each_with_index do |attendance,index| %>
+								<% if attendance.lecture.date.past? %>
+									<tr>
+										<% if attendance.person_id == @person.id %>
+											<td>
+												<a href="/groups/<%= group.id %>?lecture=<%= attendance.lecture.id %>" title="Abrir Clase">
+													<%= attendance.lecture.date.strftime('%d/%m/%Y') %>
+												</a>
+											</td>
+											<% if attendance.observation != "" && attendance!=nil %>
+												<td><%= attendance.observation %></td>
+											<% else %>
+												<td>No hay observaciones</td>
+											<% end %>
+										<% end %>
+									</tr>
+								<% end %>
+							<% end %>
+						</table>
+					</div>
+					<div class="spacer"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>

@@ -5,8 +5,8 @@ class Group < ActiveRecord::Base
 	belongs_to :user
 	has_many :spots, :dependent => :restrict_with_error
 	has_many :lectures, :dependent => :restrict_with_error
-
 	has_many :attendances, through: :lectures
+	has_many :payments, through: :spots
 
 	validates_presence_of :name, :user_id, :cost, :location, :min_age, :max_age, :init_date, :finish_date
 	validates :name, length: { maximum: 50 }

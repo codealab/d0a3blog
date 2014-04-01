@@ -1,0 +1,25 @@
+<%= form_tag :controller => 'payments', :action => 'search', :method => 'get' do %>
+	<div class="light_box all_width">		
+		  <div class="search_half">
+		  	<div class="title_search">
+		  		<%= label_tag(:init, "Desde:") %>
+		  	</div>
+		  	<%= date_field :init, nil, :include_blank => true, :class => "form-control date_payment_field" %>
+		  </div>
+		  <div class="search_half">
+		  	<div class="title_search">
+		  		<%= label_tag(:end, "Hasta:") %>
+		  	</div>
+		  	<%= date_field :end, nil, :include_blank => true, :class => "form-control date_payment_field" %>
+		  </div>
+		<div class="search_half">
+		 	<div class="title_search">
+		  		<%= label_tag(:group, "Grupo:") %>
+		  	</div>
+		  	<%= select_tag 'group_id', options_for_select(Group.all.collect{ |u| [u.name, u.id] } ), :include_blank => true, :class => "form-control" %>
+		</div>
+		<div class="boton_der" id="search_payments">
+			<p><%= submit_tag "Buscar", :class => "btn btn-sm btn-primary" %></p>
+		</div>
+	</div>
+<% end %>

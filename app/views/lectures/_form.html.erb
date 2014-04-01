@@ -10,7 +10,7 @@
 			</p>
 			
 			<p><%= f.input :observation, label:"Observaciones" %></p>
-
+			<!--
 			<% if params[:action] == 'edit' %>
 				<% if(@lecture.attendances.empty?) %>
 					<p><%= f.label "Esta clase no tiene aún asistencias" %></p>
@@ -20,7 +20,7 @@
 						<p><%= a.person.name %></p>
 					<% end %>
 				<% end %>
-	   		<% end %>
+	   		<% end %>-->
 			<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
 		<% end %>
 	</div>

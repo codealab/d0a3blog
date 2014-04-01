@@ -9,7 +9,25 @@
 	</div>
 	<h1>Inscripciones<span class="line"></span></h1>
 </div>
+<div class="panel panel-primary top_panel">
+	<div class="group_info">
 
+		<% grantotal = 0
+		granfaltante = 0 %>
+		<% @group.spots.each_with_index do |spot,index| %>
+			<% total = 0
+			faltante = 0 %>
+			<% spot.payments.each { |p| total = total + p.amount } %>
+				<% faltante = @group.cost-total
+				granfaltante = granfaltante + faltante
+				grantotal = grantotal + total %>
+			<% end %>	
+
+		<li><strong>Pagos del Grupo:</strong>$<%= grantotal %></li>
+		<li><strong>Saldos del Grupo:</strong>$<%= granfaltante %></li>
+  </div>
+</div>
+<div class="spacer"></div>
 <% if(@childs) %>
  	<div class="light_box all_width">
 	 	<div id="total_spots">

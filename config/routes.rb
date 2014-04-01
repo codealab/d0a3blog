@@ -32,6 +32,7 @@ D0A3::Application.routes.draw do
   get "sessions/edit"
   get "sessions/create"
   get "sessions/destroy"
+  post "payments/search"
 
   match '/user',    to: 'users#show',           via: 'get'
   match '/edit',    to: 'users#edit',           via: 'get'

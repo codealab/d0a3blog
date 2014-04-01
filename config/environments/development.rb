@@ -8,7 +8,7 @@ D0A3::Application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
-
+  config.i18n.available_locales = ['es-MX', :es]
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
