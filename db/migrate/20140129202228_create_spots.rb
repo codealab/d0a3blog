@@ -4,6 +4,7 @@ class CreateSpots < ActiveRecord::Migration
 		t.integer :child_id
 		t.integer :tutor_id
 		t.integer :group_id
+		t.integer :balance
 
 		t.timestamps
     end
