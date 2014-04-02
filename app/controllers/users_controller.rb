@@ -21,8 +21,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "De 0 a 3"
-      redirect_to users_path
+      if params[:user][:photo].present?
+        render :crop
+      else
+        flash[:success] = "De 0 a 3"
+        redirect_to users_path
+      end
     else
       render 'new'
     end
@@ -36,8 +40,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # params[:user].delete(:password) if params[:user][:password].blank?
     if @user.update_attributes(user_params)
-      flash[:success] = "Actualización exitosa"
-      redirect_to users_path
+      if params[:user][:photo].present?
+        render :crop
+      else
+        flash[:success] = "Actualización exitosa"
+        redirect_to users_path
+      end
     else
       render 'edit'
     end
@@ -52,7 +60,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin, :coordinator, :facilitator, :photo)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin, :coordinator, :facilitator, :photo, :crop_x, :crop_y, :crop_w, :crop_h )
     end
 
     def signed_in_user

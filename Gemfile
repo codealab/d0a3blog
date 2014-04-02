@@ -21,13 +21,18 @@ gem 'simple_form'
 # Use bycrypt to encode keys and restore on cookies sessions
 # Use jquery as the JavaScript library
 gem 'i18n', '~> 0.6.9'
+gem 'jcrop-rails-v2'
+#gem 'protected_attributes'
 gem "carrierwave"
 
-if RUBY_PLATFORM =~ /darwin/i
-  gem "rmagick"
-  gem "fog"
-  gem "unf"
+if RbConfig::CONFIG["target_os"] =~ /mswin|mingw|cygwin/i
+  gem "mini_magick"
+else
+  gem "rmagick", :require => "RMagick"
 end
+
+gem "fog"
+gem "unf"
 
 gem 'will_paginate-bootstrap'
 gem 'jquery-rails'
@@ -43,7 +48,7 @@ group :doc do
 end
 
 group :test do
-  gem 'rspec-rails', '2.13.1'
+  gem 'rspec-rails'
   gem 'selenium-webdriver', '2.35.1'
   gem "capybara", "~> 2.2.1"
   gem 'factory_girl_rails', '4.2.1'

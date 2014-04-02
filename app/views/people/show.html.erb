@@ -51,8 +51,8 @@
 			<div class="under_pressure"></div>
 			<div class="all_width blue_box">
 				<table class="table table-striped">
-					<tr class="td_center">
-						<th>Registro</th>
+					<tr>
+						<th class="td_center">Registro</th>
 						<th>Grupo</th>
 						<th>Asistencias</th>
 						<th>Saldos</th>
@@ -62,7 +62,7 @@
 					<% allattendances = 0
 						saldos = 0 %>
 					<% @person.groups.each_with_index do |group,index| %>
-						<tr class="td_center">
+						<tr>
 							<td class="td_center">
 								<%= link_to edit_group_spot_path(group, @person.spots.find_by_group_id(group.id )), :title => 'Editar' do %>
 									<span class="glyphicon glyphicon-pencil"></span>
@@ -108,8 +108,8 @@
 					<tr class="total_blue">
 						<td></td>
 						<td>Total</td>
-						<td class="td_center"><%= (allattendances/@person.groups.count).round(2) %>%</td>
-						<td class="td_center">$<%= saldos %></td>
+						<td><%= (allattendances/@person.groups.count).round(2) %>%</td>
+						<td>$<%= saldos %></td>
 						<td></td>
 						<td><%  %></td>
 					</tr>

@@ -1,13 +1,15 @@
 # encoding: UTF-8
 class User < ActiveRecord::Base
+
+	attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+
 	before_save :downcase_names
-  after_initialize :titleize_names
+	after_update :crop_user
+	after_initialize :titleize_names
 	before_create :create_remember_token
 	before_save { self.email = email.downcase }
-	
-	has_many :groups, :dependent => :restrict_with_error
 
-	mount_uploader :photo, PhotoUploader
+	has_many :groups, :dependent => :restrict_with_error
 	
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
@@ -21,6 +23,8 @@ class User < ActiveRecord::Base
 
 	scope :facilitadores, proc {where(:facilitator => true)}
 
+	mount_uploader :photo, PhotoUploader
+
 	def name
 		read_attribute(:name).try(:titleize)
 	end	
@@ -31,6 +35,10 @@ class User < ActiveRecord::Base
 
 	def User.encrypt(token)
     	Digest::SHA1.hexdigest(token.to_s)
+	end
+
+	def crop_user
+		photo.recreate_versions! if crop_x.present?
 	end
 
 	private
