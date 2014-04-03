@@ -25,7 +25,7 @@
 				<th>Coordinador</th>
 			</tr>
 			<tr>
-				<td><%= image_tag @user.photo_url.to_s, id: "image_url" %></td>
+				<td><%= image_tag @user.photo_url(:thumb).to_s, id: "image_url" %></td>
 				<td><%= @user.name %></td>
 				<td><%= @user.email %></td>
 				<% if @user.admin %>

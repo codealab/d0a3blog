@@ -45,38 +45,32 @@
 		</div>
 	</div>
 
-	<% if is_child %>
+	<% if is_coursing %>
 		<div class="col-md-8">
 			<h4>Grupos</h4>
 			<div class="under_pressure"></div>
 			<div class="all_width blue_box">
 				<table class="table table-striped">
-					<tr class="td_center">
-						<th>Registro</th>
+					<tr>
+						<th class="td_center">Registro</th>
 						<th>Grupo</th>
-						<th>Costo</th>
 						<th>Asistencias</th>
-						<th>Faltas</th>
 						<th>Saldos</th>
 						<th>Pagos</th>
 						<th>Observaciones</th>
 					</tr>
-					<% totalgroups = 0
-						allattendances = 0
-						allfouls = 0
+					<% allattendances = 0
 						saldos = 0 %>
 					<% @person.groups.each_with_index do |group,index| %>
-						<tr class="td_center">
+						<tr>
 							<td class="td_center">
 								<%= link_to edit_group_spot_path(group, @person.spots.find_by_group_id(group.id )), :title => 'Editar' do %>
 									<span class="glyphicon glyphicon-pencil"></span>
 								<% end %>
 							</td>
 							<td class="td_left"><%= link_to group.name, group %></td>
-							<td>$<%= group.cost %></td>
 
-							<% totalgroups += group.cost
-								totalpergroup = 0 %>
+							<% totalpergroup = 0 %>
 
 							<% @person.payments.where(:group_id=>group.id).each do |p| %>
 								<% totalpergroup += p.amount %>
@@ -97,14 +91,11 @@
 							<% end %>
 
 							<% attendancepercent = (asistencias.to_f*100)/totalclases
-								foulspercent = ((totalclases.to_f-asistencias)*100)/totalclases
 								allattendances += attendancepercent
-								allfouls += foulspercent
 								saldo = (group.cost).to_i-totalpergroup
 								saldos += saldo %>
 
 							<td><%= attendancepercent.round(2) %>%</td>
-							<td><%= foulspercent.round(2) %>%</td>
 							<td>$<%= saldo %></td>
 							<td>
 								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#totalpergroup_<%= index %>"> Pagos </button>
@@ -117,10 +108,8 @@
 					<tr class="total_blue">
 						<td></td>
 						<td>Total</td>
-						<td class="td_center">$<%= totalgroups %></td>
-						<td class="td_center"><%= (allattendances/@person.groups.count).round(2) %>%</td>
-						<td class="td_center"><%= (allfouls/@person.groups.count).round(2) %>%</td>
-						<td class="td_center">$<%= saldos %></td>
+						<td><%= (allattendances/@person.groups.count).round(2) %>%</td>
+						<td>$<%= saldos %></td>
 						<td></td>
 						<td><%  %></td>
 					</tr>

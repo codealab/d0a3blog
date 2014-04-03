@@ -1,4 +1,5 @@
 class Spot < ActiveRecord::Base
+	before_create { |spot| spot.balance = self.group.cost }
 	belongs_to :group
 	belongs_to :child, :class_name => 'Person'
 	belongs_to :tutor, :class_name => 'Person'

@@ -10,7 +10,7 @@
 			<% if @user.photo_url.to_s.include?('user/default') %>
 				<img src="" id="image_url" alt="">
 			<% else %>
-				<%= image_tag @user.photo_url.to_s, id: 'image_url' %>
+				<%= image_tag @user.photo_url(:thumb).to_s, id: 'image_url' %>
 			<% end %>
 			<p><%= f.input :photo, label:"Foto" %></p>
 			<p><%= f.input :email, label:"Email" %></p>

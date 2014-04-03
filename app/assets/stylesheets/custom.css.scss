@@ -588,3 +588,23 @@ footer {
   margin: 5px;
 }
 
+/*Crop photo*/
+#mini_photo{
+  border: 1px solid rgba(255, 255, 255, 1);
+  padding: 0;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  margin: 0px 10px 10px 0px;
+}
+#photo_container{
+  position: relative;
+  margin: 0 auto;
+  width: 565px;
+}
+#crop_title {
+  position: absolute;
+  width: 445px;
+  top: 20px;
+  left: 90px;
+}

@@ -19,23 +19,20 @@
 			<thead>
 				<tr>
 					<th>Nombre</th>
-					<th class="td_center">Sexo</th>
-					<th class="td_center">Fecha de Nacimiento</th>
+					<th>Sexo</th>
+					<th>Fecha de Nacimiento</th>
 					<th>Relación</th>
-					<th class="td_center">Pagos</th>
-					<th class="td_center">Saldo</th>
-					<th class="td_center">Editar</th>
-					<th class="td_center">Borrar</th>
+					<th>Editar</th>
+					<th>Borrar</th>
 				</tr>
 			</thead>
 			<tbody>
-				<% totalFamily = 0
-					totalGroupsFamily = 0 %>
+				<% totalGroupsFamily = 0 %>
 				<% @family.family_members.order("name ASC").each do |member| %>
 					<tr>
 						<td><%= link_to member.full_name, member %></td>
-						<td class="td_center"><%= member.sex %></td>
-						<td class="td_center"><%= member.dob %></td>
+						<td><%= member.sex %></td>
+						<td><%= member.dob %></td>
 						<td><%= member.family_roll %></td>
 						<% total = 0
 							totalGroups = 0 %>
@@ -44,16 +41,13 @@
 						<% end %>
 						<% member.groups.each { |g| totalGroups += g.cost } %>
 						<% totalpergroup = totalGroups-total
-						   totalFamily += total
 						   totalGroupsFamily += totalpergroup %>
-						<td class="td_center">$<%= total %></td>
-						<td class="td_center">$<%= totalpergroup %></td>
-						<td class="td_center">
+						<td>
 							<%= link_to edit_family_person_path(@family, member) do %>
 								<button type="button" class="btn btn-default btn-xs">Editar</button>
 							<% end %>
 						</td>
-						<td class="td_center">
+						<td>
 							<%= link_to family_person_path(@family, member), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
 								<button type="button" class="btn btn-danger btn-xs">Borrar</button>
 							<% end %>
@@ -61,18 +55,10 @@
 					</tr>
 				<% end %>
 			</tbody>
-			<tr class="total_blue">
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><b>Total</b></td>
-				<td class="td_center">$<%= totalFamily %></td>
-				<td class="td_center">$<%= totalGroupsFamily %></td>
-				<td></td>
-				<td></td>
-			</tr>
 		</table>
 		<div class="boton_der">
+			<span style="color: #928C8C; position: absolute; top: 10px; font-style: italic; font-size: 12px; ">
+				*El Saldo actual de esta familia es de $<%= totalGroupsFamily %></span>
 			<% if @family.can_destroy? %>
 				<%= link_to @family, method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
 					<p><button type="button" class="btn btn-danger">Borrar Familia</button></p>

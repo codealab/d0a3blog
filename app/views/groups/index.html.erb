@@ -20,7 +20,7 @@
 				<th class="td_center">Inicio de curso</th>
 				<th class="td_center">Fin de curso</th>
 				<th class="td_center">Ubicación</th>
-				<th class="td_center">Inscripciones</th>
+				<th class="td_center">Inscripciones / Pagos</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,7 +34,7 @@
 					<td><%= group.finish_date.strftime('%d/%m/%Y') %></td>
 					<td><%= group.location %></td>
 					<td>
-						<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#group_pop_<%= index %>">Inscripciones</button>
+						<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#group_pop_<%= index %>">Inscripciones / Pagos</button>
 					</td>
 				</tr>
 			<% end %>

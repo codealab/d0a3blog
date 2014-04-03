@@ -1,0 +1,64 @@
+<div id="photo_container">
+  <div class="light_box all_width">
+    <h4>Recorta tu foto:</h4>
+    <div class="under_pressure"></div>
+      <div class="blue_box" style="width:422px;">
+        <%= image_tag @user.photo_url(:large).to_s, id: "crop_user" %>
+    </div>
+    <div class="white_box" style="width: 116px; margin-left: 5px; ">
+      <div id="mini_photo" class="blue_box">
+        <%= image_tag @user.photo_url(:large).to_s, :id => "preview" %>
+      </div>
+      <%= form_for @user do |f| %>
+          <% %w[x y w h].each do |attribute| %>
+            <%= f.hidden_field "crop_#{attribute}" %>
+          <% end %>
+          <p style="font-size: 9px; text-transform: uppercase; color: #357ebd; text-align: center; width: 100%; position: relative; ">
+            Así se verá tu foto</p>
+          <%= f.submit "Aceptar", :class => 'btn btn-sm btn-primary form-control' %>
+        <% end %>
+    </div>
+  </div>    
+</div>
+<script>
+var AvatarCropper,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+jQuery(function() {
+  return new AvatarCropper();
+});
+
+AvatarCropper = (function() {
+  function AvatarCropper() {
+    this.updatePreview = __bind(this.updatePreview, this);
+    this.update = __bind(this.update, this);
+    $('#crop_user').Jcrop({
+      aspectRatio: 1,
+      setSelect: [0, 0, 300, 300],
+      onSelect: this.update,
+      onChange: this.update
+    });
+  }
+
+  AvatarCropper.prototype.update = function(coords) {
+    $('#user_crop_x').val(coords.x);
+    $('#user_crop_y').val(coords.y);
+    $('#user_crop_w').val(coords.w);
+    $('#user_crop_h').val(coords.h);
+    return this.updatePreview(coords);
+  };
+
+  AvatarCropper.prototype.updatePreview = function(coords) {
+    return $('#preview').css({
+      width: Math.round(100 / coords.w * $('#crop_user').width()) + 'px',
+      height: Math.round(100 / coords.h * $('#crop_user').height()) + 'px',
+      marginLeft: '-' + Math.round(100 / coords.w * coords.x) + 'px',
+      marginTop: '-' + Math.round(100 / coords.h * coords.y) + 'px'
+    });
+  };
+
+  return AvatarCropper;
+
+})();
+
+</script>
