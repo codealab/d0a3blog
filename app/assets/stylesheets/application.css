@@ -247,3 +247,8 @@ body{
 	width: 97%;
 	float: left;
 }
+.counter_is_zero {
+	text-align: center;
+	font-size: 14px;
+	color: rgb(167, 166, 166);
+}

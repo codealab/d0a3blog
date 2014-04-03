@@ -36,29 +36,33 @@
 		</div>
  		<div class="all_width blue_box">
  			<div id="enlist_childs" class="white_box">
-				<% @group.spots.each do |c| %>
-					<div class="child_spot child_appended" id="child_spot_<%= c.child.id %>">
-						<img src="<%= c.child.photo %>" alt="<%= c.child.name %>" class="kid_photo">
-						<div class="weeks_stat">
-							<p><span><%= ((Date.today.to_date - c.child.dob.to_date).to_i)/7 %></span><br>Semanas</p>
-						</div>
-						<div class="kid_stats">
-							<p><%= c.child.name %></p>
-							<p><%= ("#{ c.child.first_last_name } #{ c.child.second_last_name }").slice(0..13) %>.</p>
-						</div>
-						<!-- <a href="/groups/<%= @group.id %>/spots/<%= c.id %>/edit">
-							<span class="glyphicon glyphicon-pencil"></span>
-						</a> -->
-						<% if c.can_destroy? %>
-							<div class="child_remove">
-								<a href="/spots/destroy?id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true" title="Eliminar">
-									<!-- <button type="button" class="btn btn-danger btn-xs"> Quitar </button> -->
-									<span class="glyphicon glyphicon-remove"></span>
-								</a>
+ 				<% if @group.spots.count>0 %>
+					<% @group.spots.each do |c| %>
+						<div class="child_spot child_appended" id="child_spot_<%= c.child.id %>">
+							<img src="<%= c.child.photo %>" alt="<%= c.child.name %>" class="kid_photo">
+							<div class="weeks_stat">
+								<p><span><%= ((Date.today.to_date - c.child.dob.to_date).to_i)/7 %></span><br>Semanas</p>
 							</div>
-						<% end %>
-					</div>
-				<% end %>
+							<div class="kid_stats">
+								<p><%= c.child.name %></p>
+								<p><%= ("#{ c.child.first_last_name } #{ c.child.second_last_name }").slice(0..13) %>.</p>
+							</div>
+							<!-- <a href="/groups/<%= @group.id %>/spots/<%= c.id %>/edit">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a> -->
+							<% if c.can_destroy? %>
+								<div class="child_remove">
+									<a href="/spots/destroy?id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true" title="Eliminar">
+										<!-- <button type="button" class="btn btn-danger btn-xs"> Quitar </button> -->
+										<span class="glyphicon glyphicon-remove"></span>
+									</a>
+								</div>
+							<% end %>
+						</div>
+					<% end %>
+				<% else %>
+					<h4 class="counter_is_zero">Aún no hay ningún niño inscrito en este grupo</h4>
+				<% end %>				
 			</div>
 		</div>
 
@@ -92,7 +96,7 @@
 		<% else %>
 			<div class="under_pressure"></div>
 			<div id="posibble_childs" class="all_width blue_box">
-				<h4 style="text-align: center; text-align: center; color: rgb(206, 203, 203); ">No se encontraron niños dentro del rango de edad</h4>
+				<h4 class="counter_is_zero">No se encontraron niños dentro del rango de edad</h4>
 			</div>
 		<% end %>
 

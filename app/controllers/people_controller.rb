@@ -3,7 +3,6 @@ class PeopleController < ApplicationController
 
 	before_action :signed_in_user
 	helper_method :valid_user
-	helper_method :is_coursing
 	helper_method :is_child
 	before_action :correct_user, only: [:edit, :update, :new, :create, :destroy, :delete]
 
@@ -81,7 +80,4 @@ class PeopleController < ApplicationController
 			((Date.today.to_date - @person.dob.to_date)/365).to_i < 5 ? true:false
 		end
 
-		def is_coursing
-			@person.groups.count>0 ? true:false
-		end
 end

@@ -47,30 +47,34 @@
 		</table>
 	</div>
 	<div class="spacer"></div>
-	<h4>Grupos</h4>
-	<div class="under_pressure"></div>
-	<div class="col-md-12 blue_box">
-		<% if @user.facilitator? %>
-			<table class="table table-striped tablesorter">
-				<thead>
-					<th>Grupo</th>
-					<th>Edad</th>
-					<th>Período</th>
-					<th>Costo</th>
-					<th>Ubicación</th>
-				</thead>
-				<tbody>
-					<% @user.groups.each do |g|  %>
-						<tr>
-							<td><%= g.name %></td>
-							<td><%= "#{g.min_age} a #{g.max_age} meses"%></td>
-							<td><%= g.init_date.strftime('%d/%m/%Y') %> - <%= g.finish_date.strftime('%d/%m/%Y') %></td>
-							<td><%= g.cost %></td>
-							<td><%= g.location %></td>
-						</tr>
-					<% end %>
-				</tbody>
-			</table>
-		<% end %>
-	</div>
+	<% if @user.facilitator? %>
+		<h4>Grupos</h4>
+		<div class="under_pressure"></div>
+		<div class="col-md-12 blue_box">
+			<% if @user.groups.count>0 %>
+				<table class="table table-striped tablesorter">
+					<thead>
+						<th>Grupo</th>
+						<th>Edad</th>
+						<th>Período</th>
+						<th>Costo</th>
+						<th>Ubicación</th>
+					</thead>
+					<tbody>
+						<% @user.groups.each do |g|  %>
+							<tr>
+								<td><%= g.name %></td>
+								<td><%= "#{g.min_age} a #{g.max_age} meses"%></td>
+								<td><%= g.init_date.strftime('%d/%m/%Y') %> - <%= g.finish_date.strftime('%d/%m/%Y') %></td>
+								<td><%= g.cost %></td>
+								<td><%= g.location %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			<% else %>
+				<h4 class="counter_is_zero">Este usuario (facilitador) no tiene ningún grupo a su cargo</h4>
+			<% end %>
+		</div>
+	<% end %>
 </div>

@@ -12,36 +12,38 @@
 	<h1>Asistencias<span class="line"></span></h1>
 </div>
 
-<div class="all_width light_box">
-		<div id="total_attendances">
-			<h4><span><%= @lecture.attendances.count %></span> Asistentes</h4>
-		</div>
-		<div class="under_pressure"></div>
- 		<div class="all_width blue_box<% if @lecture.attendances.empty? %> empty_box<% end %>">
-			<div class="white_box" id="attendances">
-				<% @lecture.attendances.each do |c| %>
-					<div class="child_spot child_appended" id="child_spot_<%= c.id %>">
-						<img src="<%= c.person.photo %>" alt="<%= c.person.name %>" class="kid_photo">
-						<div class="kid_stats">
-							<p><%= c.person.name %></p>
-						</div>
-						<% if c.can_destroy? %>
-							<div class="child_remove">
-								<a href="/attendances/destroy?id=<%= c.id %>&lecture_id=<%= @lecture.id %>" data-remote="true">
-									<span class="glyphicon glyphicon-remove"></span>
-								</a>
-							</div>
-						<% end %>
-					</div>
-				<% end %>
+	<div class="all_width light_box">
+		<% if @lecture.attendances.count>0 %>
+			<div id="total_attendances">
+				<h4><span><%= @lecture.attendances.count %></span> Asistentes</h4>
 			</div>
-		</div>
-		<div class="spacer"></div>
+			<div class="under_pressure"></div>
+	 		<div class="all_width blue_box">
+				<div class="white_box" id="attendances">
+					<% @lecture.attendances.each do |c| %>
+						<div class="child_spot child_appended" id="child_spot_<%= c.id %>">
+							<img src="<%= c.person.photo %>" alt="<%= c.person.name %>" class="kid_photo">
+							<div class="kid_stats">
+								<p><%= c.person.name %></p>
+							</div>
+							<% if c.can_destroy? %>
+								<div class="child_remove">
+									<a href="/attendances/destroy?id=<%= c.id %>&lecture_id=<%= @lecture.id %>" data-remote="true">
+										<span class="glyphicon glyphicon-remove"></span>
+									</a>
+								</div>
+							<% end %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+			<div class="spacer"></div>
+		<% end %>
 		<h4><%= @group.spots.count %> Inscritos</h4>
 		<div class="under_pressure"></div>
 		<div id="posible_attendances" class="all_width blue_box">
-			<div class="white_box">
-				<% if @group.spots.count>0 %>
+			<% if @group.spots.count>0 %>
+				<div class="white_box">
 					<% @group.spots.each_with_index do |c,index| %>
 						<% if c.child.family_relations.first.family.status? %>
 							<a href="/attendances/create?person_id=<%= c.child.id %>&lecture_id=<%= @lecture.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.child.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>">
@@ -58,10 +60,10 @@
 							</a>
 						<% end %>
 					<% end %>
-				<% else %>
-					<h4 style="text-align: center;">Debes realizar inscripciones al grupo antes de tomar lista</h4>
-				<% end %>
-			</div>
+				</div>
+			<% else %>
+				<h4 class="counter_is_zero">Debes realizar inscripciones al grupo para poder tomar tomar lista</h4>
+			<% end %>
 		</div>
 	</div>
 <script>

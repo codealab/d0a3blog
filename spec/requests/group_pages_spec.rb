@@ -26,9 +26,7 @@ describe 'Group pages' do
 	
 		describe 'Should render group list' do
 			it "should table of exercises" do
-				expect(page).to have_content("Grupo")
-				expect(page).to have_content("Facilitadora")
-				expect(page).to have_content("Costo")
+				expect(page).to have_content("Aún no existe ni un grupo")
 			end
 		end	
 	end
