@@ -1,2 +1,6 @@
+var total_attendances = parseInt("<%= @lecture.attendances.count %>");
 $('#attendances').append("<%= escape_javascript(render('create')) %>").fadeIn();
-$("#total_attendances span").html("<%= @lecture.attendances.count %>");
+$("#total_attendances span").html(total_attendances);
+
+if(total_attendances>0) $("#alert_attendances").hide();
+else $("#alert_attendances").show();

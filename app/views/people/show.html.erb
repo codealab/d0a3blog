@@ -19,7 +19,7 @@
 		<div class="all_width blue_box">
 			<div class="white_box">
 				<div class="td_center">
-					<%= image_tag @person.photo_url(:thumb).to_s %>
+					<%= image_tag @person.photo_url(:thumb).to_s, :class => "profile_thumb" %>
 				</div>
 				<table class="table table-striped">
 					<tbody>
@@ -60,7 +60,8 @@
 						<th>Pagos</th>
 						<th>Observaciones</th>
 					</tr>
-					<% allattendances = 0, saldos = 0 %>
+					<% allattendances = 0
+						saldos = 0 %>
 					<% @person.groups.each_with_index do |group,index| %>
 					<tr>
 						<td class="td_center">
@@ -73,7 +74,8 @@
 							<% @person.payments.where(:group_id=>group.id).each do |p| %>
 								<% totalpergroup += p.amount %>
 							<% end %>
-							<% totalclases = 0, asistencias = 0 %>
+							<% totalclases = 0
+								asistencias = 0 %>
 							<% group.lectures.each_with_index do |lecture,index| %>
 								<% if lecture.date.past? %>
 									<% totalclases += 1 %>
@@ -85,7 +87,10 @@
 								<% end %>
 							<% end %>
 
-							<% attendancepercent = (asistencias.to_f*100)/totalclases, allattendances += attendancepercent, saldo = (group.cost).to_i-totalpergroup, saldos += saldo %>
+							<% attendancepercent = (asistencias.to_f*100)/totalclases
+								allattendances += attendancepercent
+								saldo = (group.cost).to_i-totalpergroup
+								saldos += saldo %>
 
 						<td><%= attendancepercent.round(2) %>%</td>
 						<td>$<%= saldo %></td>
@@ -112,7 +117,7 @@
 	</div>
 </div>
 
-<% if @person.groups.count>0 %>
+<% if @person.groups.count > 0 %>
 <% @person.groups.each_with_index do |group,index| %>
 	<div class="modal fade" id="totalpergroup_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">

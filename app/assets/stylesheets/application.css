@@ -65,7 +65,7 @@ body{
 }
 /*Default to user*/
 #image_url{ width: 100px; }
-.attendance_img{ width: 100px; }
+.attendance_img{ width: 50px; }
 /*Header buttons*/
 .top_buttons{
 	position: absolute;
@@ -251,4 +251,8 @@ body{
 	text-align: center;
 	font-size: 14px;
 	color: rgb(167, 166, 166);
+}
+.profile_thumb{
+	border: 1px solid #dddddd;
+	border-radius: 5px;
 }

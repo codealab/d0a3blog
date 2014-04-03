@@ -52,8 +52,8 @@ class SpotsController < ApplicationController
 		@group = Group.find(params[:group_id])
 		@child = spot.child
 		Spot.find(params[:id]).destroy
-		flash[:success] = "Spot borrado"
-		redirect_to groups_path
+		# flash[:success] = "Spot borrado"
+		# redirect_to groups_path
 	end
 
 	def search

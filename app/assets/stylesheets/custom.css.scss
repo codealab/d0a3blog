@@ -403,15 +403,20 @@ footer {
   width: 65px;
   margin-bottom: 5px;
 }
-.child_attendance, .child_selected, .child_spot {
-  overflow: hidden;
-  width: 100px;
+.kid_up_photo{
+  border: 1px solid rgb(202, 202, 202);
+  border-radius: 4px;
+}
+#posibble_childs .child_spot, #posible_attendances .child_spot{
+  margin: 3px;
+  height: 50px;
+  width: 264px;
+}
+.child_attendance, .child_spot {
+  width: 102px;
   height: 120px;
   float: left;
-  margin: 3px;
   position: relative;
-  color: white;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 .child_result{
   opacity: 0;
@@ -444,22 +449,35 @@ footer {
   right: 3px;
 }
 .child_selected {
-  background-color: rgba(0, 0, 0, 0.64);
+  background-color: rgba(6, 30, 51, 0.78);
   position: absolute;
-  top: -3px;
-  left: -3px;
+  width: 214px;
+  height: 50px;
   display: none;
   text-align: center;
-  color: #71c06b;
+  color: white;
   font-size: 20px;
+  z-index: 9;
+  left: 50px;
+  top: 0px;
 }
+.child_appended{ margin: 3px; }
 .child_appended, .child_selected span{
-  top: 30px;
+  top: 25px;
   opacity: 0;
 }
+#posible_attendances .child_selector,
 .child_active .child_selected{ display: block; }
 #posibble_childs .child_active{ display: none; }
-#posible_attendances .child_selector{ display: block; }
+
+#posible_attendances .kid_stats p {
+  font-size: 12px;
+  width: 100%;
+  height: 5px;
+  position: relative;
+  top: 8px;
+}
+
 .all_width {
   width: 100%;
   float: left;
@@ -483,13 +501,15 @@ footer {
   border: 1px solid #d7dfe6;
   padding: 10px;
 }
-#attendances .kid_stats {
-  height: 20%;
+#enlist_childs .kid_stats, #attendances .kid_stats {
   color: black;
   text-shadow: none;
-  background: rgba(255, 255, 255, 0.7);
   overflow: hidden;
-  bottom: 0px;
+  bottom: -3px;
+  height: 20px;
+  background: none;
+  text-align: center;
+  text-transform: uppercase;
 }
 .kid_stats {
   width: 100%;
@@ -500,15 +520,31 @@ footer {
   font-size: 12px;
   text-indent: 5px;
 }
+#posibble_childs .kid_stats, #posible_attendances .kid_stats {
+  width: 200px;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  background: #EFF2F5;
+  font-size: 12px;
+  left: 50px;
+  border-radius: 0px 2px 2px 0px;
+  color: #428bca;
+  text-indent: 10px;
+  border-bottom: 1px solid #EAF5FF;
+  border-top: 1px solid #E8EAEC;
+}
 .weeks_stat {
   position: absolute;
-  width: 96%;
-  height: 30%;
+  width: 60px;
+  height: 100%;
   top: 0px;
-  padding: 4%;
   font-size: 10px;
-  left: 0px;
-  text-align: left;
+  right: 0px;
+  text-align: center;
+  background: #E8EDF1;
+  z-index: 9;
+  padding: 5px;
 }
 .weeks_stat span {
   font-size: 30px;
@@ -607,4 +643,14 @@ footer {
   width: 445px;
   top: 20px;
   left: 90px;
+}
+/*Remove attendances*/
+.remove {
+  width: 16px;
+  height: 16px;
+  background-image: url(/assets/close.png);
+  position: absolute;
+  z-index: 9;
+  right: -8px;
+  top: -6px;
 }

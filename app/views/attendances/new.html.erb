@@ -13,32 +13,35 @@
 </div>
 
 	<div class="all_width light_box">
-		<% if @lecture.attendances.count>0 %>
-			<div id="total_attendances">
-				<h4><span><%= @lecture.attendances.count %></span> Asistentes</h4>
-			</div>
-			<div class="under_pressure"></div>
-	 		<div class="all_width blue_box">
-				<div class="white_box" id="attendances">
+		<div id="total_attendances">
+			<h4><span><%= @lecture.attendances.count %></span> Asistentes</h4>
+		</div>
+		<div class="under_pressure"></div>
+	 	<div class="all_width blue_box">
+			<div class="white_box" id="attendances">
+				<% if @lecture.attendances.count>0 %>
 					<% @lecture.attendances.each do |c| %>
 						<div class="child_spot child_appended" id="child_spot_<%= c.id %>">
-							<img src="<%= c.person.photo %>" alt="<%= c.person.name %>" class="kid_photo">
+							<img src="<%= c.person.photo %>" alt="<%= c.person.name %>" class="kid_up_photo">
 							<div class="kid_stats">
 								<p><%= c.person.name %></p>
 							</div>
-							<% if c.can_destroy? %>
+								<% if c.can_destroy? %>
 								<div class="child_remove">
 									<a href="/attendances/destroy?id=<%= c.id %>&lecture_id=<%= @lecture.id %>" data-remote="true">
-										<span class="glyphicon glyphicon-remove"></span>
+										<span class="remove"></span>
 									</a>
 								</div>
 							<% end %>
 						</div>
 					<% end %>
-				</div>
+					<h4 style="display: none;" class="counter_is_zero" id="alert_attendances">Esta clase no tiene ninguna asistencia</h4>
+				<% else %>
+					<h4 class="counter_is_zero" id="alert_attendances">Esta clase no tiene ninguna asistencia</h4>
+				<% end %>
 			</div>
-			<div class="spacer"></div>
-		<% end %>
+		</div>
+		<div class="spacer"></div>
 		<h4><%= @group.spots.count %> Inscritos</h4>
 		<div class="under_pressure"></div>
 		<div id="posible_attendances" class="all_width blue_box">
@@ -49,9 +52,12 @@
 							<a href="/attendances/create?person_id=<%= c.child.id %>&lecture_id=<%= @lecture.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.child.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>">
 								<div class="child_spot child_appended">
 									<img src="<%= c.child.photo %>" alt="<%= c.child.name %>" class="kid_photo attendance_img">
+									<div class="weeks_stat">
+										<p><span><%= ((Date.today.to_date - c.child.dob.to_date).to_i)/7 %></span><br>Semanas</p>
+									</div>
 									<div class="kid_stats">
 										<p><%= c.child.name %></p>
-										<p><%= ("#{ c.child.first_last_name } #{ c.child.second_last_name }").slice(0..13) %>.</p>
+										<p><%= ("#{ c.child.first_last_name } #{ c.child.second_last_name }").slice(0..30) %></p>
 									</div>
 									<div class="child_selected">
 										<span class="glyphicon glyphicon-ok"></span>

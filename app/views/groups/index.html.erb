@@ -68,7 +68,9 @@
 										<th>Beca</th>
 									</thead>
 									<tbody>
-										<% grantotal = 0, granfaltante = 0, becas = 0 %>
+										<% grantotal = 0
+											granfaltante = 0
+											becas = 0 %>
 										<% group.spots.each_with_index do |spot,index| %>
 											<tr>
 												<td class="td_center">
@@ -84,7 +86,9 @@
 													<%= link_to "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}", person_path(spot.tutor.id) %>
 													<% end %>
 												</td>
-												<% total = 0, faltante = 0, beca = 0 %>
+												<% total = 0
+													faltante = 0
+													beca = 0 %>
 												<% spot.payments.each do |p| %>
 													<% if p.scholarship? %>
 														<% beca += p.amount %>
@@ -92,10 +96,13 @@
 														<% total += p.amount %>
 													<% end %>
 												<% end %>
-												<% faltante = group.cost-total, granfaltante = granfaltante + faltante, grantotal = grantotal + total, becas += beca %>
-												<td>$<%= total %></td>
-												<td>$<%= faltante %></td>
-												<td>$<%= beca %></td>
+												<% faltante = group.cost-total
+													granfaltante = granfaltante + faltante
+													grantotal = grantotal + total
+													becas += beca %>
+												<td class="td_center">$<%= total %></td>
+												<td class="td_center">$<%= faltante %></td>
+												<td class="td_center">$<%= beca %></td>
 											</tr>
 										<% end %>
 									</tbody>

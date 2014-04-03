@@ -3,8 +3,8 @@
 		<% if c.family_relations.first.family.status? %>
 			<a href="/spots/create?child_id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>" data-weeks="<%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %>">
 				<div class="child_spot child_result">
-					<img src="<%= c.photo %>" alt="<%= c.name %>" class="kid_photo">
-						<div class="weeks_stat">
+					<img src="<%= c.photo_url(:thumb) %>" alt="<%= c.name %>" class="kid_photo">
+					<div class="weeks_stat">
 						<p><span><%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %></span><br>Semanas</p>
 					</div>
 					<div class="kid_stats">

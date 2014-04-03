@@ -1,15 +1,12 @@
 <div class="child_spot child_appended" id="child_spot_<%= @spot.child.id %>">
-	<img src="<%= @spot.child.photo %>" alt="<%= @spot.child.name %>" class="kid_photo">
-	<div class="weeks_stat">
-		<p><span><%= ((Date.today.to_date - @spot.child.dob.to_date).to_i)/7 %></span><br>Semanas</p>
-	</div>
+	<img src="<%= @spot.child.photo %>" alt="<%= @spot.child.name %>" class="kid_up_photo">
 	<div class="kid_stats">
 		<p><%= @spot.child.name %></p>
 		<p><%= ("#{ @spot.child.first_last_name } #{ @spot.child.second_last_name }").slice(0..13) %>.</p>
 	</div>
 	<div class="child_remove">
 		<a href="/spots/destroy?id=<%= @spot.id %>&group_id=<%= @group.id %>" data-remote="true">
-			<span class="glyphicon glyphicon-remove"></span>
+			<span class="remove"></span>
 		</a>
 	</div>
 </div>
