@@ -19,7 +19,7 @@
 		<div class="all_width blue_box">
 			<div class="white_box">
 				<div class="td_center">
-					<%= image_tag @person.photo_url.to_s %>
+					<%= image_tag @person.photo_url(:thumb).to_s %>
 				</div>
 				<table class="table table-striped">
 					<tbody>

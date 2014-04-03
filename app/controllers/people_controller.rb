@@ -14,9 +14,13 @@ class PeopleController < ApplicationController
 		@family = Family.find(params[:family_id])
 		@person = @family.family_members.build(persons_params)
 		@oldphoto = params[:person][:oldphoto]
-		if @family.save  
-			flash[:success] = "Creación Exitosa"
-			redirect_to @family
+		if @family.save
+			if params[:person][:photo].present?
+				render :crop
+			else
+				flash[:success] = "Creación Exitosa"
+				redirect_to @family
+			end
 		else
 			render 'new'
 		end
@@ -46,8 +50,12 @@ class PeopleController < ApplicationController
 		    if @person.family_roll=='Otro'
 				@person.update_attributes(family_roll:params[:person][:other])
 			end
-	    	flash[:success] = "Actualización Exitosa"
-	    	redirect_to @family
+			if params[:person][:photo].present?
+				render :crop
+			else
+				flash[:success] = "Actualización Exitosa"
+				redirect_to @family
+			end
 	    else
 	    	render 'edit'
 	    end
@@ -63,7 +71,7 @@ class PeopleController < ApplicationController
 	private
 
 		def persons_params
-			params.require(:person).permit(:name, :first_last_name, :second_last_name, :sex, :dob, :family_roll, :photo)
+			params.require(:person).permit(:name, :first_last_name, :second_last_name, :sex, :dob, :family_roll, :photo, :crop_x, :crop_y, :crop_w, :crop_h )
 		end
 
 		protected
