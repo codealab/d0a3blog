@@ -1,5 +1,5 @@
 <div class="child_spot child_appended" id="child_spot_<%= @attendance.id %>">
-	<img src="<%= @attendance.person.photo %>" alt="<%= @attendance.person.name %>" class="kid_up_photo">
+	<img src="<%= @attendance.person.photo_url(:thumb) %>" alt="<%= @attendance.person.name %>" class="kid_up_photo">
 	<div class="kid_stats">
 		<p><%= @attendance.person.name %></p>
 	</div>

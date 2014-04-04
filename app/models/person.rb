@@ -15,7 +15,7 @@ class Person < ActiveRecord::Base
 
 	has_many :groups, through: :spots, source: :group
 	has_many :payments, through: :spots
-	# has_many :lectures, through: :groups, source: :lectures	
+	has_many :lectures, through: :groups, source: :lectures	
 	
 	mount_uploader :photo, PhotoUploader
 

@@ -31,7 +31,14 @@
 				<tbody>
 					<% @family.family_members.order("name ASC").each do |member| %>
 						<tr>
-							<td><%= link_to member.full_name, member %></td>
+							<td>
+								<% if current_group(member) %>
+									<span class="current_group current_active"></span>
+								<% else %>
+									<span class="current_group current_null"></span>
+								<% end %>
+								<%= link_to member.full_name, member %>
+							</td>
 							<td><%= member.sex %></td>
 							<td><%= member.dob %></td>
 							<td><%= member.family_roll %></td>

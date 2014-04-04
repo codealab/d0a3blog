@@ -55,10 +55,14 @@
 			$("#other_value").val(newOption);
 		});
 		$('input:radio').on("click",checkSex);
+
+		var daValue = $("#person_family_roll").val();
 		$('.man, .woman').remove();
 		checkSex();
+		$("#person_family_roll").val(daValue);
 	});
 	function checkSex(){
+		$('.man, .woman').remove();
 		if($("#person_sex_m").is(':checked')){
 			$('.woman').remove();
 			$("#person_family_roll").prepend("<option value='' disabled selected class='man'>Selecciona el parentesco</option><option class='man' value='Hijo'>Hijo</option> <option class='man' value='Padre'>Padre</option> <option class='man' value='Abuelo'>Abuelo</option> <option class='man' value='Tío'>Tío</option>");

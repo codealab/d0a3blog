@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include SessionsHelper
-  helper_method :manager
+  include PersonsHelper
 
   before_action :require_login
   before_action :user_visor, only: [:update, :create, :destroy]
@@ -27,10 +27,6 @@ class ApplicationController < ActionController::Base
 
   def user_visor
     redirect_to(:back, notice:"No tienes los permisos suficientes para llevar a cabo esta tarea.") unless manager
-  end
-
-  def manager
-    current_user.admin? || current_user.facilitator? || current_user.coordinator?
   end
 
 end

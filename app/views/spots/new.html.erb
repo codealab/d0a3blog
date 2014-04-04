@@ -47,14 +47,15 @@
 							<% if c.can_destroy? %>
 								<div class="child_remove">
 									<a href="/spots/destroy?id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true" title="Eliminar">
-										<span class="glyphicon glyphicon-remove"></span>
+										<div class="remove"></div>
 									</a>
 								</div>
 							<% end %>
 						</div>
 					<% end %>
+					<h4 class="counter_is_zero" id="alert_inscriptions" style="display:none;">Aún no hay ningún niño inscrito en este grupo</h4>
 				<% else %>
-					<h4 class="counter_is_zero">Aún no hay ningún niño inscrito en este grupo</h4>
+					<h4 class="counter_is_zero" id="alert_inscriptions">Aún no hay ningún niño inscrito en este grupo</h4>
 				<% end %>				
 			</div>
 		</div>

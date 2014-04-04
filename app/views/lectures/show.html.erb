@@ -34,7 +34,7 @@
 	<div id="scroll_attendances">
 		<% @lecture.attendances.each do |c| %>
 			<div class="child_attendance" id="child_spot_<%= c.person.id %>">
-				<img src="<%= c.person.photo %>" alt="<%= c.person.name %>" class="kid_up_photo">
+				<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
 				<div class="kid_stats">
 					<p><%= c.person.name %></p>
 				</div>

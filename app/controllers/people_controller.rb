@@ -72,9 +72,7 @@ class PeopleController < ApplicationController
 
 		def persons_params
 			params.require(:person).permit(:name, :first_last_name, :second_last_name, :sex, :dob, :family_roll, :photo, :crop_x, :crop_y, :crop_w, :crop_h )
-		end
-
-		protected
+		end		
 
 		def correct_user
 			redirect_to(families_path, notice: "No tienes permitido crear, editar o borrar familias.") unless valid_user
