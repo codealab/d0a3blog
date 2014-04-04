@@ -6,7 +6,7 @@ class ExercisesController < ApplicationController
 		if params[:group_id] && params[:lecture_id]
 			@group = Group.find(params[:group_id])
 			@lecture = Lecture.find(params[:lecture_id])
-			@exercises = Exercise.where("min_age >= #{@group.min_age} AND max_age<= #{@group.max_age} ").paginate(page: params[:page])
+			@exercises = Exercise.where("min_age >= #{@group.min_age} AND min_age<= #{@group.max_age} OR max_age >= #{@group.min_age} AND max_age<= #{@group.max_age}").paginate(page: params[:page])
 		end
 	end
 
@@ -21,7 +21,7 @@ class ExercisesController < ApplicationController
 	def create
 		@exercise = Exercise.new(exercise_params)
 		if(@exercise.save)
-			flash[:success] = 'Ejercicio creado exitosamente'
+			flash[:success] = 'Ejercicio creado exitosamente. En caso de no visualizarlo, verifica la edad mínima y máxima del mismo. Así podrás usarlo dentro de este grupo.'
 			if  params[:exercise][:group_id] && params[:exercise][:lecture_id]
 				redirect_to group_lecture_exercises_path(params[:exercise][:group_id],params[:exercise][:lecture_id])
 			else

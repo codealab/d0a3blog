@@ -6,7 +6,7 @@
 			<% end %>
 			<p><button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lecture_observation">Observación</button></p>
 		</div>
-		<h4>Clase del <%= @lecture.date.to_s(:standard) %></h4>
+		<h4>Clase del <%= I18n.l @lecture.date, :format => "%d de %B del %Y" %></h4>
 	</div>
 	<div class="boton_der">
 		<div class="top_buttons top_buttons_group">
