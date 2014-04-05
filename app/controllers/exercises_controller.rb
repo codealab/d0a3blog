@@ -2,7 +2,7 @@
 class ExercisesController < ApplicationController
 
 	def index
-		@exercises = Exercise.all.paginate(page: params[:page])
+		@exercises = Exercise.all.order('id desc').paginate(page: params[:page])
 		if params[:group_id] && params[:lecture_id]
 			@group = Group.find(params[:group_id])
 			@lecture = Lecture.find(params[:lecture_id])
@@ -22,7 +22,8 @@ class ExercisesController < ApplicationController
 		@exercise = Exercise.new(exercise_params)
 		if(@exercise.save)
 			flash[:success] = 'Ejercicio creado exitosamente. En caso de no visualizarlo, verifica la edad mínima y máxima del mismo. Así podrás usarlo dentro de este grupo.'
-			if  params[:exercise][:group_id] && params[:exercise][:lecture_id]
+			areas @exercise
+			if params[:exercise][:group_id] && params[:exercise][:lecture_id]
 				redirect_to group_lecture_exercises_path(params[:exercise][:group_id],params[:exercise][:lecture_id])
 			else
 				redirect_to exercises_path
@@ -60,6 +61,7 @@ class ExercisesController < ApplicationController
 
 	def update
 		@exercise = Exercise.find(params[:id])
+		areas @exercise
 		if @exercise.update_attributes(exercise_params)
 			redirect_to group_path(@group)
 			flash[:success] ="Actualización exitosa"
@@ -84,7 +86,14 @@ class ExercisesController < ApplicationController
 	private
 
 	def exercise_params
-		params.require(:exercise).permit(:name, :area, :min_age, :max_age, :objective, :description, :material, :music)
-    end
+		params.require(:exercise).permit(:name, :min_age, :max_age, :objective, :description, :material, :music)
+	end
+
+	def areas(exercise)
+		exercise.areas.delete_all
+		areas = params[:area]
+		areas.each { |a| exercise.area_relations.build(area_id:a[0]) if a[1]=='on' }
+		exercise.save
+	end
 
 end

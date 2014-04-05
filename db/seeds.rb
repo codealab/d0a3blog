@@ -3,7 +3,7 @@ require "csv"
 
 User.create( name: "Juan", email: "juan.fuentes.cabrera.89@gmail.com", password: "123qwe123", password_confirmation: "123qwe123", admin: true )
 User.create( name: "javier", email: "javier@deceroatres.com", password: "deceroatres", password_confirmation: "deceroatres", admin: true )
-
+Area.create([{ name: "Motricidad Gruesa" } ,{ name: "Motricidad Fina" } ,{ name: "Lenguaje" } ,{ name: "Sensorial Cognositiva" } ,{ name: "Socio Emocional" } ,{ name: "Otro" }])
 
 def load_file(file)
 	array = []

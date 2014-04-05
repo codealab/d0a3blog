@@ -273,3 +273,7 @@ body{
 	right: -2px;
 	top: -18px;
 }
+.tip{
+	color: #107BD8;
+	cursor:pointer;
+}
