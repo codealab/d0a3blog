@@ -1,2 +1,7 @@
+var total_inscriptions = parseInt("<%= @group.spots.count %>");
+
 $('#enlist_childs').append("<%= escape_javascript(render('create')) %>").fadeIn();
-$("#total_spots span").html("<%= @group.spots.count %>");
+$("#total_spots span").html(total_inscriptions);
+
+if(total_inscriptions>0) $("#alert_inscriptions").hide();
+else $("#alert_inscriptions").show();

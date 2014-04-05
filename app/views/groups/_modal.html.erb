@@ -1,0 +1,70 @@
+<div class="modal fade" id="group_pop_<%= object.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">
+								Inscripciones en grupo <%= object.name %> / Costo Total: <b>$<%= (object.cost).to_i * object.spots.count %></b></h4>
+							<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+						</div>
+					<div class="modal-body">
+						<div class="all_width blue_box">
+							<div class="boton_der inscription_button">
+								<%= link_to new_group_spot_path(object) do %>
+									<p><button type="button" class="btn btn-default" data-original-title="" title="" style="width: 150px;"> Inscribir </button></p>
+								<% end %>
+							</div>
+							<% if object.spots.count>0 %>
+								<table class="table table-striped tablesorter">
+									<thead>
+										<th class="td_center">Registro</th>
+										<th>Inscritos</th>
+										<th>Tutor</th>
+										<th>Pagos</th>
+										<th>Saldos</th>
+										<th>Beca</th>
+									</thead>
+									<tbody>
+										<% object.spots.each_with_index do |spot,index| %>
+											<tr>
+												<td class="td_center">
+													<%= link_to edit_group_spot_path(object, spot), :title => "Editar" do %>
+														<span class="glyphicon glyphicon-pencil"></span>
+													<% end %>
+												</td>
+												<td>
+													<%= link_to "#{spot.child.name} #{spot.child.first_last_name} #{spot.child.second_last_name}", person_path(spot.child.id) %>
+												</td>
+												<td>
+												<% if(spot.tutor) %>
+													<%= link_to "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}", person_path(spot.tutor.id) %>
+													<% end %>
+												</td>
+												<td class="td_center">$<%= total_payments spot %></td>
+												<td class="td_center">$<%= spot.balance %></td>
+												<td class="td_center">$<%= total_scholarship spot %></td>
+											</tr>
+										<% end %>
+									</tbody>
+									<tr class="total_blue">
+										<td></td>
+										<td></td>
+										<td><b>Total:</b></td>
+										<td class="td_center">$<%= total_payments object %></td>
+										<td class="td_center">$<%= total_balance object %></td>
+										<td class="td_center">$<%= total_scholarship object %></td>
+									</tr>
+								</table>
+							<% else %>
+								<div class="light_box">
+									<h4 class="counter_is_zero">Aún no hay ningún niño inscrito en este grupo</h4>
+								</div>
+							<% end %>
+						</div>
+					</div>
+						<div class="spacer"></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+</div>

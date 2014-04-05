@@ -1,4 +1,5 @@
 <% provide(:title, "Familia: #{ @family.name }") %>
+<% totalGroupsFamily = 0 %>
 
 <div class="boton_der">
 	<div class="top_buttons">
@@ -15,47 +16,57 @@
 	<h4>Miembros</h4>
 	<div class="under_pressure"></div>
 	<div class="blue_box all_width">
-		<table class="table table-striped tablesorter">
-			<thead>
-				<tr>
-					<th>Nombre</th>
-					<th>Sexo</th>
-					<th>Fecha de Nacimiento</th>
-					<th>Relación</th>
-					<th>Editar</th>
-					<th>Borrar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% totalGroupsFamily = 0 %>
-				<% @family.family_members.order("name ASC").each do |member| %>
+		<% if @family.family_members.count>0 %>
+			<table class="table table-striped tablesorter">
+				<thead>
 					<tr>
-						<td><%= link_to member.full_name, member %></td>
-						<td><%= member.sex %></td>
-						<td><%= member.dob %></td>
-						<td><%= member.family_roll %></td>
-						<% total = 0
-							totalGroups = 0 %>
-						<% member.spots.each do |spot| %>
-							<% spot.payments.each { |p| total += p.amount } %>
-						<% end %>
-						<% member.groups.each { |g| totalGroups += g.cost } %>
-						<% totalpergroup = totalGroups-total
-						   totalGroupsFamily += totalpergroup %>
-						<td>
-							<%= link_to edit_family_person_path(@family, member) do %>
-								<button type="button" class="btn btn-default btn-xs">Editar</button>
-							<% end %>
-						</td>
-						<td>
-							<%= link_to family_person_path(@family, member), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
-								<button type="button" class="btn btn-danger btn-xs">Borrar</button>
-							<% end %>
-						</td>
+						<th>Nombre</th>
+						<th>Sexo</th>
+						<th>Fecha de Nacimiento</th>
+						<th>Relación</th>
+						<th>Editar</th>
+						<th>Borrar</th>
 					</tr>
-				<% end %>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<% @family.family_members.order("name ASC").each do |member| %>
+						<tr>
+							<td>
+								<% if current_group(member) %>
+									<span class="current_group current_active"></span>
+								<% else %>
+									<span class="current_group current_null"></span>
+								<% end %>
+								<%= link_to member.full_name, member %>
+							</td>
+							<td><%= member.sex %></td>
+							<td><%= member.dob %></td>
+							<td><%= member.family_roll %></td>
+							<% total = 0
+								totalGroups = 0 %>
+							<% member.spots.each do |spot| %>
+								<% spot.payments.each { |p| total += p.amount } %>
+							<% end %>
+							<% member.groups.each { |g| totalGroups += g.cost } %>
+							<% totalpergroup = totalGroups-total
+							   totalGroupsFamily += totalpergroup %>
+							<td>
+								<%= link_to edit_family_person_path(@family, member) do %>
+									<button type="button" class="btn btn-default btn-xs">Editar</button>
+								<% end %>
+							</td>
+							<td>
+								<%= link_to family_person_path(@family, member), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
+									<button type="button" class="btn btn-danger btn-xs">Borrar</button>
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% else %>
+			<h4 class="counter_is_zero">Aún no existe ni un miembro en esta familia</h4>
+		<% end %>
 		<div class="boton_der">
 			<span style="color: #928C8C; position: absolute; top: 10px; font-style: italic; font-size: 12px; ">
 				*El Saldo actual de esta familia es de $<%= totalGroupsFamily %></span>

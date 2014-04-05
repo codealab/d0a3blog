@@ -32,18 +32,18 @@ es:
     - sáb
     abbr_month_names:
     -
-    - ene
-    - feb
-    - mar
-    - abr
-    - may
-    - jun
-    - jul
-    - ago
-    - sep
-    - oct
-    - nov
-    - dic
+    - Ene
+    - Feb
+    - Mar
+    - Abr
+    - May
+    - Jun
+    - Jul
+    - Ago
+    - Sep
+    - Oct
+    - Nov
+    - Dic
     day_names:
     - Domingo
     - Lunes

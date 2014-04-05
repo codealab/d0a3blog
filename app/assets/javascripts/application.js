@@ -83,12 +83,10 @@ function over_and_clicks(){
     
 	$('.child_selector, .child_attendance').hover(function() {
 		$(this).find('.child_selected').fadeIn(250);
-        $(this).find('.child_selected span').stop().animate({ opacity:1, top:36 },600,'easeOutQuart');
+        $(this).find('.child_selected span').stop().animate({ opacity:1, top:13 },600,'easeOutQuart');
 	}, function() {
 		$(this).find('.child_selected').fadeOut(250);
-        $(this).find('.child_selected span').stop().animate({ opacity:0, top:105 },600,'easeOutQuart',function(){
-            $(this).removeAttr('style');
-        });
+        $(this).find('.child_selected span').stop().animate({ opacity:0, top:25 },600,'easeOutQuart');
 	});
 
 	$(".asistente, .inscrito").on("click", function(){

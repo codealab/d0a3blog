@@ -17,72 +17,88 @@
 	</div>
 	<h1>Ejercicios<span class="line"></span></h1>
 </div>
-<% if @group && @lecture %>
-	<div class="all_width blue_box">
-		<table class="table table-striped tablesorter">
-			<thead>
-				<tr>
-					<th>Nombre</th>
-					<th>Area</th>
-					<th>Descripción</th>
-					<th>Objetivo</th>
-					<th>Seleccionar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @exercises.each_with_index do |exercise, index| %>
+
+<div class="all_width blue_box">
+	<% if @exercises.count>0 %>
+		<% if @group && @lecture %>
+			<table class="table table-striped tablesorter">
+				<thead>
 					<tr>
-						<td><%= link_to exercise.name, group_lecture_exercise_path(@group, @lecture, exercise) %></td>
-						<td><%= exercise.area %></td>
-						<td><button type="button" class="btn btn-primary pops btn-xs" data-container="body" data-toggle="popover" data-placement="left" data-content="<%= exercise.objective %>">Descripción</button></td>
-						<td>
-							<button type="button" class="btn btn-primary pops btn-xs" data-container="body" data-toggle="popover" data-placement="left" data-content="<%= exercise.objective %>">Objetivo</button>
-						</td>
-						<td>
-							<a href=<%= "/exercises/status/#{exercise.id}?lecture_id=#{@lecture.id}" %> data-remote="true" id="exercise_<%= exercise.id %>">
-								<% if exercise.lectures.include?(@lecture) %>
-									<button type="button" class="btn status_button btn-danger btn-xs">DESAGREGAR</button>
-								<% else %>
-									<button type="button" class="btn status_button btn-success btn-xs">AGREGAR</button>
+						<th>Nombre</th>
+						<th>Area</th>
+						<th>Descripción</th>
+						<th>Objetivo</th>
+						<th>Seleccionar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @exercises.each_with_index do |exercise, index| %>
+						<tr>
+							<td><%= link_to exercise.name, group_lecture_exercise_path(@group, @lecture, exercise) %></td>
+							<td>
+								<% exercise.areas.each do |a| %>
+									<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..0) %></span>
 								<% end %>
-							</a>
-						</td>
-					</tr>
-				<% end %>
-			</tbody>
-		</table>
-		<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
-	</div>
-	<% else %>
-		<div class="all_width blue_box">
-		<table class="table table-striped tablesorter">
-			<thead>
-				<tr>
-					<th>Nombre</th>
-					<th>Area</th>
-					<th>Rango</th>
-					<th>Objetivo</th>
-					<th>Descripción</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @exercises.each_with_index do |exercise, index| %>
+							</td>
+							<td><button type="button" class="btn btn-primary pops btn-xs" data-container="body" data-toggle="popover" data-placement="left" data-content="<%= exercise.objective %>">Descripción</button></td>
+							<td>
+								<button type="button" class="btn btn-primary pops btn-xs" data-container="body" data-toggle="popover" data-placement="left" data-content="<%= exercise.objective %>">Objetivo</button>
+							</td>
+							<td>
+								<a href=<%= "/exercises/status/#{exercise.id}?lecture_id=#{@lecture.id}" %> data-remote="true" id="exercise_<%= exercise.id %>">
+									<% if exercise.lectures.include?(@lecture) %>
+										<button type="button" class="btn status_button btn-danger btn-xs">DESAGREGAR</button>
+									<% else %>
+										<button type="button" class="btn status_button btn-success btn-xs">AGREGAR</button>
+									<% end %>
+								</a>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
+		<% else %>
+			<table class="table table-striped tablesorter">
+				<thead>
 					<tr>
-						<td><%= link_to exercise.name, exercise_path(exercise) %></td>
-						<td><%= exercise.area %></td>
-						<td><%= "#{exercise.min_age} - #{exercise.max_age}" %></td>
-						<td><%= exercise.objective %></td>
-						<td><%= exercise.description %></td>
+						<th>Nombre</th>
+						<th>Area</th>
+						<th>Rango</th>
+						<th>Objetivo</th>
+						<th>Descripción</th>
 					</tr>
-				<% end %>
-			</tbody>
-		</table>
-		<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
-	</div>
-<% end %>
+				</thead>
+				<tbody>
+					<% @exercises.each_with_index do |exercise, index| %>
+						<tr>
+							<td><%= link_to exercise.name, exercise_path(exercise) %></td>
+							<td>
+								<% if exercise.areas.count==1 %>
+									<%= exercise.areas.first.name %>
+								<% else %>
+									<% exercise.areas.each do |a| %>
+										<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..0) %></span>
+									<% end %>
+								<% end %>
+							</td>
+							<td><%= "#{exercise.min_age} - #{exercise.max_age}" %></td>
+							<td><%= exercise.objective %></td>
+							<td><%= exercise.description %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>	
+		<% end %>
+	<% else %>
+		<h4 class="counter_is_zero">Aún no existe ni un ejercicio</h4>
+	<% end %>
+</div>
 <h6>Total de Ejercicios: <%= @exercises.count %></h6>
 <script>
 	$(document).ready(function() {
 		$('.pops').popover();
+		$('.tip').tooltip();
 	});
 </script>

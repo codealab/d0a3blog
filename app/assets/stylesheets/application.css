@@ -65,7 +65,7 @@ body{
 }
 /*Default to user*/
 #image_url{ width: 100px; }
-.attendance_img{ width: 100px; }
+.attendance_img{ width: 50px; }
 /*Header buttons*/
 .top_buttons{
 	position: absolute;
@@ -246,4 +246,34 @@ body{
 	top: 10px;
 	width: 97%;
 	float: left;
+}
+.counter_is_zero {
+	text-align: center;
+	font-size: 14px;
+	color: rgb(167, 166, 166);
+}
+.profile_thumb{
+	border: 1px solid #dddddd;
+	border-radius: 5px;
+}
+.current_group{
+	width: 5px;
+	height: 5px;
+	float: left;
+	border-radius: 50%;
+	margin: 8px;
+}
+.current_null{ background-color: rgb(196, 196, 196); }
+.current_active{ background-color: #60b959; }
+/*/Inscription modal*/
+.inscription_button{
+	position: relative;
+	height: 30px;
+	margin: 2px;
+	right: -2px;
+	top: -18px;
+}
+.tip{
+	color: #107BD8;
+	cursor:pointer;
 }

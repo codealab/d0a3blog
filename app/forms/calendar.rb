@@ -48,10 +48,6 @@ class Calendar
 		days.each do |day|	
 			@calendar.lectures.build({ date: "#{day}+" "#{hour}" })
 			@calendar.save
-			# if !
-			# errors.add :classes, "Ocurrió algún error al generar las clases"
-			# 	no_errors = false
-			# end
 		end
 
 		return no_errors

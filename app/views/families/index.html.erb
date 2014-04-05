@@ -7,39 +7,43 @@
 	<h1>Nuestras Familias<span class="line"></span></h1>
 </div>
 <div class="all_width blue_box">
-	<table class="table table-striped">
-	<tr>
-		<th>Familias</th>
-		<% if params[:filter] %><th>Estado</th><% end %>
-	</tr>
-	<% @families.each_with_index do |family,index| %>
-		<tr class="family_<%= family.status %>">
-			<td><%= link_to family.name, family %></td>
-			<% if params[:filter] %>
-				<td id="family_<%= family.id %>">
-					<a href="/families/status/<%= family.id %>" data-remote="true" id="family_status_<%= index %>">
-						<% if family.status %>
-							<button type="button" class="btn status_button btn-success btn-xs">ACTIVA</button>
-						<% else %>
-							<button type="button" class="btn status_button btn-danger btn-xs">PASIVA</button>
-						<% end %>
-					</a>
-				</td>
+	<% if @families.count>0 %>
+		<table class="table table-striped">
+			<tr>
+				<th>Familias</th>
+				<% if params[:filter] %><th>Estado</th><% end %>
+			</tr>
+			<% @families.each_with_index do |family,index| %>
+				<tr class="family_<%= family.status %>">
+					<td><%= link_to family.name, family %></td>
+					<% if params[:filter] %>
+						<td id="family_<%= family.id %>">
+							<a href="/families/status/<%= family.id %>" data-remote="true" id="family_status_<%= index %>">
+								<% if family.status %>
+									<button type="button" class="btn status_button btn-success btn-xs">ACTIVA</button>
+								<% else %>
+									<button type="button" class="btn status_button btn-danger btn-xs">PASIVA</button>
+								<% end %>
+							</a>
+						</td>
+					<% end %>
+				</tr>
 			<% end %>
-		</tr>
+		</table>
+		<div class="boton_der">
+			<%= will_paginate @families, renderer: BootstrapPagination::Rails %>
+			<% if !params[:filter] %>
+				<a href="/families?filter=pasive">
+					<p><button type="button" class="btn btn-warning" id="admin_families">Administrar Familias </button></p>
+				</a>
+			<% else %>
+				<a href="/families">
+					<p><button type="button" class="btn btn-info" id="admin_families">Volver a Familias</button></p>
+				</a>
+			<% end %>
+		</div>
+	<% else %>
+		<h4 class="counter_is_zero">Aún no existe ni una familia</h4>
 	<% end %>
-	</table>
-	<div class="boton_der">
-		<%= will_paginate @families, renderer: BootstrapPagination::Rails %>
-		<% if !params[:filter] %>
-			<a href="/families?filter=pasive">
-				<p><button type="button" class="btn btn-warning" id="admin_families">Administrar Familias </button></p>
-			</a>
-		<% else %>
-			<a href="/families">
-				<p><button type="button" class="btn btn-info" id="admin_families">Volver a Familias</button></p>
-			</a>
-		<% end %>
-	</div>
 </div>
 <h6>Total de Familias: <%= @families.count %></h6>

@@ -10,10 +10,10 @@
 							<div class="date_over date_class_selector past" id="lecture_<%= lecture.id %>">
 								<div class="bg_contour"></div>
 								<div class="text_container">
-									<div class="day"><%= lecture.date.strftime('%A') %></div>
+									<div class="day"><%= I18n.l lecture.date, :format => "%A" %></div>
 									<div class="hours">
-										<span><%= lecture.date.strftime('%d') %></span>
-									<%= lecture.date.strftime('%b') %>
+										<span><%= I18n.l lecture.date, :format => "%d" %></span>
+										<%= I18n.l lecture.date, :format => "%b" %>
 									</div>
 									<!-- <span class="hour"> <%= lecture.date.strftime('%H:%M') %> </span> -->
 								</div>
@@ -24,10 +24,10 @@
 							<div class="date_over date_class_selector future" id="lecture_<%= lecture.id %>">
 								<div class="bg_contour"></div>
 								<div class="text_container">
-									<div class="day"><%= lecture.date.strftime('%A') %></div>
+									<div class="day"><%= I18n.l lecture.date, :format => "%A" %></div>
 									<div class="hours">
-										<span><%= lecture.date.strftime('%d') %></span>
-									<%= lecture.date.strftime('%b') %>
+										<span><%= I18n.l lecture.date, :format => "%d" %></span>
+										<%= I18n.l lecture.date, :format => "%b" %>
 									</div>
 									<!-- <span class="hour"> <%= lecture.date.strftime('%H:%M') %> </span> -->
 								</div>

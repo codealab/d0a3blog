@@ -6,7 +6,7 @@
 			<% end %>
 			<p><button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lecture_observation">Observación</button></p>
 		</div>
-		<h4>Clase del <%= @lecture.date.to_s(:standard) %></h4>
+		<h4>Clase del <%= I18n.l @lecture.date, :format => "%d de %B del %Y" %></h4>
 	</div>
 	<div class="boton_der">
 		<div class="top_buttons top_buttons_group">
@@ -19,13 +19,13 @@
 	</div>
 	<div class="all_width blue_box" id="exercises_container_table">
 		<div class="all_width white_box">
-			<table class="table table-striped">
-			<tr>	
-				<th>Nombre</th>
-				<th>Área</th>
-				<th>Detalles</th>
-			</tr>
-			<% if @lecture.exercises %>
+			<% if @lecture.exercises.count>0 %>
+				<table class="table table-striped">
+				<tr>	
+					<th>Nombre</th>
+					<th>Área</th>
+					<th>Detalles</th>
+				</tr>
 				<% @lecture.exercises.each_with_index do |ex,index| %>
 					<tr>
 						<td><%= link_to ex.name, group_lecture_exercise_path(@group, @lecture, ex) %></td>
@@ -54,10 +54,10 @@
 						</td>
 					</tr>
 				<% end %>
-			<% else %>
-				<h1>No Hay ejercicios</h1>
-			<% end %>
-		</table>
+			</table>
+		<% else %>
+			<h4 class="counter_is_zero">- Esta clase no cuenta aún con ni un ejercicio -</h4>
+		<% end %>
 		</div>
 	</div>
 </div>
@@ -73,37 +73,41 @@
 
 <div id="attendances" class="all_width blue_box">
 	<div id="scroll_attendances">
-		<% @lecture.attendances.each_with_index do |c,index| %>
-			<div class="child_attendance" id="child_spot_<%= c.person.id %>"  data-toggle="modal" data-target="#att_<%= c.id %>">
-				<div class="child_attendance_over">
-					<span class="glyphicon glyphicon-eye-open"></span>
+		<% if @lecture.attendances.count > 0 %>
+			<% @lecture.attendances.each_with_index do |c,index| %>
+				<div class="child_attendance" id="child_spot_<%= c.person.id %>"  data-toggle="modal" data-target="#att_<%= c.id %>">
+					<div class="child_attendance_over">
+						<span class="glyphicon glyphicon-eye-open"></span>
+					</div>
+					<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
+					<div class="kid_stats">
+						<p><%= c.person.name %></p>
+					</div>
 				</div>
-				<img src="<%= c.person.photo %>" alt="<%= c.person.name %>" class="kid_attendance_photo">
-				<div class="kid_stats">
-					<p><%= c.person.name %></p>
-				</div>
-			</div>
-			<div id="lecture_observation_<%= c.id %>">
-				<div class="modal fade" id="att_<%= c.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel"><%= link_to c.person.full_name, c.person %></h4>
+				<div id="lecture_observation_<%= c.id %>">
+					<div class="modal fade" id="att_<%= c.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel"><%= link_to c.person.full_name, c.person %></h4>
+								</div>
+								<%= form_tag("/attendances/observation/#{c.id}", :method => "get", remote: true ) do %>
+									<div class="modal-body">
+										<%= text_area_tag "observation", c.observation, :class => "form-control", placeholder: "Observación de clase" %>
+									</div>
+									<div class="modal-footer" id="fadebackdrop">
+										<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+									</div>
+								<% end %>
 							</div>
-							<%= form_tag("/attendances/observation/#{c.id}", :method => "get", remote: true ) do %>
-								<div class="modal-body">
-									<%= text_area_tag "observation", c.observation, :class => "form-control", placeholder: "Observación de clase" %>
-								</div>
-								<div class="modal-footer" id="fadebackdrop">
-									<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-								</div>
-							<% end %>
 						</div>
 					</div>
 				</div>
-			</div>
+			<% end %>
+		<% else %>
+			<h4 class="counter_is_zero">Esta clase no cuenta aún con ni una asistencia</h4>
 		<% end %>
 	</div>
 </div>

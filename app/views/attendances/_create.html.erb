@@ -1,12 +1,12 @@
 <div class="child_spot child_appended" id="child_spot_<%= @attendance.id %>">
-	<img src="<%= @attendance.person.photo %>" alt="<%= @attendance.person.name %>" class="kid_attendance_photo">
+	<img src="<%= @attendance.person.photo_url(:thumb) %>" alt="<%= @attendance.person.name %>" class="kid_up_photo">
 	<div class="kid_stats">
 		<p><%= @attendance.person.name %></p>
 	</div>
 	<% if @attendance.can_destroy? %>
 		<div class="child_remove">
 			<a href="/attendances/destroy?id=<%= @attendance.id %>&lecture_id=<%= @lecture.id %>" data-remote="true">
-				<span class="glyphicon glyphicon-remove"></span>
+				<span class="remove"></span>
 			</a>
 		</div>
 	<% end %>

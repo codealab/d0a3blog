@@ -1,7 +1,11 @@
 # encoding: UTF-8
 class Person < ActiveRecord::Base
+
+	attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+
 	before_save :downcase_names
 	after_initialize :titleize_names
+	after_update :crop_person
 
 	has_many :family_relations
 	has_many :families, through: :family_relations, source: :family
@@ -11,7 +15,7 @@ class Person < ActiveRecord::Base
 
 	has_many :groups, through: :spots, source: :group
 	has_many :payments, through: :spots
-	# has_many :lectures, through: :groups, source: :lectures	
+	has_many :lectures, through: :groups, source: :lectures	
 	
 	mount_uploader :photo, PhotoUploader
 
@@ -27,9 +31,9 @@ class Person < ActiveRecord::Base
 	validate :field_uniqueness 
 	validate :dob_cannot_be_in_the_future
 
-  def full_name
-  	[name,first_last_name,second_last_name].join(" ")
-  end
+	def full_name
+		[name,first_last_name,second_last_name].join(" ")
+	end
 
 	include PgSearch
 	
@@ -37,9 +41,13 @@ class Person < ActiveRecord::Base
 	ignoring: :accents
 	# using: { tsearch: { dictionary: "spanish" } }
 
-  def self.text_search(query)
-	  search(query)
-  end
+	def self.text_search(query)
+		search(query)
+	end
+
+  	def crop_person
+		photo.recreate_versions! if crop_x.present?
+	end
 
   private
 

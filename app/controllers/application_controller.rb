@@ -3,9 +3,10 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   include SessionsHelper
-  helper_method :manager
+  include PersonsHelper
 
   before_action :require_login
   before_action :user_visor, only: [:update, :create, :destroy]
@@ -17,6 +18,10 @@ class ApplicationController < ActionController::Base
   
   private
 
+  def record_not_found
+    render :file => 'public/404.html', :status => :not_found, :layout => false
+  end
+
   def require_login
     cookies.permanent[:previous] = request.url
     unless signed_in?
@@ -27,10 +32,6 @@ class ApplicationController < ActionController::Base
 
   def user_visor
     redirect_to(:back, notice:"No tienes los permisos suficientes para llevar a cabo esta tarea.") unless manager
-  end
-
-  def manager
-    current_user.admin? || current_user.facilitator? || current_user.coordinator?
   end
 
 end

@@ -85,7 +85,7 @@ class PaymentsController < ApplicationController
 	#     else
 	#     	return false
 	#     end
- #    end
+	# end
 
 	def payment_params
       params.require(:payment).permit( :date, :spot_id, :scholarship, :amount )
