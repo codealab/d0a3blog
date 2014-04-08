@@ -33,6 +33,13 @@ load_file("family_relations.csv").each do |line|
 	FamilyRelation.create(line)
 end
 
+load_file("exercises.csv").each do |line| 
+	Exercise.create(line)
+end
+
+load_file("area_relations.csv").each do |line| 
+	AreaRelation.create(line)
+end
 
 families = Family.all
 

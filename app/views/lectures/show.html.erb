@@ -19,7 +19,15 @@
 				<td><%= ex.objective %></td>
 				<td><%= ex.description %></td>
 				<td><%= ex.material %></td>
-				<td><%= ex.area %></td>
+				<td>
+					<% if ex.areas.count==1 %>
+						<%= ex.areas.first.name %>
+					<% else %>
+						<% ex.areas.each do |a| %>
+							<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
+						<% end %>
+					<% end %>
+				</td>
 			</tr>
 		<% end %>
 	</table>

@@ -280,3 +280,11 @@ body{
 	color: #107BD8;
 	cursor:pointer;
 }
+.responsible_span{
+	color: #C9C9C9;
+	font-style: italic;
+	font-size: 12px;
+	position: relative;
+	left: 70px;
+	top: 1px;
+}

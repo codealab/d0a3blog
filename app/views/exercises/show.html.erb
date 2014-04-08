@@ -18,6 +18,10 @@
 	<table class="table table-striped">
 		<tr>
 			<tr>
+				<th>Rango de edad:</th>
+				<td><%= "#{[@exercise.min_age,@exercise.max_age].join('-')} semanas" %></td>
+			</tr>
+			<tr>
 				<th>Objectivo</th>
 				<td><%= @exercise.objective %></td>
 			</tr>

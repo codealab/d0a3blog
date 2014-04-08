@@ -10,7 +10,7 @@ class Exercise < ActiveRecord::Base
 	self.per_page = 15
 
 	def full_name
-		"#{ area } #{[min_age,max_age].join('-')}"
+		"#{name}"
 	end
 
 end

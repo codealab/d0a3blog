@@ -7,7 +7,7 @@ module PersonsHelper
 
   def current_group(person)
     current = false
-    person.groups.each { |g| current = true if g.finish_date.past? }
+    person.groups.each { |g| current = true if !g.finish_date.past? }
     current
   end
 

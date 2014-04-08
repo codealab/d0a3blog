@@ -20,30 +20,34 @@
   <div class="all_width light_box">
   	<h4>Pagos</h4>
 	<div class="blue_box">
-		<table class="table table-striped">
-			<tr>
-				<th>Fecha</th>
-				<td>Monto</td>
-				<td>Beca</td>
-			</tr>
-			<% @spot.payments.each do |payment| %>
+		<% if @spot.payments.count>0 %>
+			<table class="table table-striped">
 				<tr>
-					<td><%= payment.date %></td>
-					<td>$<%= payment.amount %>.00</td>
-					<% if(payment.scholarship) %>
-						<td>SI</td>
-					<% else %>
-						<td>NO</td>
-					<% end %>
+					<th>Fecha</th>
+					<td>Monto</td>
+					<td>Beca</td>
 				</tr>
-			<% end %>
-		</table>
-		<% if @spot.child.family_relations.first.family.status? %>
-			<div class="boton_der">
-				<%= link_to new_group_spot_payment_path(@group, @spot) do %>
-					<p><button type="button" class="btn btn-default">Nuevo Pago</button></p>
+				<% @spot.payments.each do |payment| %>
+					<tr>
+						<td><%= payment.date %></td>
+						<td>$<%= payment.amount %>.00</td>
+						<% if(payment.scholarship) %>
+							<td>SI</td>
+						<% else %>
+							<td>NO</td>
+						<% end %>
+					</tr>
 				<% end %>
-			</div>
+			</table>
+			<% if @spot.child.family_relations.first.family.status? %>
+				<div class="boton_der">
+					<%= link_to new_group_spot_payment_path(@group, @spot) do %>
+						<p><button type="button" class="btn btn-default">Nuevo Pago</button></p>
+					<% end %>
+				</div>
+			<% end %>
+		<% else %>
+			<h4 class="counter_is_zero">Aún no existen pagos</h4>
 		<% end %>
 	</div>
   </div>

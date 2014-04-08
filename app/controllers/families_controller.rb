@@ -61,8 +61,8 @@ class FamiliesController < ApplicationController
 	def update
 		@family = Family.find(params[:id])
 		if @family.update_attributes(family_params)
-			if params[:person][:photo].present?
-				render :crop
+			if params[:person]
+				render :crop if params[:person][:photo].present?
 			else
 				flash[:success] = "Actualización Exitosa"
 				redirect_to @family
@@ -73,7 +73,9 @@ class FamiliesController < ApplicationController
 	end
 
 	def destroy
-		Family.find(params[:id]).destroy
+		family = Family.find(params[:id])
+		Person.find(family.responsible_id).destroy
+		family.destroy
 		flash[:success] = "Familia Borrada"
 		redirect_to families_path
 	end
@@ -81,7 +83,7 @@ class FamiliesController < ApplicationController
 	private
 
 		def family_params
-			params.require(:family).permit(:name)
+			params.require(:family).permit(:name, :responsible_id)
 		end
 
 		def person_params

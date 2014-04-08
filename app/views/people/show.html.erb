@@ -32,7 +32,7 @@
 							<td><%= link_to @person.families.first.name, @person.families.first %></td>
 						</tr>
 						<tr>
-							<th>Tutor</th>
+							<th>Responsable</th>
 							<% if @person.families.first.responsible %>
 								<td><%= link_to @person.families.first.responsible.full_name, @person.families.first.responsible %></td>
 							<% else %>
