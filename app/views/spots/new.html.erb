@@ -73,7 +73,8 @@
 									<div class="child_spot child_appended">
 										<img src="<%= c.photo_url(:thumb) %>" alt="<%= c.name %>" class="attendance_img">
 										<div class="weeks_stat">
-											<p><span><%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %></span><br>Semanas</p>
+											<p><span><%= c.dob_to_weeks %></span><br>
+											<% if c.dob_to_weeks == 1%>Semana</p><% else %>Semanas<% end %></p>
 										</div>
 										<div class="kid_stats">
 											<p><%= c.name %></p>
