@@ -2,7 +2,7 @@
 require "csv"
 
 User.create( name: "Juan", email: "juan.fuentes.cabrera.89@gmail.com", password: "123qwe123", password_confirmation: "123qwe123", admin: true )
-User.create( name: "javier", email: "javier@deceroatres.com", password: "deceroatres", password_confirmation: "deceroatres", admin: true )
+User.create( name: "javier", email: "javier@deceroatres.com", password: "deceroatres", password_confirmation: "deceroatres", admin: true, facilitator: true )
 Area.create([{ name: "Motricidad Gruesa" } ,{ name: "Motricidad Fina" } ,{ name: "Lenguaje" } ,{ name: "Sensorial Cognositiva" } ,{ name: "Socio Emocional" } ,{ name: "Otro" }])
 
 def load_file(file)
@@ -16,7 +16,13 @@ def load_file(file)
 end
 
 load_file("members.csv").each do |line| 
-	Person.create(line)
+	person = Person.new(line)
+	if !person.save
+		puts line
+		person.errors.each do |m|
+			puts m
+		end
+	end
 end
 
 load_file("families.csv").each do |line| 
@@ -45,3 +51,59 @@ end
 #               ciudad:"México",estado:"Distrito Federal", pais:"México", 
 #               codigo_postal:"01190", telefono:"558130387", celular:"5512946184", 
 #               email:"user@example.com")
+
+Group.create( name:"Principiantes",
+					    user_id:2, 
+					    location:"Cuajimalpa", 
+					    cost:1000, 
+					    init_date:"01/01/2014", 
+					    finish_date:"01/07/2014", 
+					    min_age:0, 
+					    max_age:24) 
+Group.create( name:"Intemedios",
+					    user_id:2, 
+					    location:"Cuajimalpa", 
+					    cost:1000, 
+					    init_date:"01/01/2014", 
+					    finish_date:"01/07/2014", 
+					    min_age:24, 
+					    max_age:48) 
+Group.create( name:"Avanzados",
+					    user_id:2, 
+					    location:"Cuajimalpa", 
+					    cost:1000, 
+					    init_date:"01/01/2014", 
+					    finish_date:"01/07/2014", 
+					    min_age:48, 
+					    max_age:100) 
+
+# group1_enrroled = Person.where(dob: Date.today..(Date.today - 24.weeks))
+# group2_enrroled = Person.where(dob: (Date.today - 24.weeks)..(Date.today - 48.weeks))
+# group3_enrroled = Person.where(dob: (Date.today - 48.weeks)..(Date.today - 100.weeks))
+
+# @group = Group.find(1)
+# 	5.times do |x|
+# 		person = group1_enrroled[x]
+# 		tutor = person.family_relations.first.family.responsible_id
+# 		@group.spots.build( tutor_id: tutor, child_id: person.id )
+# 	end
+
+
+
+
+# group2_enrroled
+# group3_enrroled
+
+# Person.where(dob: (Date.today - 100.weeks)..(Date.today - 48.weeks))
+
+
+
+
+
+
+
+
+
+
+
+

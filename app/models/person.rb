@@ -45,8 +45,12 @@ class Person < ActiveRecord::Base
 		search(query)
 	end
 
-  	def crop_person
+  def crop_person
 		photo.recreate_versions! if crop_x.present?
+	end
+
+	def dob_to_weeks
+		((Date.today.to_date - self.dob.to_date).to_i)/7
 	end
 
   private

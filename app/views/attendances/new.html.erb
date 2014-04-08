@@ -61,7 +61,8 @@
 										<img src="<%= c.child.photo_url %>" alt="<%= c.child.name %>" class="kid_photo attendance_img">
 									<% end %>
 									<div class="weeks_stat">
-										<p><span><%= ((Date.today.to_date - c.child.dob.to_date).to_i)/7 %></span><br>Semanas</p>
+											<p><span><%= c.child.dob_to_weeks %></span><br>
+											<% if c.child.dob_to_weeks == 1%>Semana</p><% else %>Semanas<% end %></p>
 									</div>
 									<div class="kid_stats">
 										<p><%= c.child.name %></p>
