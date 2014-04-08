@@ -1,7 +1,7 @@
 <%= simple_form_for [@group, @spot], :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
 	<p>
-		<%= f.input :tutor_id, label: "Tutor", include_blank: 'Selecciona un tutor', collection: @spot.child.family_relations.first.family.family_members.collect {|p| [ "#{p.name} #{p.first_last_name} #{p.second_last_name} ", p.id ] } %>
+		<%= f.input :tutor_id, label: "Tutor", :include_blank => false, collection: @spot.child.family_relations.first.family.adults.collect {|p| [ "#{p.name} #{p.first_last_name} #{p.second_last_name} ", p.id ] } %>
 	</p>
 	<p> <%= f.submit "Guardar", class: "btn btn-sm btn-primary" %> </p>
 <% end %>

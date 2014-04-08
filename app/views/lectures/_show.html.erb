@@ -29,7 +29,15 @@
 				<% @lecture.exercises.each_with_index do |ex,index| %>
 					<tr>
 						<td><%= link_to ex.name, group_lecture_exercise_path(@group, @lecture, ex) %></td>
-						<td><%= ex.area %></td>
+						<td>
+							<% if ex.areas.count==1 %>
+								<%= ex.areas.first.name %>
+							<% else %>
+								<% ex.areas.each do |a| %>
+									<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
+								<% end %>
+							<% end %>
+						</td>
 						<td>
 							<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= index %>">Leer más</button>
 							<div class="modal fade" id="ex_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -37,7 +45,7 @@
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											<h4 class="modal-title" id="myModalLabel"><%= ex.area %>: <%= ex.name %></h4>
+											<h4 class="modal-title" id="myModalLabel"><%= ex.name %></h4>
 										</div>
 										<div class="modal-body">
 											<p><strong>Descripción:</strong> <%= ex.description %></p>
@@ -56,7 +64,7 @@
 				<% end %>
 			</table>
 		<% else %>
-			<h4 class="counter_is_zero">- Esta clase no cuenta aún con ni un ejercicio -</h4>
+			<h4 class="counter_is_zero">Esta clase no cuenta con ejercicios</h4>
 		<% end %>
 		</div>
 	</div>
@@ -79,7 +87,11 @@
 					<div class="child_attendance_over">
 						<span class="glyphicon glyphicon-eye-open"></span>
 					</div>
-					<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
+					<% if c.person.photo_url.to_s.include?('/default/') %>
+						<img src="<%= c.person.photo_url %>" alt="<%= c.person.name %>" class="kid_up_photo">
+					<% else %>
+						<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
+					<% end %>
 					<div class="kid_stats">
 						<p><%= c.person.name %></p>
 					</div>
@@ -107,7 +119,7 @@
 				</div>
 			<% end %>
 		<% else %>
-			<h4 class="counter_is_zero">Esta clase no cuenta aún con ni una asistencia</h4>
+			<h4 class="counter_is_zero">Esta clase no cuenta con asistencias</h4>
 		<% end %>
 	</div>
 </div>

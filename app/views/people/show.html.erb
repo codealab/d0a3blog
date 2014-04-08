@@ -19,7 +19,11 @@
 		<div class="all_width blue_box">
 			<div class="white_box">
 				<div class="td_center">
-					<%= image_tag @person.photo_url(:thumb).to_s, :class => "profile_thumb" %>
+					<% if @person.photo_url.include?('/default/') %>
+						<%= image_tag @person.photo_url.to_s, id: 'image_url' %>
+					<% else %>
+						<%= image_tag @person.photo_url(:thumb).to_s, :class => "profile_thumb" %>
+					<% end %>
 				</div>
 				<table class="table table-striped">
 					<tbody>
@@ -28,7 +32,7 @@
 							<td><%= link_to @person.families.first.name, @person.families.first %></td>
 						</tr>
 						<tr>
-							<th>Tutor</th>
+							<th>Responsable</th>
 							<% if @person.families.first.responsible %>
 								<td><%= link_to @person.families.first.responsible.full_name, @person.families.first.responsible %></td>
 							<% else %>
@@ -38,6 +42,10 @@
 						<tr>
 							<th>Edad</th>
 							<td><%= ((Date.today.to_date - @person.dob.to_date)/365).to_i %> años</td>
+						</tr>
+						<tr>
+							<th>Rol Familiar</th>
+							<td><%= @person.family_roll %></td>
 						</tr>
 					</tbody>
 				</table>

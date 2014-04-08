@@ -81,21 +81,25 @@ function over_and_clicks(){
 	
 	//Hovers & clicks for Views => spot_new & attendance_new
     
-	$('.child_selector, .child_attendance').hover(function() {
-		$(this).find('.child_selected').fadeIn(250);
+	$( document ).on( "mouseenter", ".child_selector, .child_attendance", function() {
+        $(this).find('.child_selected').fadeIn(250);
         $(this).find('.child_selected span').stop().animate({ opacity:1, top:13 },600,'easeOutQuart');
-	}, function() {
+    });
+    $( document ).on( "mouseleave", ".child_selector, .child_attendance", function() {
 		$(this).find('.child_selected').fadeOut(250);
         $(this).find('.child_selected span').stop().animate({ opacity:0, top:25 },600,'easeOutQuart');
 	});
 
-	$(".asistente, .inscrito").on("click", function(){
-		$(this).remove();
-	});
 
-    $('.pops').hover(function(event) {
+    $( document ).on( "click", ".asistente, .inscrito", function() {
+        $(this).remove();
+    });
+
+    $( document ).on( "mouseenter", ".pops", function() {
         $(this).popover('show');
-    },function(){
+    });
+
+    $( document ).on( "mouseleave", ".pops", function() {
         $('.btn').popover('hide');
     });
 

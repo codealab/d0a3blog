@@ -1,5 +1,9 @@
 <div class="child_spot" id="child_spot_<%= @spot.child.id %>">
-	<img src="<%= @spot.child.photo_url(:thumb) %>" alt="<%= @spot.child.name %>" class="kid_up_photo">
+	<% if @spot.child.photo_url.to_s.include?('/default/') %>
+		<img src="<%= @spot.child.photo_url %>" alt="<%= @spot.child.name %>" class="kid_up_photo">
+	<% else %>
+		<img src="<%= @spot.child.photo_url(:thumb) %>" alt="<%= @spot.child.name %>" class="kid_up_photo">
+	<% end %>
 	<div class="kid_stats">
 		<p><%= @spot.child.name %></p>
 		<p><%= ("#{ @spot.child.first_last_name } #{ @spot.child.second_last_name }").slice(0..13) %>.</p>

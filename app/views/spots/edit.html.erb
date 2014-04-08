@@ -22,24 +22,28 @@
 	<div class="col-md-8">
 		<h4>Pagos</h4>
 		<div class="blue_box">
-			<table class="table table-striped">
-				<tr>
-					<th>Fecha</th>
-					<td>Monto</td>
-					<td>Beca</td>
-				</tr>
-				<% @spot.payments.each do |payment| %>
+			<% if @spot.payments.empty? %>
+				<h4 class="counter_is_zero">Aún no existen pagos</h4>
+			<% else %>
+				<table class="table table-striped">
 					<tr>
-						<td><%= payment.date %></td>
-						<td>$<%= payment.amount %>.00</td>
-						<% if(payment.scholarship) %>
-							<td>SI</td>
-						<% else %>
-							<td>NO</td>
-						<% end %>
+						<th>Fecha</th>
+						<td>Monto</td>
+						<td>Beca</td>
 					</tr>
-				<% end %>
-			</table>
+					<% @spot.payments.each do |payment| %>
+						<tr>
+							<td><%= payment.date %></td>
+							<td>$<%= payment.amount %>.00</td>
+							<% if(payment.scholarship) %>
+								<td>SI</td>
+							<% else %>
+								<td>NO</td>
+							<% end %>
+						</tr>
+					<% end %>
+				</table>
+			<% end %>
 		</div>
 	</div>
 	<% if @spot.payments.count==0 %>

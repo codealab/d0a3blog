@@ -19,7 +19,15 @@
 				<td><%= ex.objective %></td>
 				<td><%= ex.description %></td>
 				<td><%= ex.material %></td>
-				<td><%= ex.area %></td>
+				<td>
+					<% if ex.areas.count==1 %>
+						<%= ex.areas.first.name %>
+					<% else %>
+						<% ex.areas.each do |a| %>
+							<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
+						<% end %>
+					<% end %>
+				</td>
 			</tr>
 		<% end %>
 	</table>
@@ -34,7 +42,11 @@
 	<div id="scroll_attendances">
 		<% @lecture.attendances.each do |c| %>
 			<div class="child_attendance" id="child_spot_<%= c.person.id %>">
-				<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
+				<% if c.person.photo_url.to_s.include?('/default/') %>
+					<img src="<%= c.person.photo_url %>" alt="<%= c.person.name %>" class="kid_up_photo">
+				<% else %>
+					<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
+				<% end %>
 				<div class="kid_stats">
 					<p><%= c.person.name %></p>
 				</div>

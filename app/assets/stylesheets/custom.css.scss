@@ -407,11 +407,12 @@ footer {
   border: 1px solid rgb(202, 202, 202);
   border-radius: 4px;
 }
-#posibble_childs .child_spot, #posible_attendances .child_spot{
+#childs_container .child_spot, #posibble_childs .child_spot, #posible_attendances .child_spot{
   margin: 3px;
   height: 50px;
   width: 264px;
 }
+#childs_container .child_spot{ width: 262px; }
 .child_attendance, .child_spot {
   width: 102px;
   height: 120px;
@@ -453,7 +454,7 @@ footer {
   right: 3px;
 }
 .child_selected {
-  background-color: rgba(6, 30, 51, 0.78);
+  background-color: rgba(129, 81, 156, 0.4) ;
   position: absolute;
   width: 214px;
   height: 50px;
@@ -524,7 +525,7 @@ footer {
   font-size: 12px;
   text-indent: 5px;
 }
-#posibble_childs .kid_stats, #posible_attendances .kid_stats {
+#childs_container .kid_stats, #posibble_childs .kid_stats, #posible_attendances .kid_stats {
   width: 200px;
   height: 100%;
   position: absolute;

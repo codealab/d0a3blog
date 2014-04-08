@@ -13,5 +13,9 @@ FactoryGirl.define do
     	name "Vega"
     end
 
+    trait :responsible do
+        responsible { create(:person) }
+    end
+
   end
 end

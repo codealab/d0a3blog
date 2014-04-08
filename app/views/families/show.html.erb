@@ -4,7 +4,7 @@
 <div class="boton_der">
 	<div class="top_buttons">
 		<%= link_to families_path do %>
-			<p><button type="button" class="btn btn-info">Regresar a Socios</button></p>
+			<p><button type="button" class="btn btn-info">Regresar a Familias</button></p>
 		<% end %>
 		<%= link_to new_family_person_path(@family) do %>
 			<p><button type="button" class="btn btn-default">Nuevo Miembro</button></p>
@@ -37,7 +37,12 @@
 								<% else %>
 									<span class="current_group current_null"></span>
 								<% end %>
-								<%= link_to member.full_name, member %>
+								<%= link_to member do %>
+									<%= member.full_name %>
+									<% if member.id == @family.responsible_id %>
+										<span class="responsible_span">Responsable</span>
+									<% end %>
+								<% end %>
 							</td>
 							<td><%= member.sex %></td>
 							<td><%= member.dob %></td>
@@ -56,8 +61,12 @@
 								<% end %>
 							</td>
 							<td>
-								<%= link_to family_person_path(@family, member), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
-									<button type="button" class="btn btn-danger btn-xs">Borrar</button>
+								<% if member.id == @family.responsible_id %>
+									<button type="button" class="btn btn-danger btn-xs disabled">Borrar</button>
+								<% else %>
+									<%= link_to family_person_path(@family, member), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
+										<button type="button" class="btn btn-danger btn-xs">Borrar</button>
+									<% end %>
 								<% end %>
 							</td>
 						</tr>
@@ -68,15 +77,17 @@
 			<h4 class="counter_is_zero">Aún no existe ni un miembro en esta familia</h4>
 		<% end %>
 		<div class="boton_der">
-			<span style="color: #928C8C; position: absolute; top: 10px; font-style: italic; font-size: 12px; ">
-				*El Saldo actual de esta familia es de $<%= totalGroupsFamily %></span>
-			<% if @family.can_destroy? %>
-				<%= link_to @family, method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
+			<span style="color: #A8A8A8; position: absolute; top: 30px; font-style: italic; font-size: 12px; left: 8px;"><span class="current_group current_null"></span>Sin cursos activos
+			</span><span style="color: #A8A8A8; position: absolute; top: 10px; font-style: italic; font-size: 12px; left: 8px;"><span class="current_group current_active"></span>Cursando actualmente
+			</span>
+			<span style="color: #928C8C; position: absolute; top: 16px; font-style: italic; font-size: 12px; width: 100%;text-align: center;">Saldo familiar $<%= totalGroupsFamily %></span>
+			<% if @family.family_members.count==1 %>
+				<%= link_to @family, method: :delete, data: { confirm: "¿Estás Seguro? Borrarás a la familia y a su responsable." } do %>
 					<p><button type="button" class="btn btn-danger">Borrar Familia</button></p>
 				<% end %>
 			<% end %>
 			<%= link_to edit_family_path do %>
-				<p><button type="button" class="btn btn-default">Editar Nombre de la Familia</button></p>
+				<p><button type="button" class="btn btn-default">Editar Familia</button></p>
 			<% end %>
 		</div>
 	</div>

@@ -37,7 +37,13 @@
 							<td><%= link_to exercise.name, group_lecture_exercise_path(@group, @lecture, exercise) %></td>
 							<td>
 								<% exercise.areas.each do |a| %>
-									<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..0) %></span>
+									<% if exercise.areas.count==1 %>
+										<%= exercise.areas.first.name %>
+									<% else %>
+										<% exercise.areas.each do |a| %>
+											<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
+										<% end %>
+									<% end %>
 								<% end %>
 							</td>
 							<td><button type="button" class="btn btn-primary pops btn-xs" data-container="body" data-toggle="popover" data-placement="left" data-content="<%= exercise.objective %>">Descripción</button></td>
@@ -78,7 +84,7 @@
 									<%= exercise.areas.first.name %>
 								<% else %>
 									<% exercise.areas.each do |a| %>
-										<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..0) %></span>
+										<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
 									<% end %>
 								<% end %>
 							</td>

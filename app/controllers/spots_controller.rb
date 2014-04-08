@@ -13,8 +13,7 @@ class SpotsController < ApplicationController
 	def create
 		@group = Group.find(params[:group_id])
 		person = Person.find(params[:child_id])
-		tutor = person.family_relations.first.family.responsible_id
-		@spot = @group.spots.build( tutor_id: tutor, child_id: person.id )
+		@spot = @group.spots.build( child_id: person.id )
 		@group.save
 	end
 

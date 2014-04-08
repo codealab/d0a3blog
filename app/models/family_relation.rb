@@ -7,12 +7,10 @@ class FamilyRelation < ActiveRecord::Base
 	validates :family_id, presence: true
 	validates_uniqueness_of :family_id, :scope => :person_id
 
-  validate :person_exists
+	validate :person_exists
 
-
-  def person_exists
-  	errors.add(:person_id, "La persona no existe en la base de datos") if
-	      !Person.find(person_id)
-  end
+	def person_exists
+		errors.add(:person_id, "La persona no existe en la base de datos") if !Person.find(person_id)
+	end
 
 end

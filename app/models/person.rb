@@ -45,7 +45,7 @@ class Person < ActiveRecord::Base
 		search(query)
 	end
 
-  def crop_person
+	def crop_person
 		photo.recreate_versions! if crop_x.present?
 	end
 

@@ -33,15 +33,20 @@ load_file("family_relations.csv").each do |line|
 	FamilyRelation.create(line)
 end
 
+load_file("exercises.csv").each do |line| 
+	Exercise.create(line)
+end
+
+load_file("area_relations.csv").each do |line| 
+	AreaRelation.create(line)
+end
 
 families = Family.all
 
 families.each do |f|
 	f.family_relations.each do |rel|
 		if(rel.person)
-			if(rel.person.family_roll=='Madre')
-				f.responsible_id = rel.person.id
-			end
+			f.responsible_id = rel.person.id if rel.person.family_roll=='Madre'
 		end
 		f.save
 	end
