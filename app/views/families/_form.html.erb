@@ -1,9 +1,85 @@
-<div class="row">
+<div id="loader">
+	<img src="/assets/person_loader.GIF" alt="">
+	GUARDANDO
+</div>
+<div class="row" id="fade_form">
   <div class="col-md-4 col-md-offset-4">
-	<%= simple_form_for @family, :html => { :class => "form-horizontal" } do |f| %> 
-		<%= render 'shared/error_messages', object: f.object %>
-		<%= f.input :name, label: "Nombre de la familia" %> <br>
-		<%= f.button :submit, "Crear Familia" %>
+  	<% if params[:action] == 'new' || params[:action] == 'create' %>
+		<%= simple_form_for @person, :html => {:multipart => true, :class => 'form-horizontal'}, :url => families_path do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+
+			<div class="input boolean optional family_name">
+				<label class="string required" for="family_name"><abbr title="required">*</abbr> Familia</label>
+				<input name="family[name]" type="hidden">
+				<input id="family_name" name="family[name]" type="text" class="required form-control form-control" required="required">
+			</div>
+
+			<p><%= f.input :name, label:"Nombre (Responsable de familia)" %></p>
+			<p><%= f.input :first_last_name, label: "Apellido Paterno" %></p>
+			<p><%= f.input :second_last_name, label: "Apellido Materno" %></p>
+			<span id="selector_fecha">
+				<%= f.input :dob, label: "Fecha de Nacimiento", :order => [:day, :month, :year],:start_year => Time.now.year-18, :end_year => Time.now.year-100, :input_html => { :class => 'date_selector' } %>
+			</span>
+			<p><%= f.input :sex, label: "Genero", collection: ["M", "F"], :as => :radio_buttons %></p>
+			<p>
+				<%= f.input :family_roll, label: "Roll Familiar", :include_blank => false, collection: [[ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tío', 'Tío', :class => 'man' ], [ 'Tía', 'Tía', :class => 'woman' ], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
+				<input id="other_name" type="text" placeholder="Escribe el parentesco" style="margin-top: -34px; width: 95%; display:none; z-index: 1; position: relative; border-bottom-right-radius: 0px; border-top-right-radius: 0px;" name="person[other]" class="form-control">
+			</p>
+			<p><%= f.text_field :oldphoto, label:"safe", value: @oldphoto, :class => 'form-control', :hidden => true, :disabled => true %></p>
+			<%= image_tag @person.photo_url(:thumb).to_s, id: 'image_url' %>
+			<p><%= f.input :photo, label: "Foto" %></p>
+			<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
+		<% end %>
+	<% else %>
+		<%= simple_form_for @family, :html => { :class => "form-horizontal" } do |f| %> 
+			<%= render 'shared/error_messages', object: f.object %>
+			<%= f.input :name, label: "Nombre de la familia" %> <br>
+			<%= f.button :submit, "Guardar" %>
+		<% end %>
 	<% end %>
   </div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		$("#image_url").error(function() {
+			<% if @person.photo_url.to_s.include?('user/default') %>
+				$(this).attr('src', '/assets/default/person/default.png');
+			<% else %>
+				$(this).attr('src', '<%= @oldphoto %>');
+			<% end %>
+		});
+
+		$("#new_person, #edit_person_<%= @person.id %>").submit(function(){
+			$("#fade_form").fadeOut();
+			$("#loader").fadeIn();
+		});
+
+		$('#person_photo').imagePreview();
+		$("#person_family_roll").change(function () {
+			var value = $(this).val();
+			if(value=='Otro') $("#other_name").val("").show().focus();
+			else $("#other_name").hide().blur();
+		});
+		$("#other_name").on('keyup',function(e){
+			var newOption = $(this).val();
+			$("#other_value").val(newOption);
+		});
+		$('input:radio').on("click",checkSex);
+
+		var daValue = $("#person_family_roll").val();
+		$('.man, .woman').remove();
+		checkSex();
+		$("#person_family_roll").val(daValue);
+	});
+	function checkSex(){
+		$('.man, .woman').remove();
+		if($("#person_sex_m").is(':checked')){
+			$('.woman').remove();
+			$("#person_family_roll").prepend("<option value='' disabled selected class='man'>Selecciona el parentesco</option><option class='man' value='Padre'>Padre</option> <option class='man' value='Abuelo'>Abuelo</option> <option class='man' value='Tío'>Tío</option>");
+		}else{
+			$('.man').remove();
+			$("#person_family_roll").prepend("<option value='' disabled selected class='woman'>Selecciona el parentesco</option><option class='woman' value='Madre'>Madre</option> <option class='woman' value='Abuela'>Abuela</option> <option class='woman' value='Tía'>Tía</option>");
+		}
+	}
+</script>

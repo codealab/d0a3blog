@@ -2,8 +2,12 @@
 	<% @childs.each_with_index do |c,index| %>
 		<% if c.family_relations.first.family.status? %>
 			<a href="/spots/create?child_id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>" data-weeks="<%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %>">
-				<div class="child_spot child_result">
-					<img src="<%= c.photo_url(:thumb) %>" alt="<%= c.name %>" class="kid_photo">
+				<div class="child_spot child_result child_appended">
+					<% if c.photo_url.to_s.include?('/default/') %>
+						<img src="<%= c.photo_url %>" alt="<%= c.name %>" class="attendance_img">
+					<% else %>
+						<img src="<%= c.photo_url(:thumb) %>" alt="<%= c.name %>" class="attendance_img">
+					<% end %>
 					<div class="weeks_stat">
 						<p><span><%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %></span><br>Semanas</p>
 					</div>
@@ -12,7 +16,7 @@
 						<p><%= ("#{ c.first_last_name } #{ c.second_last_name }").slice(0..13) %>.</p>
 					</div>
 					<div class="child_selected">
-						activar
+						<span class="glyphicon glyphicon-ok"></span>
 					</div>
 				</div>
 			</a>

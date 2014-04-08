@@ -25,7 +25,13 @@
 				<th>Coordinador</th>
 			</tr>
 			<tr>
-				<td><%= image_tag @user.photo_url(:thumb).to_s, id: "image_url" %></td>
+				<td>
+					<% if @user.photo_url.to_s.include?('/default/') %>
+						<%= image_tag @user.photo_url.to_s, id: "image_url", :class=> 'profile_thumb' %>
+					<% else %>
+						<%= image_tag @user.photo_url(:thumb).to_s, id: "image_url", :class=> 'profile_thumb' %>
+					<% end %>
+				</td>
 				<td><%= @user.name %></td>
 				<td><%= @user.email %></td>
 				<% if @user.admin %>

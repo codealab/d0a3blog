@@ -20,7 +20,7 @@
 			<table class="table table-striped tablesorter">
 				<thead>
 					<tr>
-						<th>Nombre</th>
+						<th>Nombre*</th>
 						<th>Sexo</th>
 						<th>Fecha de Nacimiento</th>
 						<th>Relación</th>
@@ -68,8 +68,10 @@
 			<h4 class="counter_is_zero">Aún no existe ni un miembro en esta familia</h4>
 		<% end %>
 		<div class="boton_der">
-			<span style="color: #928C8C; position: absolute; top: 10px; font-style: italic; font-size: 12px; ">
-				*El Saldo actual de esta familia es de $<%= totalGroupsFamily %></span>
+			<span style="color: #A8A8A8; position: absolute; top: 30px; font-style: italic; font-size: 12px; left: 8px;"><span class="current_group current_null"></span>Sin cursos activos
+			</span><span style="color: #A8A8A8; position: absolute; top: 10px; font-style: italic; font-size: 12px; left: 8px;"><span class="current_group current_active"></span>Cursando actualmente
+			</span>
+			<span style="color: #928C8C; position: absolute; top: 16px; font-style: italic; font-size: 12px; width: 100%;text-align: center;">Saldo familiar $<%= totalGroupsFamily %></span>
 			<% if @family.can_destroy? %>
 				<%= link_to @family, method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
 					<p><button type="button" class="btn btn-danger">Borrar Familia</button></p>

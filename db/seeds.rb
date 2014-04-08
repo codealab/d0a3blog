@@ -33,9 +33,7 @@ families = Family.all
 families.each do |f|
 	f.family_relations.each do |rel|
 		if(rel.person)
-			if(rel.person.family_roll=='Madre')
-				f.responsible_id = rel.person.id
-			end
+			f.responsible_id = rel.person.id if rel.person.family_roll=='Madre'
 		end
 		f.save
 	end

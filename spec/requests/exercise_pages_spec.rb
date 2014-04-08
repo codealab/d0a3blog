@@ -36,12 +36,11 @@ describe 'Exercise pages' do
 		
 		describe "with invalid information" do
 			before { click_button("Guardar") }
-			it { should have_content("6 errors") }
+			it { should have_content("5 errors") }
 		end
 
 		describe "with valid information" do
 			before do
-				select 'Lenguaje', from: "exercise_area"
 				fill_in "exercise[name]",	:with => "Ejercicio 1"
 				fill_in "exercise[min_age]",	:with => "0"
 				fill_in "exercise[max_age]",	:with => "48"
@@ -80,7 +79,6 @@ describe 'Exercise pages' do
 		describe "with invalid information" do
 			before do
 				fill_in "exercise[min_age]", :with => " "
-				select 'Lenguaje', from: "exercise_area"
 				click_button "Guardar"
 			end
 			it { should have_content("The form contains 1 error") }
@@ -88,7 +86,6 @@ describe 'Exercise pages' do
 
 		describe "with valid information" do
 			before do
-				select 'Motricidad Gruesa', from: "exercise_area"
 				fill_in "exercise[min_age]",	:with => "10"
 				fill_in "exercise[max_age]",	:with => "36"
 				fill_in "exercise[objective]",	:with => "Este es otro objetivo en ejercicio"

@@ -2,7 +2,6 @@
 FactoryGirl.define do
   factory :exercise do
   	sequence(:name)  { |n| "Exercise#{n}" }
-    sequence(:area)  { |n| "Area#{n}" }
     sequence(:min_age) {  |n| "#{n*10}"}
     sequence(:max_age) {  |n| "#{(n*10)+9}"}
     objective 'Este es un objetivo en ejercicio'

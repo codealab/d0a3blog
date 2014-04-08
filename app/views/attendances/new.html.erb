@@ -22,7 +22,11 @@
 				<% if @lecture.attendances.count>0 %>
 					<% @lecture.attendances.each do |c| %>
 						<div class="child_spot child_appended" id="child_spot_<%= c.id %>">
-							<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
+							<% if c.person.photo_url.to_s.include?('/default/') %>
+								<img src="<%= c.person.photo_url %>" alt="<%= c.person.name %>" class="kid_up_photo">
+							<% else %>
+								<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
+							<% end %>
 							<div class="kid_stats">
 								<p><%= c.person.name %></p>
 							</div>
@@ -51,7 +55,11 @@
 						<% if c.child.family_relations.first.family.status? %>
 							<a href="/attendances/create?person_id=<%= c.child.id %>&lecture_id=<%= @lecture.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.child.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>">
 								<div class="child_spot child_appended">
-									<img src="<%= c.child.photo_url(:thumb) %>" alt="<%= c.child.name %>" class="kid_photo attendance_img">
+									<% if c.child.photo_url.to_s.include?('/default/') %>
+										<img src="<%= c.child.photo_url(:thumb) %>" alt="<%= c.child.name %>" class="kid_photo attendance_img">
+									<% else %>
+										<img src="<%= c.child.photo_url %>" alt="<%= c.child.name %>" class="kid_photo attendance_img">
+									<% end %>
 									<div class="weeks_stat">
 										<p><span><%= ((Date.today.to_date - c.child.dob.to_date).to_i)/7 %></span><br>Semanas</p>
 									</div>

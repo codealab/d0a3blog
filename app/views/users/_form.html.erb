@@ -7,7 +7,7 @@
     <%= simple_form_for @user, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 			<p><%= f.input :name, label:"Nombre" %></p>
-			<% if @user.photo_url.to_s.include?('user/default') %>
+			<% if @user.photo_url.to_s.include?('/default/') %>
 				<img src="" id="image_url" alt="">
 			<% else %>
 				<%= image_tag @user.photo_url(:thumb).to_s, id: 'image_url' %>
