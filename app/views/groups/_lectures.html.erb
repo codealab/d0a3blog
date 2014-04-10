@@ -2,6 +2,12 @@
 		<h4>Fecha</h4>
 	</div>
 	<div class="container_large_scroll" id="date_selector">
+		<div id="up_scroll" class="scroll_arrow">
+			<span class="glyphicon glyphicon-chevron-up" style="color: #107BD8;"></span>
+		</div>
+		<div id="down_scroll" class="scroll_arrow">
+			<span class="glyphicon glyphicon-chevron-down" style="color: #107BD8;"></span>
+		</div>
 		<nav id="lectures_dates" class="large_scroll">
 			<div id="dates_container" class="children_scroll">
 				<% @group.lectures.order('date ASC').each do |lecture| %>
@@ -15,7 +21,6 @@
 										<span><%= I18n.l lecture.date, :format => "%d" %></span>
 										<%= I18n.l lecture.date, :format => "%b" %>
 									</div>
-									<!-- <span class="hour"> <%= lecture.date.strftime('%H:%M') %> </span> -->
 								</div>
 							</div>
 						<% end %>
@@ -29,12 +34,10 @@
 										<span><%= I18n.l lecture.date, :format => "%d" %></span>
 										<%= I18n.l lecture.date, :format => "%b" %>
 									</div>
-									<!-- <span class="hour"> <%= lecture.date.strftime('%H:%M') %> </span> -->
 								</div>
 							</div>
 						<% end %>
 					<% end %>
-					<!--<%= link_to edit_group_lecture_path(@group, lecture) do %><button type="button" class="btn btn-default btn-xs">Editar Clase</button><% end %> -->
 				<% end %>
 			</div>
 		</nav>

@@ -38,6 +38,10 @@ class PeopleController < ApplicationController
 		@oldphoto = @person.photo_url
 	end
 
+	def search
+		@people = Person.text_search(params[:query].downcase)
+	end
+
 	def show
 		@person = Person.find(params[:id])
 	end

@@ -19,12 +19,8 @@
 						<%= link_to "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}", person_path(spot.tutor.id) %>
 					<% end %>
 				</td>
-				<% total = 0 %>
-				<% spot.payments.each do |p| %>
-					<% total = total + p.amount %>
-				<% end %>
-				<td>$<%= total %></td>
-				<td>$<%= @group.cost-total %></td>
+				<td>$<%= total_payments spot %></td>
+				<td>$<%= spot.balance %></td>
 			</tr>
 		<% end %>
 	</table>

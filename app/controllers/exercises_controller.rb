@@ -71,6 +71,29 @@ class ExercisesController < ApplicationController
 		end
 	end
 
+	def search
+		init = params[:init][0]
+		ended = params[:end][0]
+
+		@exercises = Exercise.all
+
+		if params[:area_id]
+			@area = Area.find_by_id(params[:area_id])
+		end
+		if @area
+			@exercises = @area.exercises
+		end
+		if init && ended
+			@exercises = @exercises.where("min_age >= :start AND max_age<= :end ", { start: init, ended: ended })
+		end
+		if init && !ended
+			@payments = @payments.where("min_age >= :start", { start: init })
+		end
+		if !init && ended
+			@payments = @payments.where("min_age<= :end ", { ended: ended })
+		end
+	end
+
 	def destroy
 		Exercise.find(params[:id]).destroy
 		flash[:success] = "Ejercicio borrado"
