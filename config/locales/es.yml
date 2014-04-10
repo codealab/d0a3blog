@@ -223,5 +223,35 @@ es:
     errors:
       <<: *errors
   activerecord:
-    errors:
+    errors: 
       <<: *errors
+es:
+  activerecord:
+    models:
+      person: "Miembro"
+    attributes:
+      person:
+        name: "Nombre"
+        first_last_name: "Apellido paterno"
+        second_last_name: "Apellido materno"
+        sex: "Genero"
+        dob: "Fecha de nacimiento"
+        family_roll: "Rol Familiar"
+        photo: "Foto"  
+      exercise:
+        min_age: "Edad mínima"
+        max_age: "Edad máxima"
+        objective: "Objetivo"
+        description: "Descripción"
+        material: "Material"
+        music: "Musica"
+
+
+
+
+
+
+
+
+
+
