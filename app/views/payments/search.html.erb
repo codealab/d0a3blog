@@ -29,7 +29,6 @@
 						<td><%= link_to p.spot.child.families.first.name, p.spot.child.families.first %></td>
 						<td><%= link_to p.spot.group.name, p.spot.group %></td>
 						<td>$<%= p.amount %></td>
-						<% total += p.amount %>
 					</tr>
 				<% end %>
 			</tbody>
@@ -39,13 +38,12 @@
 				<td></td>
 				<td></td>
 				<td><b>Total:</b></td>
-				<td>$<%= total %></td>
+				<td>$<%= total_payments @payments %></td>
 			</tr>
 		</table>
 	<% else %>
 		<div class="white_box">
-			<h4>No Hay resultados</h4>
-			<div class="under_pressure"></div>
+			<h4 class="counter_is_zero">No existe ningún pago dentro de la búsqueda</h4>
 		</div>
 	<% end %>
 </div>

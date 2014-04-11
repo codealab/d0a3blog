@@ -6,6 +6,7 @@ class CreatePayments < ActiveRecord::Migration
       t.integer :spot_id
       t.integer :group_id
       t.boolean :scholarship, :default => false
+      t.text :clarification
 
       t.timestamps
     end

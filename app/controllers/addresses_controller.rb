@@ -37,12 +37,12 @@ class AddressesController < ApplicationController
 
 	private
 
-		def address_params
-      params.require(:address).permit(:calle, :num_ext, :num_int, 
-										                  :localidad, :referencia, :colonia,
-										                  :municipio,:ciudad,:estado, :pais, 
-										                  :codigo_postal, :telefono, :celular, 
-										                  :email)
+	def address_params
+		params.require(:address).permit(:calle, :num_ext, :num_int,
+										:localidad, :referencia, :colonia,
+										:municipio,:ciudad,:estado, :pais, 
+										:codigo_postal, :telefono, :celular, 
+										:email)
     end
 
 		def correct_user

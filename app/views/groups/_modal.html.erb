@@ -16,7 +16,7 @@
 							<% if object.spots.count>0 %>
 								<table class="table table-striped tablesorter">
 									<thead>
-										<th class="td_center">Registro</th>
+										<th class="text_center">Registro</th>
 										<th>Inscritos</th>
 										<th>Tutor</th>
 										<th>Pagos</th>
@@ -26,7 +26,7 @@
 									<tbody>
 										<% object.spots.each_with_index do |spot,index| %>
 											<tr>
-												<td class="td_center">
+												<td class="text_center">
 													<%= link_to edit_group_spot_path(object, spot), :title => "Editar" do %>
 														<span class="glyphicon glyphicon-pencil"></span>
 													<% end %>
@@ -39,9 +39,9 @@
 													<%= link_to "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}", person_path(spot.tutor.id) %>
 													<% end %>
 												</td>
-												<td class="td_center">$<%= total_payments spot %></td>
-												<td class="td_center">$<%= spot.balance %></td>
-												<td class="td_center">$<%= total_scholarship spot %></td>
+												<td class="text_center">$<%= total_payments spot %></td>
+												<td class="text_center">$<%= spot.balance %></td>
+												<td class="text_center">$<%= total_scholarship spot %></td>
 											</tr>
 										<% end %>
 									</tbody>
@@ -49,9 +49,9 @@
 										<td></td>
 										<td></td>
 										<td><b>Total:</b></td>
-										<td class="td_center">$<%= total_payments object %></td>
-										<td class="td_center">$<%= total_balance object %></td>
-										<td class="td_center">$<%= total_scholarship object %></td>
+										<td class="text_center">$<%= total_payments object %></td>
+										<td class="text_center">$<%= total_balance object %></td>
+										<td class="text_center">$<%= total_scholarship object %></td>
 									</tr>
 								</table>
 							<% else %>

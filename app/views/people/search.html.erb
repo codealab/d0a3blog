@@ -1,0 +1,14 @@
+<% provide(:title, "Todos los Miembros") %>
+
+<div class="boton_der">
+	<h1>Todos los Miembros<span class="line"></span></h1>
+</div>
+<div class="all_width blue_box">
+	<div class="spacer"></div>
+	<% if @people.count > 0 %>
+		<%= render 'people/list' %>
+	<% else %>
+		<h4 class="counter_is_zero">Ninguna persona coincidió con tu búsqueda.</h4>
+	<% end %>
+</div>
+<h6>Total de Miembros: <%= @people.count %></h6>

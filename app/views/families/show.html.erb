@@ -1,6 +1,4 @@
 <% provide(:title, "Familia: #{ @family.name }") %>
-<% totalGroupsFamily = 0 %>
-
 <div class="boton_der">
 	<div class="top_buttons">
 		<%= link_to families_path do %>
@@ -47,14 +45,6 @@
 							<td><%= member.sex %></td>
 							<td><%= member.dob %></td>
 							<td><%= member.family_roll %></td>
-							<% total = 0
-								totalGroups = 0 %>
-							<% member.spots.each do |spot| %>
-								<% spot.payments.each { |p| total += p.amount } %>
-							<% end %>
-							<% member.groups.each { |g| totalGroups += g.cost } %>
-							<% totalpergroup = totalGroups-total
-							   totalGroupsFamily += totalpergroup %>
 							<td>
 								<%= link_to edit_family_person_path(@family, member) do %>
 									<button type="button" class="btn btn-default btn-xs">Editar</button>
@@ -80,7 +70,9 @@
 			<span style="color: #A8A8A8; position: absolute; top: 30px; font-style: italic; font-size: 12px; left: 8px;"><span class="current_group current_null"></span>Sin cursos activos
 			</span><span style="color: #A8A8A8; position: absolute; top: 10px; font-style: italic; font-size: 12px; left: 8px;"><span class="current_group current_active"></span>Cursando actualmente
 			</span>
-			<span style="color: #928C8C; position: absolute; top: 16px; font-style: italic; font-size: 12px; width: 100%;text-align: center;">Saldo familiar $<%= totalGroupsFamily %></span>
+			<span style="color: #928C8C; position: absolute; top: 16px; font-style: italic; font-size: 12px; width: 100%;text-align: center;">
+				Saldo familiar <%= negative_value (total_balance @family)  %>
+			</span>
 			<% if @family.family_members.count==1 %>
 				<%= link_to @family, method: :delete, data: { confirm: "¿Estás Seguro? Borrarás a la familia y a su responsable." } do %>
 					<p><button type="button" class="btn btn-danger">Borrar Familia</button></p>

@@ -316,7 +316,7 @@ footer {
 
 /* Table */
 
-.td_center { text-align: center; }
+.text_center { text-align: center; }
 .td_left { text-align: left; }
 /* Group show */
 
@@ -427,7 +427,7 @@ footer {
   overflow: hidden;
   cursor: pointer;
   width: 74px;
-  height: 100px;
+  height: 85px;
   margin: 2px;
   text-align: center;
 }
@@ -437,12 +437,13 @@ footer {
 .child_attendance_over {
   width: 100%;
   height: 100%;
-  background: rgba(238, 162, 54, 0.6);
+  background: rgba(129, 81, 156, 0.6);
   position: absolute;
   text-align: center;
   font-size: 22px;
-  color: #0087FC;
+  color: white;
   display: none;
+  border-radius: 4px;
 }
 .child_attendance_over span{
   position: relative;
@@ -484,6 +485,7 @@ footer {
 }
 
 .all_width {
+  position: relative;
   width: 100%;
   float: left;
   padding: 10px;
@@ -563,6 +565,7 @@ footer {
   width: 100%;
   height: 5px;
 }
+#scroll_attendances .kid_stats p { font-size: 10px; }
 .child_selector{ position: relative; }
 #enlist_childs .child_selector, #posibble_childs .child_selector{ display: none; }
 #alert_notice{ display: none; }

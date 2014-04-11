@@ -6,6 +6,7 @@
 <% if @payments.count>0 %>
 	<%= render '/payments/searchform' %>
 <% end %>
+<% payments = @payments.where(:scholarship => false)  %>
 <div class="spacer"></div>
 <div class="all_width blue_box">
 	<% if @payments.count>0 %>
@@ -16,19 +17,32 @@
 					<th>Niño</th>
 					<th>Tutor</th>
 					<th>Grupo</th>
-					<th>Cantidad</th>
+					<th class="text_center">Cantidad</th>
+					<th class="text_center">Beca</th>
+					<th>
+						<p></p>
+						<span data-toggle="tooltip" data-placement="bottom" title="Aclaración" data-original-title="Aclaración" class="tip glyphicon glyphicon-info-sign"></span>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<% total = 0 %>
-				<% @payments.where(:scholarship => false).each do |p| %>
+				<% @payments.each do |p| %>
 					<tr>
 						<td><%= p.date %></td>
 						<td><%= link_to p.spot.child.full_name, p.spot.child %></td>
 						<td><%= link_to p.spot.tutor.full_name, p.spot.tutor %></td>
 						<td><%= link_to p.spot.group.name, p.spot.group %></td>
-						<td>$<%= p.amount %></td>
-						<% total += p.amount %>
+						<td class="texftoot_center"><%= negative_value(p.amount) %></td>
+						<td class="text_center">
+							<% if p.scholarship %>
+								<span class="current_group scholarship_payment"></span>
+							<% else %>
+								<span class="current_group current_null"></span>
+							<% end %>
+						</td>
+						<td class="text_center">
+							<span data-toggle="tooltip" data-placement="left" title="<%= p.clarification %>" data-original-title="<%= p.clarification %>" class="tip glyphicon glyphicon-info-sign"></span>
+						</td>
 					</tr>
 				<% end %>
 			</tbody>
@@ -37,43 +51,22 @@
 					<td></td>
 					<td></td>
 					<td>Total:</td>
-					<td>$<%= total %></td>
-				</tr>
-		</table>
-		<h4>Becas</h4>
-		<div class="under_pressure"></div>
-		<table class="table table-striped tablesorter">
-			<thead>
-				<tr>
-					<th>Fecha</th>
-					<th>Niño</th>
-					<th>Tutor</th>
-					<th>Grupo</th>
-					<th>Cantidad</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% total = 0 %>
-				<% @payments.where(:scholarship => true).each do |p| %>
-					<tr>
-						<td><%= p.date %></td>
-						<td><%= link_to p.spot.child.full_name, p.spot.child %></td>
-						<td><%= link_to p.spot.tutor.full_name, p.spot.tutor %></td>
-						<td><%= link_to p.spot.group.name, p.spot.group %></td>
-						<td>$<%= p.amount %></td>
-						<% total += p.amount %>
-					</tr>
-				<% end %>
-			</tbody>
-				<tr class="total_blue">
+					<td class="text_center"><%= negative_value(payments_result @payments) %></td>
+					<td class="text_center"><%= negative_value(payments_result @payments.where(:scholarship => true)) %></td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td>Total:</td>
-					<td>$<%= total %></td>
 				</tr>
 		</table>
 		<%= will_paginate @payments, renderer: BootstrapPagination::Rails %>
+		<div class="boton_der">
+			<p style="width: 100%; height: 30px; top: -7px; ">
+				<div style="color: #A8A8A8; position: absolute; top: 30px; font-style: italic; font-size: 12px; left: 8px;">
+					<span class="current_group current_null"></span>Pago regular
+				</div>
+				<div style="color: #A8A8A8; position: absolute; top: 10px; font-style: italic; font-size: 12px; left: 8px;">
+					<span class="current_group scholarship_payment"></span>Beca
+				</div>
+			</p>
+		</div>
 	<% else %>
 		<h4 class="counter_is_zero">Aún no existe ni un pago</h4>
 	<% end %>

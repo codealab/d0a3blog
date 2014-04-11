@@ -88,7 +88,7 @@ class PaymentsController < ApplicationController
 	# end
 
 	def payment_params
-      params.require(:payment).permit( :date, :spot_id, :scholarship, :amount )
+      params.require(:payment).permit( :date, :scholarship, :amount, :clarification )
     end
 
    	def pasive_family
