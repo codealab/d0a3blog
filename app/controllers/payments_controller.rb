@@ -60,21 +60,18 @@ class PaymentsController < ApplicationController
 
 		@payments = Payment.all
 
-		if params[:group_id]
-			@group = Group.find_by_id(params[:group_id])
-		end
-		if @group
-			@payments = @group.payments
-		end
+		@group = Group.find_by_id(params[:group_id]) if params[:group_id]
+
+		@payments = @group.payments if @group
+
 		if init_date && ended_date
 			@payments = @payments.where("date >= :start_date AND date<= :end_date ", { start_date: init_date, end_date: ended_date })
-		end
-		if init_date && !ended_date
+		elsif init_date && !ended_date
 			@payments = @payments.where("date >= :start_date", { start_date: init_date })
-		end
-		if !init_date && ended_date
+		elsif !init_date && ended_date
 			@payments = @payments.where("date<= :end_date ", { end_date: ended_date })
 		end
+
 	end
 
 	private

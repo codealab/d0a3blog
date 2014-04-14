@@ -53,12 +53,14 @@ ActiveRecord::Schema.define(version: 20140404192007) do
   end
 
   create_table "attendances", force: true do |t|
-    t.integer  "person_id"
+    t.integer  "spot_id"
     t.integer  "lecture_id"
     t.text     "observation"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "attendances", ["spot_id", "lecture_id"], name: "index_attendances_on_spot_id_and_lecture_id", unique: true, using: :btree
 
   create_table "exercises", force: true do |t|
     t.string   "name"

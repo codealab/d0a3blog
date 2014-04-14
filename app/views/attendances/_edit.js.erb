@@ -15,6 +15,6 @@ $(document).ready(function() {
 
 function showSpots(){
 	<% @lecture.attendances.each do |c| %>
-		$('.child_<%= c.person.id  %>').hide();
+		$('.child_<%= c.spot.child.id  %>').hide();
 	<% end %>
 }

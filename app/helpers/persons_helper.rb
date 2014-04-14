@@ -11,4 +11,10 @@ module PersonsHelper
     current
   end
 
+  def attendance_percent(person)
+	lectures = person.lectures.where("date <= :start_date", { start_date: Date.today }).count
+	attendances = person.attendances.count
+	"#{(attendances*100)/lectures}%"
+  end
+
 end

@@ -6,7 +6,7 @@ class ExercisesController < ApplicationController
 		if params[:group_id] && params[:lecture_id]
 			@group = Group.find(params[:group_id])
 			@lecture = Lecture.find(params[:lecture_id])
-			@exercises = Exercise.where("min_age >= #{@group.min_age} AND min_age<= #{@group.max_age} OR max_age >= #{@group.min_age} AND max_age<= #{@group.max_age}").paginate(page: params[:page])
+			@exercises = Exercise.where("min_age <= #{@group.max_age} AND max_age>= #{@group.min_age}").paginate(page: params[:page])
 		end
 	end
 
@@ -72,26 +72,24 @@ class ExercisesController < ApplicationController
 	end
 
 	def search
-		init = params[:init][0]
-		ended = params[:end][0]
+		init = params[:init][0]!='' ? params[:init][0]:nil
+		ended = params[:ended][0] != '' ? params[:ended][0]:nil
+		name = params[:name] != '' ? params[:name]:nil
 
-		@exercises = Exercise.all
+		@area = Area.find_by_id(params[:area_id]) if params[:area_id]
 
-		if params[:area_id]
-			@area = Area.find_by_id(params[:area_id])
-		end
-		if @area
-			@exercises = @area.exercises
-		end
+		@exercises = @area ? (@area.exercises):(Exercise.all)
+
 		if init && ended
-			@exercises = @exercises.where("min_age >= :start AND max_age<= :end ", { start: init, ended: ended })
+			@exercises = @exercises.where("min_age >= #{init} AND max_age <= #{ended}")
+		elsif init && !ended
+		 	@exercises = @exercises.where("min_age >= #{init}")
+		elsif !init && ended
+			@exercises = @exercises.where("max_age <= #{ended}")
 		end
-		if init && !ended
-			@payments = @payments.where("min_age >= :start", { start: init })
-		end
-		if !init && ended
-			@payments = @payments.where("min_age<= :end ", { ended: ended })
-		end
+
+		@exercises = @exercises.text_search(name) if name
+
 	end
 
 	def destroy
@@ -108,15 +106,15 @@ class ExercisesController < ApplicationController
 
 	private
 
-	def exercise_params
-		params.require(:exercise).permit(:name, :min_age, :max_age, :objective, :description, :material, :music)
-	end
+		def exercise_params
+			params.require(:exercise).permit(:name, :min_age, :max_age, :objective, :description, :material, :music)
+		end
 
-	def areas(exercise)
-		exercise.areas.delete_all
-		areas = params[:area]
-		areas.each { |a| exercise.area_relations.build(area_id:a[0]) if a[1]=='on' }
-		exercise.save
-	end
+		def areas(exercise)
+			exercise.areas.delete_all
+			areas = params[:area]
+			areas.each { |a| exercise.area_relations.build(area_id:a[0]) if a[1]=='on' }
+			exercise.save
+		end
 
 end

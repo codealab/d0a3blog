@@ -1,4 +1,6 @@
+# encoding: UTF-8
 class Group < ActiveRecord::Base
+	
 	before_save :downcase_names
 	after_initialize :titleize_names
 
@@ -27,21 +29,21 @@ class Group < ActiveRecord::Base
 	private
 
 		def min_age_cannot_be_greater_than_max_age
-	    errors.add(:min_age, "es mayor a la máxima") if 
-	    !min_age.blank? and !max_age.blank? and min_age > max_age
-	  end
+			errors.add(:min_age, "es mayor a la máxima") if 
+			!min_age.blank? and !max_age.blank? and min_age > max_age
+		end
 
-	  def init_date_cannot_be_greater_than_finish_date
-	    errors.add(:init_date, "es mayor a la de fin de curso") if 
-	    !init_date.blank? and !finish_date.blank? and init_date > finish_date
-	  end
+		def init_date_cannot_be_greater_than_finish_date
+			errors.add(:init_date, "es mayor a la de fin de curso") if 
+			!init_date.blank? and !finish_date.blank? and init_date > finish_date
+		end
 
-	  def downcase_names
-	      self.send("#{:name}=", self.send(:name).downcase) if self.send(:name)
-	  end
+		def downcase_names
+			self.send("#{:name}=", self.send(:name).downcase) if self.send(:name)
+		end
 
-	  def titleize_names
-	      self.send("#{:name}=", self.send(:name).titleize) if self.send(:name)
-	  end
+		def titleize_names
+			self.send("#{:name}=", self.send(:name).titleize) if self.send(:name)
+		end
 
 end

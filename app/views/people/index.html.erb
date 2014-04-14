@@ -1,20 +1,52 @@
 <% provide(:title, "Todos los Miembros") %>
 
 <div class="boton_der">
+	<%= form_tag("/people/search", :method => "post", :remote => true, :id => "search_people") do %>
+		<div id="finder">
+			<%= text_field_tag "query", nil, :placeholder => "", :class => "search_input form-control", :id => 'input_finder' %>
+			<div class="magnifying" id="magnifying"></div>
+		</div>
+		<!--<%= submit_tag "Buscar", :class => "btn btn-sm btn-primary" %>-->
+	<% end %>
 	<h1>Todos los Miembros<span class="line"></span></h1>
 </div>
+<div class="all_width blue_box" id="people_search_container">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close_people_results">×</button>
+	<h4>Resultados</h4>
+	<!-- <div class="under_pressure"></div> -->
+	<div id="people_results"></div>
+</div>
+<div class="spacer"></div>
 <div class="all_width blue_box">
-	<div id="searcher" class="all_width light_box">
-		<%= form_tag("/people/search") do %>
-			<%= text_field_tag "query", nil, :placeholder => "Nombre y apellidos", :class => "search_input form-control" %>
-			<%= submit_tag "Buscar", :class => "btn btn-sm btn-primary" %>
-		<% end %>
-	</div>
-	<div class="spacer"></div>
 	<% if @people.count > 0 %>
 		<%= render 'people/list' %>
+		<%= will_paginate @people, renderer: BootstrapPagination::Rails %>
 	<% else %>
 		<h4 class="counter_is_zero">Aún no existe ni un miembro. Agrega primero una familia.</h4>
 	<% end %>
 </div>
 <h6>Total de Miembros: <%= @people.count %></h6>
+<script>
+	$(document).ready(function() {
+		var word = "", peopleSearch= false;
+		$("#magnifying, #input_finder").on("click",function(){
+			$("#input_finder").focus().animate({opacity:1,width:300},600,'easeInOutQuart');
+			$("#people_search_container").show( "slide", { direction: "up" }, 300,'easeInOutQuart');
+		});
+		$("#close_people_results").on("click",function(){
+			$("#people_search_container").hide( "slide", { direction: "up" }, 600,'easeInOutQuart');
+		});
+		$("#input_finder").on('blur', function(){
+			var child_results = $("#people_results tr").size();
+			$("#input_finder").val('').animate({opacity:0,width:40},900,'easeInOutQuart');
+			if(child_results==0) $("#people_search_container").hide( "slide", { direction: "up" }, 300,'easeInOutQuart');
+		});
+		$("#input_finder").on("keyup",function(){
+			var name = $(this).val();
+			if(word!=name){
+				word = name;
+				if(name.length>=3) $("#search_people").submit();
+			}
+		});
+	});
+</script>

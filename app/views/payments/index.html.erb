@@ -19,9 +19,8 @@
 					<th>Grupo</th>
 					<th class="text_center">Cantidad</th>
 					<th class="text_center">Beca</th>
-					<th>
-						<p></p>
-						<span data-toggle="tooltip" data-placement="bottom" title="Aclaración" data-original-title="Aclaración" class="tip glyphicon glyphicon-info-sign"></span>
+					<td class="text_center">
+						<span class=" glyphicon glyphicon-info-sign"></span>
 					</th>
 				</tr>
 			</thead>
@@ -32,7 +31,7 @@
 						<td><%= link_to p.spot.child.full_name, p.spot.child %></td>
 						<td><%= link_to p.spot.tutor.full_name, p.spot.tutor %></td>
 						<td><%= link_to p.spot.group.name, p.spot.group %></td>
-						<td class="texftoot_center"><%= negative_value(p.amount) %></td>
+						<td class="text_center"><%= negative_value(p.amount) %></td>
 						<td class="text_center">
 							<% if p.scholarship %>
 								<span class="current_group scholarship_payment"></span>
@@ -41,7 +40,7 @@
 							<% end %>
 						</td>
 						<td class="text_center">
-							<span data-toggle="tooltip" data-placement="left" title="<%= p.clarification %>" data-original-title="<%= p.clarification %>" class="tip glyphicon glyphicon-info-sign"></span>
+							<span data-container="body" data-toggle="popover" data-placement="left" data-content="<%= p.clarification %>" data-original-title="" title="" class="glyphicon pops glyphicon-info-sign info"></span>
 						</td>
 					</tr>
 				<% end %>

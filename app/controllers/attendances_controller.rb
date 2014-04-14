@@ -18,7 +18,7 @@ class AttendancesController < ApplicationController
 	def destroy
 		@lecture = Lecture.find(params[:lecture_id])
 		@attendance = Attendance.find(params[:id])
-		@child = @attendance.person
+		@child = @attendance.spot.child
 		@attendance.destroy
 		flash[:success] = "Asistencia eliminada"
 	end
@@ -32,7 +32,7 @@ class AttendancesController < ApplicationController
 	private
 
 	def attendance_params
-		params.permit( :person_id, :lecture_id )
+		params.permit( :spot_id, :lecture_id )
 	end
 
 	def correct_user

@@ -111,7 +111,7 @@
 	$(document).ready(function() {
 		<%= render "/spots/edit.js.erb" %>
 		$(".child_appended").each(function(index, el) {
-			$(this).delay(index*80).animate({top:0,opacity:1},600,'easeOutQuart');
+			$(this).delay(index*30).animate({top:0,opacity:1},600,'easeInOutQuart');
 		});
 	});
 </script>

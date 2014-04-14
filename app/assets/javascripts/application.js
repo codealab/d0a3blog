@@ -12,8 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+// require jquery.ui.all
 //= require bootstrap
 //= require turbolinks
+//= require bootstrap-wysihtml5
 //= require jquery.Jcrop
 //= require_tree .
 
@@ -66,17 +68,16 @@ $(document).ready(over_and_clicks);
                         childHeight = $daChild.height();
 
                     if(childHeight>maxHeight){
-                        $('.scroll_arrow').fadeIn();
+                        $('#container_arrows').fadeIn();
                         $(this).on('mousemove',function(e){
                             var onSet = (e.pageY)-totalTop,
                                 daTop = ((onSet*childHeight)/maxHeight);
                                 // if(daTop>100) 
-                                console.log(daTop)
                                 $daChild.css({top:-(daTop-100)});
                         });
                     }
                 }).on('mouseleave',function(){
-                    $('.scroll_arrow').fadeOut();
+                    $('#container_arrows').fadeOut();
                 });
             });
         }
@@ -85,9 +86,9 @@ $(document).ready(over_and_clicks);
 })(jQuery);
 
 function over_and_clicks(){
-	
+
 	//Hovers & clicks for Views => spot_new & attendance_new
-    
+
 	$( document ).on( "mouseenter", ".child_selector, .child_attendance", function() {
         $(this).find('.child_selected').fadeIn(250);
         $(this).find('.child_selected span').stop().animate({ opacity:1, top:13 },600,'easeOutQuart');
@@ -96,7 +97,6 @@ function over_and_clicks(){
 		$(this).find('.child_selected').fadeOut(250);
         $(this).find('.child_selected span').stop().animate({ opacity:0, top:25 },600,'easeOutQuart');
 	});
-
 
     $( document ).on( "click", ".asistente, .inscrito", function() {
         $(this).remove();
@@ -107,9 +107,26 @@ function over_and_clicks(){
     });
 
     $( document ).on( "mouseleave", ".pops", function() {
-        $('.btn').popover('hide');
+        $(this).popover('hide');
     });
 
+    $( document ).on( "mouseenter", ".attendance_photo", function() {
+        $(this).find('.child_attendance_over').fadeIn();
+        $(this).find('.child_attendance_over span').animate({top:27,opacity:1},600,'easeOutQuart');
+    });
+
+    $( document ).on( "mouseleave", ".attendance_photo", function() {
+        $(this).find('.child_attendance_over').fadeOut();
+        $(this).find('.child_attendance_over span').animate({top:7,opacity:0},600,'easeOutQuart',function(){
+            $(this).removeAttr('style');
+        });
+    });
+    
     $('.tip').tooltip();
+    //$('.wysihtml5').wysihtml5();
 
 }
+
+$(document).on('page:load', function(){
+  window['rangy'].initialized = false;
+})

@@ -24,6 +24,7 @@ gem 'i18n', '~> 0.6.9'
 gem 'jcrop-rails-v2'
 #gem 'protected_attributes'
 gem "carrierwave"
+gem 'bootstrap-wysihtml5-rails'
 
 if RbConfig::CONFIG["target_os"] =~ /mswin|mingw|cygwin/i
   gem "mini_magick"
@@ -36,6 +37,7 @@ gem "unf"
 
 gem 'will_paginate-bootstrap'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem "debugger", "~> 1.6.5"
