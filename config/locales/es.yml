@@ -227,5 +227,61 @@ es:
     errors:
       <<: *errors
   activerecord:
-    errors:
+    errors: 
       <<: *errors
+es:
+  activerecord:
+    models:
+      person: "Miembro"
+    attributes:
+      person:
+        name: "El nombre"
+        first_last_name: "El apellido paterno"
+        second_last_name: "El apellido materno"
+        sex: "El genero"
+        dob: "La fecha de nacimiento"
+        family_roll: "El rol familiar"
+        photo: "La Foto"
+      family:
+        name: "El nombre"  
+      exercise:
+        name: "El nombre"
+        min_age: "La edad mínima"
+        max_age: "La edad máxima"
+        objective: "El objetivo"
+        description: "La descripción"
+        material: "El material"
+        music: "La musica"
+      group:
+        name: "El nombre"
+        location: "La ubicación"
+        cost: "El costo"
+        init_date: "La fecha inicial"
+        finish_date: "La fecha final"
+        min_age: "La edad mínima"
+        max_age: "La edad máxima"
+      lectures: 
+        date: "la fecha"
+        observation: "La observación"
+      payment: 
+        amount: "La cantidad"
+        date: "La fecha"
+        scholarship: "Beca"
+        clarification: "La aclaración"
+      user: 
+        name: "El nombre"
+        email: "El email"
+        password_confirmation: "La contraseña" 
+        photo: "La foto"
+
+
+
+
+
+
+
+
+
+
+
+
