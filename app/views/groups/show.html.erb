@@ -60,7 +60,7 @@
 <h6>Total de Clases: <%= @group.lectures.count %></h6>
 <script>
 	$(document).ready(function() {
-		$('.tip').tooltip();
+		// $('.tip').tooltip();
 	 	<% if(@lecture) %>
 			var lecture = "lecture_<%= @lecture.id %>";
 			$("#"+lecture).addClass('date_active');

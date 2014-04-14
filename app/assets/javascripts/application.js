@@ -65,11 +65,18 @@ $(document).ready(over_and_clicks);
                         totalTop = $(this).offset().top,
                         childHeight = $daChild.height();
 
-                    $(this).on('mousemove',function(e){
-                        var onSet = (e.pageY)-totalTop,
-                            daTop = ((onSet*childHeight)/maxHeight);
-                            if(daTop>200) $daChild.css({top:-(daTop-300)});
-                    });
+                    if(childHeight>maxHeight){
+                        $('.scroll_arrow').fadeIn();
+                        $(this).on('mousemove',function(e){
+                            var onSet = (e.pageY)-totalTop,
+                                daTop = ((onSet*childHeight)/maxHeight);
+                                // if(daTop>100) 
+                                console.log(daTop)
+                                $daChild.css({top:-(daTop-100)});
+                        });
+                    }
+                }).on('mouseleave',function(){
+                    $('.scroll_arrow').fadeOut();
                 });
             });
         }
@@ -102,5 +109,7 @@ function over_and_clicks(){
     $( document ).on( "mouseleave", ".pops", function() {
         $('.btn').popover('hide');
     });
+
+    $('.tip').tooltip();
 
 }

@@ -1,0 +1,24 @@
+<table class="table table-striped tablesorter">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Apellido Paterno</th>
+			<th>Apellido Materno</th>
+			<th class="text_center">Sexo</th>
+			<th class="text_center">Fecha de Nacimiento</th>
+			<th>Relación</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @people.each do |member| %>
+			<tr>
+				<td><%= link_to member.name, member %></td>
+				<td><%= member.first_last_name %></td>
+				<td><%= member.second_last_name %></td>
+				<td class="text_center"><%= member.sex %></td>
+				<td class="text_center"><%= member.dob %></td>
+				<td><%= member.family_roll %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

@@ -11,25 +11,4 @@ module PersonsHelper
     current
   end
 
-  # Balance for a group
-  def total_balance(group)
-  	balance = 0
-  	group.spots.each { |s| balance += s.balance }
-  	balance
-  end
-
-  # Methods for groups and persons
-
-  def total_payments(model)
-  	total = 0
-  	model.payments.each { |p| total += p.amount }
-  	total
-  end
-
-  def total_scholarship(model)
-  	total = 0
-  	model.payments.where(:scholarship => true).each { |p| total += p.amount }
-  	total
-  end
-
 end

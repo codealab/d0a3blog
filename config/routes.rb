@@ -1,7 +1,7 @@
 D0A3::Application.routes.draw do
 
   resources :families do 
-    resources :people
+    resources :people #, only: [:index, :show]
     resources :addresses, only: [:new, :create, :edit, :update]
   end
 
@@ -27,12 +27,21 @@ D0A3::Application.routes.draw do
 
   root 'sessions#new'
 
-  get "/lectures/observation"
+  get "lectures/observation"
   get "sessions/new"
   get "sessions/edit"
   get "sessions/create"
   get "sessions/destroy"
   post "payments/search"
+  post "people/search", to: 'people#search'
+
+  #match "/people/search/", to: 'people#search', via: 'get'
+
+  # resources :people do
+  #   collection do
+  #     get 'search'
+  #   end
+  # end
 
   match '/user',    to: 'users#show',           via: 'get'
   match '/edit',    to: 'users#edit',           via: 'get'

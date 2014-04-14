@@ -12,75 +12,90 @@
 	<h1><%= @user.name %><span class="line"></span></h1>
 </div>
 <div class="all_width light_box">
-	<h4>Perfil</h4>
-	<div class="under_pressure"></div>
-	<div class="col-md-12 blue_box">
-		<table class="table table-striped">
-			<tr>
-				<th>Foto</th>
-				<th>Nombre</th>
-				<th>Email</th>
-				<th>Administrador</th>
-				<th>Facilitador</th>
-				<th>Coordinador</th>
-			</tr>
-			<tr>
-				<td>
-					<% if @user.photo_url.to_s.include?('/default/') %>
-						<%= image_tag @user.photo_url.to_s, id: "image_url", :class=> 'profile_thumb' %>
-					<% else %>
-						<%= image_tag @user.photo_url(:thumb).to_s, id: "image_url", :class=> 'profile_thumb' %>
-					<% end %>
-				</td>
-				<td><%= @user.name %></td>
-				<td><%= @user.email %></td>
-				<% if @user.admin %>
-					<td>Sí</td>
-				<% else %>
-					<td>No</td>
-				<% end %>
-				<% if @user.facilitator %>
-					<td>Sí</td>
-				<% else %>
-					<td>No</td>
-				<% end %>
-				<% if @user.coordinator %>
-					<td>Sí</td>
-				<% else %>
-					<td>No</td>
-				<% end %>
-			</tr>
-		</table>
-	</div>
-	<div class="spacer"></div>
-	<% if @user.facilitator? %>
-		<h4>Grupos</h4>
+	<div class="col-md-4">
+		<h4>Perfil</h4>
 		<div class="under_pressure"></div>
-		<div class="col-md-12 blue_box">
-			<% if @user.groups.count>0 %>
-				<table class="table table-striped tablesorter">
-					<thead>
-						<th>Grupo</th>
-						<th>Edad</th>
-						<th>Período</th>
-						<th>Costo</th>
-						<th>Ubicación</th>
-					</thead>
+		<div class="all_width blue_box">
+			<div class="white_box">
+				<div class="text_center">
+					<% if @user.photo_url.include?('/default/') %>
+						<%= image_tag @user.photo_url.to_s, id: 'image_url' %>
+					<% else %>
+						<%= image_tag @user.photo_url(:thumb).to_s, :class => "profile_thumb" %>
+					<% end %>
+				</div>
+				<table class="table table-striped">
 					<tbody>
-						<% @user.groups.each do |g|  %>
+						<tr>
+							<th>Nombre</th>
+							<td><%= @user.name %></td>
+						</tr>
+						<tr>
+							<th>Email</th>
+							<td><%= @user.email %></td>
+						</tr>
+						<tr>
+							<th>Roles</th>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<% if @user.admin %>
+								<td>Administrador</td>
+							<% else %>
+								<td></td>
+							<% end %>
+						</tr>
+						<% if @user.coordinator %>
 							<tr>
-								<td><%= g.name %></td>
-								<td><%= "#{g.min_age} a #{g.max_age} meses"%></td>
-								<td><%= g.init_date.strftime('%d/%m/%Y') %> - <%= g.finish_date.strftime('%d/%m/%Y') %></td>
-								<td><%= g.cost %></td>
-								<td><%= g.location %></td>
+								<td></td>
+								<td>Coordinador</td>
 							</tr>
 						<% end %>
+						<tr>
+							<td></td>
+							<% if @user.facilitator %>
+								<td>Facilitador</td>
+							<% else %>
+								<td></td>
+							<% end %>
+						</tr>
 					</tbody>
 				</table>
-			<% else %>
-				<h4 class="counter_is_zero">Este usuario (facilitador) no tiene ningún grupo a su cargo</h4>
-			<% end %>
+			</div>
+		</div>
+	</div>
+
+	<% if @user.facilitator? %>
+		<div class="col-md-8">
+			<h4>Grupos</h4>
+			<div class="under_pressure"></div>
+			<div class="blue_box">
+				<% if @user.groups.count>0 %>
+					<table class="table table-striped tablesorter">
+						<thead>
+							<th>Grupo</th>
+							<th>Edad</th>
+							<th>Período</th>
+							<th>Costo</th>
+							<th>Ubicación</th>
+						</thead>
+						<tbody>
+							<% @user.groups.each do |g|  %>
+								<tr>
+									<td><%= g.name %></td>
+									<td><%= "#{g.min_age} a #{g.max_age} meses"%></td>
+									<td><%= g.init_date.strftime('%d/%m/%Y') %> - <%= g.finish_date.strftime('%d/%m/%Y') %></td>
+									<td><%= g.cost %></td>
+									<td><%= g.location %></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				<% else %>
+					<h4 class="counter_is_zero">Este usuario (facilitador) no tiene ningún grupo a su cargo</h4>
+				<% end %>
+			</div>
 		</div>
 	<% end %>
 </div>

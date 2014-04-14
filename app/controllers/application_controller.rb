@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   include SessionsHelper
   include PersonsHelper
+  include PaymentsHelper
 
   before_action :require_login
   before_action :user_visor, only: [:update, :create, :destroy]
@@ -19,7 +20,7 @@ class ApplicationController < ActionController::Base
   private
 
   def record_not_found
-    render :file => 'public/404.html', :status => :not_found, :layout => false
+    render :file => 'public/404.html', :status => :not_found, :layout => true
   end
 
   def require_login

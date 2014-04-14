@@ -13,19 +13,19 @@
 		<table class="table table-striped tablesorter">
 			<thead>
 				<tr>
-					<th class="td_center">Grupo</th>
-					<th class="td_center">Facilitadora</th>
-					<th class="td_center">Costo</th>
-					<th class="td_center">Edad recomendada</th>
-					<th class="td_center">Inicio de curso</th>
-					<th class="td_center">Fin de curso</th>
-					<th class="td_center">Ubicación</th>
-					<th class="td_center">Inscripciones / Pagos</th>
+					<th class="text_center">Grupo</th>
+					<th class="text_center">Facilitadora</th>
+					<th class="text_center">Costo</th>
+					<th class="text_center">Edad recomendada</th>
+					<th class="text_center">Inicio de curso</th>
+					<th class="text_center">Fin de curso</th>
+					<th class="text_center">Ubicación</th>
+					<th class="text_center">Inscripciones / Pagos</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @groups.each_with_index do |group,index| %>
-					<tr class="td_center">
+					<tr class="text_center">
 						<td><%= link_to group.name, group %></td>
 						<td><%= group.user.name %></td>
 						<td>$<%= group.cost %></td>

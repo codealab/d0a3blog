@@ -18,58 +18,131 @@
 		<h1>Ejercicios <%= @lecture.exercises.count %></h1>
 	</div>
 	<div class="all_width blue_box" id="exercises_container_table">
-		<div class="all_width white_box">
+		<div class="all_width white_box" style="height: 222px;">
 			<% if @lecture.exercises.count>0 %>
-				<table class="table table-striped">
-				<tr>	
-					<th>Nombre</th>
-					<th>Área</th>
-					<th>Detalles</th>
-				</tr>
-				<% @lecture.exercises.each_with_index do |ex,index| %>
-					<tr>
-						<td><%= link_to ex.name, group_lecture_exercise_path(@group, @lecture, ex) %></td>
-						<td>
-							<% if ex.areas.count==1 %>
-								<%= ex.areas.first.name %>
-							<% else %>
-								<% ex.areas.each do |a| %>
-									<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
-								<% end %>
-							<% end %>
-						</td>
-						<td>
-							<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= index %>">Leer más</button>
-							<div class="modal fade" id="ex_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											<h4 class="modal-title" id="myModalLabel"><%= ex.name %></h4>
-										</div>
-										<div class="modal-body">
-											<p><strong>Descripción:</strong> <%= ex.description %></p>
-											<p><strong>Objetivo:</strong> <%= ex.objective %></p>
-											<p><strong>Material:</strong> <%= ex.material %></p>
-											<p><strong>Música:</strong> <%= ex.music %></p>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Cerrar</button>
+				<div id="fixed_top_exercises">
+					<div class="text_center exercise_top_title">Nombre</div>
+					<div class="text_center exercise_top_title">Área</div>
+					<div class="text_center exercise_top_title">Detalles</div>
+				</div>
+			<div id="scrollbar1">
+				<div class="scrollbar">
+					<div class="track">
+						<div class="thumb"></div>
+					</div>
+				</div>
+				<div class="viewport">
+	            	<div class="overview">
+	                <table class="table table-striped">
+						<% @lecture.exercises.each_with_index do |ex,index| %>
+							<tr>
+								<td><%= link_to ex.name, group_lecture_exercise_path(@group, @lecture, ex) %></td>
+								<td>
+									<% if ex.areas.count==1 %>
+										<%= ex.areas.first.name %>
+									<% else %>
+										<% ex.areas.each do |a| %>
+											<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
+										<% end %>
+									<% end %>
+								</td>
+								<td>
+									<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= index %>">Leer más</button>
+									<div class="modal fade" id="ex_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title" id="myModalLabel"><%= ex.name %></h4>
+												</div>
+												<div class="modal-body">
+													<p><strong>Descripción:</strong> <%= ex.description %></p>
+													<p><strong>Objetivo:</strong> <%= ex.objective %></p>
+													<p><strong>Material:</strong> <%= ex.material %></p>
+													<p><strong>Música:</strong> <%= ex.music %></p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-						</td>
-					</tr>
-				<% end %>
-			</table>
+								</td>
+							</tr>
+						<% end %>
+					</table>
+				</div>
+            </div>
+        </div>
 		<% else %>
 			<h4 class="counter_is_zero">Esta clase no cuenta con ejercicios</h4>
 		<% end %>
 		</div>
 	</div>
 </div>
-
+<style>
+	#scrollbar1{
+		position: relative;
+		width: 811px;
+		top: 30px;
+	}
+	#scrollbar1 .viewport {
+		border-top: 1px solid #dddddd;
+		width: 785px;
+		height: 175px;
+		overflow: hidden;
+		position: relative;
+	}
+	#scrollbar1 .overview {
+		width: 100%;
+		list-style: none;
+		position: absolute;
+		left: 0;
+		top: 0;
+		padding: 0;
+		margin: 0;
+		margin-top: -1px;
+	}
+	#scrollbar1 .scrollbar{
+		position: relative;
+		float: right;
+		width: 15px;
+	}
+	#scrollbar1 .track {
+		height: 100%;
+		width: 10px;
+		position: relative;
+		padding: 0 1px;
+		background: #E4E4E4;
+		border-radius: 5px;
+	}
+	#scrollbar1 .thumb {
+		background: #999999;
+		height: 20px;
+		width: 10px;
+		cursor: pointer;
+		overflow: hidden;
+		position: absolute;
+		top: 0;
+		left: 0px;
+		border-radius: 4px;
+	}
+	#scrollbar1 .disable {
+		display: none;
+	}
+	.noSelect {
+		user-select: none;
+		-o-user-select: none;
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#scrollbar1').tinyscrollbar();
+	});
+</script>
 <div class="boton_der">
 	<div class="top_buttons top_buttons_group">
 		<%= link_to new_group_lecture_attendance_path(@group, @lecture) do %>
@@ -106,7 +179,53 @@
 								</div>
 								<%= form_tag("/attendances/observation/#{c.id}", :method => "get", remote: true ) do %>
 									<div class="modal-body">
-										<%= text_area_tag "observation", c.observation, :class => "form-control", placeholder: "Observación de clase" %>
+										<div class="blue_box">
+											<div class="white_box">
+												<div class="col-md-6">
+													<div class="text_center">
+														<% if c.person.photo_url.to_s.include?('/default/') %>
+															<img src="<%= c.person.photo_url %>" alt="<%= c.person.name %>" class="kid_up_photo">
+														<% else %>
+															<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
+														<% end %>
+													</div>
+													<table class="table table-striped">
+														<tbody>
+															<tr class="text_center">
+																<td><b>Edad</b> <%= ((Date.today.to_date - c.person.dob.to_date)/365).to_i %> años</td>
+															</tr>
+															<tr class="text_center">
+																<td>Familia <%= link_to c.person.families.first.name, c.person.families.first  %></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<div class="col-md-6">
+													<div class="text_center">
+														<% if c.person.photo_url.to_s.include?('/default/') %>
+															<img src="<%= c.person.photo_url %>" alt="<%= c.person.name %>" class="kid_up_photo">
+														<% else %>
+															<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
+														<% end %>
+													</div>
+													<table class="table table-striped">
+														<tbody>
+															<tr class="text_center">
+																<td><b>Tutor</b></td>
+															</tr>
+															<tr class="text_center">
+																<td><%= link_to c.person.families.first.responsible.full_name, c.person.families.first.responsible %></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+										<div class="spacer"></div>
+										<div class="all_width blue_box">
+											<p><%= text_area_tag "observation", c.observation, :class => "form-control", placeholder: "Observación de clase" %></p>
+										</div>
+										<div class="spacer"></div>
 									</div>
 									<div class="modal-footer" id="fadebackdrop">
 										<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>

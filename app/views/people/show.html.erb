@@ -18,7 +18,7 @@
 		<div class="under_pressure"></div>
 		<div class="all_width blue_box">
 			<div class="white_box">
-				<div class="td_center">
+				<div class="text_center">
 					<% if @person.photo_url.include?('/default/') %>
 						<%= image_tag @person.photo_url.to_s, id: 'image_url' %>
 					<% else %>
@@ -61,7 +61,7 @@
 			<% if @person.groups.count>0 %>
 				<table class="table table-striped">
 					<tr>
-						<th class="td_center">Registro</th>
+						<th class="text_center">Registro</th>
 						<th>Grupo</th>
 						<th>Asistencias</th>
 						<th>Saldos</th>
@@ -72,7 +72,7 @@
 						saldos = 0 %>
 					<% @person.groups.each_with_index do |group,index| %>
 					<tr>
-						<td class="td_center">
+						<td class="text_center">
 							<%= link_to edit_group_spot_path(group, @person.spots.find_by_group_id(group.id )), :title => 'Editar' do %>
 								<span class="glyphicon glyphicon-pencil"></span>
 							<% end %>
@@ -139,27 +139,31 @@
 				</div>
 				<div class="modal-body">
 					<div class="observation_container blue_box">
-						<table class="table table-striped">
-							<tr>
-								<th>Fecha</th>
-								<th>Pago</th>
-								<th>Saldo</th>
-							</tr>
-							<% totalpergroup = 0 %>
-							<% @person.payments.where(:group_id=>group.id).each do |p| %>
+						<% if @person.payments.count>0 %>
+							<table class="table table-striped">
 								<tr>
-									<td><%= p.date %></td>
-									<td>$<%= p.amount %></td>
-									<td>$<%= (group.cost).to_i-totalpergroup %></td>
+									<th>Fecha</th>
+									<th>Pago</th>
+									<th>Saldo</th>
 								</tr>
-								<% totalpergroup += p.amount %>
-							<% end %>
-							<tr class="total_blue">
-								<td>Total</td>
-								<td>$<%= totalpergroup  %></td>
-								<td>$<%= (group.cost).to_i-totalpergroup  %></td>
-							</tr>
-						</table>
+								<% totalpergroup = 0 %>
+								<% @person.payments.where(:group_id=>group.id).each do |p| %>
+									<tr>
+										<td><%= p.date %></td>
+										<td>$<%= p.amount %></td>
+										<td>$<%= (group.cost).to_i-totalpergroup %></td>
+									</tr>
+									<% totalpergroup += p.amount %>
+								<% end %>
+								<tr class="total_blue">
+									<td>Total</td>
+									<td>$<%= totalpergroup  %></td>
+									<td>$<%= (group.cost).to_i-totalpergroup  %></td>
+								</tr>
+							</table>
+						<% else %>
+							<h4 class="counter_is_zero">Esta persona no tiene pagos registrados</h4>
+						<% end %>
 					</div>
 					<div class="spacer"></div>
 				</div>

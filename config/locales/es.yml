@@ -21,6 +21,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 es:
+  will_paginate:
+    previous_label: "&#8592; Anterior"
+    next_label: "Siguiente &#8594;"
+    page_gap: "&hellip;"
   date:
     abbr_day_names:
     - dom
@@ -231,20 +235,46 @@ es:
       person: "Miembro"
     attributes:
       person:
-        name: "Nombre"
-        first_last_name: "Apellido paterno"
-        second_last_name: "Apellido materno"
-        sex: "Genero"
-        dob: "Fecha de nacimiento"
-        family_roll: "Rol Familiar"
-        photo: "Foto"  
+        name: "El nombre"
+        first_last_name: "El apellido paterno"
+        second_last_name: "El apellido materno"
+        sex: "El genero"
+        dob: "La fecha de nacimiento"
+        family_roll: "El rol familiar"
+        photo: "La Foto"
+      family:
+        name: "El nombre"  
       exercise:
-        min_age: "Edad mínima"
-        max_age: "Edad máxima"
-        objective: "Objetivo"
-        description: "Descripción"
-        material: "Material"
-        music: "Musica"
+        name: "El nombre"
+        min_age: "La edad mínima"
+        max_age: "La edad máxima"
+        objective: "El objetivo"
+        description: "La descripción"
+        material: "El material"
+        music: "La musica"
+      group:
+        name: "El nombre"
+        location: "La ubicación"
+        cost: "El costo"
+        init_date: "La fecha inicial"
+        finish_date: "La fecha final"
+        min_age: "La edad mínima"
+        max_age: "La edad máxima"
+      lectures: 
+        date: "la fecha"
+        observation: "La observación"
+      payment: 
+        amount: "La cantidad"
+        date: "La fecha"
+        scholarship: "Beca"
+        clarification: "La aclaración"
+      user: 
+        name: "El nombre"
+        email: "El email"
+        password_confirmation: "La contraseña" 
+        photo: "La foto"
+
+
 
 
 

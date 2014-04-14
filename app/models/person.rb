@@ -19,7 +19,7 @@ class Person < ActiveRecord::Base
 	
 	mount_uploader :photo, PhotoUploader
 
-	self.per_page = 15
+	self.per_page = 10
 	
 	scope :children, proc { where("dob > :years", { years: Date.today - 5.years} )}
 	

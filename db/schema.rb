@@ -118,7 +118,8 @@ ActiveRecord::Schema.define(version: 20140404192007) do
     t.date     "date"
     t.integer  "spot_id"
     t.integer  "group_id"
-    t.boolean  "scholarship", default: false
+    t.boolean  "scholarship",   default: false
+    t.text     "clarification"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

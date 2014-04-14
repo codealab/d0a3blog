@@ -106,14 +106,14 @@ Group.create( name:"Avanzados",
 
 
 
-Para generar spots del último grupo, se salta al primer inscrito porque lo hice a mano
-group.spots.each do |spot|
-	10.times do |x|
-		date = Date.today - (13-x).weeks
-		spot.payments.build(date: date, scholarship: false, amount:100)
-		spot.save
-  end
-end
+# Para generar spots del último grupo, se salta al primer inscrito porque lo hice a mano
+# group.spots.each do |spot|
+# 	10.times do |x|
+# 		date = Date.today - (13-x).weeks
+# 		spot.payments.build(date: date, scholarship: false, amount:100)
+# 		spot.save
+#   end
+# end
 
 
 
