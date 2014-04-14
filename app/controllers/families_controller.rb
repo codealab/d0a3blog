@@ -33,6 +33,9 @@ class FamiliesController < ApplicationController
 				else
 					render 'new'
 				end
+			else
+				flash.now[:danger] = "El nombre de la familia no es válido"
+				render 'new'
 			end
 		else
 			flash.now[:danger] = "El responsable de familia debe ser mayor de edad"
@@ -99,6 +102,6 @@ class FamiliesController < ApplicationController
 		end
 
 		def is_adult
-			((Date.today.to_date - @person.dob.to_date)/365).to_i > 18 ? true:false
+			((Date.today.to_date - @person.dob.to_date)/365).to_i >= 18 ? true:false
 		end
 end

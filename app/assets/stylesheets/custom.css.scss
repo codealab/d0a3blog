@@ -407,6 +407,7 @@ footer {
   border: 1px solid rgb(202, 202, 202);
   border-radius: 4px;
 }
+.modal-header .kid_up_photo{ width: 40px; }
 #childs_container .child_spot, #posibble_childs .child_spot, #posible_attendances .child_spot{
   margin: 3px;
   height: 50px;
@@ -610,7 +611,7 @@ footer {
 }
 
 #exercises_container_table {
-  height: 244px;
+  height: 260px;
   overflow: hidden;
 }
 

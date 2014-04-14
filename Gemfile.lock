@@ -44,6 +44,8 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.0.0.0)
       sass (~> 3.2)
+    bootstrap-wysihtml5-rails (0.3.1.23)
+      railties (>= 3.0)
     builder (3.1.4)
     callsite (0.0.11)
     capybara (2.2.1)
@@ -143,6 +145,8 @@ GEM
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.2.0)
+      railties (>= 3.2.16)
     json (1.8.1)
     listen (2.7.1)
       celluloid (>= 0.15.2)
@@ -297,6 +301,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.0.0.0.rc2)
+  bootstrap-wysihtml5-rails
   capybara (~> 2.2.1)
   carrierwave
   coffee-rails (~> 4.0.0)
@@ -311,6 +316,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jcrop-rails-v2
   jquery-rails
+  jquery-ui-rails
   meta_request
   mini_magick
   pg

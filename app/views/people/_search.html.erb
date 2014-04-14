@@ -3,3 +3,8 @@
 <% else %>
 	<h4 class="counter_is_zero">Ninguna persona coincidió con tu búsqueda.</h4>
 <% end %>
+<script>
+	$("#people_results tr").each(function(index, el) {
+		$(this).delay(index*30).animate({opacity:1}, 100);
+	});
+</script>

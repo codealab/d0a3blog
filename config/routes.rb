@@ -1,5 +1,5 @@
 D0A3::Application.routes.draw do
-
+  
   resources :families do 
     resources :people #, only: [:index, :show]
     resources :addresses, only: [:new, :create, :edit, :update]
@@ -33,9 +33,8 @@ D0A3::Application.routes.draw do
   get "sessions/create"
   get "sessions/destroy"
   post "payments/search"
-  post "people/search", to: 'people#search'
-
-  #match "/people/search/", to: 'people#search', via: 'get'
+  post "people/search"
+  post "exercises/search"
 
   # resources :people do
   #   collection do
@@ -48,7 +47,7 @@ D0A3::Application.routes.draw do
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
 
-  #get ':controller(/:action(/:id))(.:format)'
+  get ':controller(/:action(/:id))(.:format)'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

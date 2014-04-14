@@ -1,0 +1,11 @@
+<% provide(:title, "Búsqueda de ejercicios") %>
+
+<%= render 'exercises/top_buttons' %>
+
+<div class="all_width blue_box">
+	<% if @exercises.count>0 %>
+		<%= render 'exercises/list' %>
+	<% else %>
+		<h4 class="counter_is_zero">No se encontraron ejercicios</h4>
+	<% end %>
+</div>

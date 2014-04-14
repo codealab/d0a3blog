@@ -22,10 +22,11 @@
 			<% if @lecture.exercises.count>0 %>
 				<div id="fixed_top_exercises">
 					<div class="text_center exercise_top_title">Nombre</div>
+					<div class="text_center exercise_top_title">Rango</div>
 					<div class="text_center exercise_top_title">Área</div>
 					<div class="text_center exercise_top_title">Detalles</div>
 				</div>
-			<div id="scrollbar1">
+			<div id="tiny_exercises" class="tiny_scroll">
 				<div class="scrollbar">
 					<div class="track">
 						<div class="thumb"></div>
@@ -36,8 +37,9 @@
 	                <table class="table table-striped">
 						<% @lecture.exercises.each_with_index do |ex,index| %>
 							<tr>
-								<td><%= link_to ex.name, group_lecture_exercise_path(@group, @lecture, ex) %></td>
-								<td>
+								<td class="exercise_content"><%= link_to ex.name, group_lecture_exercise_path(@group, @lecture, ex) %></td>
+								<td class="text_center exercise_content"><%= "#{@group.min_age} - #{@group.max_age}" %></td>
+								<td class="text_center exercise_content">
 									<% if ex.areas.count==1 %>
 										<%= ex.areas.first.name %>
 									<% else %>
@@ -46,7 +48,7 @@
 										<% end %>
 									<% end %>
 								</td>
-								<td>
+								<td class="text_center exercise_content">
 									<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= index %>">Leer más</button>
 									<div class="modal fade" id="ex_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 										<div class="modal-dialog">
@@ -80,69 +82,7 @@
 		</div>
 	</div>
 </div>
-<style>
-	#scrollbar1{
-		position: relative;
-		width: 811px;
-		top: 30px;
-	}
-	#scrollbar1 .viewport {
-		border-top: 1px solid #dddddd;
-		width: 785px;
-		height: 175px;
-		overflow: hidden;
-		position: relative;
-	}
-	#scrollbar1 .overview {
-		width: 100%;
-		list-style: none;
-		position: absolute;
-		left: 0;
-		top: 0;
-		padding: 0;
-		margin: 0;
-		margin-top: -1px;
-	}
-	#scrollbar1 .scrollbar{
-		position: relative;
-		float: right;
-		width: 15px;
-	}
-	#scrollbar1 .track {
-		height: 100%;
-		width: 10px;
-		position: relative;
-		padding: 0 1px;
-		background: #E4E4E4;
-		border-radius: 5px;
-	}
-	#scrollbar1 .thumb {
-		background: #999999;
-		height: 20px;
-		width: 10px;
-		cursor: pointer;
-		overflow: hidden;
-		position: absolute;
-		top: 0;
-		left: 0px;
-		border-radius: 4px;
-	}
-	#scrollbar1 .disable {
-		display: none;
-	}
-	.noSelect {
-		user-select: none;
-		-o-user-select: none;
-		-moz-user-select: none;
-		-khtml-user-select: none;
-		-webkit-user-select: none;
-	}
-</style>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#scrollbar1').tinyscrollbar();
-	});
-</script>
+
 <div class="boton_der">
 	<div class="top_buttons top_buttons_group">
 		<%= link_to new_group_lecture_attendance_path(@group, @lecture) do %>
@@ -156,74 +96,60 @@
 	<div id="scroll_attendances">
 		<% if @lecture.attendances.count > 0 %>
 			<% @lecture.attendances.each_with_index do |c,index| %>
-				<div class="child_attendance" id="child_spot_<%= c.person.id %>"  data-toggle="modal" data-target="#att_<%= c.id %>">
+				<div class="child_attendance attendance_photo" id="child_spot_<%= c.spot.child.id %>"  data-toggle="modal" data-target="#att_<%= c.id %>">
 					<div class="child_attendance_over">
-						<span class="glyphicon glyphicon-eye-open"></span>
+						<span class="glyphicon glyphicon-plus"></span>
 					</div>
-					<% if c.person.photo_url.to_s.include?('/default/') %>
-						<img src="<%= c.person.photo_url %>" alt="<%= c.person.name %>" class="kid_up_photo">
+					<% if c.spot.child.photo_url.to_s.include?('/default/') %>
+						<img src="<%= c.spot.child.photo_url %>" alt="<%= c.spot.child.name %>" class="kid_up_photo">
 					<% else %>
-						<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
+						<img src="<%= c.spot.child.photo_url(:thumb) %>" alt="<%= c.spot.child.name %>" class="kid_up_photo">
 					<% end %>
 					<div class="kid_stats">
-						<p><%= c.person.name %></p>
+						<p><%= c.spot.child.name %></p>
 					</div>
 				</div>
 				<div id="lecture_observation_<%= c.id %>">
-					<div class="modal fade" id="att_<%= c.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal fade" id="att_<%= c.id %>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel"><%= link_to c.person.full_name, c.person %></h4>
+									<h4 class="modal-title" id="">
+										<% if c.spot.child.photo_url.include?('/default/') %>
+											<%= image_tag c.spot.child.photo_url.to_s, :class => 'kid_up_photo' %>
+										<% else %>
+											<%= image_tag c.spot.child.photo_url(:thumb).to_s, :class => "kid_up_photo" %>
+										<% end %>
+										<%= link_to c.spot.child.full_name, c.spot.child %></h4>
 								</div>
 								<%= form_tag("/attendances/observation/#{c.id}", :method => "get", remote: true ) do %>
 									<div class="modal-body">
 										<div class="blue_box">
-											<div class="white_box">
-												<div class="col-md-6">
-													<div class="text_center">
-														<% if c.person.photo_url.to_s.include?('/default/') %>
-															<img src="<%= c.person.photo_url %>" alt="<%= c.person.name %>" class="kid_up_photo">
-														<% else %>
-															<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
-														<% end %>
-													</div>
-													<table class="table table-striped">
-														<tbody>
-															<tr class="text_center">
-																<td><b>Edad</b> <%= ((Date.today.to_date - c.person.dob.to_date)/365).to_i %> años</td>
-															</tr>
-															<tr class="text_center">
-																<td>Familia <%= link_to c.person.families.first.name, c.person.families.first  %></td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<div class="col-md-6">
-													<div class="text_center">
-														<% if c.person.photo_url.to_s.include?('/default/') %>
-															<img src="<%= c.person.photo_url %>" alt="<%= c.person.name %>" class="kid_up_photo">
-														<% else %>
-															<img src="<%= c.person.photo_url(:thumb) %>" alt="<%= c.person.name %>" class="kid_up_photo">
-														<% end %>
-													</div>
-													<table class="table table-striped">
-														<tbody>
-															<tr class="text_center">
-																<td><b>Tutor</b></td>
-															</tr>
-															<tr class="text_center">
-																<td><%= link_to c.person.families.first.responsible.full_name, c.person.families.first.responsible %></td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
+											<%= link_to c.spot.child.families.first.responsible.full_name, c.spot.child.families.first.responsible %>
+											<%= c.spot.child.families.first.responsible.name %>
 										</div>
 										<div class="spacer"></div>
 										<div class="all_width blue_box">
-											<p><%= text_area_tag "observation", c.observation, :class => "form-control", placeholder: "Observación de clase" %></p>
+											<h4>Observaciones</h4>
+											<div class="under_pressure"></div>
+											<div class="editor_wysiwyg">
+												<%= text_area_tag "observation", c.observation, :class => "form-control wysihtml5", placeholder: "Observación de clase" %>
+											</div>
+											<% c.spot.attendances.order('id DESC').each do |l| %>
+												<% if l.lecture.date.past? && l.observation %>
+													<div class="observation_date">
+														<div class="left observation_day"><%= I18n.l l.lecture.date, :format => "%A" %></div>
+														<div class="left observation_number_day"><%= I18n.l l.lecture.date, :format => "%d" %></div>
+														<div class="left observation_month"><%= I18n.l l.lecture.date, :format => "%B" %></div>
+													</div>
+													<div class="lecture_observation white_box">
+														<div class="observation_text">
+															<%= l.observation.html_safe %>
+														</div>
+													</div>
+												<% end %>
+											<% end %>
 										</div>
 										<div class="spacer"></div>
 									</div>
@@ -242,36 +168,9 @@
 		<% end %>
 	</div>
 </div>
-
-	<div class="modal fade" id="lecture_observation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Observación de la clase</h4>
-				</div>
-				<%= form_tag("/lectures/observation/#{@lecture.id}", :method => "get", remote: true ) do %>
-					<div class="modal-body">
-						<%= text_area_tag "observation", @lecture.observation, :class => "form-control", placeholder: "Escribe una observación" %>
-					</div>
-					<div class="modal-footer" id="fadebackdrop">
-						<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-					</div>
-				<% end %>
-			</div>
-		</div>
-	</div>
 <script>
-	$(document).ready(function() {
-		$('.child_attendance').hover(function() {
-			$(this).find('.child_attendance_over').fadeIn();
-			$(this).find('.child_attendance_over span').animate({top:27,opacity:1},600,'easeOutQuart');
-		}, function() {
-			$(this).find('.child_attendance_over').fadeOut();
-			$(this).find('.child_attendance_over span').animate({top:7,opacity:0},600,'easeOutQuart',function(){
-				$(this).removeAttr('style');
-			});
-		});
+	$(document).ready(function(){
+		$('.tiny_scroll').tinyscrollbar();
+		$('.wysihtml5').wysihtml5();
 	});
 </script>

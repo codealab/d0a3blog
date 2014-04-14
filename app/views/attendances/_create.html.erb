@@ -1,11 +1,11 @@
 <div class="child_spot child_appended" id="child_spot_<%= @attendance.id %>">
-	<% if @attendance.person.photo_url.include?('/default/') %>
-		<img src="<%= @attendance.person.photo_url %>" alt="<%= @attendance.person.name %>" class="kid_up_photo">
+	<% if @attendance.spot.child.photo_url.include?('/default/') %>
+		<img src="<%= @attendance.spot.child.photo_url %>" alt="<%= @attendance.spot.child.name %>" class="kid_up_photo">
 	<% else %>
-		<img src="<%= @attendance.person.photo_url(:thumb) %>" alt="<%= @attendance.person.name %>" class="kid_up_photo">
+		<img src="<%= @attendance.spot.child.photo_url(:thumb) %>" alt="<%= @attendance.spot.child.name %>" class="kid_up_photo">
 	<% end %>
 	<div class="kid_stats">
-		<p><%= @attendance.person.name %></p>
+		<p><%= @attendance.spot.child.name %></p>
 	</div>
 	<% if @attendance.can_destroy? %>
 		<div class="child_remove">

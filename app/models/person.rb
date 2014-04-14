@@ -9,13 +9,14 @@ class Person < ActiveRecord::Base
 
 	has_many :family_relations
 	has_many :families, through: :family_relations, source: :family
-	has_many :attendances, :dependent => :restrict_with_error
+	# has_many :attendances, :dependent => :restrict_with_error
 	has_many :tutoring, :foreign_key => :tutor_id, :class_name => 'Spot', :dependent => :restrict_with_error
 	has_many :spots, :foreign_key => :child_id, :dependent => :restrict_with_error
 
 	has_many :groups, through: :spots, source: :group
 	has_many :payments, through: :spots
 	has_many :lectures, through: :groups, source: :lectures	
+	has_many :attendances, through: :spots
 	
 	mount_uploader :photo, PhotoUploader
 
@@ -53,26 +54,32 @@ class Person < ActiveRecord::Base
 		((Date.today.to_date - self.dob.to_date).to_i)/7
 	end
 
+	def balance
+		balance = 0
+		self.spots.each { |b| balance += b.balance }
+		"$#{balance}"
+	end
+
   private
 
-	  def downcase_names
-	    [:name, :first_last_name, :second_last_name].each do |name|
-	      self.send("#{name}=", self.send(name).downcase) if self.send(name)
-	    end
-	  end
+	def downcase_names
+		[:name, :first_last_name, :second_last_name].each do |name|
+			self.send("#{name}=", self.send(name).downcase) if self.send(name)
+		end
+	end
 
-	  def titleize_names
-	    [:name, :first_last_name, :second_last_name].each do |name|
-	      self.send("#{name}=", self.send(name).titleize) if self.send(name)
-	    end
-	  end
+	def titleize_names
+		[:name, :first_last_name, :second_last_name].each do |name|
+			self.send("#{name}=", self.send(name).titleize) if self.send(name)
+		end
+	end
 
   	def field_uniqueness
-		  existing_record = Person.where("name ILIKE ? AND first_last_name ILIKE ? AND second_last_name ILIKE ?", name, first_last_name, second_last_name).first
-		  unless existing_record.blank? || (existing_record.id == self.id && 
-		  																	existing_record.name.downcase == self.name.downcase && 
-		  																	existing_record.first_last_name.downcase == self.first_last_name.downcase && 
-		  																	existing_record.second_last_name.downcase == self.second_last_name.downcase)
+  		existing_record = Person.where("name ILIKE ? AND first_last_name ILIKE ? AND second_last_name ILIKE ?", name, first_last_name, second_last_name).first
+  		unless existing_record.blank? || (existing_record.id == self.id &&
+										existing_record.name.downcase == self.name.downcase && 
+										existing_record.first_last_name.downcase == self.first_last_name.downcase && 
+										existing_record.second_last_name.downcase == self.second_last_name.downcase)
 		    errors.add(:base, "La combinación de nombre y apellidos ya existe en la base de datos") 
 		  end
 		end

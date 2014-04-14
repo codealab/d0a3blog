@@ -1,0 +1,53 @@
+<table class="table table-striped tablesorter">
+	<thead>
+		<tr>
+			<th style="width: 300px;">Nombre</th>
+			<th class="header text_center" style="width: 160px;">Rango (Semanas)</th>
+			<th style="width: 180px;">Area</th>
+			<th style="width: 300px;">Objetivo</th>
+			<th style="width: 110px;">Leer más</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @exercises.each_with_index do |exercise, index| %>
+			<tr>
+				<td><%= link_to exercise.name, exercise_path(exercise) %></td>
+				<td class="text_center"><%= "#{exercise.min_age} - #{exercise.max_age}" %></td>
+				<td>
+					<% if exercise.areas.count==1 %>
+						<%= exercise.areas.first.name %>
+					<% else %>
+						<% exercise.areas.each do |a| %>
+							<% areasplit = a.name.split(' ') %>
+							<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>">
+								<% areasplit.each do |word| %><%= word.slice(0..0) %><% end %>
+							</span>
+						<% end %>
+					<% end %>
+				</td>
+				<td><%= exercise.objective %></td>
+				<td><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= index %>">Leer más</button></td>
+			</tr>
+			<div class="modal fade" id="ex_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel"><%= link_to exercise.name, exercise_path(exercise) %></h4>
+						</div>
+						<div class="modal-body">
+							<p><strong>Rango:</strong> <%= "#{exercise.min_age} - #{exercise.max_age} Semanas" %></p>
+							<p><strong>Descripción:</strong> <%= exercise.description %></p>
+							<p><strong>Objetivo:</strong> <%= exercise.objective %></p>
+							<p><strong>Material:</strong> <%= exercise.material %></p>
+							<p><strong>Música:</strong> <%= exercise.music %></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</tbody>
+</table>
