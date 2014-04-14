@@ -85,7 +85,7 @@ class Person < ActiveRecord::Base
 		end
 
 	  def dob_cannot_be_in_the_future
-	    errors.add(:dob, "Según la fecha de nacimiento la persona no ha nacido") if
+	    errors.add(:dob, "incorrecta, según la fecha la persona no ha nacido") if
 	      !dob.blank? and dob > Date.today
 	  end
 

@@ -34,7 +34,8 @@ class FamiliesController < ApplicationController
 					render 'new'
 				end
 			else
-				flash.now[:danger] = "El nombre de la familia no es válido"
+				@person.valid?
+				flash.now[:danger] = "El nombre de la familia es invalido"
 				render 'new'
 			end
 		else
