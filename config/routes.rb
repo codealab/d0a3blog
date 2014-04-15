@@ -1,7 +1,7 @@
 D0A3::Application.routes.draw do
   
   resources :families do 
-    resources :people #, only: [:index, :show]
+    resources :people, only: [:index, :show]
     resources :addresses, only: [:new, :create, :edit, :update]
   end
 
@@ -22,11 +22,12 @@ D0A3::Application.routes.draw do
   resources :exercises
   resources :calendars
   resources :password_resets
-  resources :people, only: [:index, :show]
+  resources :people#, only: [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]
 
   root 'sessions#new'
 
+  get "users/index"
   get "lectures/observation"
   get "sessions/new"
   get "sessions/edit"

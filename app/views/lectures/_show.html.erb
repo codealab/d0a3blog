@@ -156,9 +156,7 @@
 										<div class="all_width blue_box">
 											<h4>Observaciones</h4>
 											<div class="under_pressure"></div>
-											<div class="editor_wysiwyg">
-												<%= text_area_tag "observation", c.observation, :class => "form-control wysihtml5", placeholder: "Observación de clase" %>
-											</div>
+											<%= text_area_tag "observation", c.observation, :class => "form-control", placeholder: "Observación de clase" %>
 											<% c.spot.attendances.order('id DESC').each do |l| %>
 												<% if l.lecture.date.past? && l.observation %>
 													<div class="observation_date">
@@ -194,6 +192,5 @@
 <script>
 	$(document).ready(function(){
 		$('.tiny_scroll').tinyscrollbar();
-		$('.wysihtml5').wysihtml5();
 	});
 </script>
