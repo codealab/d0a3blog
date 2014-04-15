@@ -51,7 +51,7 @@
 								<% end %>
 							</td>
 							<td>
-								<% if member.id == @family.responsible_id %>
+								<% if !member.can_destroy? || member.id == @family.responsible_id %>
 									<button type="button" class="btn btn-danger btn-xs disabled">Borrar</button>
 								<% else %>
 									<%= link_to family_person_path(@family, member), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>

@@ -16,7 +16,6 @@ def load_file(file)
 end
 
 load_file("members.csv").each do |line| 
-	puts '=esto es person'
 	person = Person.new(line)
 	if !person.save
 		puts line
@@ -27,33 +26,29 @@ load_file("members.csv").each do |line|
 end
 
 load_file("families.csv").each do |line| 
-	puts '=esto es family'
 	Family.create(line)
 end
 
 load_file("family_relations.csv").each do |line| 
-	puts '=esto es family relation'
 	FamilyRelation.create(line)
 end
 
 load_file("exercises.csv").each do |line| 
-	puts '=esto es exercise'
 	Exercise.create(line)
 end
 
-load_file("area_relations.csv").each do |line|
-puts '=esto es relation' 
+load_file("area_relations.csv").each do |line| 
 	AreaRelation.create(line)
 end
 
 families = Family.all
 
 families.each do |f|
-	puts '=esto es each de familias' 
 	f.family_relations.each do |rel|
 		if(rel.person)
 			f.responsible_id = rel.person.id if rel.person.family_roll=='Madre'
 		end
+		f.save
 	end
 end
 
@@ -64,8 +59,6 @@ end
 #               codigo_postal:"01190", telefono:"558130387", celular:"5512946184", 
 #               email:"user@example.com")
 
-
-puts '=grupo 1'
 Group.create( name:"Principiantes",
 					    user_id:2, 
 					    location:"Cuajimalpa", 
@@ -74,7 +67,6 @@ Group.create( name:"Principiantes",
 					    finish_date:"01/07/2014", 
 					    min_age:0, 
 					    max_age:24) 
-puts '=grupo 2'
 Group.create( name:"Intemedios",
 					    user_id:2, 
 					    location:"Cuajimalpa", 
@@ -83,7 +75,6 @@ Group.create( name:"Intemedios",
 					    finish_date:"01/07/2014", 
 					    min_age:24, 
 					    max_age:48) 
-puts '=grupo 3'
 Group.create( name:"Avanzados",
 					    user_id:2, 
 					    location:"Cuajimalpa", 
@@ -113,6 +104,8 @@ Group.create( name:"Avanzados",
 # Person.where(dob: (Date.today - 100.weeks)..(Date.today - 48.weeks))
 
 
+
+
 # Para generar spots del último grupo, se salta al primer inscrito porque lo hice a mano
 # group.spots.each do |spot|
 # 	10.times do |x|
@@ -121,3 +114,10 @@ Group.create( name:"Avanzados",
 # 		spot.save
 #   end
 # end
+
+
+
+
+
+
+

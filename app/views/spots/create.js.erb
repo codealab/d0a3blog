@@ -1,7 +1,12 @@
 var total_inscriptions = parseInt("<%= @group.spots.count %>");
 
-$('#enlist_childs').append("<%= escape_javascript(render('create')) %>").fadeIn();
 $("#total_spots span").html(total_inscriptions);
 
 if(total_inscriptions>0) $("#alert_inscriptions").hide();
 else $("#alert_inscriptions").show();
+
+var child_active = document.getElementById('child_spot_<%= @spot.child.id %>');
+if(!child_active){
+	$('#enlist_childs').append("<%= escape_javascript(render('create')) %>").show();
+	$("#child_spot_<%= @spot.child.id %>").animate({top:0,opacity:1},600,'easeOutQuart');
+}

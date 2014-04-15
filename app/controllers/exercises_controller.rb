@@ -1,6 +1,9 @@
 # encoding: UTF-8
 class ExercisesController < ApplicationController
 
+	helper_method :valid_user
+	before_action :correct_user, only: [:edit, :update, :show, :new, :create, :destroy, :delete, :index]
+
 	def index
 		@exercises = Exercise.all.order('id desc').paginate(page: params[:page])
 		if params[:group_id] && params[:lecture_id]
@@ -20,15 +23,25 @@ class ExercisesController < ApplicationController
 
 	def create
 		@exercise = Exercise.new(exercise_params)
-		if(@exercise.save)
-			flash[:success] = 'Ejercicio creado exitosamente. En caso de no visualizarlo, verifica la edad mínima y máxima del mismo. Así podrás usarlo dentro de este grupo.'
-			areas @exercise
-			if params[:exercise][:group_id] && params[:exercise][:lecture_id]
-				redirect_to group_lecture_exercises_path(params[:exercise][:group_id],params[:exercise][:lecture_id])
+		if check_areas
+			if(@exercise.save)
+				if params[:group_id]
+					if in_range
+						flash[:success] = 'Ejercicio creado exitosamente.'
+					else
+						flash[:success] = 'El Ejercicio ha sido creado exitosamente. Pero está fuera del rango del grupo.'
+					end
+					redirect_to group_lecture_exercises_path(params[:exercise][:group_id],params[:exercise][:lecture_id])
+				else
+					redirect_to exercises_path
+					flash[:success] = 'Ejercicio creado exitosamente.'
+				end
 			else
-				redirect_to exercises_path
+				render 'new'
 			end
 		else
+			flash[:danger] ="El ejercicio debe contener al menos un área"
+			@exercise.valid?	
 			render 'new'
 		end
 	end
@@ -110,11 +123,32 @@ class ExercisesController < ApplicationController
 			params.require(:exercise).permit(:name, :min_age, :max_age, :objective, :description, :material, :music)
 		end
 
+
+		def in_range
+			(@exercise.min_age <= @exercise.group.max_age) and (@exercise.group.min_age <= @exercise.max_age)
+		end
+
+		def check_areas
+			checked = false
+			params[:area].each do |a|
+				checked = true if a[1]=='on'
+			end
+			checked
+		end
+
 		def areas(exercise)
 			exercise.areas.delete_all
 			areas = params[:area]
 			areas.each { |a| exercise.area_relations.build(area_id:a[0]) if a[1]=='on' }
 			exercise.save
+		end
+
+		def correct_user
+			redirect_to(root_path, notice: "No tienes permitido crear, editar o borrar ejercicios.") unless valid_user
+		end
+
+		def valid_user
+			current_user.admin? || current_user.facilitator?
 		end
 
 end

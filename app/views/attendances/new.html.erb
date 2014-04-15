@@ -21,7 +21,7 @@
 			<div class="white_box" id="attendances">
 				<% if @lecture.attendances.count>0 %>
 					<% @lecture.attendances.each do |c| %>
-						<div class="child_spot child_appended" id="child_spot_<%= c.id %>">
+						<div class="child_spot child_appended" id="child_spot_<%= c.spot.child.id %>">
 							<% if c.spot.child.photo_url.to_s.include?('/default/') %>
 								<img src="<%= c.spot.child.photo_url %>" alt="<%= c.spot.child.name %>" class="kid_up_photo">
 							<% else %>

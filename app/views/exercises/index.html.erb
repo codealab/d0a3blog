@@ -1,4 +1,25 @@
-<% provide(:title, 'Ejercicios') %>
+<div class="boton_der">
+	<div class="top_buttons">
+		<% if @group && @lecture %>
+			<a href=<%= "/groups/#{@group.id}?lecture=#{@lecture.id}" %>>
+				<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
+			</a>
+			<%= link_to new_group_lecture_exercise_path(@group, @lecture) do %>
+				<p><button type="button" class="btn btn-default">Nuevo Ejercicio</button></p>
+			<% end %>
+		<% else %>
+			<%= link_to new_exercise_path do %>
+				<p><button type="button" class="btn btn-default">Nuevo Ejercicio</button></p>
+			<% end %>
+		<% end %>
+		<p><button class="btn btn-primary" data-toggle="modal" data-target="#searcher_exercises">Buscar</button></p>
+	</div>
+	<% if @group && @lecture %>
+		<h1>Ejercicios de <%= "#{@group.min_age}-#{@group.max_age}" %>semanas.<span class="line"></span></h1>
+	<% else %>
+		<h1>Ejercicios<span class="line"></span></h1>
+	<% end %>
+</div>
 
 <%= render 'exercises/top_buttons' %>
 
@@ -49,9 +70,10 @@
 					<% end %>
 				</tbody>
 			</table>
+			<% provide(:title, "Ejercicios de #{@group.min_age}-#{@group.max_age} semanas.") %>
 			<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
 		<% else %>
-		Ejercicios para tal número de semansa
+			<% provide(:title, 'Ejercicios') %>
 			<%= render 'exercises/list' %>
 			<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
 		<% end %>

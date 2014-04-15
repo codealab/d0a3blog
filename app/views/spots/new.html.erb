@@ -26,7 +26,7 @@
  			<div id="enlist_childs" class="white_box">
  				<% if @group.spots.count>0 %>
 					<% @group.spots.each do |c| %>
-						<div class="child_spot child_appended" id="child_spot_<%= c.child.id %>">
+						<div class="child_spot child_appended child_spot_<%= c.child.id %>" id="child_spot_<%= c.child.id %>">
 							<% if c.child.photo_url.to_s.include?('/default/') %>
 								<img src="<%= c.child.photo_url %>" alt="<%= c.child.name %>" class="kid_up_photo">
 							<% else %>
@@ -99,7 +99,7 @@
 		<div class="blue_box">
 			<div id="searcher" class="all_width white_box">
 				<%= form_tag("/spots/search", :method => "get", remote: true, :id => "search_form") do %>
-					<%= text_field_tag "query", nil, :placeholder => "Buscar", :class => "search_input form-control" %>
+						<%= text_field_tag "query", nil, :placeholder => "Buscar", :class => "search_input form-control" %>
 					<%= text_field_tag "group_id", "#{@group.id}", :style => 'display:none;' %>
 				<% end %>
 				<div id="childs_container"></div>

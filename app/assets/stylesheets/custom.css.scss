@@ -570,6 +570,11 @@ footer {
 .child_selector{ position: relative; }
 #enlist_childs .child_selector, #posibble_childs .child_selector{ display: none; }
 #alert_notice{ display: none; }
+.alert-notice {
+  background-color: #F8F8D9;
+  border-color: #E9E9C6;
+  color: #B6B260;
+}
 /*Error>>simple form*/
 .error{
   color: #b94a48;

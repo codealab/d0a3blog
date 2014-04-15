@@ -2,7 +2,7 @@
 class GroupsController < ApplicationController
 	
 	helper_method :valid_user
-	before_action :correct_user, only: [:edit, :update, :new, :create, :destroy, :delete]
+	before_action :correct_user, only: [:edit, :update, :show, :new, :create, :destroy, :delete]
 
 	def index
 		if params[:filter]
@@ -67,7 +67,7 @@ class GroupsController < ApplicationController
     protected
 
     def correct_user
-		redirect_to(groups_path, notice: "No tienes permitido crear, editar o borrar grupos.") unless valid_user
+		redirect_to(:back, notice: "No tienes permitido crear, editar o borrar grupos.") unless valid_user
 	end
 
 	def valid_user
