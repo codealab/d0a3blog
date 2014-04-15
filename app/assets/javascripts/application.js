@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
-//= require bootstrap-wysihtml5
 //= require jquery.Jcrop
 //= require_tree .
 
@@ -122,10 +121,5 @@ function over_and_clicks(){
     });
     
     $('.tip').tooltip();
-    //$('.wysihtml5').wysihtml5();
 
 }
-
-$(document).on('page:load', function(){
-  window['rangy'].initialized = false;
-})

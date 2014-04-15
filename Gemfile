@@ -24,7 +24,6 @@ gem 'i18n', '~> 0.6.9'
 gem 'jcrop-rails-v2'
 #gem 'protected_attributes'
 gem "carrierwave"
-gem 'bootstrap-wysihtml5-rails'
 
 if RbConfig::CONFIG["target_os"] =~ /mswin|mingw|cygwin/i
   gem "mini_magick"
