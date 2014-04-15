@@ -10,7 +10,7 @@
 		});
 
 		<% @group.spots.each do |c| %>
-			$('.child_<%= c.child.id  %>').hide().addClass('child_active');
+			$('.child_<%= c.child.id  %>').addClass('child_active');
 			$("#enlist_childs .child_<%= c.child.id  %>").show();
 		<% end %>
 		<% if !manager %>

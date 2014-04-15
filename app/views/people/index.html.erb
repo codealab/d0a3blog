@@ -31,15 +31,15 @@
 		var word = "", peopleSearch= false;
 		$("#magnifying, #input_finder").on("click",function(){
 			$("#input_finder").focus().animate({opacity:1,width:300},600,'easeInOutQuart');
-			$("#people_search_container").show( "slide", { direction: "up" }, 300,'easeInOutQuart');
+			$("#people_search_container").show();
 		});
 		$("#close_people_results").on("click",function(){
-			$("#people_search_container").hide( "slide", { direction: "up" }, 600,'easeInOutQuart');
+			$("#people_search_container").hide();
 		});
 		$("#input_finder").on('blur', function(){
 			var child_results = $("#people_results tr").size();
 			$("#input_finder").val('').animate({opacity:0,width:40},900,'easeInOutQuart');
-			if(child_results==0) $("#people_search_container").hide( "slide", { direction: "up" }, 300,'easeInOutQuart');
+			if(child_results==0) $("#people_search_container").hide();
 		});
 		$("#input_finder").on("keyup",function(){
 			var name = $(this).val();

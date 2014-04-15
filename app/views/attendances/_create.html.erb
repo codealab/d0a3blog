@@ -1,4 +1,4 @@
-<div class="child_spot child_appended" id="child_spot_<%= @attendance.id %>">
+<div class="child_spot child_appended" id="child_spot_<%= @attendance.spot.child.id %>">
 	<% if @attendance.spot.child.photo_url.include?('/default/') %>
 		<img src="<%= @attendance.spot.child.photo_url %>" alt="<%= @attendance.spot.child.name %>" class="kid_up_photo">
 	<% else %>
@@ -15,8 +15,3 @@
 		</div>
 	<% end %>
 </div>
-<script>
-	$(document).ready(function() {
-		$(".child_appended").animate({top:0,opacity:1},600,'easeOutQuart');
-	});
-</script>

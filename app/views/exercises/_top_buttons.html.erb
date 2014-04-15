@@ -1,22 +1,3 @@
-<div class="boton_der">
-	<div class="top_buttons">
-		<% if @group && @lecture %>
-			<a href=<%= "/groups/#{@group.id}?lecture=#{@lecture.id}" %>>
-				<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
-			</a>
-			<%= link_to new_group_lecture_exercise_path(@group, @lecture) do %>
-				<p><button type="button" class="btn btn-default">Nuevo Ejercicio</button></p>
-			<% end %>
-		<% else %>
-			<%= link_to new_exercise_path do %>
-				<p><button type="button" class="btn btn-default">Nuevo Ejercicio</button></p>
-			<% end %>
-		<% end %>
-		<p><button class="btn btn-primary" data-toggle="modal" data-target="#searcher_exercises">Buscar</button></p>
-	</div>
-	<h1>Ejercicios<span class="line"></span></h1>
-</div>
-
 <div class="modal fade" id="searcher_exercises" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">

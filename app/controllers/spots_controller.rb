@@ -2,7 +2,7 @@
 class SpotsController < ApplicationController
 	
 	helper_method :valid_user
-	before_action :correct_user, only: [:update, :create, :destroy]
+	before_action :correct_user, only: [:update, :create, :destroy, :new, :index]
 	before_action :pasive_family, only: [:update, :edit]
 
 	def index

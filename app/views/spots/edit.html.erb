@@ -1,5 +1,5 @@
-<% provide(:title, "#{@spot.child.name} #{@spot.child.first_last_name} #{@spot.child.second_last_name}") %>
-
+<% provide(:title, "Registro de #{@spot.child.name} en grupo #{@group.name}") %>
+<!--<% provide(:title, "#{@spot.child.name} #{@spot.child.first_last_name} #{@spot.child.second_last_name}") %>-->
 <div class="boton_der">
 	<div class="top_buttons">
 		<%= link_to groups_path do %>
@@ -9,7 +9,7 @@
 			<p><button type="button" class="btn btn-default">Nuevo Pago</button></p>
 		<% end %>
 	</div>
-	<h1><%= "#{@spot.child.name} #{@spot.child.first_last_name} #{@spot.child.second_last_name}" %><span class="line"></span></h1>
+	<h1><%= "Registro de #{@spot.child.name} en grupo #{@group.name}" %><span class="line"></span></h1>
 </div>
 
 <% if !@spot.child.family_relations.first.family.status? %>
@@ -17,6 +17,9 @@
 <% end %>
 	<div class="all_width light_box">
 		<div class="spacer"></div>
+		<div class="col-md-5">
+		  <h4>Costo del grupo $<%= @group.cost %></h4>
+		</div>
 		<div class="col-md-5" id="spot_container">
 			<%= render "/spots/form" %>
 		</div>
