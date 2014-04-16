@@ -1,0 +1,45 @@
+<table class="table table-striped tablesorter">
+			<thead>
+				<tr>
+					<th>Fecha</th>
+					<th>Niño</th>
+					<th>Tutor</th>
+					<th>Grupo</th>
+					<th class="text_center">Cantidad</th>
+					<th class="text_center">Beca</th>
+					<td class="text_center">
+						<span class=" glyphicon glyphicon-info-sign"></span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @payments.each do |p| %>
+					<tr>
+						<td><%= p.date %></td>
+						<td><%= link_to p.spot.child.full_name, p.spot.child %></td>
+						<td><%= link_to p.spot.tutor.full_name, p.spot.tutor %></td>
+						<td><%= link_to p.spot.group.name, p.spot.group %></td>
+						<td class="text_center"><%= negative_value(p.amount) %></td>
+						<td class="text_center">
+							<% if p.scholarship %>
+								<span class="current_group scholarship_payment"></span>
+							<% else %>
+								<span class="current_group current_null"></span>
+							<% end %>
+						</td>
+						<td class="text_center">
+							<span data-container="body" data-toggle="popover" data-placement="left" data-content="<%= p.clarification %>" data-original-title="" title="" class="glyphicon pops glyphicon-info-sign info"></span>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+				<tr class="total_blue">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>Total:</td>
+					<td class="text_center"><%= negative_value(payments_result @payments) %></td>
+					<td class="text_center"><%= negative_value(payments_result @payments.where(:scholarship => true)) %></td>
+					<td></td>
+				</tr>
+		</table>

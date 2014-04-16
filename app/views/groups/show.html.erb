@@ -61,6 +61,7 @@
 <script>
 	$(document).ready(function() {
 		// $('.tip').tooltip();
+		scrollAdjust();
 	 	<% if(@lecture) %>
 			var lecture = "lecture_<%= @lecture.id %>";
 			$("#"+lecture).addClass('date_active');

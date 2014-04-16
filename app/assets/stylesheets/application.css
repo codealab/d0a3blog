@@ -360,11 +360,31 @@ body{
 	width: 811px;
 	top: 23px;
 }
-.tiny_scroll{ position: relative; }
-.tiny_scroll .viewport {
+#tiny_exercises .viewport{
 	border-top: 1px solid #dddddd;
 	width: 785px;
 	height: 200px;
+}
+.attendance_title{
+	top: 15px;
+	position: absolute;
+	left: 65px;
+}
+.tutor_title{
+	position: absolute;
+	left: 66px;
+	top: 40px;
+	font-size: 11px;
+}
+.tiny_attendances{
+	width: 525px;
+}
+.tiny_attendances .viewport{
+	width: 505px;
+	height: 200px;
+}
+.tiny_scroll{ position: relative; }
+.tiny_scroll .viewport {
 	overflow: hidden;
 	position: relative;
 }
@@ -443,29 +463,33 @@ body{
 }
 #people_results tr{ opacity: 0; }
 /*LECTURES*/
-.lecture_observation{
+.lecture_observation {
 	width: 100%;
 	float: left;
-	padding: 5px;
+	padding: 8px;
+	border-radius: 5px;
+	background: rgba(255, 255, 255, 1);
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.02);
+	border: 1px solid rgb(218, 218, 218);
 }
 .observation_date {
 	width: 100%;
 	float: left;
 	height: 30px;
 	position: relative;
-	margin-bottom: 3px;
+	margin-bottom: 5px;
 	border-bottom: 1px solid rgb(207, 207, 207);
 	box-shadow: 0px 1px 0px rgb(243, 243, 243);
 }
-.observation_date div{
-	margin: 5px;
-	position: relative;
+.observation_date div {
+margin-left: 5px;
+position: relative;
 }
 .observation_text {
 	float: left;
 	width: 80%;
 }
-.observation_day {
+.observation_day, .observation_month {
 	color: rgb(168, 168, 168);
 	font-size: 11px;
 	top: 9px;
@@ -473,10 +497,5 @@ body{
 .observation_number_day {
 	color: rgb(131, 130, 130);
 	font-size: 14px;
-	top: 6px;
-}
-.observation_month {
-	color: rgb(131, 130, 130);
-	font-size: 11px;
-	top: 9px;
+	top: 5px;
 }

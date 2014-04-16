@@ -109,17 +109,46 @@ function over_and_clicks(){
     });
 
     $( document ).on( "mouseenter", ".attendance_photo", function() {
-        $(this).find('.child_attendance_over').fadeIn();
-        $(this).find('.child_attendance_over span').animate({top:27,opacity:1},600,'easeOutQuart');
+        $(this).find('.child_attendance_over').stop().fadeIn();
+        $(this).find('.child_attendance_over span').stop().animate({top:27,opacity:1},600,'easeOutQuart');
     });
 
     $( document ).on( "mouseleave", ".attendance_photo", function() {
-        $(this).find('.child_attendance_over').fadeOut();
-        $(this).find('.child_attendance_over span').animate({top:7,opacity:0},600,'easeOutQuart',function(){
+        $(this).find('.child_attendance_over').stop().fadeOut();
+        $(this).find('.child_attendance_over span').stop().animate({top:7,opacity:0},600,'easeOutQuart',function(){
             $(this).removeAttr('style');
         });
     });
     
+    $(document).on('click', '.close_results',function(){
+        var theID = $(this).attr('id').replace('close_results_','');
+        $("#"+theID+"_search_container").hide();
+    });
+
+    $(document).on('submit', "#searcher_exercises_form, #searcher_payments_form", function(){
+        var modalID = $(this).attr('id').replace('_form','');
+        $("#"+modalID).modal('hide');
+    });
+
     $('.tip').tooltip();
 
+}
+
+function scrollAdjust(){
+    $('.tiny_scroll').each(function(){
+        var tinyScroll = $(this);
+        tinyScroll.tinyscrollbar();
+        var newScroll = tinyScroll.data("plugin_tinyscrollbar");
+        newScroll.update();
+    });
+    $('.modal_attendance').on('show.bs.modal', function() {
+        var theID = $(this).attr('id').replace('att_','#tiny_att_');
+        // Refresh de tinyscroll en timeout, el callback del modal no responde correctamente.
+        setTimeout(function(){
+            var tinyScroll = $(theID);
+            tinyScroll.tinyscrollbar();
+            var newScroll = tinyScroll.data("plugin_tinyscrollbar");
+            newScroll.update();
+        },360);
+    });
 }

@@ -10,12 +10,12 @@
 	</div>
 
 	<div id="lecture_observation_<%= @lecture.id %>">
-		<div class="modal fade" id="lecture_observation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade" id="lecture_observation" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Observación de clase</h4>
+						<h4 class="modal-title">Observación de clase</h4>
 					</div>
 					<%= form_tag("/lectures/observation/#{@lecture.id}", :method => "get", remote: true ) do %>
 						<div class="modal-body">
@@ -40,6 +40,7 @@
 		</div>
 		<h1>Ejercicios <%= @lecture.exercises.count %></h1>
 	</div>
+
 	<div class="all_width blue_box" id="exercises_container_table">
 		<div class="all_width white_box" style="height: 222px;">
 			<% if @lecture.exercises.count>0 %>
@@ -56,49 +57,49 @@
 					</div>
 				</div>
 				<div class="viewport">
-	            	<div class="overview">
-	                <table class="table table-striped">
-						<% @lecture.exercises.each_with_index do |ex,index| %>
-							<tr>
-								<td class="exercise_content"><%= link_to ex.name, group_lecture_exercise_path(@group, @lecture, ex) %></td>
-								<td class="text_center exercise_content"><%= "#{@group.min_age} - #{@group.max_age}" %></td>
-								<td class="text_center exercise_content">
-									<% if ex.areas.count==1 %>
-										<%= ex.areas.first.name %>
-									<% else %>
-										<% ex.areas.each do |a| %>
-											<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
+					<div class="overview">
+		                <table class="table table-striped">
+							<% @lecture.exercises.each_with_index do |ex,index| %>
+								<tr>
+									<td class="exercise_content"><%= link_to ex.name, group_lecture_exercise_path(@group, @lecture, ex) %></td>
+									<td class="text_center exercise_content"><%= "#{@group.min_age} - #{@group.max_age}" %></td>
+									<td class="text_center exercise_content">
+										<% if ex.areas.count==1 %>
+											<%= ex.areas.first.name %>
+										<% else %>
+											<% ex.areas.each do |a| %>
+												<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
+											<% end %>
 										<% end %>
-									<% end %>
-								</td>
-								<td class="text_center exercise_content">
-									<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= index %>">Leer más</button>
-									<div class="modal fade" id="ex_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title" id="myModalLabel"><%= ex.name %></h4>
-												</div>
-												<div class="modal-body">
-													<p><strong>Descripción:</strong> <%= ex.description %></p>
-													<p><strong>Objetivo:</strong> <%= ex.objective %></p>
-													<p><strong>Material:</strong> <%= ex.material %></p>
-													<p><strong>Música:</strong> <%= ex.music %></p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+									</td>
+									<td class="text_center exercise_content">
+										<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= index %>">Leer más</button>
+										<div class="modal fade" id="ex_<%= index %>" tabindex="-1" role="dialog" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+														<h4 class="modal-title"><%= ex.name %></h4>
+													</div>
+													<div class="modal-body">
+														<p><strong>Descripción:</strong> <%= ex.description %></p>
+														<p><strong>Objetivo:</strong> <%= ex.objective %></p>
+														<p><strong>Material:</strong> <%= ex.material %></p>
+														<p><strong>Música:</strong> <%= ex.music %></p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</td>
-							</tr>
-						<% end %>
-					</table>
+									</td>
+								</tr>
+							<% end %>
+						</table>
+					</div>
 				</div>
-            </div>
-        </div>
+			</div>
 		<% else %>
 			<h4 class="counter_is_zero">Esta clase no cuenta con ejercicios</h4>
 		<% end %>
@@ -133,44 +134,61 @@
 					</div>
 				</div>
 				<div id="lecture_observation_<%= c.id %>">
-					<div class="modal fade" id="att_<%= c.id %>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+					<div class="modal fade modal_attendance" id="att_<%= c.id %>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="">
-										<% if c.spot.child.photo_url.include?('/default/') %>
-											<%= image_tag c.spot.child.photo_url.to_s, :class => 'kid_up_photo' %>
-										<% else %>
-											<%= image_tag c.spot.child.photo_url(:thumb).to_s, :class => "kid_up_photo" %>
-										<% end %>
-										<%= link_to c.spot.child.full_name, c.spot.child %></h4>
+									<% if c.spot.child.photo_url.include?('/default/') %>
+										<%= image_tag c.spot.child.photo_url.to_s, :class => 'kid_up_photo' %>
+									<% else %>
+										<%= image_tag c.spot.child.photo_url(:thumb).to_s, :class => "kid_up_photo" %>
+									<% end %>
+									<h4 class="modal-title attendance_title">
+										<%= link_to c.spot.child.full_name, c.spot.child %>
+									</h4>
+									<div class="tutor_title">
+										Tutor: <%= link_to c.spot.child.families.first.responsible.full_name, c.spot.child.families.first.responsible %>
+									</div>
 								</div>
 								<%= form_tag("/attendances/observation/#{c.id}", :method => "get", remote: true ) do %>
 									<div class="modal-body">
-										<div class="blue_box">
-											<%= link_to c.spot.child.families.first.responsible.full_name, c.spot.child.families.first.responsible %>
-											<%= c.spot.child.families.first.responsible.name %>
-										</div>
-										<div class="spacer"></div>
-										<div class="all_width blue_box">
+										<div class="all_width light_box">
 											<h4>Observaciones</h4>
-											<div class="under_pressure"></div>
+											<div class="observation_date">
+												<div class="left observation_day"><%= I18n.l @lecture.date, :format => "%A" %></div>
+												<div class="left observation_number_day"><%= I18n.l @lecture.date, :format => "%d" %></div>
+												<div class="left observation_month"><%= I18n.l @lecture.date, :format => "%B" %></div>
+											</div>
 											<%= text_area_tag "observation", c.observation, :class => "form-control", placeholder: "Observación de clase" %>
-											<% c.spot.attendances.order('id DESC').each do |l| %>
-												<% if l.lecture.date.past? && l.observation %>
-													<div class="observation_date">
-														<div class="left observation_day"><%= I18n.l l.lecture.date, :format => "%A" %></div>
-														<div class="left observation_number_day"><%= I18n.l l.lecture.date, :format => "%d" %></div>
-														<div class="left observation_month"><%= I18n.l l.lecture.date, :format => "%B" %></div>
+											<div class="spacer"></div>
+											<div class="tiny_scroll tiny_attendances" id="tiny_att_<%= c.id %>">
+												<div class="scrollbar">
+													<div class="track">
+														<div class="thumb"></div>
 													</div>
-													<div class="lecture_observation white_box">
-														<div class="observation_text">
-															<%= l.observation.html_safe %>
-														</div>
+												</div>
+												<div class="viewport">
+													<div class="overview">
+														<% c.spot.attendances.joins(:lecture).order('date DESC').each do |a| %>
+															<% if (a.lecture.id != @lecture.id) && a.observation %>
+																<div class="container_attendance">
+																	<div class="observation_date">
+																		<div class="left observation_day"><%= I18n.l a.lecture.date, :format => "%A" %></div>
+																		<div class="left observation_number_day"><%= I18n.l a.lecture.date, :format => "%d" %></div>
+																		<div class="left observation_month"><%= I18n.l a.lecture.date, :format => "%B" %></div>
+																	</div>
+																	<div class="lecture_observation">
+																		<div class="observation_text">
+																			<%= a.observation.html_safe %>
+																		</div>
+																	</div>
+																</div>
+															<% end %>
+														<% end %>
 													</div>
-												<% end %>
-											<% end %>
+												</div>
+											</div>
 										</div>
 										<div class="spacer"></div>
 									</div>
@@ -189,8 +207,3 @@
 		<% end %>
 	</div>
 </div>
-<script>
-	$(document).ready(function(){
-		$('.tiny_scroll').tinyscrollbar();
-	});
-</script>

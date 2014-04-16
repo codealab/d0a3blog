@@ -1,0 +1,12 @@
+<div class="all_width blue_box">
+	<button type="button" class="close close_results" data-dismiss="modal" aria-hidden="true" id="close_results_payments">×</button>
+	<h4>Resultados</h4>
+	<% if @payments.count>0 %>
+		<%= render 'payments/list' %>
+	<% else %>
+		<div class="white_box">
+			<h4 class="counter_is_zero">No existe ningún pago dentro de la búsqueda</h4>
+		</div>
+	<% end %>
+</div>
+<div class="spacer"></div>

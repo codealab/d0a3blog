@@ -57,21 +57,24 @@ class PaymentsController < ApplicationController
 	def search
 		init_date = (params[:init][0]).to_date
 		ended_date = (params[:end][0]).to_date
+		group = params[:group_id].blank? ? nil:params[:group_id]
 
-		@payments = Payment.all
+		if init_date || ended_date || group
+			@payments = Payment.all
+			@group = Group.find_by_id(group) if group
+			@payments = @group.payments if @group
 
-		@group = Group.find_by_id(params[:group_id]) if params[:group_id]
-
-		@payments = @group.payments if @group
-
-		if init_date && ended_date
-			@payments = @payments.where("date >= :start_date AND date<= :end_date ", { start_date: init_date, end_date: ended_date })
-		elsif init_date && !ended_date
-			@payments = @payments.where("date >= :start_date", { start_date: init_date })
-		elsif !init_date && ended_date
-			@payments = @payments.where("date<= :end_date ", { end_date: ended_date })
+			if init_date && ended_date
+				@payments = @payments.where("date >= :start_date AND date<= :end_date ", { start_date: init_date, end_date: ended_date })
+			elsif init_date && !ended_date
+				@payments = @payments.where("date >= :start_date", { start_date: init_date })
+			elsif !init_date && ended_date
+				@payments = @payments.where("date<= :end_date ", { end_date: ended_date })
+			end
+		else
+			@payments = []
+			flash.now[:notice] = "Debes de llenar al menos un campo en la búsqueda"
 		end
-
 	end
 
 	private
