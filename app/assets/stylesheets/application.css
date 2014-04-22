@@ -10,6 +10,7 @@
  *
  *= require jquery.Jcrop
  *= require_self
+ *= require bootstrap-wysihtml5
  *= require_tree .
  */
 
@@ -360,11 +361,31 @@ body{
 	width: 811px;
 	top: 23px;
 }
-.tiny_scroll{ position: relative; }
-.tiny_scroll .viewport {
+#tiny_exercises .viewport{
 	border-top: 1px solid #dddddd;
 	width: 785px;
 	height: 200px;
+}
+.attendance_title{
+	top: 15px;
+	position: absolute;
+	left: 65px;
+}
+.tutor_title{
+	position: absolute;
+	left: 66px;
+	top: 40px;
+	font-size: 11px;
+}
+.tiny_attendances{
+	width: 525px;
+}
+.tiny_attendances .viewport{
+	width: 505px;
+	height: 200px;
+}
+.tiny_scroll{ position: relative; }
+.tiny_scroll .viewport {
 	overflow: hidden;
 	position: relative;
 }
@@ -443,29 +464,33 @@ body{
 }
 #people_results tr{ opacity: 0; }
 /*LECTURES*/
-.lecture_observation{
+.lecture_observation {
 	width: 100%;
 	float: left;
-	padding: 5px;
+	padding: 8px;
+	border-radius: 5px;
+	background: rgba(255, 255, 255, 1);
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.02);
+	border: 1px solid rgb(218, 218, 218);
 }
 .observation_date {
 	width: 100%;
 	float: left;
 	height: 30px;
 	position: relative;
-	margin-bottom: 3px;
+	margin-bottom: 5px;
 	border-bottom: 1px solid rgb(207, 207, 207);
 	box-shadow: 0px 1px 0px rgb(243, 243, 243);
 }
-.observation_date div{
-	margin: 5px;
-	position: relative;
+.observation_date div {
+margin-left: 5px;
+position: relative;
 }
 .observation_text {
 	float: left;
 	width: 80%;
 }
-.observation_day {
+.observation_day, .observation_month {
 	color: rgb(168, 168, 168);
 	font-size: 11px;
 	top: 9px;
@@ -473,10 +498,41 @@ body{
 .observation_number_day {
 	color: rgb(131, 130, 130);
 	font-size: 14px;
-	top: 6px;
+	top: 5px;
 }
-.observation_month {
-	color: rgb(131, 130, 130);
-	font-size: 11px;
-	top: 9px;
+/*wysiwyg*/
+.btn-group a i{
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.icon-list:before{ content: "\e032"; }
+.icon-th-list:before{ content: "\e012"; }
+.icon-indent-right:before{ content: "\e058"; }
+.icon-indent-left:before{ content: "\e057"; }
+
+ul.wysihtml5-toolbar a.btn.wysihtml5-command-active{
+	box-shadow: none!important;
+	border-radius: 3px!important;
+	background-color: rgb(223, 223, 223)!important;
+	border: 1px solid rgb(221, 221, 221)!important;
+}
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(2),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(3),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(4),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(6),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(8),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(9),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(10){ display: none; }
+ul.wysihtml5-toolbar > li{ margin-bottom: 0!important; }
+.wysihtml5-toolbar .dropdown .dropdown-menu{
+	position: absolute!important;
+	top: 30px!important;
 }

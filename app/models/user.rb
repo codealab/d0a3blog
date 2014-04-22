@@ -21,17 +21,17 @@ class User < ActiveRecord::Base
 
 	has_secure_password
 
-	scope :facilitadores, proc {where(:facilitator => true)}
+	scope :instructors, proc { where(:instructor => true) }
 
 	mount_uploader :photo, PhotoUploader
 
 	def name
 		read_attribute(:name).try(:titleize)
-	end	
+	end
 
 	def User.new_remember_token
 		SecureRandom.urlsafe_base64
-	end 
+	end
 
 	def User.encrypt(token)
     	Digest::SHA1.hexdigest(token.to_s)

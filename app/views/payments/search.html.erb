@@ -1,7 +1,10 @@
 <% provide(:title, "Todos los Pagos") %>
 
 <div class="boton_der">
-	<h1>Todos los Pagos<span class="line"></span></h1>
+	<div class="top_buttons">
+		<p><button class="btn btn-primary" data-toggle="modal" data-target="#searcher_payments">Buscar</button></p>
+	</div>
+	<h1>Resultados de Pagos<span class="line"></span></h1>
 </div>
 
 <%= render '/payments/searchform' %>
@@ -9,44 +12,21 @@
 <div class="spacer"></div>
 <div class="all_width blue_box">
 	<% if @payments.count>0 %>
-		<table class="table table-striped tablesorter">
-			<thead>
-				<tr>
-					<th>Fecha</th>
-					<th>Niño</th>
-					<th>Tutor</th>
-					<th>Familia</th>
-					<th>Grupo</th>
-					<th>Cantidad</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @payments.each do |p| %>
-					<tr>
-						<td><%= p.date %></td>
-						<td><%= link_to p.spot.child.name, p.spot.child %></td>
-						<td><%= link_to p.spot.tutor.name, p.spot.tutor %></td>
-						<td><%= link_to p.spot.child.families.first.name, p.spot.child.families.first %></td>
-						<td><%= link_to p.spot.group.name, p.spot.group %></td>
-						<td>$<%= p.amount %></td>
-					</tr>
-				<% end %>
-			</tbody>
-			<tr class="total_blue">
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><b>Total:</b></td>
-				<td>$<%= total_payments @payments %></td>
-			</tr>
-		</table>
+		<%= render 'payments/list' %>
+		<div class="boton_der">
+			<p style="width: 100%; height: 30px; top: -7px; ">
+				<div style="color: #A8A8A8; position: absolute; top: 30px; font-style: italic; font-size: 12px; left: 8px;">
+					<span class="current_group current_null"></span>Pago regular
+				</div>
+				<div style="color: #A8A8A8; position: absolute; top: 10px; font-style: italic; font-size: 12px; left: 8px;">
+					<span class="current_group scholarship_payment"></span>Pago extr.
+				</div>
+			</p>
+		</div>
 	<% else %>
 		<div class="white_box">
 			<h4 class="counter_is_zero">No existe ningún pago dentro de la búsqueda</h4>
 		</div>
 	<% end %>
 </div>
-<% if @payments %>
-	<h6>Total de Pagos: <%= @payments.count %></h6>
-<% end %>
+<h6>Total de Pagos: <%= @payments.count %></h6>

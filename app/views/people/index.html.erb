@@ -11,10 +11,10 @@
 	<h1>Todos los Miembros<span class="line"></span></h1>
 </div>
 <div class="all_width blue_box" id="people_search_container">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close_people_results">×</button>
+	<button type="button" class="close close_results" data-dismiss="modal" aria-hidden="true" id="close_results_people">×</button>
 	<h4>Resultados</h4>
 	<!-- <div class="under_pressure"></div> -->
-	<div id="people_results"></div>
+	<div id="people_search"></div>
 </div>
 <div class="spacer"></div>
 <div class="all_width blue_box">
@@ -29,12 +29,9 @@
 <script>
 	$(document).ready(function() {
 		var word = "", peopleSearch= false;
-		$("#magnifying, #input_finder").on("click",function(){
+		$("#magnifying, #input_finder").on("click", function(){
 			$("#input_finder").focus().animate({opacity:1,width:300},600,'easeInOutQuart');
 			$("#people_search_container").show();
-		});
-		$("#close_people_results").on("click",function(){
-			$("#people_search_container").hide();
 		});
 		$("#input_finder").on('blur', function(){
 			var child_results = $("#people_results tr").size();

@@ -1,32 +1,38 @@
 <div class="modal fade" id="searcher_exercises" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<%= form_tag :controller => 'exercises', :action => 'search' do %>
+			<%= form_tag( { :controller => :exercises, :action => :search }, { :remote => true, :id => 'searcher_exercises_form' } ) do %>
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Buscar Ejercicios</h4>
 				</div>
 				<div class="modal-body">
 					<div class="light_box all_width">
-						<%= label_tag(:name, "Nombre:") %>
-						<%= text_field_tag :name, nil, :include_blank => true, :class => "form-control date_payment_field" %>
+						<!--<%= label_tag(:name, "Nombre:") %>-->
+						<%= text_field_tag :name, nil, :class => "form-control date_payment_field", :placeholder => "Nombre del ejercicio" %>
 						<div class="search_half">
 							<div class="title_search">
 								<%= label_tag(:init, "Desde:") %>
 							</div>
-							<%= number_field :init, nil, :include_blank => true, :class => "form-control date_payment_field" %>
+							<% if @group %>
+								<%= text_field_tag :group_id, "#{@group.id}", :class => "hidden", :disabled => true %>
+							<% end %>
+							<% if @lecture %>
+								<%= text_field_tag :lecture_id, "#{@lecture.id}", :class => "hidden", :disabled => true %>
+							<% end %>
+							<%= number_field :init, nil, :class => "form-control date_payment_field" %>
 						</div>
 						  <div class="search_half">
 						  	<div class="title_search">
 						  		<%= label_tag(:ended, "Hasta:") %>
 						  	</div>
-						  	<%= number_field :ended, nil, :include_blank => true, :class => "form-control date_payment_field" %>
+						  	<%= number_field :ended, nil, :class => "form-control date_payment_field" %>
 						  </div>
 						<div class="search_half">
 						 	<div class="title_search">
-						  		<%= label_tag(:area, "Area:") %>
+						  		<%= label_tag(:area, "Área:") %>
 						  	</div>
-						  	<%= select_tag 'area_id', options_for_select(Area.all.collect{ |u| [u.name, u.id] } ), :include_blank => true, :class => "form-control" %>
+						  	<%= select_tag 'area_id', options_for_select(Area.all.collect{ |u| [u.name, u.id] } ), :prompt => "Todas", :class => "form-control" %>
 						</div>
 					</div>
 				</div>

@@ -4,7 +4,7 @@ require 'spec_helper'
 describe 'Spot pages' do
 	subject { page }
 
-	let(:user) { create(:user, :is_admin, :is_facilitator) }
+	let(:user) { create(:user, :is_admin, :is_instructor) }
 	let(:group) { create(:group) }
 	let(:person) { create(:person) }
 	let(:family) { Family.create({ name:'Nueva Familia', responsible_id: person.id }) }

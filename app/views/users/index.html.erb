@@ -17,7 +17,7 @@
 				<th>Usuario</th>
 				<th>Email</th>
 				<th>Administrador</th>
-				<th>Facilitador</th>
+				<th>Instructor</th>
 				<th>Coordinador</th>
 				<% if current_user.admin? %>
 					<th>Editar</th>
@@ -31,7 +31,7 @@
 				<td><%= link_to user.name, user %></td>
 				<td><%= user.email %></td>
 				<% if user.admin %><td>Sí</td><% else %><td>No</td><% end %>
-				<% if user.facilitator %><td>Sí</td><% else %><td>No</td><% end %>
+				<% if user.instructor %><td>Sí</td><% else %><td>No</td><% end %>
 				<% if user.coordinator %><td>Sí</td><% else %><td>No</td><% end %>
 				<% if current_user.admin? %>
 					<th>

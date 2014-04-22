@@ -61,7 +61,7 @@ class GroupsController < ApplicationController
 	private
 
 	def group_params
-      params.require(:group).permit(:name, :user_id, :location, :cost, :min_age, :max_age, :init_date, :finish_date)
+      params.require(:group).permit(:name, :user_id, :assistant_id, :location, :cost, :min_age, :max_age, :init_date, :finish_date)
     end
 
     protected
@@ -71,7 +71,7 @@ class GroupsController < ApplicationController
 	end
 
 	def valid_user
-		current_user.admin? || current_user.facilitator?
+		current_user.admin? || current_user.instructor?
 	end
 
 end

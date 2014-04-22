@@ -3,6 +3,7 @@ class CreateGroups < ActiveRecord::Migration
     create_table :groups do |t|
       t.string :name
       t.integer :user_id
+      t.integer :assistant_id
       t.string :location
       t.integer :cost
       t.date :init_date

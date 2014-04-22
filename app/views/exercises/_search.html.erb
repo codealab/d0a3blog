@@ -1,0 +1,14 @@
+<div class="all_width blue_box">
+	<button type="button" class="close close_results" data-dismiss="modal" aria-hidden="true" id="close_results_exercises">×</button>
+	<h4>Resultados</h4>
+	<% if @exercises.count>0 %>
+		<% if @group && @lecture %>
+			<%= render 'exercises/list_lectures'  %>
+		<% else %>
+			<%= render 'exercises/list' %>
+		<% end %>
+	<% else %>
+		<h4 class="counter_is_zero">Aún no existe ni un ejercicio</h4>
+	<% end %>
+</div>
+<div class="spacer"></div>

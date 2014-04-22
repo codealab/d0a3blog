@@ -1,4 +1,5 @@
 class Payment < ActiveRecord::Base
+
 	before_save :update_balance
 	before_save { |payment| payment.group_id = self.spot.group_id }
 	belongs_to :spot
@@ -10,4 +11,5 @@ class Payment < ActiveRecord::Base
 		self.spot.balance = ((self.spot.balance).to_i-(self.amount).to_i)
 		self.spot.save
 	end
+
 end

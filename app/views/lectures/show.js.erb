@@ -1,5 +1,5 @@
 $('#refresh_lecture_info').fadeOut(300,function(){
 	$(this).html("<%= escape_javascript(render('show')) %>").fadeIn(300,function(){
-		$('.tip').tooltip();
+		scrollAdjust();
 	});
 });

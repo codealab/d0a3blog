@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20140404192007) do
   create_table "groups", force: true do |t|
     t.string   "name"
     t.integer  "user_id"
+    t.integer  "assistant_id"
     t.string   "location"
     t.integer  "cost"
     t.date     "init_date"
@@ -166,7 +167,7 @@ ActiveRecord::Schema.define(version: 20140404192007) do
     t.string   "password_digest"
     t.boolean  "admin",           default: false
     t.boolean  "coordinator",     default: false
-    t.boolean  "facilitator",     default: false
+    t.boolean  "instructor",      default: false
     t.string   "remember_token"
     t.string   "photo"
     t.datetime "created_at"

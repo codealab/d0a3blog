@@ -71,7 +71,7 @@ class SpotsController < ApplicationController
 	end
 
 	def valid_user
-		current_user.admin? || current_user.facilitator?
+		current_user.admin? || current_user.instructor?
 	end
 
 	def pasive_family

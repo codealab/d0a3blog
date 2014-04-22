@@ -7,8 +7,8 @@ FactoryGirl.define do
     trait :is_admin do
         admin true
     end
-    trait :is_facilitator do
-        facilitator true
+    trait :is_instructor do
+        instructor true
     end
   end
 end

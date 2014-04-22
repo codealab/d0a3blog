@@ -1,8 +1,8 @@
 # encoding: UTF-8
 module PersonsHelper
-  
+
   def manager
-    current_user.admin? || current_user.facilitator? || current_user.coordinator?
+    current_user.admin? || current_user.instructor? || current_user.coordinator?
   end
 
   def current_group(person)
@@ -12,9 +12,9 @@ module PersonsHelper
   end
 
   def attendance_percent(person)
-	lectures = person.lectures.where("date <= :start_date", { start_date: Date.today }).count
-	attendances = person.attendances.count
-	"#{(attendances*100)/lectures}%"
+    lectures = person.lectures.where("date <= :start_date", { start_date: Date.today }).count
+    attendances = person.attendances.count
+    "#{(attendances*100)/lectures}%"
   end
 
 end

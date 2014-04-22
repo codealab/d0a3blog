@@ -1,25 +1,38 @@
-<%= form_tag :controller => 'payments', :action => 'search', :method => 'get' do %>
-	<div class="light_box all_width">		
-		  <div class="search_half">
-		  	<div class="title_search">
-		  		<%= label_tag(:init, "Desde:") %>
-		  	</div>
-		  	<%= date_field :init, nil, :include_blank => true, :class => "form-control date_payment_field" %>
-		  </div>
-		  <div class="search_half">
-		  	<div class="title_search">
-		  		<%= label_tag(:end, "Hasta:") %>
-		  	</div>
-		  	<%= date_field :end, nil, :include_blank => true, :class => "form-control date_payment_field" %>
-		  </div>
-		<div class="search_half">
-		 	<div class="title_search">
-		  		<%= label_tag(:group, "Grupo:") %>
-		  	</div>
-		  	<%= select_tag 'group_id', options_for_select(Group.all.collect{ |u| [u.name, u.id] } ), :include_blank => true, :class => "form-control" %>
-		</div>
-		<div class="boton_der" id="search_payments">
-			<p><%= submit_tag "Buscar", :class => "btn btn-sm btn-primary" %></p>
+<div class="modal fade" id="searcher_payments" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<%= form_tag( { :controller => :payments, :action => :search }, { :remote => true, :id => 'searcher_payments_form' } ) do %>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Buscar Pagos</h4>
+				</div>
+				<div class="modal-body">
+					<div class="light_box all_width">
+						<div class="search_half">
+							<div class="title_search">
+								<%= label_tag(:init, "Desde:") %>
+							</div>
+							<%= date_field :init, nil, :include_blank => true, :class => "form-control date_payment_field" %>
+						</div>
+						<div class="search_half">
+							<div class="title_search">
+								<%= label_tag(:end, "Hasta:") %>
+							</div>
+							<%= date_field :end, nil, :include_blank => true, :class => "form-control date_payment_field" %>
+						</div>
+						<div class="search_half">
+							<div class="title_search">
+								<%= label_tag(:group, "Grupo:") %>
+							</div>
+							<%= select_tag 'group_id', options_for_select(Group.all.collect{ |u| [u.name, u.id] } ), :prompt => ("Todos los Grupos"), :class => "form-control" %>
+						</div>
+					</div>
+				</div>
+				<div class="spacer"></div>
+				<div class="modal-footer">
+					<%= submit_tag "Buscar", :class => "btn btn-sm btn-primary" %>
+				</div>
+			<% end %>
 		</div>
 	</div>
-<% end %>
+</div>

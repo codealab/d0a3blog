@@ -189,9 +189,9 @@ describe "Authentication" do
       end
     end
 
-    describe "with valid information and user is facilitator" do
+    describe "with valid information and user is instructor" do
 
-      let(:user) { FactoryGirl.create(:user, :is_facilitator) }
+      let(:user) { FactoryGirl.create(:user, :is_instructor) }
       before { sign_in user }
 
       describe "visit groups" do
