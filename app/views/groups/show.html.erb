@@ -1,5 +1,4 @@
 <% provide(:title, "Grupo #{ @group.name }: #{@group.min_age} a #{@group.max_age} meses") %>
-
 <div class="boton_der">
 	<div class="top_buttons">
 		<%= link_to groups_path do %>
@@ -17,7 +16,7 @@
 		<li><strong>Periodo:</strong> <%= @group.init_date.strftime('%d/%m/%Y') %> - <%= @group.finish_date.strftime('%d/%m/%Y') %></li>
 		<li><strong>Costo:</strong>$<%= @group.cost %></li>
 		<li><strong>Ubicación:</strong><%= @group.location %></li>
-		<li><strong>Facilitadora:</strong><%= @group.facilitador %></li>
+		<li><strong>Instructora:</strong><%= @group.instructor %></li>
 		<li><strong>Inscritos:</strong><%= @group.spots.count %></li>
   </div>
 </div>
@@ -68,7 +67,7 @@
 		<% end %>
 	});
 
-	// 	<% if(@lecture) %>
+	// 	<% if(@lecture) %>yyyyyyyyyyyzz
 	// 		var lecture = "lecture_<%= @lecture.id %>";
 	// 		var totalTop = $("#lectures_dates").offset().top;
 	// 		var lectureTop = $("#"+lecture).offset().top;

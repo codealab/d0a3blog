@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require bootstrap-wysihtml5
+//= require bootstrap-wysihtml5/locales/es-ES
 //= require jquery.Jcrop
 //= require_tree .
 

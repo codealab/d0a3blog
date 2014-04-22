@@ -160,7 +160,7 @@
 												<div class="left observation_number_day"><%= I18n.l @lecture.date, :format => "%d" %></div>
 												<div class="left observation_month"><%= I18n.l @lecture.date, :format => "%B" %></div>
 											</div>
-											<%= text_area_tag "observation", c.observation, :class => "form-control", placeholder: "Observación de clase" %>
+											<%= text_area_tag "observation", c.observation, :class => "observation_wysiwyg form-control", placeholder: "Observación de clase" %>
 											<div class="spacer"></div>
 											<div class="tiny_scroll tiny_attendances" id="tiny_att_<%= c.id %>">
 												<div class="scrollbar">
@@ -207,3 +207,18 @@
 		<% end %>
 	</div>
 </div>
+<script>
+	$(document).ready(function(){
+		$('.observation_wysiwyg').wysihtml5({
+			"font-styles": false,
+			"emphasis": true,
+			"lists": true,
+			"html": false,
+			"link": true,
+			"image": false,
+			"color": true,
+			"locale": "es-ES"
+		});
+
+	});
+</script>

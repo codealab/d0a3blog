@@ -28,51 +28,8 @@
 <div class="all_width blue_box">
 	<% if @exercises.count>0 %>
 		<% if @group && @lecture %>
-			<table class="table table-striped tablesorter">
-				<thead>
-					<tr>
-						<th>Nombre</th>
-						<th>Area</th>
-						<th>Descripción</th>
-						<th>Objetivo</th>
-						<th>Seleccionar</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% @exercises.each_with_index do |exercise, index| %>
-						<tr>
-							<td><%= link_to exercise.name, group_lecture_exercise_path(@group, @lecture, exercise) %></td>
-							<td>
-								<% if exercise.areas.count==1 %>
-									<%= exercise.areas.first.name %>
-								<% else %>
-									<% exercise.areas.each do |a| %>
-										<% areasplit = a.name.split(' ') %>
-										<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>">
-											<% areasplit.each do |word| %><%= word.slice(0..0) %><% end %>
-										</span>
-									<% end %>
-								<% end %>
-							</td>
-							<td>
-								<button type="button" class="btn btn-primary pops btn-xs" data-container="body" data-toggle="popover" data-placement="left" data-content="<%= exercise.description %>">Descripción</button></td>
-							<td>
-								<button type="button" class="btn btn-primary pops btn-xs" data-container="body" data-toggle="popover" data-placement="left" data-content="<%= exercise.objective %>">Objetivo</button>
-							</td>
-							<td>
-								<a href=<%= "/exercises/status/#{exercise.id}?lecture_id=#{@lecture.id}" %> data-remote="true" id="exercise_<%= exercise.id %>">
-									<% if exercise.lectures.include?(@lecture) %>
-										<button type="button" class="btn status_button btn-danger btn-xs">DESAGREGAR</button>
-									<% else %>
-										<button type="button" class="btn status_button btn-success btn-xs">AGREGAR</button>
-									<% end %>
-								</a>
-							</td>
-						</tr>
-					<% end %>
-				</tbody>
-			</table>
 			<% provide(:title, "Ejercicios de #{@group.min_age} a #{@group.max_age} semanas.") %>
+			<%= render 'exercises/list_lectures'  %>
 			<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
 		<% else %>
 			<% provide(:title, 'Ejercicios') %>

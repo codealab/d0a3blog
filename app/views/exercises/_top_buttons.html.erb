@@ -14,6 +14,12 @@
 							<div class="title_search">
 								<%= label_tag(:init, "Desde:") %>
 							</div>
+							<% if @group %>
+								<%= text_field_tag :group_id, "#{@group.id}", :class => "hidden", :disabled => true %>
+							<% end %>
+							<% if @lecture %>
+								<%= text_field_tag :lecture_id, "#{@lecture.id}", :class => "hidden", :disabled => true %>
+							<% end %>
 							<%= number_field :init, nil, :class => "form-control date_payment_field" %>
 						</div>
 						  <div class="search_half">

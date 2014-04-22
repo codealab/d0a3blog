@@ -55,8 +55,8 @@
 						<% end %>
 						<tr>
 							<td></td>
-							<% if @user.facilitator %>
-								<td>Facilitador</td>
+							<% if @user.instructor %>
+								<td>Instructor</td>
 							<% else %>
 								<td></td>
 							<% end %>
@@ -67,7 +67,7 @@
 		</div>
 	</div>
 
-	<% if @user.facilitator? %>
+	<% if @user.instructor? %>
 		<div class="col-md-8">
 			<h4>Grupos</h4>
 			<div class="under_pressure"></div>
@@ -94,7 +94,7 @@
 						</tbody>
 					</table>
 				<% else %>
-					<h4 class="counter_is_zero">Este usuario (facilitador) no tiene ningún grupo a su cargo</h4>
+					<h4 class="counter_is_zero">Este usuario (Instructor) no tiene ningún grupo a su cargo</h4>
 				<% end %>
 			</div>
 		</div>

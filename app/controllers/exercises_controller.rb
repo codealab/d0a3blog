@@ -85,6 +85,9 @@ class ExercisesController < ApplicationController
 	end
 
 	def search
+		@group = Group.find(params[:group_id]) if params[:group_id]
+		@lecture = Group.find(params[:lecture_id]) if params[:lecture_id]
+
 		init = params[:init][0].blank? ? nil:params[:init][0]
 		ended = params[:ended][0].blank? ? nil:params[:ended][0]
 		name = params[:name].blank? ? nil:params[:name]
@@ -152,7 +155,7 @@ class ExercisesController < ApplicationController
 		end
 
 		def valid_user
-			current_user.admin? || current_user.facilitator?
+			current_user.admin? || current_user.instructor?
 		end
 
 end

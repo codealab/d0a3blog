@@ -10,6 +10,7 @@
  *
  *= require jquery.Jcrop
  *= require_self
+ *= require bootstrap-wysihtml5
  *= require_tree .
  */
 
@@ -498,4 +499,40 @@ position: relative;
 	color: rgb(131, 130, 130);
 	font-size: 14px;
 	top: 5px;
+}
+/*wysiwyg*/
+.btn-group a i{
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.icon-list:before{ content: "\e032"; }
+.icon-th-list:before{ content: "\e012"; }
+.icon-indent-right:before{ content: "\e058"; }
+.icon-indent-left:before{ content: "\e057"; }
+
+ul.wysihtml5-toolbar a.btn.wysihtml5-command-active{
+	box-shadow: none!important;
+	border-radius: 3px!important;
+	background-color: rgb(223, 223, 223)!important;
+	border: 1px solid rgb(221, 221, 221)!important;
+}
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(2),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(3),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(4),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(6),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(8),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(9),
+.wysihtml5-toolbar .dropdown .dropdown-menu li:nth-child(10){ display: none; }
+ul.wysihtml5-toolbar > li{ margin-bottom: 0!important; }
+.wysihtml5-toolbar .dropdown .dropdown-menu{
+	position: absolute!important;
+	top: 30px!important;
 }

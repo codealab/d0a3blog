@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string   :password_digest
 	    t.boolean  :admin, :default => false
 	    t.boolean  :coordinator, :default => false
-	    t.boolean  :facilitator, :default => false
+	    t.boolean  :instructor, :default => false
 	    t.string   :remember_token
       t.string   :photo
 

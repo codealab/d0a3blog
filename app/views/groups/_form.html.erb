@@ -4,7 +4,8 @@
 		<%= simple_form_for @group, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
 			<%= f.input :name, label:"Nombre del Grupo" %>
-			<%= f.input :user_id, label:"Facilitador", include_blank: true, collection: User.facilitadores.map { |p| [ p.name, p.id ] } %>
+			<%= f.input :user_id, label:"Instructor", include_blank: true, collection: User.instructors.map { |p| [ p.name, p.id ] } %>
+			<%= f.input :assistant_id, label:"Asistente", include_blank: true, collection: User.instructors.map { |p| [ p.name, p.id ] } %>
 			<%= f.input :min_age, label:"Edad mínima (Semanas)" %>
 			<%= f.input :max_age, label:"Edad máxima (Semanas)" %>
 			<span id="selector_fecha">

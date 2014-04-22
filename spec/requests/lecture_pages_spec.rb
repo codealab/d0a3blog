@@ -5,7 +5,7 @@ describe 'Lectures pages' do
 
 	subject { page }
 
-	let(:user) { create(:user, :is_admin, :is_facilitator) }
+	let(:user) { create(:user, :is_admin, :is_instructor) }
 	let(:group) { create(:group) }
 	let(:lecture) { create( :lecture, group: group ) }
 

@@ -35,7 +35,7 @@ class CalendarsController < ApplicationController
 	end
 
 	def valid_user
-		current_user.admin? || current_user.facilitator?
+		current_user.admin? || current_user.instructor?
 	end
 
 end

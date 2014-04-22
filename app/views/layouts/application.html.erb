@@ -20,12 +20,12 @@
     <div id="footer_container">
       <%= render 'layouts/footer' %>
     </div>
+    <script>
+      $(document).ready(function() {
+        over_and_clicks();
+        $(".tablesorter").tablesorter();
+        $('.large_scroll').large_scroll();
+      });
+    </script>
   </body>
-  <script>
-    $(document).ready(function() {
-      over_and_clicks();
-      $(".tablesorter").tablesorter();
-      $('.large_scroll').large_scroll();
-    });
-  </script>
 </html>

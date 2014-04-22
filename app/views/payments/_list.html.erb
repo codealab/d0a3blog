@@ -6,7 +6,7 @@
 					<th>Tutor</th>
 					<th>Grupo</th>
 					<th class="text_center">Cantidad</th>
-					<th class="text_center">Beca</th>
+					<th class="text_center">Pago extr.</th>
 					<td class="text_center">
 						<span class=" glyphicon glyphicon-info-sign"></span>
 					</th>
@@ -28,7 +28,9 @@
 							<% end %>
 						</td>
 						<td class="text_center">
-							<span data-container="body" data-toggle="popover" data-placement="left" data-content="<%= p.clarification %>" data-original-title="" title="" class="glyphicon pops glyphicon-info-sign info"></span>
+							<% if !p.clarification.blank? %>
+								<span data-container="body" data-toggle="popover" data-placement="left" data-content="<%= p.clarification %>" data-original-title="" title="" class="glyphicon pops glyphicon-info-sign info"></span>
+							<% end %>
 						</td>
 					</tr>
 				<% end %>

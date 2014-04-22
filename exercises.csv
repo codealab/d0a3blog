@@ -1,7 +1,7 @@
 Name,min_age,max_age,objective,description,material,music
 Recorrido de Gateo,48,192,Mover los músculos largos del cuerpo ,"Poner un túnel de tela en suelo, a su vez, entregarle a las mamás un aro a cada una para que lo sostengan pegado al piso haciendo a su vez una ilera de aros como si fuera un túnel abierto. Invitar a los niños a cruzar el recorrido reforzando el gaeto.",Túnel y aros.,Instrumental activa.
 Espuma y pelotas,48,192,Estimular el sentido del tacto.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Sit
-Cuando te vas,46,144,Trabajar los avisos.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Volutpat
+Cuando te vas,0,144,Trabajar los avisos.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Volutpat
 Ensestar,96,192,Mover y coordinar músculos de los brazos.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Ipsum
 Equilibrio,72,192,Mover músculos largos del cuerpo manteniendo el equilibrio.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Imperdiet
 Brincar cuerda,96,192,Coordinar los músculos largos del cuerpo para brincar con los pies juntos.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Mi
@@ -9,13 +9,13 @@ Caminar y Parar,48,192,Autocontrol. Moverse y pausa.,"Neque porro quisquam est q
 Pompones,48,192,Mover músculos de los brazos.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Eget
 Dibujar,72,192,Coordinar músculos cortos del cuerpo para hacer trazos.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Et
 Tablones con agujeta,72,192,Coordinar músculos cortos del cuerpo.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Congue
-Pintura digital,48,192,Mover músculos cortos del cuerpo.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Libero
-Bote con harina,48,192,Estimular los músculos cortos del cuerpo a trevés de la sensación.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Sed
+Pintura digital,0,192,Mover músculos cortos del cuerpo.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Libero
+Bote con harina,0,192,Estimular los músculos cortos del cuerpo a trevés de la sensación.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Sed
 Pinza de pan,96,192,Coordinar músculos cortos del cuerpo.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Facere
 Bebeteca,48,192,,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Turpis
 Nombrar partes del cuerpo.,72,192,Reconocer por su nombre distintas partes del cuerpo.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",In
 Cajeta,72,192,Estimular músculos orofosciales.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Suspendisse
-Nombrar números,72,192,Reconocer el nombre de los números.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Ultricies
+Nombrar números,0,192,Reconocer el nombre de los números.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Ultricies
 Cubos fríos y calientes,48,144,Identificar por su nombre el contraste de frío y caliente.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Adipisicing
 Pintarnos de color,96,192,Estimular la imaginación a través de la sensación tactil.,"Entregar a cada niño una pelota de picos y una brocha para que jueguen a ""pintarse"" todo el cuerpo, tomando el color de la pelota.","Luctus, Donec, Erat, Consectetuer",Pulvinar
 Texturas,0,144,Estimular el sentido del tacto.,"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit…","Luctus, Donec, Erat, Consectetuer",Et

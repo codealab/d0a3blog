@@ -25,7 +25,7 @@
 					<% dias.each_with_index do |day,index| %>
 						<div class="col-md-12 time_selector">
 							<div class="col-md-5">
-								<%= f.check_box days_symbols[index] %>
+								<%= f.check_box days_symbols[index], {}, true, false %>
 								<%= f.label days_symbols[index], dias[index] %>
 							</div>
 							<div class="col-md-7">
