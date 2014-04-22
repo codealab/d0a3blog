@@ -5,22 +5,26 @@
 	<title>D0A3</title>
 </head>
 	<body style="background-color:#ffffff;">
-		<table style="width: 800px; margin: 0 auto; height: 10px; color: black; font-family: Arial, Helvetica, sans-serif; text-align: left;">
+		<table style="width: 400px; margin: 0 auto; text-indent:10px; text-recoration:none; height: 10px; font-size: 12px; color: black; font-family: Arial, Helvetica, sans-serif; text-align: left;">
 			<tbody style="background: #F0F0F0; ">
-				<tr style="background-color: #81519c; text-align: center; ">
-					<td style="width: 200px; height: 50px;background-color: #333333; ">
-						<a href="http://d0a3.herokuapp.com/">
-							<img src="http://d0a3.herokuapp.com/assets/D0A3-logo.png" alt="De Cero A Tres">
+				<tr style="width: 300px; height: 50px; background-color: #333333; text-align: center;">
+					<td>
+						<a href="http://d0a3.herokuapp.com/" target="_blank">
+							<img src="http://d0a3.herokuapp.com/assets/D0A3-logo.png" alt="De Cero A Tres" style="width: 100px;">
 						</a>
 					</td>
-					<td style="color: #fff; margin: 10px; text-indent: 15px; font-size: 23px; ">Recordatorio de Clase</td>
 				</tr>
-				<tr style="text-align: c; ">
-					<td style="text-align: center; "><p>Hola: <%= @name %></p><p>¿Ya has preparado tu clase?</p></td>
-					<td style="text-align: center; ">
+				<tr style="background-color: #81519c; text-align: center; ">
+					<td style="color: #fff; margin: 10px; text-indent: 15px; font-size: 23px; ">Preparación de Clase</td>
+				</tr>
+				<tr>
+					<td>
 						<p><strong>Fecha:</strong> <%= @lecture.date.strftime('%d/%m/%Y') %> /</p>
 						<p><strong>Hora:</strong> <%= @lecture.date.strftime('%I:%M %p') %></p>
 					</td>
+				</tr>
+				<tr>
+					<td><p><%= @name %>, aún no has preparado tu clase.</p></td>
 				</tr>
 				<tr>
 					<td>

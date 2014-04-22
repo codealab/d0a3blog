@@ -70,8 +70,9 @@ calendar.thursday_hour = "08:00"
 calendar.submit(:monday => true, :thursday => true)
 
 group.lectures.limit(10).each do |lecture|
+	Exercise.where("min_age <= #{group.max_age} AND max_age>= #{group.min_age}").limit(5).shuffle.each { |ex| Plan.create( :exercise_id => ex.id, :lecture_id => lecture.id ) }
 	group.spots.limit(3).shuffle.each do |spot|
-		lecture.attendances.build( :spot_id => spot.id, :lecture_id => lecture.id )
+		lecture.attendances.build( :spot_id => spot.id )
 		lecture.save
 	end
 end
