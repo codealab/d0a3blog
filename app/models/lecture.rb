@@ -13,7 +13,7 @@ class Lecture < ActiveRecord::Base
 
 	def date_cannot_be_out_of_group_period_time
 		range = (self.group.init_date..self.group.finish_date)
-		errors.add(:date, "La fecha que seleccionaste está fuera de la duración del curso") if 
+		errors.add(:date, "que seleccionaste está fuera de la duración del curso") if 
 		!date.blank? and !range.include?(date.to_date)
 	end
 

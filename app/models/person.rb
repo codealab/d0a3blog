@@ -30,6 +30,7 @@ class Person < ActiveRecord::Base
 
 	# Custom Methods
 	validate :field_uniqueness 
+	validate :valid_dob
 	validate :dob_cannot_be_in_the_future
 
 	def full_name
@@ -85,6 +86,11 @@ class Person < ActiveRecord::Base
 		end
 
 	  def dob_cannot_be_in_the_future
+	    errors.add(:dob, "incorrecta, según la fecha la persona no ha nacido") if
+	      !dob.blank? and dob > Date.today
+	  end
+
+	  def valid_dob
 	    errors.add(:dob, "incorrecta, según la fecha la persona no ha nacido") if
 	      !dob.blank? and dob > Date.today
 	  end

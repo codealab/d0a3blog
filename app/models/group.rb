@@ -7,6 +7,7 @@ class Group < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :assistant, :class_name => 'User'
 	has_many :spots, :dependent => :restrict_with_error
+	has_many :childs, through: :spots
 	has_many :lectures, :dependent => :restrict_with_error
 	has_many :attendances, through: :lectures
 	has_many :payments, through: :spots
@@ -18,6 +19,7 @@ class Group < ActiveRecord::Base
 	validates :max_age, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 240 } #240 is equal to 5 years on weeks
 
 	#Custom Methods
+	validate :finish_date_is_out_of_age_range
 	validate :min_age_cannot_be_greater_than_max_age
 	validate :init_date_cannot_be_greater_than_finish_date
 
@@ -28,6 +30,11 @@ class Group < ActiveRecord::Base
 	end
 
 	private
+
+		def finish_date_is_out_of_age_range
+			max_date = self.init_date+max_age.weeks
+			errors.add(:finish_date, "máxima es el #{I18n.l max_date, :format => '%d de %B del %Y'}, dado que el rango de edad que escojiste, implícitamente tiene una duración de #{max_age-min_age} semanas") if finish_date > max_date
+		end
 
 		def min_age_cannot_be_greater_than_max_age
 			errors.add(:min_age, "es mayor a la máxima") if 

@@ -75,6 +75,8 @@ class PeopleController < ApplicationController
 	private
 
 		def persons_params
+			puts '==========================='
+			puts params
 			params.require(:person).permit(:name, :first_last_name, :second_last_name, :sex, :dob, :family_roll, :photo, :crop_x, :crop_y, :crop_w, :crop_h )
 		end		
 
