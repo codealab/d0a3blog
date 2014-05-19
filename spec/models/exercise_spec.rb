@@ -24,6 +24,7 @@ describe 'Exercise' do
 	it { should respond_to(:music) }
 	it { should respond_to(:lectures) }
 	it { should respond_to(:plans) }
+	it { should respond_to(:areas) }
 
 	it { should be_valid }
 

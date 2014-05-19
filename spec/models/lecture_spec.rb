@@ -15,6 +15,7 @@ describe Lecture do
 	it { should respond_to(:observation) }
 	it { should respond_to(:exercises) }
 	it { should respond_to(:plans) }
+	it { should respond_to(:attendances) }
 
 	it { should be_valid }
 

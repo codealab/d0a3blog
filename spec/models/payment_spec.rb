@@ -3,24 +3,22 @@ require 'spec_helper'
 describe Payment do
 
 	let(:spot) { FactoryGirl.create(:spot) }
+	let(:group) { FactoryGirl.create(:group) }
 
 	before do
-		@payment = Payment.new( amount: "999", spot_id: spot.id, date: "12/01/2014", scholarship: false )
+		@payment = Payment.new( amount: "999", :spot_id => spot.id, group_id: group.id, date: Date.today, scholarship: false, clarification: "Lorem Ipsum" )
 	end
 
 	subject { @payment }
 
 	it { should respond_to(:amount) }
-	it { should respond_to(:spot_id) }
 	it { should respond_to(:date) }
+	it { should respond_to(:spot_id) }
+	it { should respond_to(:group_id) }
 	it { should respond_to(:scholarship) }
+	it { should respond_to(:clarification) }
 
 	it { should be_valid }
-
-	describe "when date is not valid" do
-		before { @payment.date = " " }
-		it { should_not be_valid }
-	end
 
 	describe "when amount is not valid" do
 		before { @payment.amount = " " }
@@ -28,7 +26,12 @@ describe Payment do
 	end
 
 	describe "when spot_id is not present" do
-		before { @payment.spot_id = nil }
+		before { @payment.spot_id = " " }
+		it { should_not be_valid }
+	end
+	
+	describe "when date is not valid" do
+		before { @payment.date = " " }
 		it { should_not be_valid }
 	end
 

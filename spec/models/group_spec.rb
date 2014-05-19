@@ -11,15 +11,20 @@ describe Group do
 	subject { @group }
 
 	it { should respond_to(:name) }
-	it { should respond_to(:user_id) }
+	it { should respond_to(:user) }
+	it { should respond_to(:assistant) }
+	it { should respond_to(:location) }
 	it { should respond_to(:cost) }
 	it { should respond_to(:init_date) }
 	it { should respond_to(:finish_date) }
-	it { should respond_to(:location) }
 	it { should respond_to(:min_age) }
 	it { should respond_to(:max_age) }
+	# Relations
 	it { should respond_to(:spots) }
 	it { should respond_to(:lectures) }
+	it { should respond_to(:childs) }
+	it { should respond_to(:attendances) }
+	it { should respond_to(:payments) }
 
 	it { should be_valid }
 
@@ -31,9 +36,9 @@ describe Group do
 	describe "when invalid atribute" do
 		before do
 			@group.name = " "
-			@group.cost = "-10"
-			@group.min_age = "-10"
-			@group.max_age = " 300"
+			@group.cost = " "
+			@group.min_age = " "
+			@group.max_age = " "
 			@group.init_date = " "
 			@group.finish_date = " "
 			@group.location = " "
@@ -41,10 +46,10 @@ describe Group do
 
 		it { should have(1).error_on(:name) }
 		it { should have(1).error_on(:cost) }
-		it { should have(1).error_on(:init_date) }
-		it { should have(1).error_on(:finish_date) }
 		it { should have(1).error_on(:min_age) }
 		it { should have(1).error_on(:max_age) }
+		it { should have(1).error_on(:init_date) }
+		it { should have(1).error_on(:finish_date) }
 		it { should have(1).error_on(:location) }
 	end
 

@@ -20,8 +20,12 @@ class Spot < ActiveRecord::Base
 	end
 
 	def assign_tutor
-		self.tutor_id = self.child.family_relations.first.family.responsible_id
-		self.save
+		if self.child.family_relations.empty?
+			errors.add(:child, "no pertenece a ninguna familia")
+		else
+			self.tutor_id = self.child.family_relations.first.family.responsible_id
+			self.save
+		end
 	end
 
 end

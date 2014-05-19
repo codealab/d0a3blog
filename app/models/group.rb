@@ -14,9 +14,9 @@ class Group < ActiveRecord::Base
 
 	validates_presence_of :name, :user_id, :cost, :location, :min_age, :max_age, :init_date, :finish_date
 	validates :name, length: { maximum: 50 }
-	validates_numericality_of :cost, :greater_than_or_equal_to => 0
-	validates :min_age, :numericality => { :greater_than_or_equal_to => 0 }
-	validates :max_age, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 240 } #240 is equal to 5 years on weeks
+	validates_numericality_of :cost, :greater_than_or_equal_to => 0, :allow_nil => true
+	validates_numericality_of :min_age, :greater_than_or_equal_to => 0, :allow_nil => true
+	validates_numericality_of :max_age, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 240, :allow_nil => true #240 is equal to 5 years on weeks
 
 	#Custom Methods
 	validate :finish_date_is_out_of_age_range
@@ -32,8 +32,10 @@ class Group < ActiveRecord::Base
 	private
 
 		def finish_date_is_out_of_age_range
-			max_date = self.init_date+max_age.weeks
-			errors.add(:finish_date, "máxima es el #{I18n.l max_date, :format => '%d de %B del %Y'}, dado que el rango de edad que escojiste, implícitamente tiene una duración de #{max_age-min_age} semanas") if finish_date > max_date
+			unless max_age.blank?
+				max_date = init_date+max_age.weeks
+				errors.add(:finish_date, "máxima es el #{I18n.l max_date, :format => '%d de %B del %Y'}, dado que el rango de edad que escojiste, implícitamente tiene una duración de #{max_age-min_age} semanas") if finish_date > max_date
+			end
 		end
 
 		def min_age_cannot_be_greater_than_max_age

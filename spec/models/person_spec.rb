@@ -14,15 +14,22 @@ describe Person do
 	it { should respond_to(:sex) }
 	it { should respond_to(:dob) }
 	it { should respond_to(:family_roll) }
-	it { should respond_to(:family_relations) }
-	it { should respond_to(:families) }
+	it { should respond_to(:photo) }
 
+	# relations
+	it { should respond_to(:families) }
+	it { should respond_to(:tutoring) }
+	it { should respond_to(:spots) }
+	it { should respond_to(:groups) }
+	it { should respond_to(:payments) }
+	it { should respond_to(:lectures) }
+	it { should respond_to(:attendances) }
 
 	it { should be_valid }
 
 	it "returns a persons full name as a string" do
-   expect(@person.full_name).to eq 'Fernando Garcia Lopez'
-  end
+		expect(@person.full_name).to eq 'Fernando Garcia Lopez'
+	end
 
 
 	describe "when invalid atribute" do

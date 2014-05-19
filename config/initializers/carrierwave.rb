@@ -1,7 +1,5 @@
 CarrierWave.configure do |config|
 
-  config.storage = :file
-
   if Rails.env.production?
     config.fog_credentials = {
       # Configuration for Amazon S3 should be made available through an Environment variable.
@@ -17,6 +15,8 @@ CarrierWave.configure do |config|
       :region                => 'us-west-2'
     }
     config.storage = :fog
+  else
+    config.storage = :file
   end
  
   # For testing, upload files to local `tmp` folder.

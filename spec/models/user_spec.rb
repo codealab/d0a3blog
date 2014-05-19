@@ -14,6 +14,13 @@ describe User do
 	it { should respond_to(:password) }
 	it { should respond_to(:password_confirmation) }
 	it { should respond_to(:authenticate) }
+	it { should respond_to(:coordinator) }
+	it { should respond_to(:instructor) }
+	it { should respond_to(:remember_token) }
+	it { should respond_to(:photo) }
+	#relations
+	it { should respond_to(:groups) }
+
 
 	it { should be_valid }
 

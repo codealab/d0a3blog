@@ -1,9 +1,9 @@
 FactoryGirl.define do
 	
 	factory :spot do
-		child { FactoryGirl.create(:person) }
-		tutor { FactoryGirl.create(:person) }
-		group
+		child { create(:person, :children) }
+		tutor { create(:person) }
+		group { create(:group) }
 	end
 
 end

@@ -3,15 +3,26 @@ require 'spec_helper'
 
 describe Family do
 	before do
-		@family = Family.new(name: "Perez Lopez")
+		@family = Family.new( name: "Perez Lopez" )
 	end
 
 	subject { @family }
 
 	it { should respond_to(:name) }
+	it { should respond_to(:status) }
 	it { should respond_to(:family_relations) }
 	it { should respond_to(:family_members) }
+
+
+	# relations
 	it { should respond_to(:address) }
+
+	it { should respond_to(:responsible) }
+	it { should respond_to(:family_relations) }
+	it { should respond_to(:family_members) }
+	it { should respond_to(:spots) }
+	it { should respond_to(:payments) }
+	it { should respond_to(:observations) }
 
 	it { should be_valid }
 
