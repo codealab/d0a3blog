@@ -34,6 +34,7 @@ describe Group do
 	end
 
 	describe "when invalid atribute" do
+
 		before do
 			@group.name = " "
 			@group.cost = " "
@@ -51,9 +52,11 @@ describe Group do
 		it { should have(1).error_on(:init_date) }
 		it { should have(1).error_on(:finish_date) }
 		it { should have(1).error_on(:location) }
+
 	end
 
 	describe "when min_age is greater than max_age" do
+
 		before do
 			@group.min_age = "100"
 			@group.max_age = " 50"

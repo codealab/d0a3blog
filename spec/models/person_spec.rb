@@ -91,7 +91,11 @@ end
 
 # Checks that Factory Girl works
 describe Person do
-	subject {build(:person)}
+	subject { build(:person) }
 
 		its(:name) { should == "Fernando" }
+		its(:first_last_name) { should include("Garcia") }
+		its(:second_last_name) { should include("Hernandez") }
+		its(:sex) { should == "M" }
+		its(:family_roll) { should == "Hijo" }
 end

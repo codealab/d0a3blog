@@ -51,9 +51,10 @@ end
 # Checks that Factory Girl works
 describe Family do
  
-		subject {create(:family)}
+	subject {create(:family)}
 
-		its(:name) { should include("family") }
-		its(:status) { should be_true }
-		its(:observations) { should == "Esta es una observación de la Familia Perez Lopez" }
+	its(:name) { should include("family") }
+	its(:status) { should be_true }
+	its(:observations) { should == "Esta es una observación de la Familia Perez Lopez" }
+
 end

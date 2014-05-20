@@ -36,3 +36,13 @@ describe Payment do
 	end
 
 end
+
+# describe Payment do
+	
+# 	subject { create(:payment) }
+
+# 	its(:amount) { should == "999" }
+# 	# its(:date) { should == "12/01/2014" } #.strftime('%d/%m/%Y')
+# 	its(:scholarship) { should == false }
+
+# end
