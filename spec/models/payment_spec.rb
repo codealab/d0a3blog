@@ -46,3 +46,5 @@ end
 # 	its(:scholarship) { should == false }
 
 # end
+
+# << Error test por Validación de Error la fecha de pago debe ser menor a la fecha actual y mayor a la fecha de inscripción.

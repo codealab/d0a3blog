@@ -91,10 +91,10 @@
 		</div>
 	</div>
 	<% if @spot.payments.count==0 %>
-		<!-- <div style="float: right; padding-right: 15px; padding-top: 13px;">
+		<div style="float: right; padding-right: 15px; padding-top: 13px;">
 			<%= link_to group_spot_path(@group, @spot), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
 				<p><button type="button" class="btn btn-danger">Desinscripción</button></p>
 			<% end %>
-		</div> -->
+		</div>
 	<% end %>
 </div>

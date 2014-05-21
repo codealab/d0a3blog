@@ -5,8 +5,9 @@ describe "Address pages" do
 
   subject { page }
 
-  let(:family) { create(:family, :spesific_name) }
+  let(:family) { create(:family, :specific_name) }
   let(:user) { create(:user, :is_admin) }
+  
   before { sign_in user }
 
   describe "Create Address" do
@@ -23,7 +24,7 @@ describe "Address pages" do
       before { click_button "Guardar" }
 
       it { should have_title('Crear contacto de la Familia: Vega') }
-      it { should have_content('The form contains 3 errors.') }
+      it { should have_content('La forma contiene 3 errores') }
     end
 
     describe "with valid information" do
@@ -124,7 +125,7 @@ describe "Address pages" do
       end
 
       it { should have_title('Editar contacto de la Familia: Vega') }
-      it { should have_content('The form contains 2 errors.') }
+      it { should have_content('La forma contiene 2 errores') }
     end
   end # Edit Address
 

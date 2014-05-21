@@ -8,7 +8,7 @@ describe "Family-Person pages" do
   let(:user) { create(:user, :is_admin) }
   before { sign_in user }
 
-  let(:family) { create(:family, :spesific_name) }
+  let(:family) { create(:family, :specific_name) }
 
   describe "index" do
 
@@ -26,9 +26,9 @@ describe "Family-Person pages" do
 
 	    it { should have_title('Familia: Vega') }
 			it { should have_link("Falta Información de Contacto", href: new_family_address_path(family))}
-			it { should have_link("Regresar a Socios", href: families_path ) }
+			it { should have_link("Regresar a Familias", href: families_path ) }
 			it { should have_link("Nuevo Miembro", href: new_family_person_path(family))}
-			it { should have_link("Editar Nombre de la Familia", href: edit_family_path(family))}
+			it { should have_link("Editar Familia", href: edit_family_path(family))}
 
 			it { should have_content("Contacto") }
 			# HELP - The Addres is not working, it is not recognizing it, and it is strange that on the address specs works fine. 

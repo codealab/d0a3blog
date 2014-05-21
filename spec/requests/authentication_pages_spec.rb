@@ -104,19 +104,19 @@ describe "Authentication" do
           it { should have_title('Nueva Familia') }
 
           describe "with invalid information" do
-            before { click_button "Crear Familia" }
-            it { should have_button('Crear Familia') }
+            before { click_button "Guardar" }
+            it { should have_button('Guardar') }
             it { should have_selector('div.alert.alert-danger') }
-            it { should have_content('1 error') }
+            it { should have_content('El nombre de la familia es invalido') }
           end
 
-          describe "with valid information" do
+          describe "with valid information on family name, but invalid on responsible" do
             before do
               fill_in "family[name]", with: "Hernández Rodríguez"
-              expect { click_button "Crear Familia" }.to change(Family, :count).by(1)
+              expect { click_button "Guardar" }.to change(Family, :count).by(1)
             end
-            it { should have_title('Familia: Hernández Rodríguez') }
-            it { should have_selector('div.alert.alert-success') }
+            it { should have_title('Nueva Familia') }
+            it { should have_selector('div.alert.alert-danger') }
           end
         end
       end
@@ -208,7 +208,7 @@ describe "Authentication" do
             before { click_button "Guardar" }
             it { should have_button('Guardar') }
             it { should have_selector('div.alert.alert-danger') }
-            it { should have_content('1 error') }
+            it { should have_content('8 errores') }
           end
 
           describe "with valid information" do

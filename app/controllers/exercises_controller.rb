@@ -137,17 +137,21 @@ class ExercisesController < ApplicationController
 
 		def check_areas
 			checked = false
-			params[:area].each do |a|
-				checked = true if a[1]=='on'
+			if params[:area]
+				params[:area].each do |a|
+					checked = true if a[1]=='on'
+				end
 			end
 			checked
 		end
 
 		def areas(exercise)
 			exercise.areas.delete_all
-			areas = params[:area]
-			areas.each { |a| exercise.area_relations.build(area_id:a[0]) if a[1]=='on' }
-			exercise.save
+			if params[:area]
+				areas = params[:area]
+				areas.each { |a| exercise.area_relations.build(area_id:a[0]) if a[1]=='on' }
+				exercise.save
+			end
 		end
 
 		def correct_user

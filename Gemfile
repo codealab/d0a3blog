@@ -50,16 +50,19 @@ group :doc do
 end
 
 group :test do
-  gem 'rspec-rails'
   gem 'selenium-webdriver', '2.35.1'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem "wdm", ">=0.1.0" if RbConfig::CONFIG["target_os"] =~ /mswin|mingw|cygwin/i
+  gem "database_cleaner"
+end
+
+group :development, :test do
+  gem 'rspec-rails'
   gem "capybara", "~> 2.2.1"
   gem 'factory_girl_rails', '4.2.1'
   gem "spork-rails" , github: 'sporkrb/spork-rails'
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
-  gem "wdm", ">=0.1.0" if RbConfig::CONFIG["target_os"] =~ /mswin|mingw|cygwin/i
   gem 'guard-rspec'
   gem 'guard-spork'
-  gem "database_cleaner"
 end
 
 group :development do
@@ -69,8 +72,6 @@ group :development do
 end
 
 gem 'guard-livereload', group: [:development, :test]# You need to install an extensión on your browser
-
-
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'

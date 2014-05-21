@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :payment do
     amount "999"
-    date "12/01/2014"
+    date Date.today.to_date
     spot
     scholarship false
   end

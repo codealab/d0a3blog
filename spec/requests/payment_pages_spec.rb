@@ -6,28 +6,30 @@ describe "Payment pages" do
   subject { page }
 
   let(:user) { create(:user, :is_admin) }
-  let(:payment) { create(:payment) }
   let(:person) { create(:person) }
   let(:group) { create(:group) }
   let(:family) { Family.create({ name:'Nueva Familia', responsible_id: person.id }) }
-  let(:spot) { family.family_members.create( name: "Joaquín", first_last_name:"Garcia", second_last_name:"Lopez",  sex:"M", dob:"20/01/2014", family_roll: "Hijo") }
+  let(:hijo) { family.family_members.create( name: "Joaquín", first_last_name:"Garcia", second_last_name:"Lopez",  sex:"M", dob:"20/01/2014", family_roll: "Hijo") }
+  let(:spot) { group.spots.create(:child_id => hijo.id, :group_id => group ) }
+  let(:payment) { create(:payment, :spot => spot) }
 
   before { sign_in user }
 
   describe 'Index Exercises' do
     before do
-      5.times { create(:payment) }
+      5.times { create(:payment, :spot => spot ) }
       visit payments_path
     end
-
 
     it { should have_title('Todos los Pagos') }
 
     describe 'Should render payment list' do
       it "should info payment" do
         expect(page).to have_content("Fecha")
+        expect(page).to have_content("Niño")
         expect(page).to have_content("Tutor")
         expect(page).to have_content("Grupo")
+        expect(page).to have_content("Cantidad")
         expect(page).to have_content(Payment.all.count)
       end
     end
@@ -36,7 +38,7 @@ describe "Payment pages" do
   describe 'Payments in spot' do
 
     before do
-      Spot.create({ child_id: spot.id, tutor_id: person.id, group_id: group.id })
+      Spot.create({ child_id: hijo.id, group_id: group.id })
     end
 
     describe "index" do
@@ -56,15 +58,15 @@ describe "Payment pages" do
 
         describe 'with invalid information' do
           before { click_button('Guardar') }
-          it { should have_content('2 error') }
+          it { should have_content('La forma contiene 2 errores') }
         end
 
         describe 'with valid information' do
 
           before do
-            select "12", from: "payment[date(3i)]"
-            select "Enero", from: "payment[date(2i)]"
-            select "2014", from: "payment[date(1i)]"
+            select "#{ Date.today.to_date.day }", from: "payment[date(3i)]"
+            select "#{ I18n.l Date.today.to_date, :format => '%B' }", from: "payment[date(2i)]"
+            select "#{ Date.today.to_date.year }", from: "payment[date(1i)]"
             fill_in "payment[amount]", :with => "999"
             expect { click_button "Guardar" }.to change(Payment, :count).by(1)
           end

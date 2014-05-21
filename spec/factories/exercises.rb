@@ -8,6 +8,5 @@ FactoryGirl.define do
 	description 'Este es la descripción del ejercicio'
 	material 'Pelota, aros, rodillo'
 	music 'Canción #1, Canción #2, Canción #3'
-
   end
 end

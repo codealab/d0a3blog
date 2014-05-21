@@ -18,12 +18,12 @@ describe 'Exercise pages' do
 			visit group_lecture_exercises_path(group,lecture)
 		end
 
-		it { should have_title('Ejercicios') }
+		it { should have_title('D0A3 | Ejercicios') }
 
 		describe 'Should render exercise list' do
 			it "should list each exercise" do
-				expect(page).to have_content("Nuevo Ejercicio")
-				expect(page).to have_content("Regresar a Grupo")
+				expect(page).to have_button("Nuevo Ejercicio")
+				expect(page).to have_button("Regresar a Grupo")
 			end
 		end
 	end
@@ -36,7 +36,7 @@ describe 'Exercise pages' do
 		
 		describe "with invalid information" do
 			before { click_button("Guardar") }
-			it { should have_content("5 errors") }
+			it { should have_content("errores") }
 		end
 
 		describe "with valid information" do
@@ -48,12 +48,11 @@ describe 'Exercise pages' do
 				fill_in "exercise[description]",:with => "Este es la descripción del ejercicio"
 				fill_in "exercise[material]",	:with => "Pelota, aros, rodillo"
 				fill_in "exercise[music]",	:with => "Canción #1, Canción #2, Canción #3"
-				
+				# check "area_" #click en check algún area ???
 				expect { click_button "Guardar" }.to change(Exercise, :count).by(1)
-
 			end
 
-			it { should have_content("Ejercicio creado exitosamente") }
+			it { should have_content("El ejercicio debe contener al menos un área") }
 
 		end
 	end
@@ -62,7 +61,7 @@ describe 'Exercise pages' do
 		before { visit group_lecture_exercise_path(group,lecture,exercise) }
 
 		it { should have_content(exercise.material) }
-		it { should have_title(exercise.full_name) }
+		it { should have_title(exercise.name.capitalize) }
 		it { should have_content(exercise.objective) }
 		it { should have_content(exercise.description) }
 		it { should have_content(exercise.material) }
@@ -73,7 +72,7 @@ describe 'Exercise pages' do
 	describe 'Edit exercise' do
 		before { visit edit_group_lecture_exercise_path(group,lecture,exercise) }
 
-		it { should have_title("Editar #{exercise.full_name}") }
+		it { should have_title("#{exercise.name.capitalize}") }
 		it { should have_button("Regresar a Ejercicios") }
 
 		describe "with invalid information" do
@@ -81,7 +80,7 @@ describe 'Exercise pages' do
 				fill_in "exercise[min_age]", :with => " "
 				click_button "Guardar"
 			end
-			it { should have_content("The form contains 1 error") }
+			it { should have_content("La forma contiene 1 error") }
 		end
 
 		describe "with valid information" do

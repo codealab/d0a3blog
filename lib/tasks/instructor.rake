@@ -6,7 +6,6 @@ namespace :instructor do
   	lectures.each do |lecture|
   		UserMailer.empty_plans(lecture).deliver
       if !lecture.group.assistant.blank?
-        puts "enviando un mail a facilitador"
         user = lecture.group.assistant
         UserMailer.empty_plans(lecture,user).deliver
       end
@@ -19,7 +18,6 @@ namespace :instructor do
   	lectures.each do |lecture|
   		UserMailer.exercises_and_materials(lecture).deliver
       if !lecture.group.assistant.blank?
-        puts "enviando un mail a facilitador"
         user = lecture.group.assistant
         UserMailer.exercises_and_materials(lecture,user).deliver
       end
@@ -33,7 +31,6 @@ namespace :instructor do
       user = lecture.group.user
   		UserMailer.attendances_is_null(lecture,user).deliver
       if !lecture.group.assistant.blank?
-        puts "enviando un mail a facilitador"
         user = lecture.group.assistant
         UserMailer.attendances_is_null(lecture,user).deliver
       end
