@@ -20,7 +20,7 @@
 	 	<div class="all_width blue_box">
 			<div class="white_box" id="attendances">
 				<% if @lecture.attendances.count>0 %>
-					<% @lecture.attendances.each do |c| %>
+					<% @lecture.attendances.each_with_index do |c,index| %>
 						<div class="child_spot child_appended" id="child_spot_<%= c.spot.child.id %>">
 							<% if c.spot.child.photo_url.to_s.include?('/default/') %>
 								<img src="<%= c.spot.child.photo_url %>" alt="<%= c.spot.child.name %>" class="kid_up_photo">
@@ -32,7 +32,7 @@
 							</div>
 								<% if c.can_destroy? %>
 								<div class="child_remove">
-									<a href="/attendances/destroy?id=<%= c.id %>&lecture_id=<%= @lecture.id %>" data-remote="true">
+									<a href="/attendances/destroy?id=<%= c.id %>&lecture_id=<%= @lecture.id %>" data-remote="true" id="remove_attendance_<%= index %>">
 										<span class="remove"></span>
 									</a>
 								</div>

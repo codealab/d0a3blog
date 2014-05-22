@@ -13,6 +13,9 @@ class AttendancesController < ApplicationController
 	def new
 		@group = Group.find(params[:group_id])
 		@lecture = Lecture.find(params[:lecture_id])
+		puts '======================'
+		puts @group.spots.count
+		puts @lecture.attendances.count
 	end
 
 	def destroy
