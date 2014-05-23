@@ -38,9 +38,9 @@ describe 'Lectures pages' do
 		describe "with valid information" do
 			before do
 				fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
-				select '2014', from: 'lecture[date(1i)]'
-				select 'Febrero', from: 'lecture[date(2i)]'
-				select '12', from: 'lecture[date(3i)]'
+				select "#{ Date.today.to_date.year }", from: 'lecture[date(1i)]'
+				select "#{ I18n.l Date.today+5.weeks, format: '%B' }", from: 'lecture[date(2i)]'
+				select "#{ Date.today.to_date.day }", from: 'lecture[date(3i)]'
 				select '11', from: 'lecture[date(4i)]'
 				select '30', from: 'lecture[date(5i)]'
 				
@@ -53,12 +53,12 @@ describe 'Lectures pages' do
 		describe "with date out of range" do
 			before do
 				fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
-				select '2014', from: 'lecture[date(1i)]'
-				select 'Marzo', from: 'lecture[date(2i)]'
+				select "#{ Date.today.year }", from: 'lecture[date(1i)]'
+				select "#{ I18n.l Date.today+11.weeks, format: '%B' }", from: 'lecture[date(2i)]'
 				select '30', from: 'lecture[date(3i)]'
 				select '12', from: 'lecture[date(4i)]'
 				select '00', from: 'lecture[date(5i)]'
-				
+
 				expect { click_button "Guardar" }.not_to change(Lecture, :count)
 			end
 			it { should have_selector("div.alert.alert-danger") }
@@ -79,9 +79,9 @@ describe 'Lectures pages' do
 		describe 'with valid information' do
 			before do
 				fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
-				select '2014', from: 'lecture[date(1i)]'
-				select 'Febrero', from: 'lecture[date(2i)]'
-				select '24', from: 'lecture[date(3i)]'
+				select "#{ Date.today.to_date.year }", from: 'lecture[date(1i)]'
+				select "#{ I18n.l Date.today+6.weeks, format: '%B' }", from: 'lecture[date(2i)]'
+				select "#{ Date.today.to_date.day }", from: 'lecture[date(3i)]'
 				select '12', from: 'lecture[date(4i)]'
 				select '00', from: 'lecture[date(5i)]'
 

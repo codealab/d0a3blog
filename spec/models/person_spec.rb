@@ -31,7 +31,6 @@ describe Person do
 		expect(@person.full_name).to eq 'Fernando Garcia Lopez'
 	end
 
-
 	describe "when invalid atribute" do
 		before do
 			@person.name = " "
@@ -84,6 +83,22 @@ describe Person do
 		end
 
 		it { should_not be_valid }
+	end
+
+	describe "dob_to_weeks" do
+		before do
+			@person.dob = Date.today.to_date-50.weeks
+			@person.save
+		end
+		specify { expect(@person.reload.dob_to_weeks).to eq 50 }
+	end
+
+	describe "people searcher" do
+		before do
+			@person.first_last_name = 'Perez'
+			@person.save
+		end
+		specify { expect(Person.text_search('perez').count).to eq 1 }
 	end
 
 end

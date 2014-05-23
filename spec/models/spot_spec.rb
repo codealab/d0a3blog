@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Spot do
 
-	let(:child) { FactoryGirl.create(:person) }
+	let(:child) { FactoryGirl.create(:person, :children) }
 	let(:tutor) { FactoryGirl.create(:person) }
 	let(:group) { FactoryGirl.create(:group) }
 
@@ -34,6 +34,14 @@ describe Spot do
 		# it { should have(1).error_on(:tutor_id) } #Ya no está validado, debe de ir en la test?
 		it { should have(1).error_on(:group_id) }
 
+	end
+
+	describe "spot searcher" do
+		before do
+			child.first_last_name = 'Perez'
+			child.save
+		end
+		specify { expect(Person.children.text_search('perez').count).to eq 1 }
 	end
 
 end

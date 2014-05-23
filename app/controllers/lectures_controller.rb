@@ -37,8 +37,8 @@ class LecturesController < ApplicationController
 	    if @lecture.update_attributes(lecture_params)
 	    	flash[:success] = "Actualización Exitosa"
 	    	redirect_to @group
-	    else
-	    	render 'edit'
+		else
+			render 'edit'
 	    end
 	end
 

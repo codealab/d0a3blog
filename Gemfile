@@ -50,7 +50,6 @@ group :doc do
 end
 
 group :test do
-  gem 'selenium-webdriver', '2.35.1'
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem "wdm", ">=0.1.0" if RbConfig::CONFIG["target_os"] =~ /mswin|mingw|cygwin/i
   gem "database_cleaner"
@@ -58,6 +57,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  # gem 'selenium-webdriver'
   gem "capybara", "~> 2.2.1"
   gem 'factory_girl_rails', '4.2.1'
   gem "spork-rails" , github: 'sporkrb/spork-rails'

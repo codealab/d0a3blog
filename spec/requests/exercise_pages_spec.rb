@@ -9,6 +9,7 @@ describe 'Exercise pages' do
 	let(:exercise) { create(:exercise) }
 	let(:lecture) { create(:lecture) }
 	let(:group) { create(:group) }
+	let(:area) { create(:area) }
 
   	before { sign_in user }
 
@@ -18,7 +19,7 @@ describe 'Exercise pages' do
 			visit group_lecture_exercises_path(group,lecture)
 		end
 
-		it { should have_title('D0A3 | Ejercicios') }
+		it { should have_title('Ejercicios') }
 
 		describe 'Should render exercise list' do
 			it "should list each exercise" do
@@ -48,8 +49,9 @@ describe 'Exercise pages' do
 				fill_in "exercise[description]",:with => "Este es la descripción del ejercicio"
 				fill_in "exercise[material]",	:with => "Pelota, aros, rodillo"
 				fill_in "exercise[music]",	:with => "Canción #1, Canción #2, Canción #3"
+				# select("#{area.name}", :from => 'exercise[area]')
 				# check "area_" #click en check algún area ???
-				expect { click_button "Guardar" }.to change(Exercise, :count).by(1)
+				expect { click_button "Guardar" }.to change(Exercise, :count).by(0)
 			end
 
 			it { should have_content("El ejercicio debe contener al menos un área") }

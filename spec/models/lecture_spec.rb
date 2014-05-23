@@ -5,7 +5,7 @@ describe Lecture do
 	let(:group) { FactoryGirl.create(:group) }
 
 	before do
-		@class = Lecture.new( :group_id => group.id, :date => '12/01/2014 10:30', :observation => 'Lorem ipsum dolor sit amet')
+		@class = Lecture.new( :group_id => group.id, :date => DateTime.now+1.day, :observation => 'Lorem ipsum dolor sit amet')
 	end
 
 	subject { @class }

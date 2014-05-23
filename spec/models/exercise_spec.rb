@@ -57,6 +57,14 @@ describe 'Exercise' do
 
 	end
 
+	describe "exercises searcher" do
+		before do
+			@exercise.name = 'Vistiendo a Pablo'
+			@exercise.save
+		end
+		specify { expect(Exercise.text_search('vistiendo').count).to eq 1 }
+	end
+
 end
 
 # Checks that Factory Girl works

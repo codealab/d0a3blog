@@ -25,7 +25,7 @@
  		<div class="all_width blue_box">
  			<div id="enlist_childs" class="white_box">
  				<% if @group.spots.count>0 %>
-					<% @group.spots.each do |c| %>
+					<% @group.spots.each_with_index do |c,index| %>
 						<div class="child_spot child_appended child_spot_<%= c.child.id %>" id="child_spot_<%= c.child.id %>">
 							<% if c.child.photo_url.to_s.include?('/default/') %>
 								<img src="<%= c.child.photo_url %>" alt="<%= c.child.name %>" class="kid_up_photo">
@@ -38,7 +38,7 @@
 							</div>
 							<% if c.can_destroy? %>
 								<div class="child_remove">
-									<a href="/spots/destroy?id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true" title="Eliminar">
+									<a href="/spots/destroy?id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true" title="Eliminar" id="remove_spot_<%= index %>">
 										<div class="remove"></div>
 									</a>
 								</div>

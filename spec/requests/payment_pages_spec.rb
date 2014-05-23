@@ -65,7 +65,7 @@ describe "Payment pages" do
 
           before do
             select "#{ Date.today.to_date.day }", from: "payment[date(3i)]"
-            select "#{ I18n.l Date.today.to_date, :format => '%B' }", from: "payment[date(2i)]"
+            select "#{ I18n.l Date.today.to_date, format: '%B' }", from: "payment[date(2i)]"
             select "#{ Date.today.to_date.year }", from: "payment[date(1i)]"
             fill_in "payment[amount]", :with => "999"
             expect { click_button "Guardar" }.to change(Payment, :count).by(1)
