@@ -1,9 +1,10 @@
 # encoding: UTF-8
 class SpotsController < ApplicationController
 	
-	helper_method :valid_user
-	before_action :correct_user, only: [:update, :create, :destroy, :new, :index]
+	# helper_method :valid_user
+	# before_action :correct_user, only: [:update, :create, :destroy, :new, :index]
 	before_action :pasive_family, only: [:update, :edit]
+	load_and_authorize_resource
 
 	def index
 		@group = Group.find(params[:group_id])
@@ -63,7 +64,7 @@ class SpotsController < ApplicationController
 	private
 
 	def spot_params
-      params.require(:spot).permit(:tutor_id)
+      params.permit(:child_id, :group_id)
     end
 
     def correct_user

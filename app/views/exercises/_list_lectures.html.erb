@@ -11,7 +11,9 @@
 	<tbody>
 		<% @exercises.each_with_index do |exercise, index| %>
 		<tr>
-			<td><%= link_to exercise.name, group_lecture_exercise_path(@group, @lecture, exercise) %></td>
+			<td>
+				<%= link_factory( :_path => group_lecture_exercise_path(@group, @lecture, exercise), :_text =>exercise.name ) %>
+			</td>
 			<td>
 				<% if exercise.areas.count==1 %>
 					<%= exercise.areas.first.name %>

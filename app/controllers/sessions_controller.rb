@@ -1,7 +1,9 @@
 # encoding: UTF-8
 class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
-  skip_before_action :user_visor, only: [:create, :destroy]
+  # skip_before_action :user_visor, only: [:create, :destroy]
+  # signed_in_user
+  # load_and_authorize_resource
   
 	def new
 	end

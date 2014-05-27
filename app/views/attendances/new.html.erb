@@ -5,9 +5,7 @@
 		<a href=<%= "/groups/#{@group.id}?lecture=#{@lecture.id}" %>>
 			<p><button type="button" class="btn btn-info">Regresar a la Clase</button></p>
 		</a>
-		<%= link_to new_group_spot_path(@group) do %>
-			<p><button type="button" class="btn btn-warning">Inscripciones</button></p>
-		<% end %>
+		<%= link_factory( new_group_spot_path(@group), 'Inscripciones', 'btn btn-warning', true, false ) %>
 	</div>
 	<h1>Asistencias<span class="line"></span></h1>
 </div>

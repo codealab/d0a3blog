@@ -1,10 +1,13 @@
 # encoding: UTF-8
 class PeopleController < ApplicationController
 
-	before_action :signed_in_user
-	helper_method :valid_user
+	# before_action :signed_in_user
+	# helper_method :valid_user
 	helper_method :is_child
-	before_action :correct_user, only: [:edit, :update, :new, :create, :destroy, :delete]
+	
+	load_and_authorize_resource
+	# before_action :correct_user, only: [:edit, :update, :new, :create, :destroy, :delete]
+	# load_and_authorize_resource
 
 	def index
 		@people = Person.all.order("name ASC").paginate(page: params[:page])

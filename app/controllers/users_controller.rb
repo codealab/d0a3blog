@@ -1,10 +1,10 @@
 # encoding: UTF-8
 class UsersController < ApplicationController
-  
-  skip_before_action :user_visor, only: [:edit, :update]
 
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: [:destroy, :new, :update]
+  # before_action :correct_user,   only: [:edit, :update]
+  # before_action :admin_user,     only: [:destroy, :new, :update]
+
+  load_and_authorize_resource
 
   def index
     @users = User.all
@@ -63,20 +63,13 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin, :coordinator, :instructor, :photo, :crop_x, :crop_y, :crop_w, :crop_h )
     end
 
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in."
-      end
-    end
+    # def correct_user
+    #   @user = User.find(params[:id])
+    #   redirect_to(root_url) unless current_user?(@user) || current_user.admin?
+    # end
 
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user) || current_user.admin?
-    end
-
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
-    end
+    # def admin_user
+    #   redirect_to(root_url) unless current_user.admin?
+    # end
 
 end

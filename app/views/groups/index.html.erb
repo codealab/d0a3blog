@@ -2,9 +2,7 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_to new_group_path do %>
-			<p><button type="button" class="btn btn-default">Nuevo Grupo</button></p>
-		<% end %>
+		<%= link_factory( :_path => new_group_path, :_text => "Nuevo Grupo", :_class=>"btn btn-default", :_button => true ) %>
 	</div>
 	<h1>Nuestros Grupos<span class="line"></span></h1>
 </div>
@@ -26,7 +24,7 @@
 			<tbody>
 				<% @groups.each_with_index do |group,index| %>
 					<tr class="text_center">
-						<td><%= link_to group.name, group %></td>
+						<td><%= link_factory( :_path => group_path(group), :_text => group.name ) %></td>
 						<td><%= group.user.name %></td>
 						<td>$<%= group.cost %></td>
 						<td><%= "De #{group.min_age} a #{group.max_age} Semanas" %></td>

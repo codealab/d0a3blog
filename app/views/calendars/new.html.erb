@@ -2,9 +2,7 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_to group_path(@group) do %>
-			<p><button type="button" class="btn btn-info">Volver al Grupo</button></p>
-		<% end %>
+		<%= link_factory( group_path(@group), 'Volver al Grupo', 'btn btn-info', true, false ) %>
 	</div>
 	<h1>Generar Clases<span class="line"></span></h1>
 </div>

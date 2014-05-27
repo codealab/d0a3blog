@@ -2,9 +2,7 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_to @family do %>
-			<p><button type="button" class="btn btn-info">Regresar a Familia</button></p>
-		<% end %>
+		<%= link_factory( @family, 'Regresar a Familia', 'btn btn-info', true, false ) %>
 	</div>
 	<h1>Editar contacto de la Familia: <%= @family.name %><span class="line"></span></h1>
 </div>

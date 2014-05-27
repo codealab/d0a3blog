@@ -2,9 +2,7 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_to families_path do %>
-			<p><button type="button" class="btn btn-info">Regresar a Familias</button></p>
-		<% end %>
+		<%= link_factory( :_path => families_path, :_text =>'Regresar a Familias', :_class => 'btn btn-info', :_button => true ) %>
 	</div>
 	<h1>Nueva Familia<span class="line"></span></h1>
 </div>

@@ -1,7 +1,9 @@
 # encoding: UTF-8
 class AddressesController < ApplicationController
 
-	before_action :signed_in_user
+	# before_action :signed_in_user
+	load_and_authorize_resource
+	# check_authorization
 
 	def new
 	   @family = Family.find(params[:family_id])
@@ -38,19 +40,15 @@ class AddressesController < ApplicationController
 	private
 
 	def address_params
-		params.require(:address).permit(:calle, :num_ext, :num_int,
-										:localidad, :referencia, :colonia,
-										:municipio,:ciudad,:estado, :pais, 
-										:codigo_postal, :telefono, :celular, 
-										:email)
+		params.require(:address).permit(:calle, :num_ext, :num_int, :localidad, :referencia, :colonia, :municipio,:ciudad,:estado, :pais, :codigo_postal, :telefono, :celular, :email)
     end
 
-		def correct_user
-			redirect_to(signin_path) unless current_user?(current_user)
-		end
+	# def correct_user
+	# 	redirect_to(signin_path) unless current_user?(current_user)
+	# end
 
-		def master_users
-			@family = Family.find(params[:family_id])
-			redirect_to(@family, notice: "No tienes permitido crear, editar o borrar direcciones.") unless current_user.coordinator? || current_user.admin?
-		end
+	# def master_users
+	# 	@family = Family.find(params[:family_id])
+	# 	redirect_to(@family, notice: "No tienes permitido crear, editar o borrar direcciones.") unless current_user.coordinator? || current_user.admin?
+	# end
 end

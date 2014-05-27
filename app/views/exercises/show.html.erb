@@ -3,13 +3,9 @@
 <div class="boton_der">
 	<div class="top_buttons">
 		<% if @group && @lecture %>
-			<%= link_to group_lecture_exercises_path(@group, @lecture) do %>
-				<p><button type="button" class="btn btn-info">Regresar a Ejercicios</button></p>
-			<% end %>
+			<%= link_factory( :_path =>group_lecture_exercises_path(@group, @lecture), :_text =>'Regresar a Ejercicios', :_class => 'btn btn-info', :_button => true ) %>
 		<% else %>
-			<%= link_to exercises_path do %>
-				<p><button type="button" class="btn btn-info">Regresar a Ejercicios</button></p>
-			<% end %>
+			<%= link_factory( :_path =>exercises_path, :_text =>'Regresar a Ejercicios', :_class => 'btn btn-info', :_button => true ) %>
 		<% end %>
 	</div>
 	<h1><%= @exercise.full_name %><span class="line"></span></h1>
@@ -22,7 +18,7 @@
 				<td><%= "#{[@exercise.min_age,@exercise.max_age].join('-')} semanas" %></td>
 			</tr>
 			<tr>
-				<th>Objectivo</th>
+				<th>Objetivo</th>
 				<td><%= @exercise.objective %></td>
 			</tr>
 			<tr>
@@ -41,31 +37,11 @@
 	</table>
 	<div class="boton_der">
 		<% if @group && @exercise %>
-			<% if(@exercise.lectures.empty?) %>
-				<%= link_to group_lecture_exercise_path(@group,@lecture,@exercise), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
-					<p><button type="button" class="btn btn-danger">Borrar Ejercicio</button></p>
-				<% end %>
-			<% else %>
-				<%= link_to group_lecture_exercise_path(@group,@lecture,@exercise), method: :delete, data: { confirm: "Este ejercicio esta asignado a una o varias clases. \nNo puede llevarse a cabo esta acción." } do %>
-					<p><button type="button" class="btn btn-danger">Borrar Ejercicio</button></p>
-				<% end %>
-			<% end %>
-			<%= link_to edit_group_lecture_exercise_path(@group,@lecture,@exercise) do %>
-				<p><button type="button" class="btn btn-default">Editar Ejercicio</button></p>
-			<% end %>
+			<%= link_factory( :_path => group_lecture_exercise_path(@group,@lecture,@exercise), :_text =>'Borrar Ejercicio', :_class => 'btn btn-danger', :_button => true, :_destroy=>true, :_alert => 'Este ejercicio esta asignado a una o varias clases. No puede llevarse a cabo esta acción.' ) %>
+			<%= link_factory( :_path => edit_group_lecture_exercise_path(@group,@lecture,@exercise), :_text =>'Editar Ejercicio', :_class => 'btn btn-default', :_button => true ) %>
 		<% else %>
-			<% if(@exercise.lectures.empty?) %>
-				<%= link_to exercise_path(@exercise), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
-					<p><button type="button" class="btn btn-danger">Borrar Ejercicio</button></p>
-				<% end %>
-			<% else %>
-				<%= link_to exercise_path(@exercise), data: { confirm: "Este ejercicio esta asignado a una o varias clases. \nNo puede llevarse a cabo esta acción." } do %>
-					<p><button type="button" class="btn btn-danger">Borrar Ejercicio</button></p>
-				<% end %>
-			<% end %>
-			<%= link_to edit_exercise_path(@exercise) do %>
-				<p><button type="button" class="btn btn-default">Editar Ejercicio</button></p>
-			<% end %>
+			<%= link_factory( :_path => exercise_path(@exercise), :_text =>'Borrar Ejercicio', :_class => 'btn btn-danger', :_button => true, :_destroy=>true, :_alert => 'Este ejercicio esta asignado a una o varias clases. No puede llevarse a cabo esta acción.' ) %>
+			<%= link_factory( :_path => edit_exercise_path(@exercise), :_text =>'Editar Ejercicio', :_class => 'btn btn-default', :_button => true ) %>
 		<% end %>
 	</div>
 </div>

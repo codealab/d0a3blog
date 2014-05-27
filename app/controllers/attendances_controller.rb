@@ -1,8 +1,9 @@
 # encoding: UTF-8
 class AttendancesController < ApplicationController
 
-	helper_method :valid_user
-	before_action :correct_user, only: [:create, :destroy]
+	# helper_method :valid_user
+	# before_action :correct_user, only: [:create, :destroy]
+	load_and_authorize_resource
 
 	def create
 		@lecture = Lecture.find(params[:lecture_id])
@@ -35,12 +36,12 @@ class AttendancesController < ApplicationController
 		params.permit( :spot_id, :lecture_id )
 	end
 
-	def correct_user
-		redirect_to(:back, notice: "No tienes permitido crear, editar o borrar grupos.") unless valid_user
-	end
+	# def correct_user
+	# 	redirect_to(:back, notice: "No tienes permitido crear, editar o borrar grupos.") unless valid_user
+	# end
 
-	def valid_user
-		current_user.admin? || current_user.instructor?
-	end
+	# def valid_user
+	# 	current_user.admin? || current_user.instructor?
+	# end
 
 end

@@ -13,6 +13,8 @@ gem 'sass-rails', '~> 4.0.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
+#authorization library
+gem 'cancancan'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 gem 'simple_form'
@@ -63,6 +65,7 @@ group :development, :test do
   gem "spork-rails" , github: 'sporkrb/spork-rails'
   gem 'guard-rspec'
   gem 'guard-spork'
+  gem 'guard-livereload'
 end
 
 group :development do
@@ -70,8 +73,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
 end
-
-gem 'guard-livereload', group: [:development, :test]# You need to install an extensión on your browser
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'

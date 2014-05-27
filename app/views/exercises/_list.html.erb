@@ -11,7 +11,9 @@
 	<tbody>
 		<% @exercises.each_with_index do |exercise, index| %>
 			<tr>
-				<td><%= link_to exercise.name, exercise_path(exercise) %></td>
+				<td>
+					<%= link_factory( :_path => exercise_path(exercise), :_text =>exercise.name ) %>
+				</td>
 				<td class="text_center"><%= "#{exercise.min_age} - #{exercise.max_age}" %></td>
 				<td>
 					<% if exercise.areas.count==1 %>
@@ -33,7 +35,9 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel"><%= link_to exercise.name, exercise_path(exercise) %></h4>
+							<h4 class="modal-title" id="myModalLabel">
+								<%= link_factory( :_path => exercise_path(exercise), :_text =>exercise.name ) %>
+							</h4>
 						</div>
 						<div class="modal-body">
 							<p><strong>Rango:</strong> <%= "#{exercise.min_age} - #{exercise.max_age} Semanas" %></p>

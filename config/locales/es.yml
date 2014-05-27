@@ -124,6 +124,8 @@ es:
   errors: &errors
     format: ! '%{attribute} %{message}'
     messages:
+      restrict_dependent_destroy:
+        many: mal
       accepted: debe ser aceptado
       blank: no puede estar en blanco
       confirmation: no coincide con la confirmación

@@ -9,9 +9,7 @@
 					<div class="modal-body">
 						<div class="all_width blue_box">
 							<div class="boton_der inscription_button">
-								<%= link_to new_group_spot_path(object) do %>
-									<p><button type="button" class="btn btn-default" data-original-title="" title="" style="width: 150px;"> Inscribir </button></p>
-								<% end %>
+								<%= link_factory( :_path => new_group_spot_path(object), :_text =>'Inscribir', :_class => 'btn btn-default', :_button => true ) %>
 							</div>
 							<% if object.spots.count>0 %>
 								<table class="table table-striped tablesorter">
@@ -32,13 +30,10 @@
 													<% end %>
 												</td>
 												<td>
-													<%= link_to "#{spot.child.name} #{spot.child.first_last_name} #{spot.child.second_last_name}", person_path(spot.child.id) %>
+													<%= link_factory( :_path => person_path(spot.child.id), :_text => "#{spot.child.name} #{spot.child.first_last_name} #{spot.child.second_last_name}" ) %>
 												</td>
 												<td>
-												<% if(spot.tutor) %>
-													<%= link_to "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}", person_path(spot.tutor.id) %>
-													<% end %>
-												</td>
+												<%= link_factory( :_path => person_path(spot.tutor.id), :_text => "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}" ) %>
 												<td class="text_center">$<%= total_payments spot %></td>
 												<td class="text_center">$<%= spot.balance %></td>
 												<td class="text_center">$<%= total_scholarship spot %></td>

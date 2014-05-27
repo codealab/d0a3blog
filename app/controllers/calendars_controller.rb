@@ -1,8 +1,9 @@
 # encoding: UTF-8
 class CalendarsController < ApplicationController
 	
-	helper_method :valid_user
-	before_action :correct_user, only: [:edit, :update, :new, :create, :destroy, :delete]
+	# helper_method :valid_user
+	# before_action :correct_user, only: [:edit, :update, :new, :create, :destroy, :delete]
+	load_and_authorize_resource
 
 	def index
 		@group = Group.find(params[:calendar][:group_id])
@@ -28,14 +29,14 @@ class CalendarsController < ApplicationController
 		@group = Group.find(params[:group_id])
 	end
 
-	private
+	# private
 
-    def correct_user
-		redirect_to(groups_path, notice: "No tienes permitido crear, editar o borrar grupos.") unless valid_user
-	end
+ 	# def correct_user
+	# 	redirect_to(groups_path, notice: "No tienes permitido crear, editar o borrar grupos.") unless valid_user
+	# end
 
-	def valid_user
-		current_user.admin? || current_user.instructor?
-	end
+	# def valid_user
+	# 	current_user.admin? || current_user.instructor?
+	# end
 
 end

@@ -1,14 +1,15 @@
 # encoding: UTF-8
 class ExercisesController < ApplicationController
 
-	helper_method :valid_user
-	before_action :correct_user, only: [:edit, :update, :show, :new, :create, :destroy, :delete, :index]
+	# helper_method :valid_user
+	# before_action :correct_user, only: [:edit, :update, :show, :new, :create, :destroy, :delete, :index]
+	load_and_authorize_resource
 
 	def index
 		@exercises = Exercise.all.order('id desc').paginate(page: params[:page])
-		if params[:group_id] && params[:lecture_id]
-			@group = Group.find(params[:group_id])
-			@lecture = Lecture.find(params[:lecture_id])
+		@group = Group.find(params[:group_id]) if params[:group_id]
+		@lecture = Lecture.find(params[:lecture_id]) if params[:lecture_id]
+		if @group && @lecture
 			@exercises = Exercise.where("min_age <= #{@group.max_age} AND max_age>= #{@group.min_age}").paginate(page: params[:page])
 		end
 	end
@@ -86,8 +87,7 @@ class ExercisesController < ApplicationController
 
 	def search
 		@group = Group.find(params[:group_id]) if params[:group_id]
-		@lecture = Group.find(params[:lecture_id]) if params[:lecture_id]
-
+		@lecture = Lecture.find(params[:lecture_id]) if params[:lecture_id]
 		init = params[:init][0].blank? ? nil:params[:init][0]
 		ended = params[:ended][0].blank? ? nil:params[:ended][0]
 		name = params[:name].blank? ? nil:params[:name]
@@ -113,14 +113,19 @@ class ExercisesController < ApplicationController
 	end
 
 	def destroy
-		Exercise.find(params[:id]).destroy
-		flash[:success] = "Ejercicio borrado"
-		if params[:group] && params[:lecture]
-			@group = Group.find(params[:group_id])
-			@lecture = Lecture.find(params[:lecture_id])
-			redirect_to group_lecture_path(@group,@lecture)
+		@exercise = Exercise.find(params[:id])
+		if @exercise.can_destroy?
+			@exercise.destroy
+			flash[:success] = "Ejercicio borrado"
+			if params[:group] && params[:lecture]
+				@group = Group.find(params[:group_id])
+				@lecture = Lecture.find(params[:lecture_id])
+				redirect_to group_lecture_path(@group,@lecture)
+			else
+				redirect_to exercises_path
+			end
 		else
-			redirect_to exercises_path
+			redirect_to(:back, notice: "Este ejercicio está asignado a una o varias clases. No puede llevarse a cabo esta acción.")
 		end
 	end 
 
@@ -158,8 +163,8 @@ class ExercisesController < ApplicationController
 			redirect_to(root_path, notice: "No tienes permitido crear, editar o borrar ejercicios.") unless valid_user
 		end
 
-		def valid_user
-			current_user.admin? || current_user.instructor?
-		end
+		# def valid_user
+		# 	current_user.admin? || current_user.instructor?
+		# end
 
 end

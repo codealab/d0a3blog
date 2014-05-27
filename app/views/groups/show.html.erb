@@ -1,12 +1,8 @@
 <% provide(:title, "Grupo #{ @group.name }: #{@group.min_age} a #{@group.max_age} meses") %>
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_to groups_path do %>
-			<p><button type="button" class="btn btn-info">Regresar a los Grupos</button></p>
-		<% end %>
-		<%= link_to edit_group_path(@group) do %>
-			<p><button type="button" class="btn btn-default">Editar Grupo</button></p>
-		<% end %>
+		<%= link_factory( :_path => groups_path, :_text => 'Regresar a los Grupos', :_class => "btn btn-info", :_button => true ) %>
+		<%= link_factory( :_path => edit_group_path(@group), :_text => 'Editar Grupo', :_class => "btn btn-default", :_button => true ) %>
 	</div>
 	<h1><%= "Grupo #{ @group.name }: #{@group.min_age} a #{@group.max_age} meses" %><span class="line"></span></h1>
 </div>

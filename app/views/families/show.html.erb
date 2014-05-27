@@ -1,12 +1,8 @@
 <% provide(:title, "Familia: #{ @family.name }") %>
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_to families_path do %>
-			<p><button type="button" class="btn btn-info">Regresar a Familias</button></p>
-		<% end %>
-		<%= link_to new_family_person_path(@family) do %>
-			<p><button type="button" class="btn btn-default">Nuevo Miembro</button></p>
-		<% end %>
+		<%= link_factory( :_path => families_path, :_text =>'Regresar a Familias', :_class => 'btn btn-info', :_button => true ) %>
+		<%= link_factory( :_path => new_family_person_path(@family), :_text =>'Nuevo Miembro', :_class => 'btn btn-default', :_button => true ) %>
 	</div>
 	<h1>Familia: <%= @family.name %><span class="line"></span></h1>
 </div>
@@ -46,17 +42,13 @@
 							<td><%= member.dob %></td>
 							<td><%= member.family_roll %></td>
 							<td>
-								<%= link_to edit_family_person_path(@family, member) do %>
-									<button type="button" class="btn btn-default btn-xs">Editar</button>
-								<% end %>
+								<%= link_factory( :_path => edit_family_person_path(@family, member), :_text =>'Editar', :_class => 'btn btn-default btn-xs', :_button => true ) %>
 							</td>
 							<td>
-								<% if !member.can_destroy? || member.id == @family.responsible_id %>
+								<% if member.id == @family.responsible_id %>
 									<button type="button" class="btn btn-danger btn-xs disabled">Borrar</button>
 								<% else %>
-									<%= link_to family_person_path(@family, member), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
-										<button type="button" class="btn btn-danger btn-xs">Borrar</button>
-									<% end %>
+									<%= link_factory( :_path => family_person_path(@family, member), :_text =>'Borrar', :_class => 'btn btn-danger btn-xs', :_button => true, :_destroy=> true, :_alert=>"Esta persona tiene grupos o pagos relacionados. No puede eliminarse." ) %>
 								<% end %>
 							</td>
 						</tr>
@@ -74,13 +66,9 @@
 				Saldo familiar <%= negative_value (total_balance @family)  %>
 			</span>
 			<% if @family.family_members.count==1 %>
-				<%= link_to @family, method: :delete, data: { confirm: "¿Estás Seguro? Borrarás a la familia y a su responsable." } do %>
-					<p><button type="button" class="btn btn-danger">Borrar Familia</button></p>
-				<% end %>
+				<%= link_factory( :_path => family_path(@family), :_text =>'Borrar Familia', :_class => 'btn btn-danger', :_button => true, :_destroy=> true, :_alert=>"¿Estás Seguro? Borrarás a la familia y a su responsable." ) %>
 			<% end %>
-			<%= link_to edit_family_path do %>
-				<p><button type="button" class="btn btn-default">Editar Familia</button></p>
-			<% end %>
+			<%= link_factory( :_path => edit_family_path, :_text =>'Editar Familia', :_class => 'btn btn-default', :_button => true ) %>
 		</div>
 	</div>
 	<div class="spacer"></div>
@@ -94,15 +82,11 @@
 				<p>Referencia: <%= @family.address.referencia %></p>
 			</div>
 			<div class="boton_der">
-				<%= link_to edit_family_address_path(@family, @family.address) do %>
-					<p><button type="button" class="btn btn-default">Editar Contacto</button></p>
-				<% end %>
+				<%= link_factory( :_path => edit_family_address_path(@family, @family.address), :_text =>'Editar Contacto', :_class => 'btn btn-default', :_button => true ) %>
 			</div>
 		</div>
 	<% else %>
-		<%= link_to new_family_address_path(@family) do %>
-			<p class="boton_izq"><button type="button" class="btn btn-warning">Falta Información de Contacto</button></p>
-		<% end %>
+		<%= link_factory( :_path => new_family_address_path(@family), :_text =>'Falta Información de Contacto', :_class => 'btn btn-warning', :_button => true ) %>
 	<% end %>
 </div>
 <h6>Total de miembros: <%= @family.family_members.count %></h6>

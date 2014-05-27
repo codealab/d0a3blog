@@ -4,13 +4,9 @@
 			<a href=<%= "/groups/#{@group.id}?lecture=#{@lecture.id}" %>>
 				<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
 			</a>
-			<%= link_to new_group_lecture_exercise_path(@group, @lecture) do %>
-				<p><button type="button" class="btn btn-default">Nuevo Ejercicio</button></p>
-			<% end %>
+			<%= link_factory( :_path => new_group_lecture_exercise_path(@group, @lecture), :_text =>'Nuevo Ejercicio', :_class => 'btn btn-default', :_button => true ) %>
 		<% else %>
-			<%= link_to new_exercise_path do %>
-				<p><button type="button" class="btn btn-default">Nuevo Ejercicio</button></p>
-			<% end %>
+			<%= link_factory( :_path => new_exercise_path, :_text =>'Nuevo Ejercicio', :_class => 'btn btn-default', :_button => true ) %>
 		<% end %>
 		<p><button class="btn btn-primary" data-toggle="modal" data-target="#searcher_exercises">Buscar</button></p>
 	</div>

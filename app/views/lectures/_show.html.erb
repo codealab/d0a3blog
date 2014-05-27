@@ -61,7 +61,9 @@
 		                <table class="table table-striped">
 							<% @lecture.exercises.each_with_index do |ex,index| %>
 								<tr>
-									<td class="exercise_content"><%= link_to ex.name, group_lecture_exercise_path(@group, @lecture, ex) %></td>
+									<td class="exercise_content">
+										<%= link_factory( :_path => group_lecture_exercise_path(@group, @lecture, ex), :_text => ex.name ) %>
+									</td>
 									<td class="text_center exercise_content"><%= "#{@group.min_age} - #{@group.max_age}" %></td>
 									<td class="text_center exercise_content">
 										<% if ex.areas.count==1 %>

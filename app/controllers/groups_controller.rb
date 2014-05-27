@@ -1,8 +1,10 @@
 # encoding: UTF-8
 class GroupsController < ApplicationController
 	
-	helper_method :valid_user
-	before_action :correct_user, only: [:edit, :update, :show, :new, :create, :destroy, :delete]
+	# helper_method :valid_user
+	# before_action :correct_user, only: [:edit, :update, :show, :new, :create, :destroy, :delete]
+	load_and_authorize_resource except: [:create]
+	# check_authorization
 
 	def index
 		if params[:filter]

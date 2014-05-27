@@ -6,12 +6,22 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   include SessionsHelper
+  include ButtonsHelper
   include PersonsHelper
   include PaymentsHelper
-
+  
   before_action :require_login
-  before_action :user_visor, only: [:update, :create, :destroy]
   before_action :set_locale
+
+  # check_authorization
+
+  rescue_from CanCan::AccessDenied do |exception|
+    if !request.env["HTTP_REFERER"].blank? # and request.env["HTTP_REFERER"] != request.env["REQUEST_URI"]
+      redirect_to(:back, notice:"No tienes permiso para llevar a cabo esta acción.")
+    else
+      redirect_to(root_path, notice:"No tienes permiso para llevar a cabo esta acción.")
+    end
+  end
 
   def set_locale
     I18n.locale = :es
@@ -29,10 +39,6 @@ class ApplicationController < ActionController::Base
       flash[:danger] = "Inicia sesión"
       redirect_to signin_url # halts request cycle
     end
-  end
-
-  def user_visor
-    redirect_to(:back, notice:"No tienes los permisos suficientes para llevar a cabo esta tarea.") unless manager
   end
 
 end

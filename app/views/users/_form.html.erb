@@ -28,14 +28,14 @@
 		<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
     <% end %>
   </div>
-</div>
-<% if params[:action] == 'edit' %>
+  <% if params[:action] == 'edit' %>
 	<div class="boton_der">
 		<%= link_to edit_password_reset_path(@user) do %>
 			<p><button type="button" class="btn btn-default">Cambiar contraseña</button></p>
-		<% end %>
-	</div>
-<% end %>
+			<% end %>
+		</div>
+	<% end %>
+</div>
 
 <script>
 	$(document).ready(function($) {
