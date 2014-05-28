@@ -12,11 +12,13 @@ class Lecture < ActiveRecord::Base
 	#validate :uniqueness_combination_of_date_and_group_id
 
 	def date_cannot_be_out_of_group_period_time
-		if !self.group.blank?
-			range = (self.group.init_date..self.group.finish_date)
-			errors.add(:date, "que seleccionaste está fuera de la duración del curso") if 
-			!date.blank? and !range.include?(date.to_date)
-		end
+		range = (self.group.init_date..self.group.finish_date)
+		errors.add(:date, "La fecha que seleccionaste está fuera de la duración del curso") if 
+		!date.blank? and !range.include?(date.to_date)
+	end
+
+	def possible_attendances
+		self.group.spots.where("created_at <= ?", self.date)
 	end
 
 	# def uniqueness_combination_of_date_and_group_id

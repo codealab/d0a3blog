@@ -1,18 +1,18 @@
 <% provide(:title, "Grupo #{ @group.name }: #{@group.min_age} a #{@group.max_age} meses") %>
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_factory( :_path => groups_path, :_text => 'Regresar a los Grupos', :_class => "btn btn-info", :_button => true ) %>
-		<%= link_factory( :_path => edit_group_path(@group), :_text => 'Editar Grupo', :_class => "btn btn-default", :_button => true ) %>
+		<%= link_factory( :_path=> groups_path, :_text=> 'Regresar a los Grupos', :_class=> 'btn btn-info', :_button=> true ) %>
+		<%= link_factory( :_path=> edit_group_path(@group), :_text=> 'Editar Grupo', :_button=> true, :_class=> 'btn btn-default' ) %>
 	</div>
 	<h1><%= "Grupo #{ @group.name }: #{@group.min_age} a #{@group.max_age} meses" %><span class="line"></span></h1>
 </div>
 <div class="panel panel-primary top_panel">
 	<div class="group_info">
-		<li><strong>Edad:</strong> <%= @group.min_age %> - <%= @group.max_age %></li>
 		<li><strong>Periodo:</strong> <%= @group.init_date.strftime('%d/%m/%Y') %> - <%= @group.finish_date.strftime('%d/%m/%Y') %></li>
 		<li><strong>Costo:</strong>$<%= @group.cost %></li>
 		<li><strong>Ubicación:</strong><%= @group.location %></li>
 		<li><strong>Instructora:</strong><%= @group.instructor %></li>
+		<li><strong>Promedio de edad:</strong><%= age_average @group %></li>
 		<li><strong>Inscritos:</strong><%= @group.spots.count %></li>
   </div>
 </div>
@@ -29,24 +29,15 @@
 <!-- Modal Init -->
 	<%= render 'groups/modal', :object => @group %>
 <!-- Modal End -->
-
-<% if(@group.lectures.empty?) %>
-	<% if @group.lectures.count < 3 %>
-		<%= link_to new_group_calendar_path(@group) do %>
-			<div class="big_button" id="new_class_icon" style="width: 100%; ">
-				<span class="tip glyphicon glyphicon-cog"></span>Generar Clases
-			</div>
-		<% end %>
+<% if @group.lectures.count < 3 %>
+	<%= link_to new_group_calendar_path(@group) do %>
+		<div class="big_button" id="new_class_icon" style="width: 100%; ">
+			<span data-toggle="tooltip" data-placement="left" title="" class="tip glyphicon glyphicon-cog" data-original-title="Utiliza esta función para generar todas las clases dentro del período de duración del curso"></span>Calculadora de Clases
+		</div>
 	<% end %>
-<% else %>
-	<% if @group.lectures.count < 3 %>
-		<%= link_to new_group_calendar_path(@group) do %>
-			<div class="big_button" id="new_class_icon" style="width: 100%; ">
-				<span class="tip glyphicon glyphicon-cog"></span>Generar Clases
-			</div>
-		<% end %>
-		<div class="spacer"></div>
-	<% end %>
+<% end %>
+<% if !@group.lectures.empty? %>
+	<div class="spacer"></div>
 	<div class="col-md-12 light_box" id="container_lectures">
 		<%= render 'groups/lectures' %>
 	</div>
@@ -55,21 +46,10 @@
 <h6>Total de Clases: <%= @group.lectures.count %></h6>
 <script>
 	$(document).ready(function() {
-		// $('.tip').tooltip();
 		scrollAdjust();
 	 	<% if(@lecture) %>
 			var lecture = "lecture_<%= @lecture.id %>";
 			$("#"+lecture).addClass('date_active');
 		<% end %>
 	});
-
-	// 	<% if(@lecture) %>yyyyyyyyyyyzz
-	// 		var lecture = "lecture_<%= @lecture.id %>";
-	// 		var totalTop = $("#lectures_dates").offset().top;
-	// 		var lectureTop = $("#"+lecture).offset().top;
-
-	// 		$("#"+lecture).addClass('success');
-	// 		$("#lectures_dates").animate({scrollTop:((lectureTop-totalTop)-75)},0);
-	// 	<% end %>
-	// });
 </script>

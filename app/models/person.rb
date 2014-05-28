@@ -30,7 +30,6 @@ class Person < ActiveRecord::Base
 
 	# Custom Methods
 	validate :field_uniqueness 
-	# validate :valid_dob
 	validate :dob_cannot_be_in_the_future
 
 	def full_name
@@ -54,11 +53,15 @@ class Person < ActiveRecord::Base
 	def dob_to_weeks
 		((Date.today.to_date - self.dob.to_date).to_i)/7
 	end
+	
+	def dob_to_weeks_float
+		(((Date.today.to_date - self.dob.to_date).to_i)/7).to_f.round(2)
+	end
 
 	def balance
 		balance = 0
 		self.spots.each { |b| balance += b.balance }
-		"$#{balance}"
+		balance
 	end
 
   private
@@ -86,11 +89,8 @@ class Person < ActiveRecord::Base
 		end
 
 	  def dob_cannot_be_in_the_future
-	    errors.add(:dob, "incorrecta, según la fecha la persona no ha nacido") if !dob.blank? and dob > Date.today
+	    errors.add(:dob, "es incorrecta, según la fecha la persona no ha nacido") if
+	      !dob.blank? and dob > Date.today
 	  end
-
-	  # def valid_dob
-	  #   errors.add(:dob, "incorrecta, según la fecha la persona no ha nacido") if !dob.blank? and dob > Date.today
-	  # end
 
 end

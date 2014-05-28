@@ -2,12 +2,8 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_to @person.families.first do %>
-			<p><button type="button" class="btn btn-info">Regresar a Familia</button></p>
-		<% end %>
-		<%= link_to edit_family_person_path(@person.families.first, @person) do %>
-			<p><button type="button" class="btn btn-default">Editar</button></p>
-		<% end %>
+		<%= link_factory( :_path => family_path(@person.families.first), :_text => 'Regresar a Familia', :_button => true, :_class => 'btn btn-info' ) %>
+		<%= link_factory( :_path => edit_family_person_path(@person.families.first, @person), :_text => 'Editar', :_button => true, :_class => 'btn btn-default' ) %>
 	</div>
 	<h1><%= @person.full_name %><span class="line"></span></h1>
 </div>
@@ -29,12 +25,16 @@
 					<tbody>
 						<tr>
 							<th>Familia</th>
-							<td><%= link_to @person.families.first.name, @person.families.first %></td>
+							<td>
+								<%= link_factory( :_path => edit_family_path(@person.families.first), :_text => @person.families.first.name ) %>
+							</td>
 						</tr>
 						<tr>
 							<th>Responsable</th>
 							<% if @person.families.first.responsible %>
-								<td><%= link_to @person.families.first.responsible.full_name, @person.families.first.responsible %></td>
+								<td>
+									<%= link_factory( :_path => person_path(@person.families.first.responsible), :_text => @person.families.first.responsible.full_name ) %>
+								</td>
 							<% else %>
 								<td><%= @person.full_name %></td>
 							<% end %>
@@ -75,7 +75,9 @@
 								<span class="glyphicon glyphicon-pencil"></span>
 							<% end %>
 						</td>
-						<td class="td_left"><%= link_to spot.group.name, spot.group %></td>
+						<td class="td_left">
+							<%= link_factory( :_path => group_path(spot.group), :_text => spot.group.name ) %>
+						</td>
 						<td><%= attendance_percent spot %></td>
 						<td>$<%= spot.balance %></td>
 						<td>

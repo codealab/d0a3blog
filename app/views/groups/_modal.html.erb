@@ -3,7 +3,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title" id="myModalLabel">
-								Inscripciones en grupo <%= object.name %> / Costo Total: <b>$<%= (object.cost).to_i * object.spots.count %></b></h4>
+								Inscripciones en grupo <%= object.name %> / Costo del grupo por persona: <b>$<%= object.cost %></b></h4>
 							<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
 						</div>
 					<div class="modal-body">
@@ -14,40 +14,57 @@
 							<% if object.spots.count>0 %>
 								<table class="table table-striped tablesorter">
 									<thead>
-										<th class="text_center">Registro</th>
+										<% if current_user.admin? || current_user.coordinator? %>
+											<th class="text_center">Registro</th>
+										<% end %>
 										<th>Inscritos</th>
 										<th>Tutor</th>
-										<th>Pagos</th>
-										<th>Saldos</th>
-										<th>Pago extr.</th>
+										<% if current_user.admin? || current_user.coordinator? %>
+											<th>Pagos</th>
+											<th>Saldos</th>
+											<th>Pago extr.</th>
+										<% end %>
 									</thead>
 									<tbody>
 										<% object.spots.each_with_index do |spot,index| %>
 											<tr>
+												<% if current_user.admin? || current_user.coordinator? %>
 												<td class="text_center">
-													<%= link_to edit_group_spot_path(object, spot), :title => "Editar" do %>
-														<span class="glyphicon glyphicon-pencil"></span>
-													<% end %>
+													<% if spot.child.families.first.status? %>
+															<%= link_to edit_group_spot_path(object, spot), :title => "Editar" do %>
+																<span class="glyphicon glyphicon-pencil"></span>
+															<% end %>
+														<% else %>
+															<span class="glyphicon glyphicon-pencil disabled_registry"></span>
+														<% end %>
+													</td>
+												<% end %>
+												<td>
+													<%= link_factory( :_path => person_path(spot.child.id), :_text =>"#{spot.child_name}" ) %>
 												</td>
 												<td>
-													<%= link_factory( :_path => person_path(spot.child.id), :_text => "#{spot.child.name} #{spot.child.first_last_name} #{spot.child.second_last_name}" ) %>
+												<% if(spot.tutor) %>
+													<%= link_factory( :_path => person_path(spot.tutor.id), :_text =>"#{spot.tutor_name}" ) %>
+												<% end %>
 												</td>
-												<td>
-												<%= link_factory( :_path => person_path(spot.tutor.id), :_text => "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}" ) %>
-												<td class="text_center">$<%= total_payments spot %></td>
-												<td class="text_center">$<%= spot.balance %></td>
-												<td class="text_center">$<%= total_scholarship spot %></td>
+												<% if current_user.admin? || current_user.coordinator? %>
+													<td class="text_center"><%= negative_value (total_payments spot) %></td>
+													<td class="text_center"><%= negative_value spot.balance %></td>
+													<td class="text_center"><%= negative_value (total_scholarship spot) %></td>
+												<% end %>
 											</tr>
 										<% end %>
 									</tbody>
-									<tr class="total_blue">
-										<td></td>
-										<td></td>
-										<td><b>Total:</b></td>
-										<td class="text_center">$<%= total_payments object %></td>
-										<td class="text_center">$<%= total_balance object %></td>
-										<td class="text_center">$<%= total_scholarship object %></td>
-									</tr>
+									<% if current_user.admin? || current_user.coordinator? %>
+										<tr class="total_blue">
+											<td></td>
+											<td></td>
+											<td><b>Total:</b></td>
+											<td class="text_center"><%= negative_value (total_payments object) %></td>
+											<td class="text_center"><%= negative_value (total_balance object) %></td>
+											<td class="text_center"><%= negative_value (total_scholarship object) %></td>
+										</tr>
+									<% end %>
 								</table>
 							<% else %>
 								<div class="light_box">

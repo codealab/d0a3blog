@@ -114,7 +114,8 @@ class ExercisesController < ApplicationController
 
 	def destroy
 		@exercise = Exercise.find(params[:id])
-		if @exercise.can_destroy?
+		if @exercise.lectures.empty?
+			@exercise.areas.delete_all
 			@exercise.destroy
 			flash[:success] = "Ejercicio borrado"
 			if params[:group] && params[:lecture]

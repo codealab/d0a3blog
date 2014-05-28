@@ -16,9 +16,15 @@
 				<% @payments.each do |p| %>
 					<tr>
 						<td><%= p.date %></td>
-						<td><%= link_to p.spot.child.full_name, p.spot.child %></td>
-						<td><%= link_to p.spot.tutor.full_name, p.spot.tutor %></td>
-						<td><%= link_to p.spot.group.name, p.spot.group %></td>
+						<td>
+							<%= link_factory( :_path => p.spot.child :_text => p.spot.child.full_name ) %>
+						</td>
+						<td>
+							<%= link_factory( :_path => p.spot.tutor, :_text => p.spot.tutor.full_name ) %>
+						</td>
+						<td>
+							<%= link_factory( :_path => p.spot.group, :_text => p.spot.group.name ) %>
+						</td>
 						<td class="text_center"><%= negative_value(p.amount) %></td>
 						<td class="text_center">
 							<% if p.scholarship %>

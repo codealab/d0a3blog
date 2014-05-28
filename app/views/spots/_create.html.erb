@@ -6,7 +6,6 @@
 	<% end %>
 	<div class="kid_stats">
 		<p><%= @spot.child.name %></p>
-		<p><%= ("#{ @spot.child.first_last_name } #{ @spot.child.second_last_name }").slice(0..13) %>.</p>
 	</div>
 	<div class="child_remove">
 		<a href="/spots/destroy?id=<%= @spot.id %>&group_id=<%= @group.id %>" data-remote="true" id="remove_spot_<%= @spot.child.id %>">

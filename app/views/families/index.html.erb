@@ -16,7 +16,7 @@
 			<% @families.each_with_index do |family,index| %>
 				<tr class="family_<%= family.status %>">
 					<td>
-						<%= link_factory( :_path => family, :_text =>family.name, :_class => 'btn btn-info', :_button => true ) %>
+						<%= link_factory( :_path => family_path(family), :_text =>family.name ) %>
 					</td>
 					<% if params[:filter] %>
 						<td id="family_<%= family.id %>">

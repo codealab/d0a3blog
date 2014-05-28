@@ -68,16 +68,12 @@ $(document).ready(over_and_clicks);
                         childHeight = $daChild.height();
 
                     if(childHeight>maxHeight){
-                        $('#container_arrows').fadeIn();
                         $(this).on('mousemove',function(e){
                             var onSet = (e.pageY)-totalTop,
                                 daTop = ((onSet*childHeight)/maxHeight);
-                                // if(daTop>100) 
                                 $daChild.css({top:-(daTop-100)});
                         });
-                    }
-                }).on('mouseleave',function(){
-                    $('#container_arrows').fadeOut();
+                    }else $('#container_arrows').hide();
                 });
             });
         }
@@ -137,20 +133,37 @@ function over_and_clicks(){
 }
 
 function scrollAdjust(){
+
     $('.tiny_scroll').each(function(){
         var tinyScroll = $(this);
         tinyScroll.tinyscrollbar();
         var newScroll = tinyScroll.data("plugin_tinyscrollbar");
         newScroll.update();
     });
+
     $('.modal_attendance').on('show.bs.modal', function() {
-        var theID = $(this).attr('id').replace('att_','#tiny_att_');
-        // Refresh de tinyscroll en timeout, el callback del modal no responde correctamente.
-        setTimeout(function(){
-            var tinyScroll = $(theID);
+        var theID = $(this).attr('id').replace('att_','');
+        $("#form_child_container_"+theID).load("/attendances/observation/"+theID+" #form_child_container",function(){
+            var tinyScroll = $("#tiny_att_"+theID);
             tinyScroll.tinyscrollbar();
-            var newScroll = tinyScroll.data("plugin_tinyscrollbar");
-            newScroll.update();
-        },360);
+            $('.observation_wysiwyg').wysihtml5({
+                "font-styles": false,
+                "emphasis": true,
+                "lists": true,
+                "html": false,
+                "link": true,
+                "image": false,
+                "color": true,
+                "locale": "es-ES"
+            });
+        });
     });
+
+    $('.modal_attendance').on('hide.bs.modal', function() {
+        var theID = $(this).attr('id').replace('att_','');
+        $("#form_child_container_"+theID+" .observation_wysiwyg").html("");
+    });
+
 }
+
+function sort_tables(){ $(".tablesorter").tablesorter(); }

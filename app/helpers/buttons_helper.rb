@@ -32,8 +32,9 @@ module ButtonsHelper
 
 	$path = Rails.application.routes.recognize_path("#{_path}")
 	$action = $path[:action].parameterize.underscore.to_sym
-	$model = $path[:controller].singularize.titleize.constantize
-  	
+	if $path[:controller] != 'password_reset'
+		$model = $path[:controller].singularize.titleize.constantize
+	end  	
   	false
   	true if can? $action, $model
 
@@ -44,7 +45,7 @@ module ButtonsHelper
   	if object.can_destroy?
   		" data-method='delete' data-confirm='¿Estás seguro?' " 
   	else
-  		"class='disabled' data-method='delete' data-confirm='"+alert+"' "
+  		" class='disabled' data-method='delete' data-confirm='"+alert+"' "
   	end
 
   end

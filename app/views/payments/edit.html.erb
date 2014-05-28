@@ -2,12 +2,8 @@
 
 <div class="boton_der">
   <div class="top_buttons">
-  	<%= link_to group_path(@group) do %>
-    	<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
-    <% end %>
-    <%= link_to edit_group_spot_path(@group,@spot) do %>
-		<p><button type="button" class="btn btn-info">Regresar a Spot</button></p>
-	<% end %>
+  	<%= link_factory( :_path => group_path(@group), :_text => 'Regresar a Grupo', :_button => true, :_class=>'btn btn-info' ) %>
+  	<%= link_factory( :_path => edit_group_spot_path(@group,@spot), :_text => 'Regresar a Spot', :_button => true, :_class => 'btn btn-info' ) %>
   </div>
   <h1>Editar pago<span class="line"></span></h1>
 </div>

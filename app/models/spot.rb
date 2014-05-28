@@ -14,18 +14,22 @@ class Spot < ActiveRecord::Base
 	validates_uniqueness_of :child_id, :scope => :group_id
 	validates_presence_of :group_id, :child_id
 
+	def child_name
+		[self.child.name, self.child.first_last_name, self.child.second_last_name].join(" ")
+	end
+
+	def tutor_name
+		[self.tutor.name, self.tutor.first_last_name, self.tutor.second_last_name].join(" ")
+	end
+
 	def group_balance
 		self.balance = self.group.cost
 		self.save
 	end
 
 	def assign_tutor
-		if self.child.family_relations.empty?
-			errors.add(:child, "no pertenece a ninguna familia")
-		else
-			self.tutor_id = self.child.family_relations.first.family.responsible_id
-			self.save
-		end
+		self.tutor_id = self.child.family_relations.first.family.responsible_id
+		self.save
 	end
 
 end

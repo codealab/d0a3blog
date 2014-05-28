@@ -8,6 +8,7 @@ class Payment < ActiveRecord::Base
 	validates_presence_of :amount, :date, :spot_id
 	self.per_page = 15
 
+
 	#custom methods
 	
 	validate :invalid_payment
@@ -18,10 +19,8 @@ class Payment < ActiveRecord::Base
 	end
 
 	def invalid_payment
-		if self.spot && self.date
-			errors.add(:date, "debe ser mayor a la fecha de inscripción #{ I18n.l self.spot.created_at, :format => '%d de %B del %Y'}") if self.date.to_date < self.spot.created_at.to_date
-			errors.add(:date, "debe ser menor al día de mañana") if self.date.to_date > Date.today.to_date
-		end
+		errors.add(:date, "debe ser mayor a la fecha de inscripción #{self.spot.created_at}") if self.date.to_date < self.spot.created_at.to_date
+		errors.add(:date, "debe ser menor al día de hoy") if self.date.to_date >= Date.today.to_date
 	end
 
 end

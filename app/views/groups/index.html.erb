@@ -2,7 +2,7 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_factory( :_path => new_group_path, :_text => "Nuevo Grupo", :_class=>"btn btn-default", :_button => true ) %>
+		<%= link_factory( :_path => new_group_path, :_text => "Nuevo Grupo", :_class=>'btn btn-default', :_button => true ) %>
 	</div>
 	<h1>Nuestros Grupos<span class="line"></span></h1>
 </div>
@@ -23,15 +23,17 @@
 			</thead>
 			<tbody>
 				<% @groups.each_with_index do |group,index| %>
-					<tr class="text_center">
-						<td><%= link_factory( :_path => group_path(group), :_text => group.name ) %></td>
-						<td><%= group.user.name %></td>
-						<td>$<%= group.cost %></td>
-						<td><%= "De #{group.min_age} a #{group.max_age} Semanas" %></td>
-						<td><%= group.init_date.strftime('%d/%m/%Y') %></td>
-						<td><%= group.finish_date.strftime('%d/%m/%Y') %></td>
-						<td><%= group.location %></td>
+					<tr>
 						<td>
+							<%= link_factory( :_path => group_path(group), :_text => group.name ) %>
+						</td>
+						<td class="text_center"><%= group.user.name %></td>
+						<td class="text_center">$<%= group.cost %></td>
+						<td class="text_center"><%= "De #{group.min_age} a #{group.max_age} Semanas" %></td>
+						<td class="text_center"><%= group.init_date.strftime('%d/%m/%Y') %></td>
+						<td class="text_center"><%= group.finish_date.strftime('%d/%m/%Y') %></td>
+						<td><%= group.location %></td>
+						<td class="text_center">
 							<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#group_pop_<%= group.id %>">Inscripciones / Pagos</button>
 						</td>
 					</tr>

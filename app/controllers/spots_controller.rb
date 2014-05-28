@@ -48,10 +48,10 @@ class SpotsController < ApplicationController
 	end
 
 	def destroy
-		spot = Spot.find(params[:id])
+		@spot = Spot.find(params[:id])
 		@group = Group.find(params[:group_id])
-		@child = spot.child
-		Spot.find(params[:id]).destroy
+		@child = @spot.child
+		@spot.destroy
 		# flash[:success] = "Spot borrado"
 		# redirect_to groups_path
 	end

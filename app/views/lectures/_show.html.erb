@@ -1,9 +1,7 @@
 <div id="exercises_container">
 	<div class="boton_der" id="header_buttons_class">
 		<div id="buttons_edit_observation">
-			<%= link_to edit_group_lecture_path(@group, @lecture) do %>
-				<p><button type="button" class="btn btn-default btn-xs">Editar Clase</button></p>
-			<% end %>
+			<%= link_factory(:_path=>edit_group_lecture_path(@group, @lecture), :_text=> 'Editar Clase', :_class=>'btn btn-default btn-xs', :_button=>true) %>
 			<p><button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lecture_observation">Observación</button></p>
 		</div>
 		<h4>Clase del <%= I18n.l @lecture.date, :format => "%d de %B del %Y" %></h4>
@@ -62,7 +60,7 @@
 							<% @lecture.exercises.each_with_index do |ex,index| %>
 								<tr>
 									<td class="exercise_content">
-										<%= link_factory( :_path => group_lecture_exercise_path(@group, @lecture, ex), :_text => ex.name ) %>
+										<%= link_factory(:_path=>group_lecture_exercise_path(@group, @lecture, ex), :_text=> ex.name ) %>
 									</td>
 									<td class="text_center exercise_content"><%= "#{@group.min_age} - #{@group.max_age}" %></td>
 									<td class="text_center exercise_content">
@@ -111,18 +109,22 @@
 
 <div class="boton_der">
 	<div class="top_buttons top_buttons_group">
-		<%= link_to new_group_lecture_attendance_path(@group, @lecture) do %>
-			<span data-toggle="tooltip" data-placement="left" title="Tomar Asistencia" class="tip glyphicon glyphicon-plus-sign" style="margin: 10px; font-size: 24px; position: relative; float: right; color: #107BD8; "></span>
+		<% if @lecture.date <= Date.tomorrow.to_date %>
+			<%= link_to new_group_lecture_attendance_path(@group, @lecture) do %>
+				<span data-toggle="tooltip" data-placement="left" title="Tomar Asistencia" class="tip glyphicon glyphicon-plus-sign" style="margin: 10px; font-size: 24px; position: relative; float: right; color: #107BD8; "></span>
+			<% end %>
+		<% else %>
+			<span data-toggle="tooltip" data-placement="left" title="Aún no llega la fecha para dar esta clase, no puedes tomar asistencia." class="tip glyphicon glyphicon-plus-sign" style="margin: 10px; font-size: 24px; position: relative; float: right; color: #107BD8; "></span>
 		<% end %>
 	</div>
-	<h1>Asistencia <%= "#{@lecture.attendances.count} / #{@group.spots.count}" %></h1>
+	<h1>Asistencias <%= "#{@lecture.attendances.count} / #{@lecture.possible_attendances.count}" %></h1>
 </div>
 
 <div id="attendances" class="all_width blue_box">
 	<div id="scroll_attendances">
 		<% if @lecture.attendances.count > 0 %>
 			<% @lecture.attendances.each_with_index do |c,index| %>
-				<div class="child_attendance attendance_photo" id="child_spot_<%= c.spot.child.id %>"  data-toggle="modal" data-target="#att_<%= c.id %>">
+				<div class="child_attendance attendance_photo" id="child_spot_<%= c.spot.child.id %>" data-toggle="modal" data-target="#att_<%= c.id %>">
 					<div class="child_attendance_over">
 						<span class="glyphicon glyphicon-plus"></span>
 					</div>
@@ -147,58 +149,31 @@
 										<%= image_tag c.spot.child.photo_url(:thumb).to_s, :class => "kid_up_photo" %>
 									<% end %>
 									<h4 class="modal-title attendance_title">
-										<%= link_to c.spot.child.full_name, c.spot.child %>
+										<%= link_factory(:_path=>person_path(c.spot.child), :_text=>c.spot.child_name) %>
 									</h4>
 									<div class="tutor_title">
-										Tutor: <%= link_to c.spot.child.families.first.responsible.full_name, c.spot.child.families.first.responsible %>
+										Tutor: <%= link_factory(:_path=>person_path(c.spot.tutor), :_text=>c.spot.tutor_name) %>
 									</div>
 								</div>
-								<%= form_tag("/attendances/observation/#{c.id}", :method => "get", remote: true ) do %>
+								<div id="form_child_container_<%= c.id  %>">
 									<div class="modal-body">
 										<div class="all_width light_box">
 											<h4>Observaciones</h4>
 											<div class="observation_date">
-												<div class="left observation_day"><%= I18n.l @lecture.date, :format => "%A" %></div>
-												<div class="left observation_number_day"><%= I18n.l @lecture.date, :format => "%d" %></div>
-												<div class="left observation_month"><%= I18n.l @lecture.date, :format => "%B" %></div>
+												<div class="left observation_day"></div>
+												<div class="left observation_number_day"></div>
+												<div class="left observation_month"></div>
 											</div>
-											<%= text_area_tag "observation", c.observation, :class => "observation_wysiwyg form-control", placeholder: "Observación de clase" %>
 											<div class="spacer"></div>
-											<div class="tiny_scroll tiny_attendances" id="tiny_att_<%= c.id %>">
-												<div class="scrollbar">
-													<div class="track">
-														<div class="thumb"></div>
-													</div>
-												</div>
-												<div class="viewport">
-													<div class="overview">
-														<% c.spot.attendances.joins(:lecture).order('date DESC').each do |a| %>
-															<% if (a.lecture.id != @lecture.id) && a.observation %>
-																<div class="container_attendance">
-																	<div class="observation_date">
-																		<div class="left observation_day"><%= I18n.l a.lecture.date, :format => "%A" %></div>
-																		<div class="left observation_number_day"><%= I18n.l a.lecture.date, :format => "%d" %></div>
-																		<div class="left observation_month"><%= I18n.l a.lecture.date, :format => "%B" %></div>
-																	</div>
-																	<div class="lecture_observation">
-																		<div class="observation_text">
-																			<%= a.observation.html_safe %>
-																		</div>
-																	</div>
-																</div>
-															<% end %>
-														<% end %>
-													</div>
-												</div>
+											<div class="tiny_scroll tiny_attendances">
+												<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
+												<div class="viewport"><div class="overview"></div></div>
 											</div>
 										</div>
 										<div class="spacer"></div>
 									</div>
-									<div class="modal-footer" id="fadebackdrop">
-										<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
-										<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-									</div>
-								<% end %>
+									<div class="modal-footer" id="fadebackdrop"></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -211,6 +186,7 @@
 </div>
 <script>
 	$(document).ready(function(){
+		$('.tip').tooltip();
 		$('.observation_wysiwyg').wysihtml5({
 			"font-styles": false,
 			"emphasis": true,
@@ -221,6 +197,5 @@
 			"color": true,
 			"locale": "es-ES"
 		});
-
 	});
 </script>

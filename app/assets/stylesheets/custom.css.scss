@@ -127,7 +127,7 @@ a, a:visited, a:hover, a:focus, .btn-link:hover, .btn-link:focus { text-decorati
   background-size: 100%;
   background-repeat: no-repeat;
   margin: 5px;
-  top: -8px;
+  top: -6px;
 }
 .families_icon { background-image: url(/assets/families.svg); }
 .groups_icon{ background-image: url(/assets/groups.svg); }
@@ -181,11 +181,8 @@ a, a:visited, a:hover, a:focus, .btn-link:hover, .btn-link:focus { text-decorati
 }
 .glyphicon-remove{ color:$rojo; }
 .glyphicon-remove:hover{ color:$rojo_obscuro; }
-.btn-danger a{
-  color: white;
-}
-
-
+.btn-danger a{ color: white; }
+.disabled_registry, .disabled-pop{ color: silver; }
 .btn-warning {
     background-color:$naranja;
     border-color:$naranja;
@@ -671,3 +668,10 @@ footer {
 .modal-footer{
   border-top: none;
 }
+#container_form_days{ position: relative; }
+#container_form_days_hours{
+  position: absolute;
+  top: 0;
+  right: 80px;
+}
+.observation_families .modal-footer{ margin: 0; }

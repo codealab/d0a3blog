@@ -10,16 +10,6 @@
 </div>
 
 <%= render "/lectures/form" %>
-<% if @lecture.can_destroy? %>
-	<div class="boton_der">
-		<%= link_to group_lecture_path(@group, @lecture), method: :delete, data: { confirm: "¿Estás Seguro?" } do %>
-			<p><button type="button" class="btn btn-danger">Borrar Clase</button></td></p>
-		<% end %>
-	</div>
-<% else %>
-	<div class="boton_der">
-		<%= link_to group_lecture_path(@group, @lecture), method: :delete, data: { confirm: "Esta clase cuenta con ejercicios y/o asistencias. No se puede borrar." } do %>
-			<p><button type="button" class="btn btn-danger disabled">Borrar Clase</button></td></p>
-		<% end %>
-	</div>
-<% end %>
+<div class="boton_der">
+	<%= link_factory( :_path=> group_lecture_path(@group, @lecture), :_text=> "Borrar Clase", :_alert=> 'Esta clase cuenta con ejercicios y/o asistencias. No se puede borrar.', :_button=>true, :_destroy => true, :_class=>'btn btn-danger' ) %>
+</div>

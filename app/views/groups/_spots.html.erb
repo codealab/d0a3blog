@@ -12,11 +12,17 @@
 		</tr>
 		<% @group.spots.each_with_index do |spot,index| %>
 			<tr>
-				<td><%= link_factory( :_path => group_spot_path(@group, spot), :_text => "Spot - #{index}" ) %></td>
-				<td><%= link_factory( :_path => person_path(spot.child.id), :_text => "#{spot.child.name} #{spot.child.first_last_name} #{spot.child.second_last_name}" ) %></td>
-				<% if(spot.tutor) %>
-					<td><%= link_factory( :_path => person_path(spot.tutor.id), :_text => "#{spot.tutor.name} #{spot.tutor.first_last_name} #{spot.tutor.second_last_name}" ) %></td>
-				<% end %>
+				<td>
+					<%= link_factory( :_path => group_spot_path(@group, spot), :_text => "Spot - #{index}" ) %>
+				</td>
+				<td>
+					<%= link_factory( :_path => person_path(spot.child.id), :_text => spot.child_name ) %>
+				</td>
+				<td>
+					<% if(spot.tutor) %>
+						<%= link_factory( :_path => person_path(spot.tutor.id), :_text => spot.tutor_name ) %>
+					<% end %>
+				</td>
 				<td>$<%= total_payments spot %></td>
 				<td>$<%= spot.balance %></td>
 			</tr>
