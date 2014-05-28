@@ -26,11 +26,11 @@ class User < ActiveRecord::Base
 	mount_uploader :photo, PhotoUploader
 
 	#custom validators
-	validate :rolls
+	# validate :rolls #desactivate for visitors users, only read
 
-	def rolls
-		errors.add(:usuario, "debe tener por lo menos un rol") unless self.admin? || self.instructor? || self.coordinator?
-	end
+	# def rolls
+	# 	errors.add(:usuario, "debe tener por lo menos un rol") unless self.admin? || self.instructor? || self.coordinator?
+	# end
 
 	#methods
 

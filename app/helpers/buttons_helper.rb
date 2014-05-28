@@ -32,9 +32,8 @@ module ButtonsHelper
 
 	$path = Rails.application.routes.recognize_path("#{_path}")
 	$action = $path[:action].parameterize.underscore.to_sym
-	if $path[:controller] != 'password_reset'
-		$model = $path[:controller].singularize.titleize.constantize
-	end  	
+	$model = $path[:controller].singularize.titleize.constantize
+  	
   	false
   	true if can? $action, $model
 

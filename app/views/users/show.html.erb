@@ -2,7 +2,9 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_factory( :_path => root_path, :_class=>'btn btn-info', :_button => true, :_text=>'Regresar a home' ) %>
+		<%= link_to root_path do %>
+			<p><button type="button" class="btn btn-info">Regresar a Home</button></p>
+		<% end %>
 		<%= link_factory( :_path => users_path, :_class=>'btn btn-default', :_button => true, :_text=>'Regresar a usuarios' ) %>
 	</div>
 	<h1><%= @user.name %><span class="line"></span></h1>
