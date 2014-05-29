@@ -3,6 +3,8 @@ class CreatePlans < ActiveRecord::Migration
     create_table :plans do |t|
       t.integer :lecture_id
       t.integer :exercise_id
+      t.text :material
+      t.text :music
 
       t.timestamps
     end

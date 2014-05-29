@@ -144,6 +144,8 @@ ActiveRecord::Schema.define(version: 20140404192007) do
   create_table "plans", force: true do |t|
     t.integer  "lecture_id"
     t.integer  "exercise_id"
+    t.text     "material"
+    t.text     "music"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

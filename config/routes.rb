@@ -16,6 +16,7 @@ D0A3::Application.routes.draw do
     end
   end
 
+  resources :plans
   resources :users
   resources :lectures
   resources :payments
@@ -36,6 +37,7 @@ D0A3::Application.routes.draw do
   post "payments/search"
   post "people/search"
   post "exercises/search"
+  get "exercises/plan"
 
   # resources :people do
   #   collection do

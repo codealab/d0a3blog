@@ -57,43 +57,53 @@
 				<div class="viewport">
 					<div class="overview">
 		                <table class="table table-striped">
-							<% @lecture.exercises.each_with_index do |ex,index| %>
+							<% @lecture.plans.each_with_index do |plan,index| %>
 								<tr>
 									<td class="exercise_content">
-										<%= link_factory(:_path=>group_lecture_exercise_path(@group, @lecture, ex), :_text=> ex.name ) %>
+										<%= link_factory(:_path=>group_lecture_exercise_path(@group, @lecture, plan.exercise), :_text=> plan.exercise.name ) %>
 									</td>
 									<td class="text_center exercise_content"><%= "#{@group.min_age} - #{@group.max_age}" %></td>
 									<td class="text_center exercise_content">
-										<% if ex.areas.count==1 %>
-											<%= ex.areas.first.name %>
+										<% if plan.exercise.areas.count==1 %>
+											<%= plan.exercise.areas.first.name %>
 										<% else %>
-											<% ex.areas.each do |a| %>
+											<% plan.exercise.areas.each do |a| %>
 												<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
 											<% end %>
 										<% end %>
 									</td>
-									<td class="text_center exercise_content">
-										<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= index %>">Leer más</button>
-										<div class="modal fade" id="ex_<%= index %>" tabindex="-1" role="dialog" aria-hidden="true">
+									<td class="exercise_content text_center">
+										<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= plan.id %>">Leer más</button>
+									</td>
+									<div class="modal fade" id="ex_<%= plan.id %>" tabindex="-1" role="dialog" aria-hidden="true">
 											<div class="modal-dialog">
 												<div class="modal-content">
 													<div class="modal-header">
 														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-														<h4 class="modal-title"><%= ex.name %></h4>
+														<h4 class="modal-title"><%= plan.exercise.name %></h4>
 													</div>
+													<%= form_tag("/exercises/plan/#{plan.exercise.id}", :method => "get", remote: true ) do %>
 													<div class="modal-body">
-														<p><strong>Descripción:</strong> <%= ex.description %></p>
-														<p><strong>Objetivo:</strong> <%= ex.objective %></p>
-														<p><strong>Material:</strong> <%= ex.material %></p>
-														<p><strong>Música:</strong> <%= ex.music %></p>
+														<p><strong>Descripción:</strong> <%= plan.exercise.description %></p>
+														<p><strong>Objetivo:</strong> <%= plan.exercise.objective %></p>
+														<%= number_field_tag "plan_id", plan.id, :class => "form-control hidden", :hidden => true %>
+														<p>
+															<strong>Música:</strong>
+															<%= text_area_tag "music", plan.music, :class => "form-control", placeholder: "Música del ejercicio" %>
+														</p>	
+														<p>
+															<strong>Material:</strong>
+															<%= text_area_tag "material", plan.material, :class => "form-control", placeholder: "Material del ejercicio" %>
+														</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+														<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
+															<!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button> -->
+														<% end %>
 													</div>
 												</div>
 											</div>
 										</div>
-									</td>
 								</tr>
 							<% end %>
 						</table>

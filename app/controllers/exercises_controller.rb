@@ -78,11 +78,17 @@ class ExercisesController < ApplicationController
 		areas @exercise
 		if @exercise.update_attributes(exercise_params)
 			redirect_to group_path(@group)
-			flash[:success] ="Actualización exitosa"
+			flash[:success] = "Actualización exitosa"
 		else
 			@exercise.reload
 			render 'edit'
 		end
+	end
+
+	def plan
+		@plan = Plan.find(params[:plan_id])
+		@plan.update_attributes(material:params[:material],music:params[:music])
+		@plan.save
 	end
 
 	def search
