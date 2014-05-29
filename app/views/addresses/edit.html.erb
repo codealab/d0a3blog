@@ -2,7 +2,7 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_factory( :_path => @family, :_text =>'Regresar a Familia', :_class => 'btn btn-info', :_button => true ) %>
+		<%= link_factory( :_path => family_path( @family ), :_text =>'Regresar a Familia', :_class => 'btn btn-info', :_button => true ) %>
 	</div>
 	<h1>Editar contacto de la Familia: <%= @family.name %><span class="line"></span></h1>
 </div>

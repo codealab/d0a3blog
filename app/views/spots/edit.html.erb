@@ -2,7 +2,7 @@
 <!--<% provide(:title, "#{@spot.child.name} #{@spot.child.first_last_name} #{@spot.child.second_last_name}") %>-->
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_factory( :_path => groups_path, :_text => 'Regresar a Grupos', :_button => true, :_class => 'btn btn-info' ) %>
+		<%= link_factory( :_path => group_path(@group), :_text => 'Regresar a Grupo', :_button => true, :_class => 'btn btn-info' ) %>
 		<%= link_factory( :_path => new_group_spot_payment_path(@group, @spot), :_text => 'Nuevo Pago', :_button => true, :_class => 'btn btn-default' ) %>
 	</div>
 	<h1><%= "Registro de #{@spot.child.name} en grupo #{@group.name}" %><span class="line"></span></h1>

@@ -1,53 +1,53 @@
 <table class="table table-striped tablesorter">
-			<thead>
-				<tr>
-					<th>Fecha</th>
-					<th>Niño</th>
-					<th>Tutor</th>
-					<th>Grupo</th>
-					<th class="text_center">Cantidad</th>
-					<th class="text_center">Pago extr.</th>
-					<td class="text_center">
-						<span class=" glyphicon glyphicon-info-sign"></span>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @payments.each do |p| %>
-					<tr>
-						<td><%= p.date %></td>
-						<td>
-							<%= link_factory( :_path => p.spot.child :_text => p.spot.child.full_name ) %>
-						</td>
-						<td>
-							<%= link_factory( :_path => p.spot.tutor, :_text => p.spot.tutor.full_name ) %>
-						</td>
-						<td>
-							<%= link_factory( :_path => p.spot.group, :_text => p.spot.group.name ) %>
-						</td>
-						<td class="text_center"><%= negative_value(p.amount) %></td>
-						<td class="text_center">
-							<% if p.scholarship %>
-								<span class="current_group scholarship_payment"></span>
-							<% else %>
-								<span class="current_group current_null"></span>
-							<% end %>
-						</td>
-						<td class="text_center">
-							<% if !p.clarification.blank? %>
-								<span data-container="body" data-toggle="popover" data-placement="left" data-content="<%= p.clarification %>" data-original-title="" title="" class="glyphicon pops glyphicon-info-sign info"></span>
-							<% end %>
-						</td>
-					</tr>
+	<thead>
+		<tr>
+			<th>Fecha</th>
+			<th>Niño</th>
+			<th>Tutor</th>
+			<th>Grupo</th>
+			<th class="text_center">Cantidad</th>
+			<th class="text_center">Pago extr.</th>
+			<td class="text_center">
+				<span class=" glyphicon glyphicon-info-sign"></span>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @payments.each do |p| %>
+		<tr>
+			<td><%= p.date %></td>
+			<td>
+				<%= link_factory( :_path => person_path(p.spot.child), :_text => p.spot.child.full_name ) %>
+			</td>
+			<td>
+				<%= link_factory( :_path => person_path(p.spot.tutor), :_text => p.spot.tutor.full_name ) %>
+			</td>
+			<td>
+				<%= link_factory( :_path => group_path(p.spot.group), :_text => p.spot.group.name ) %>
+			</td>
+			<td class="text_center"><%= negative_value(p.amount) %></td>
+			<td class="text_center">
+				<% if p.scholarship %>
+				<span class="current_group scholarship_payment"></span>
+				<% else %>
+				<span class="current_group current_null"></span>
 				<% end %>
-			</tbody>
-				<tr class="total_blue">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>Total:</td>
-					<td class="text_center"><%= negative_value(payments_result @payments) %></td>
-					<td class="text_center"><%= negative_value(payments_result @payments.where(:scholarship => true)) %></td>
-					<td></td>
-				</tr>
-		</table>
+			</td>
+			<td class="text_center">
+				<% if !p.clarification.blank? %>
+				<span data-container="body" data-toggle="popover" data-placement="left" data-content="<%= p.clarification %>" data-original-title="" title="" class="glyphicon pops glyphicon-info-sign info"></span>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+	<tr class="total_blue">
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>Total:</td>
+		<td class="text_center"><%= negative_value(payments_result @payments) %></td>
+		<td class="text_center"><%= negative_value(payments_result @payments.where(:scholarship => true)) %></td>
+		<td></td>
+	</tr>
+</table>

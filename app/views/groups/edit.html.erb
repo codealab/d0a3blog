@@ -2,7 +2,7 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_factory( :_path => groups_path, :_text => "Regresar a los Grupos", :_clas=>'btn btn-info', :_button => true ) %>
+		<%= link_factory( :_path => groups_path, :_text => "Regresar a los Grupos", :_class=>'btn btn-info', :_button => true ) %>
 	</div>
 	<h1>Editar Grupo<span class="line"></span></h1>
 </div>
@@ -11,6 +11,6 @@
 
 <% if(@group.can_destroy?) %>
 	<div class="boton_der">
-		<%= link_factory( :_path => @group, :_text => "Borrar Grupo", :_class=>'btn btn-danger', :_button => true, _alert: "¿Estás Seguro?", _destroy: => true ) %>
+		<%= link_factory( :_path => group_path(@group), :_text => "Borrar Grupo", :_class=>'btn btn-danger', :_button => true, :_alert => "¿Estás Seguro?", :_destroy => true ) %>
 	</div>
 <% end %>

@@ -64,7 +64,6 @@ describe 'Spot pages' do
 		describe "edit" do
 
 			before { visit group_spot_path(group, group.spots.first) }
-			it { should have_button('Regresar a Grupo') }
 			it { should have_button('Editar Spot') }
 			it { should have_content('Pagos') }
 				

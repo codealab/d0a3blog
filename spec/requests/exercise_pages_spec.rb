@@ -19,8 +19,6 @@ describe 'Exercise pages' do
 			visit group_lecture_exercises_path(group,lecture)
 		end
 
-		it { should have_title('Ejercicios') }
-
 		describe 'Should render exercise list' do
 			it "should list each exercise" do
 				expect(page).to have_button("Nuevo Ejercicio")

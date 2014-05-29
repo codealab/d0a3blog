@@ -48,22 +48,22 @@ class Calendar
 
 	def convert_date(params,day)
 		hour = params["#{day}_hour(4i)"]
-		minutes = params["#{day}_hour(5i)"] != ''
+		minutes = params["#{day}_hour(5i)"]
 		if hour != '' && minutes
-			return Time.new("#{hour}:#{minutes}")
+			return "#{hour}:#{minutes}"
 		else
 			false
 		end
 	end
 
-	def select_days(day,hours)
+	def select_days(day,hour)
 		days = (@group.init_date..@group.finish_date).to_a.select { |k| day==(k.wday) }
-		generate_lectures(days,hours)
+		generate_lectures(days,hour)
 	end
 
-	def generate_lectures(days,hours)
+	def generate_lectures(days,hour)
 		days.each do |day|
-			@group.lectures.build({ date: "#{day}+" "#{hours}" })
+			@group.lectures.build({ date: ("#{day}+" "#{hour}").to_datetime })
 			@group.save
 		end
 	end

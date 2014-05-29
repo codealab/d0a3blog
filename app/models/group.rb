@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Group < ActiveRecord::Base
-
+	
 	before_save :downcase_names
 	after_initialize :titleize_names
 

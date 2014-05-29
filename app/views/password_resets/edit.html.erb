@@ -2,7 +2,9 @@
 
 <div class="boton_der">
   <div class="top_buttons">
-    <%= link_factory( :_path => edit_user_path, :_text => 'Regresar a Perfil', :_class => 'btn btn-info', :_button => true ) %>
+    <%= link_to edit_user_path do %>
+      <p><button type="button" class="btn btn-info">Regresar a Perfil</button></p></p>
+    <% end %>
   </div>
   <h1>Cambiar contraseña de: <%= @user.name %><span class="line"></span></h1>
 </div>
@@ -15,7 +17,6 @@
         <p><%= f.input :old_password, label: "Contraseña Actual" %><p>
       <% end %>
       <p><%= f.input :password, label: "Contraseña" %><p>
-      <p><%= f.input :password_confirmation, label: "Confirmar Contraseña" %><p>
       <p><%= f.input :password_confirmation, label: "Confirmar Contraseña" %><p>
       <p><%= f.submit "Guardar", class: "btn btn-sm btn-info" %></p>
     <% end %>

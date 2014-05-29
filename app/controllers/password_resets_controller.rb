@@ -1,8 +1,8 @@
 # encoding: UTF-8
 class PasswordResetsController < ApplicationController
 
-  # before_action :correct_user, only: [:edit, :update]
-  load_and_authorize_resource
+  before_action :correct_user, only: [:edit, :update]
+  # load_and_authorize_resource
 
   def create
     # user = User.find(params[:id])
@@ -41,8 +41,8 @@ class PasswordResetsController < ApplicationController
       params.require(:user).permit(:password, :password_confirmation)
     end
 
-    # def correct_user
-    #   @user = User.find(params[:id])
-    #   redirect_to(root_url) unless current_user?(@user) || current_user.admin?
-    # end
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user) || current_user.admin?
+    end
 end

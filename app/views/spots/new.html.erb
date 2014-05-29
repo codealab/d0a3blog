@@ -32,7 +32,6 @@
 							<% end %>
 							<div class="kid_stats">
 								<p><%= c.child.name %></p>
-								<p><%= ("#{ c.child.first_last_name } #{ c.child.second_last_name }").slice(0..13) %>.</p>
 							</div>
 							<% if c.can_destroy? %>
 								<div class="child_remove">
