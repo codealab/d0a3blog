@@ -1,0 +1,14 @@
+<% provide(:title, "Editar Programa") %>
+
+<div class="boton_der">
+	<div class="top_buttons">
+		<%= link_factory( :_path => programs_path, :_text => "Regresar a Programas", _class: 'btn btn-info', _button: true ) %>
+	</div>
+	<h1>Editar Programa<span class="line"></span></h1>
+</div>
+
+<%= render 'programs/form' %>
+
+<div class="boton_der">
+	<%= link_factory( :_path=> program_path(@program), :_text=> "Borrar Programa", :_alert=> 'Este programa tiene ejercicios asignados. No puede borrarse.', :_button => true, :_destroy => true, :_class=>'btn btn-danger' ) %>
+</div>

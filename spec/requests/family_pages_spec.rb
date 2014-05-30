@@ -25,7 +25,7 @@ describe "Family pages" do
           expect(page).to have_link(family.name, href: family_path(family))
           expect(page).to have_selector('a', text: family.name)
         end
-
+        
       end
     end
   end

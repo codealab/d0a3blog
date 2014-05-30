@@ -1,0 +1,38 @@
+<% provide(:title, "Todos los Programas") %>
+
+<div class="boton_der">
+	<div class="top_buttons">
+		<%= link_factory( :_path => new_program_path, :_text =>'Nuevo Programa', :_class => 'btn btn-default', :_button => true ) %>
+	</div>
+	<h1>Todos los Programas<span class="line"></span></h1>
+</div>
+<div class="all_width blue_box">
+	<% if @programs.count>0 %>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th class="text_center">Nombre</th>
+					<th class="text_center">Rango de edad</th>
+					<th class="text_center">Número de clases</th>
+					<th class="text_center">Descripción</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @programs.each do |program| %>
+					<tr class="text_center">
+						<td><%= link_factory( :_path => program_path(program), :_text=> program.name ) %></td>
+						<td><%= "#{program.min_age} - #{program.max_age} semanas" %></td>
+						<td><%= program.lectures %></td>
+						<td><%= program.description %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<div class="boton_der">
+			<%= will_paginate @families, renderer: BootstrapPagination::Rails %>
+		</div>
+	<% else %>
+		<h4 class="counter_is_zero">Aún no existen programas</h4>
+	<% end %>
+</div>
+<h6>Total de programas: <%= @programs.count %></h6>
