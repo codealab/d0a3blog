@@ -25,15 +25,13 @@
 	<% if @exercises.count>0 %>
 		<% if @group && @lecture %>
 			<% provide(:title, "Ejercicios de #{@group.min_age} a #{@group.max_age} semanas.") %>
-			<%= render 'exercises/list_lectures'  %>
-			<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
 		<% else %>
 			<% provide(:title, 'Ejercicios') %>
-			<%= render 'exercises/list' %>
-			<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
 		<% end %>
+		<%= render '/exercises/list' %>
+		<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
 	<% else %>
-		<h4 class="counter_is_zero">Aún no existe ni un ejercicio</h4>
+	<h4 class="counter_is_zero">No se encontraron ejercicios</h4>
 	<% end %>
 </div>
 <h6>Total de Ejercicios: <%= @exercises.count %></h6>

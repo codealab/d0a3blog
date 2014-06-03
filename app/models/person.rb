@@ -85,8 +85,8 @@ class Person < ActiveRecord::Base
 										existing_record.first_last_name.downcase == self.first_last_name.downcase && 
 										existing_record.second_last_name.downcase == self.second_last_name.downcase)
 		    errors.add(:base, "La combinación de nombre y apellidos ya existe en la base de datos") 
-		  end
 		end
+	end
 
 	  def dob_cannot_be_in_the_future
 	    errors.add(:dob, "es incorrecta, según la fecha la persona no ha nacido") if

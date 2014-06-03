@@ -24,7 +24,7 @@ class UsersController < ApplicationController
       if params[:user][:photo].present?
         render :crop
       else
-        flash[:success] = "De 0 a 3"
+        flash[:success] = "Usuario creado exitosamente"
         redirect_to users_path
       end
     else

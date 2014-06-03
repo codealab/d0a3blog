@@ -11,6 +11,7 @@ describe "program pages" do
 	before do
 		sign_in user
 		10.times { create(:program) }
+		create(:exercise)
 		visit programs_path
 	end
 
@@ -82,7 +83,7 @@ describe "program pages" do
 
 		describe 'should program information' do
 			it { should have_title("Editar Programa") }
-			it { should have_button("Regresar a Programas") }
+			it { should have_button("Regresar a Programa") }
 		end
 
 		describe "with invalid information" do
@@ -113,7 +114,7 @@ describe "program pages" do
 			
 			it { should have_selector("div.alert.alert-success") }
 			it { should have_content("Actualización exitosa") }
-			it { should have_title("Programa de 10 - 30 semanas") }
+			it { should have_title("Renamed program ( 10 - 30 semanas )") }
 
 		end
 	end
@@ -133,6 +134,24 @@ describe "program pages" do
 			end
 			it { should have_selector("div.alert.alert-success") }
 			it { should have_content('Programa borrado') }
+		end
+
+	end
+
+	describe "build relation lecture/day/program " do
+
+		before { visit "/programs/#{program.id}/program_relations/new?lecture_id=1" }
+
+		describe "should show details possible lectures" do
+			it { should have_content("Total de ejercicios para este programa: 1") }
+			it { should have_content("Exercise") }
+			it { should have_content('Este es un objetivo en ejercicio') }
+			it { should have_content('Este es la descripción del ejercicio') }
+			it { should have_content("Leer más") }
+		end
+
+		it "should create a program relation" do
+			expect { click_link "program_relation_0" }.to change(ProgramRelation, :count).by(1)
 		end
 
 	end

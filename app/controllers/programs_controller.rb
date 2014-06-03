@@ -20,7 +20,9 @@ class ProgramsController < ApplicationController
   end
 
   def show
+    @lecture = 1
     @program = Program.find(params[:id])
+    @exercises = @program.program_relations.where( :lecture => @lecture )
   end
 
   def edit
@@ -41,19 +43,6 @@ class ProgramsController < ApplicationController
     flash[:success] = 'Programa borrado'
     Program.find(params[:id]).destroy
     redirect_to programs_path
-  end
-
-  def exercises
-    @program = Program.find(params[:id])
-    @lecture = params[:lecture_id]
-    @exercises = Exercise.where("min_age <= #{@program.max_age} AND max_age>= #{@program.min_age}")
-  end
-
-  def relation
-    @program = Program.find(params[:id])
-    @exercise = Exercise.find(params[:exercise_id])
-    @lecture = params[:lecture_id]
-    @program.program_relations.create(lecture: @lecture, exercise_id: @exercise.id )
   end
 
   private

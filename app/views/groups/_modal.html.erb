@@ -1,82 +1,82 @@
 <div class="modal fade" id="group_pop_<%= object.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">
-								Inscripciones en grupo <%= object.name %> / Costo del grupo por persona: <b>$<%= object.cost %></b></h4>
-							<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-						</div>
-					<div class="modal-body">
-						<div class="all_width blue_box">
-							<div class="boton_der inscription_button">
-								<%= link_factory( :_path => new_group_spot_path(object), :_text =>'Inscribir', :_class => 'btn btn-default', :_button => true ) %>
-							</div>
-							<% if object.spots.count>0 %>
-								<table class="table table-striped tablesorter">
-									<thead>
-										<% if current_user.admin? || current_user.coordinator? %>
-											<th class="text_center">Registro</th>
-										<% end %>
-										<th>Inscritos</th>
-										<th>Tutor</th>
-										<% if current_user.admin? || current_user.coordinator? %>
-											<th>Pagos</th>
-											<th>Saldos</th>
-											<th>Pago extr.</th>
-										<% end %>
-									</thead>
-									<tbody>
-										<% object.spots.each_with_index do |spot,index| %>
-											<tr>
-												<% if current_user.admin? || current_user.coordinator? %>
-												<td class="text_center">
-													<% if spot.child.families.first.status? %>
-															<%= link_to edit_group_spot_path(object, spot), :title => "Editar" do %>
-																<span class="glyphicon glyphicon-pencil"></span>
-															<% end %>
-														<% else %>
-															<span class="glyphicon glyphicon-pencil disabled_registry"></span>
-														<% end %>
-													</td>
-												<% end %>
-												<td>
-													<%= link_factory( :_path => person_path(spot.child.id), :_text =>"#{spot.child_name}" ) %>
-												</td>
-												<td>
-												<% if(spot.tutor) %>
-													<%= link_factory( :_path => person_path(spot.tutor.id), :_text =>"#{spot.tutor_name}" ) %>
-												<% end %>
-												</td>
-												<% if current_user.admin? || current_user.coordinator? %>
-													<td class="text_center"><%= negative_value (total_payments spot) %></td>
-													<td class="text_center"><%= negative_value spot.balance %></td>
-													<td class="text_center"><%= negative_value (total_scholarship spot) %></td>
-												<% end %>
-											</tr>
-										<% end %>
-									</tbody>
-									<% if current_user.admin? || current_user.coordinator? %>
-										<tr class="total_blue">
-											<td></td>
-											<td></td>
-											<td><b>Total:</b></td>
-											<td class="text_center"><%= negative_value (total_payments object) %></td>
-											<td class="text_center"><%= negative_value (total_balance object) %></td>
-											<td class="text_center"><%= negative_value (total_scholarship object) %></td>
-										</tr>
-									<% end %>
-								</table>
-							<% else %>
-								<div class="light_box">
-									<h4 class="counter_is_zero">Aún no hay ningún niño inscrito en este grupo</h4>
-								</div>
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">
+				Inscripciones en grupo <%= object.name %> / Costo del grupo por persona: <b>$<%= object.cost %></b></h4>
+				<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+			</div>
+			<div class="modal-body">
+				<div class="all_width blue_box">
+					<div class="boton_der inscription_button">
+						<%= link_factory( :_path => new_group_spot_path(object), :_text =>'Inscribir', :_class => 'btn btn-default', :_button => true ) %>
+					</div>
+					<% if object.spots.count>0 %>
+					<table class="table table-striped tablesorter">
+						<thead>
+							<% if current_user.admin? || current_user.coordinator? %>
+							<th class="text_center">Registro</th>
 							<% end %>
-						</div>
+							<th>Inscritos</th>
+							<th>Tutor</th>
+							<% if current_user.admin? || current_user.coordinator? %>
+							<th>Pagos</th>
+							<th>Saldos</th>
+							<th>Pago extr.</th>
+							<% end %>
+						</thead>
+						<tbody>
+							<% object.spots.each_with_index do |spot,index| %>
+							<tr>
+								<% if current_user.admin? || current_user.coordinator? %>
+								<td class="text_center">
+									<% if spot.child.families.first.status? %>
+									<%= link_to edit_group_spot_path(object, spot), :title => "Editar" do %>
+									<span class="glyphicon glyphicon-pencil"></span>
+									<% end %>
+									<% else %>
+									<span class="glyphicon glyphicon-pencil disabled_registry"></span>
+									<% end %>
+								</td>
+								<% end %>
+								<td>
+									<%= link_factory( :_path => person_path(spot.child.id), :_text =>"#{spot.child_name}" ) %>
+								</td>
+								<td>
+									<% if(spot.tutor) %>
+									<%= link_factory( :_path => person_path(spot.tutor.id), :_text =>"#{spot.tutor_name}" ) %>
+									<% end %>
+								</td>
+								<% if current_user.admin? || current_user.coordinator? %>
+								<td class="text_center"><%= negative_value (total_payments spot) %></td>
+								<td class="text_center"><%= negative_value spot.balance %></td>
+								<td class="text_center"><%= negative_value (total_scholarship spot) %></td>
+								<% end %>
+							</tr>
+							<% end %>
+						</tbody>
+						<% if current_user.admin? || current_user.coordinator? %>
+						<tr class="total_blue">
+							<td></td>
+							<td></td>
+							<td><b>Total:</b></td>
+							<td class="text_center"><%= negative_value (total_payments object) %></td>
+							<td class="text_center"><%= negative_value (total_balance object) %></td>
+							<td class="text_center"><%= negative_value (total_scholarship object) %></td>
+						</tr>
+						<% end %>
+					</table>
+					<% else %>
+					<div class="light_box">
+						<h4 class="counter_is_zero">Aún no hay ningún niño inscrito en este grupo</h4>
 					</div>
-						<div class="spacer"></div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-						</div>
-					</div>
+					<% end %>
 				</div>
+			</div>
+			<div class="spacer"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
 </div>

@@ -595,7 +595,11 @@ footer {
   margin: 10px 0 0 0;
   position: relative;
 }
-.large_scroll{ position: relative; }
+.large_scroll{
+  overflow: hidden;
+  float: left;
+  position: relative;
+}
 .navbar-default .navbar-nav > .dropdown > a .caret{
   margin-left: 8px;
   border-top-color: #ffffff;

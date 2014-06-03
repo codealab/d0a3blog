@@ -66,7 +66,7 @@ class PaymentsController < ApplicationController
 			@payments = @group.payments if @group
 
 			if init_date && ended_date
-				@payments = @payments.where("date >= :start_date AND date<= :end_date ", { start_date: init_date, end_date: ended_date })
+				@payments = @payments.where("date >= :start_date AND date <= :end_date ", { start_date: init_date, end_date: ended_date })
 			elsif init_date && !ended_date
 				@payments = @payments.where("date >= :start_date", { start_date: init_date })
 			elsif !init_date && ended_date

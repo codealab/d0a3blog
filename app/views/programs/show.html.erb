@@ -1,42 +1,52 @@
-<% provide(:title, "Programa de #{@program.min_age} - #{@program.max_age} semanas") %>
+<% provide(:title, "#{@program.name} ( #{@program.min_age} - #{@program.max_age} semanas )") %>
 
 <div class="boton_der">
 	<div class="top_buttons">
 		<%= link_factory( :_path => programs_path, :_text => "Regresar a Programas", _class: 'btn btn-info', _button: true ) %>
+		<%= link_factory( :_path => edit_program_path(@program), :_text => "Editar Programa", _class: 'btn btn-default', _button: true ) %>
 	</div>
-	<h1><%= "Programa de #{@program.min_age} - #{@program.max_age} semanas" %><span class="line"></span></h1>
+	<h1><%= "#{@program.name} ( #{@program.min_age} - #{@program.max_age} semanas )" %><span class="line"></span></h1>
 </div>
-<div class="all_width light_box">
-	<h4><%= @program.name %></h4>
-	<div class="under_pressure"></div>
-
-	<div class="blue_box all_width">
-		<% lectures = @program.lectures.to_i %>
-		<% lectures.times do |lecture| %>
-			<div class="col-md-3">
-				<a href="/programs/exercises/<%= @program.id %>?lecture_id=<%= lecture+1 %>" class="add_lectures_to_day" data-remote="true">
-					<div class="white_box all_width text_center">
-						<%= "Clase #{lecture+1}" %>
-						<div class="under_pressure"></div>
-						<div id="day_<%= lecture+1 %>"></div>
+<div class="col-md-12 light_box">
+	<div id="date_title" class="date_class_selector">
+		<h4>Clases</h4>
+	</div>
+	<div id="container_arrows">
+		<div id="up_scroll" class="scroll_arrow" style="top: -18px; ">
+			<span class="glyphicon glyphicon-chevron-up"></span>
+		</div>
+		<div id="down_scroll" class="scroll_arrow" style="top: 255px; ">
+			<span class="glyphicon glyphicon-chevron-down"></span>
+		</div>
+	</div>
+	<div class="container_large_scroll" id="days_selector">
+		<nav class="large_scroll" id="program_relations">
+			<div class="children_scroll" data-topcenter="90">
+				<% lectures = @program.lectures.to_i %>
+				<% lectures.times do |lecture| %>
+					<div class="date_class_selector date_over future <% if lecture+1==1  %>date_active<% end %>">
+						<div class="bg_contour"></div>
+						<a href="/program_relations/<%= @program.id %>?lecture_id=<%= lecture+1 %>" class="add_lectures_to_day" data-remote="true">
+							<div class="text_container">
+								<div class="hours">
+									<span><%= "#{lecture+1}" %></span>
+								</div>
+								<div class="day">Día</div>
+							</div>
+						</a>
 					</div>
-				</a>
-				<div class="spacer"></div>
+				<% end %>
 			</div>
-		<% end %>
+		</nav>
+	</div>
+	<div id="refresh_programs_relations">
+		<%= render 'program_relations/show' %>
 	</div>
 
 	<div class="spacer"></div>
 	
 	<div id="add_lectures_to_day">
-		<!-- render -->
+		<!-- render --> 
 	</div>
 
 </div>
-<script>
-	$(document).ready(function() {
-		$(".add_lectures_to_day").on("click",function(){
-			$("#").fadeIn();
-		});
-	});
-</script>

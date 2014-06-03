@@ -73,9 +73,6 @@ body{
 }
 #lectures_dates {
 	height: 540px;
-	overflow-y: hidden;
-	float: left;
-	overflow-x: hidden;
 }
 .text_container span {
 	font-size: 18px;
@@ -88,6 +85,12 @@ body{
 	width: 80%;
 	float: left;
 	height: 600px;
+	padding: 0px 20px 20px 20px;
+}
+#refresh_programs_relations {
+	width: 80%;
+	float: left;
+	height: 350px;
 	padding: 0px 20px 20px 20px;
 }
 /*Default to user*/
@@ -106,7 +109,7 @@ body{
 	margin-top: 30px;
 }
 /*Date Selector on groups*/
-#dates_container{
+.children_scroll{
 	position: relative;
 	float: left;
 }
@@ -124,7 +127,7 @@ body{
 }
 .day {
 	width: 109px;
-	float: left;
+	float: left;	
 	text-align: right;
 	color: rgb(177, 177, 177);
 }
@@ -274,7 +277,7 @@ body{
 	width: 97%;
 	float: left;
 }
-#people_search_container{ display: none; }
+#program_search_container, #people_search_container{ display: none; }
 .counter_is_zero {
 	text-align: center;
 	font-size: 14px;

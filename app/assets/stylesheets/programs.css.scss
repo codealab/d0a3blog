@@ -1,3 +1,29 @@
 #add_lectures_to_day{
 	display: none;
 }
+#days_selector{
+	top: 90px;
+	height: 240px;
+}
+#program_relations{
+	height: 240px;
+	overflow: hidden;
+	float: left;
+}
+#program_relations .day {
+	width: 109px;
+	float: left;
+	text-align: left;
+	color: rgb(177, 177, 177);
+	left: 10px;
+	position: relative;
+	top: 2px;
+}
+#program_relations .hours {
+	text-align: right;
+	width: 100px;
+	float: left;
+	text-indent: 17px;
+	color: rgb(0, 0, 0);
+	line-height: 40px;
+}

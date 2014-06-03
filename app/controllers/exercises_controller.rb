@@ -104,7 +104,7 @@ class ExercisesController < ApplicationController
 			@exercises = @area ? (@area.exercises):(Exercise.all)
 
 			if init && ended
-				@exercises = @exercises.where("min_age >= #{init} AND max_age <= #{ended}")
+				@exercises = @exercises.where("min_age <= #{ended} AND max_age >= #{init}")
 			elsif init && !ended
 			 	@exercises = @exercises.where("min_age >= #{init}")
 			elsif !init && ended

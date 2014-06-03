@@ -23,9 +23,12 @@ D0A3::Application.routes.draw do
     end
   end
 
-  resources :programs
   resources :plans
   resources :users
+  resources :program_relations
+  resources :programs do
+    resources :program_relations
+  end
   resources :lectures
   resources :payments
   resources :exercises
@@ -48,6 +51,7 @@ D0A3::Application.routes.draw do
   get "exercises/plan"
   get "programs/relation"
   get "programs/exercises"
+  post "program_relations/search"
 
   # resources :people do
   #   collection do
