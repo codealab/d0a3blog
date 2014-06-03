@@ -1,12 +1,5 @@
 D0A3::Application.routes.draw do
-  
-  get "programs/index"
-  get "programs/new"
-  get "programs/create"
-  get "programs/show"
-  get "programs/edit"
-  get "programs/update"
-  get "programs/destroy"
+
   resources :families do 
     resources :people#, only: [:index, :show]
     resources :addresses, only: [:new, :create, :edit, :update]
@@ -27,12 +20,15 @@ D0A3::Application.routes.draw do
   resources :users
   resources :program_relations
   resources :programs do
+    resources :courses
     resources :program_relations
   end
+
   resources :lectures
   resources :payments
   resources :exercises
   resources :calendars
+  resources :courses
   resources :password_resets
   resources :people, only: [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]

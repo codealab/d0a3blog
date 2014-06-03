@@ -1,0 +1,46 @@
+<% provide(:title, "Nuevo Curso") %>
+
+<div class="boton_der">
+	<div class="top_buttons">
+		<%= link_factory( :_path => groups_path, :_text => "Regresar a los programas", _class: 'btn btn-info', _button: true ) %>
+	</div>
+	<h1>Nuevo Curso<span class="line"></span></h1>
+</div>
+
+<div id="loader">
+	<img src="/assets/calendar_loader.GIF" alt="">
+	CREANDO CURSO
+</div>
+<div class="spacer"></div>
+<div class="row" id="calendar_container">
+	<div class="col-md-4 col-md-offset-4">
+	  	<%= simple_form_for @course, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
+	  		<%= render 'shared/error_messages', object: f.object %>
+	  		<%= f.input :name, label:"Nombre del Grupo" %>
+	  		<%= f.input :user_id, label:"Instructor", include_blank: true, collection: User.instructors.map { |p| [ p.name, p.id ] } %>
+	  		<%= f.input :assistant_id, label:"Asistente", include_blank: true, collection: User.instructors.map { |p| [ p.name, p.id ] } %>
+			<div id="selector_fecha">
+				<%= f.input :init_date,  as: :date, label:"Inicio de curso", :input_html => { :class => 'date_selector' } %>
+			</div>
+			<%= f.number_field :program_id, value: @program.id, :readonly => true, :class => 'disabled form-control', :type=>"hidden" %>
+			<br>
+			<%= f.label "days", 'Días de clases' %>
+			<% dias = ['Lunes','Martes','Miércoles','Jueves','Viernes'] %>
+			<% days_symbols = [:monday, :tuesday, :wednesday, :thursday, :friday] %>
+			<% hours = [ :monday_hour, :tuesday_hour, :wednesday_hour, :thursday_hour, :friday_hour ] %>
+			<% dias.each_with_index do |day,index| %>
+				<div class="col-md-12 time_selector">
+					<div class="col-md-5">
+						<%= f.check_box days_symbols[index], {}, true, false %>
+						<%= f.label days_symbols[index], dias[index] %>
+					</div>
+					<div class="col-md-7">
+						<%= f.time_select hours[index], { include_blank: true, :minute_step => 30, :time_separator => "", :start_hour => 7, :end_hour => 21 }, :class => "form-control time_select" %>
+					</div>
+				</div>
+			<% end %>
+			<br>
+			<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
+		<% end %>
+	</div>
+</div>

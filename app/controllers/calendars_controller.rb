@@ -10,7 +10,7 @@ class CalendarsController < ApplicationController
 	end
 
 	def new
-		@group = Group.find(params[:group_id])
+		@group = Group.find(params[:program_id])
 		@calendar = Calendar.new(@group)
 	end
 
