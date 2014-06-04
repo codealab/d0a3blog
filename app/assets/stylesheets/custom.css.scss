@@ -394,11 +394,17 @@ footer {
   margin-top: 35px;
   width: 65px;
 }
+.course_monday_hour label,
+.course_tuesday_hour label,
+.course_wednesday_hour label,
+.course_thursday_hour label,
+.course_friday_hour label{ display: none; }
 .time_selector{ height: 40px; }
-.time_select{
-  display: none;
+.time_select {
   width: 65px;
   margin-bottom: 5px;
+  float: left;
+  margin-left: 11px;
 }
 .kid_up_photo{
   border: 1px solid rgb(202, 202, 202);

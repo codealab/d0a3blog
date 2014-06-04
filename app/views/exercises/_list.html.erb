@@ -51,12 +51,14 @@
 					</a>
 				<% elsif params[:program_id] %>
 					<%= link_to program_program_relations_path(@program, :lecture_id => @lecture, :exercise_id => exercise.id), :remote => true, :id => "exercise_#{exercise.id}", :method => 'post', :id => "program_relation_#{index}" do %>
-						<% @program_relation = @program.program_relations.where( :exercise_id => exercise.id, :lecture => @lecture ).first %>
-							<% if @program_relation %>
-								<button type="button" class="btn status_button btn-danger btn-xs">DESAGREGAR</button>
-							<% else %>
-								<button type="button" class="btn status_button btn-success btn-xs">AGREGAR</button>
+						<div id="exercise_<%= exercise.id %>">
+							<% @program_relation = @program.program_relations.where( :exercise_id => exercise.id, :lecture => @lecture ).first %>
+								<% if @program_relation %>
+									<button type="button" class="btn status_button btn-danger btn-xs">DESAGREGAR</button>
+								<% else %>
+									<button type="button" class="btn status_button btn-success btn-xs">AGREGAR</button>
 							<% end %>
+						</div>
 					<% end %>
 				<% else %>
 					<%= "#{exercise.min_age} - #{exercise.max_age} " %>

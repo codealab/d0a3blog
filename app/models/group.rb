@@ -19,9 +19,9 @@ class Group < ActiveRecord::Base
 	validates_numericality_of :max_age, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 240, :allow_nil => true #240 is equal to 5 years on weeks
 
 	#Custom Methods
-	validate :finish_date_is_out_of_age_range
-	validate :min_age_cannot_be_greater_than_max_age
-	validate :init_date_cannot_be_greater_than_finish_date
+	# validate :finish_date_is_out_of_age_range #preguntar caso en la práctica, se ocupa?
+	# validate :min_age_cannot_be_greater_than_max_age
+	# validate :init_date_cannot_be_greater_than_finish_date
 
 	self.per_page = 15
 

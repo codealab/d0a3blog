@@ -16,16 +16,12 @@ class CoursesController < ApplicationController
   end
 
   def create
-    puts '==========================='
-    puts 'entro a crear'
   	@program = Program.find(params[:course][:program_id])
   	@course = Course.new(@program)
   	if @course.submit(params[:course])
-      puts 'entro'
   		flash[:success] = "Curso creado exitosamente"
-  		# redirect_to group_path(@group)
+  		redirect_to group_path(@course.group)
   	else
-      puts 'error'
   		render 'new'
   	end
   end
