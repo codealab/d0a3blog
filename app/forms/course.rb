@@ -111,7 +111,7 @@ class Course
 		#while de número de clases
 		counter = 0
 
-		while dates.count!=@program.lectures
+		while dates.count!=@program.number_of_lessons
 			hour = active_hours[day_position.to_i]
 			#creación de fecha con día y horas encontradas en los arreglos 
 			datetime_active = ("#{date_active} #{hour}").to_datetime
@@ -144,10 +144,10 @@ class Course
 		#una vez guardado el grupo podemos relacionar clases almacenadas en dates
 		dates.each_with_index do |d,index|
 			lecture = group.lectures.build({ date: d.to_datetime })
-			relations = @program.program_relations.where( :lecture => index+1 )
+			lesson = @program.lessons.where( :order_day => index+1 ).first
 			if group.save
-				relations.each do |relations|
-					Plan.create({ lecture_id: lecture.id, exercise_id: relations.exercise.id })
+				lesson.exercises.each do |exercise|
+					Plan.create({ lecture_id: lecture.id, exercise_id: exercise.id })
 				end
 			end
 		end

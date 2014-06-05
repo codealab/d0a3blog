@@ -4,7 +4,7 @@ class CreatePrograms < ActiveRecord::Migration
 	    t.string :name
       t.integer :min_age
       t.integer :max_age
-      t.integer :lectures
+      t.integer :number_of_lessons
       t.text :description
 
       t.timestamps

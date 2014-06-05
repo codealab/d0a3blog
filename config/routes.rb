@@ -19,8 +19,11 @@ D0A3::Application.routes.draw do
   resources :plans
   resources :users
   resources :program_relations
+  resources :courses
   resources :programs do
     resources :courses
+  end
+  resources :lessons do
     resources :program_relations
   end
 
@@ -28,7 +31,6 @@ D0A3::Application.routes.draw do
   resources :payments
   resources :exercises
   resources :calendars
-  resources :courses
   resources :password_resets
   resources :people, only: [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]

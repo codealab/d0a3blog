@@ -9,20 +9,20 @@ class ProgramRelationsController < ApplicationController
 	end
 
 	def create
-		@program = Program.find(params[:program_id])
+		@lesson = Lesson.find(params[:lesson_id])
+	    @program = @lesson.program
     	@exercise = Exercise.find(params[:exercise_id])
-    	@lecture = params[:lecture_id]
-    	@relation_exists = @program.program_relations.where(lecture: @lecture, exercise_id: @exercise.id ).first
+    	@relation_exists = @lesson.program_relations.where(exercise_id:@exercise.id).first
     	if @relation_exists
     		@relation_exists.destroy
     	else
-    		@program_relation = @program.program_relations.create(lecture: @lecture, exercise_id: @exercise.id )
+    		@program_relation = @lesson.program_relations.create(exercise_id: @exercise.id )
     	end
 	end
 
 	def new
-	    @program = Program.find(params[:program_id])
-    	@lecture = params[:lecture_id]
+	    @lesson = Lesson.find(params[:lesson_id])
+	    @program = @lesson.program
 	    @exercises = Exercise.where("min_age <= #{@program.max_age} AND max_age>= #{@program.min_age}").order('id desc').paginate(page: params[:page])
 	end
 
@@ -33,8 +33,7 @@ class ProgramRelationsController < ApplicationController
 
 	def show	
 		@program = Program.find(params[:id])
-		@lecture = params[:lecture_id]
-	    @exercises = @program.program_relations.where( :lecture => @lecture )
+	    @lesson = @program.lessons.find_by_id(params[:lesson_id])
 	end
 
 	def update

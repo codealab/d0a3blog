@@ -22,14 +22,13 @@
 	<div class="container_large_scroll" id="days_selector">
 		<nav class="large_scroll" id="program_relations">
 			<div class="children_scroll" data-topcenter="90">
-				<% lectures = @program.lectures.to_i %>
-				<% lectures.times do |lecture| %>
-					<div class="date_class_selector date_over future <% if lecture+1==1  %>date_active<% end %>">
+				<% @program.lessons.each do |lesson| %>
+					<div class="date_class_selector date_over future <% if lesson.order_day==1  %>date_active<% end %>">
 						<div class="bg_contour"></div>
-						<a href="/program_relations/<%= @program.id %>?lecture_id=<%= lecture+1 %>" class="add_lectures_to_day" data-remote="true">
+						<a href="/program_relations/<%= @program.id %>?lesson_id=<%= lesson.id %>" class="add_lectures_to_day" data-remote="true">
 							<div class="text_container">
 								<div class="hours">
-									<span><%= "#{lecture+1}" %></span>
+									<span><%= "#{lesson.order_day}" %></span>
 								</div>
 								<div class="day">Día</div>
 							</div>
@@ -42,7 +41,30 @@
 	<div id="refresh_programs_relations">
 		<%= render 'program_relations/show' %>
 	</div>
-
+	<div class="spacer"></div>
+	<div id="reorder_container">
+		<div class="boton_der">
+			<div id="reorder_days">
+				<h4>Reordenar Clases</h4>
+				<div id="close_reorder"></div>
+			</div>
+		</div>
+		<div class="spacer"></div>
+		<div class="col-md-12 blue_box">
+			<div class="col-md-12 white_box">
+				<ul id="reorder-days">
+					<% @program.lessons.each do |lecture| %>
+						<li class="reorder-item ui-state-default" data-x="#{" }>
+							<a href="#" class="remove_day">x</a>
+							<a href="/program_relations/<%= @program.id %>?lecture_id=<%= lecture.order_day %>" data-remote="true" class="">
+								Día <%= "#{lecture.order_day}" %>
+							</a>
+						</li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
 	<div class="spacer"></div>
 	
 	<div id="add_lectures_to_day">
@@ -50,3 +72,42 @@
 	</div>
 
 </div>
+<style>
+.reorder-item {
+	width: 100px;
+	height: 100px;
+	float: left;
+	margin: 3.5px;
+	position: relative;
+	border-radius: 5px;
+	background: rgb(255, 255, 255);
+	border: 1px solid rgb(221, 221, 221);
+	text-align: center;
+}
+.remove_day{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+#reorder-days{
+	position: relative;
+	width: 100%;
+	float: left;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+#reorder-days li{
+	padding: 0;
+	list-style-type: none;
+	list-style: none;
+}
+</style>
+<script>
+	$(document).ready(function() {
+    	$("#reorder-days").sortable();
+    	$("#reorder-days").disableSelection();
+    	$(".remove_day").on("click",function(){
+    		$(this).parent().remove();
+    	});
+	});	
+</script>

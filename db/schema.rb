@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140529184110) do
+ActiveRecord::Schema.define(version: 20140604235354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,13 @@ ActiveRecord::Schema.define(version: 20140529184110) do
 
   add_index "lectures", ["group_id", "date"], name: "index_lectures_on_group_id_and_date", unique: true, using: :btree
 
+  create_table "lessons", force: true do |t|
+    t.integer  "program_id"
+    t.integer  "order_day"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "payments", force: true do |t|
     t.integer  "amount"
     t.date     "date"
@@ -153,18 +160,19 @@ ActiveRecord::Schema.define(version: 20140529184110) do
   add_index "plans", ["lecture_id", "exercise_id"], name: "index_plans_on_lecture_id_and_exercise_id", unique: true, using: :btree
 
   create_table "program_relations", force: true do |t|
-    t.integer  "program_id"
+    t.integer  "lesson_id"
     t.integer  "exercise_id"
-    t.integer  "lecture"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "program_relations", ["lesson_id", "exercise_id"], name: "index_program_relations_on_lesson_id_and_exercise_id", unique: true, using: :btree
 
   create_table "programs", force: true do |t|
     t.string   "name"
     t.integer  "min_age"
     t.integer  "max_age"
-    t.integer  "lectures"
+    t.integer  "number_of_lessons"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"

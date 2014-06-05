@@ -15,7 +15,7 @@
 					<th class="text_center">Rango de edad</th>
 					<th class="text_center">Número de clases</th>
 					<th class="text_center">Descripción</th>
-					<th class="text_center">Generar clases</th>
+					<th class="text_center">Crear grupo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,9 +23,9 @@
 					<tr class="text_center">
 						<td><%= link_factory( :_path => program_path(program), :_text=> program.name ) %></td>
 						<td><%= "#{program.min_age} - #{program.max_age} semanas" %></td>
-						<td><%= program.lectures %></td>
+						<td><%= program.number_of_lessons %></td>
 						<td><%= program.description %></td>
-						<td><%= link_factory( :_path => new_program_course_path(program), :_text=> "Generar" ) %></td>
+						<td><%= link_factory( :_path => new_program_course_path(program), :_text=> "Generar", :_button => true, :_class=> 'btn btn-default btn-xs' ) %></td>
 					</tr>
 				<% end %>
 			</tbody>

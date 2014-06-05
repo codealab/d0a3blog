@@ -1,21 +1,20 @@
 class Program < ActiveRecord::Base
 
-	# after_create :generate_lectures
+	after_create :generate_lessons
 
-	has_many :program_relations
-	has_many :exercises, through: :program_relations #, :dependent => :restrict_with_error
-	# has_many :lectures, through: :program_relations, :foreign_key => :lecture
+	has_many :lessons
+	has_many :exercises, through: :lessons
 
 	validates_presence_of :name, :min_age, :max_age
-	validates_numericality_of :lectures, :greater_than_or_equal_to => 1, :allow_nil => false
+	validates_numericality_of :number_of_lessons, :greater_than_or_equal_to => 1, :allow_nil => false
 
-	# private
+	private
 
-	#   def generate_lectures
-	#   	lectures = self.lectures.to_i
-	#   	lectures.times do |lecture|
-	#   		self.ProgramRelation.create(lecture:lecture)
-	#   	end
-	#   end
+	  def generate_lessons
+	  	lessons = self.number_of_lessons.to_i
+	  	lessons.times do |lesson|
+	  		self.lessons.create( order_day: lesson+1 )
+	  	end
+	  end
 
 end

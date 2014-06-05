@@ -20,9 +20,12 @@ class ProgramsController < ApplicationController
   end
 
   def show
-    @lecture = 1
     @program = Program.find(params[:id])
-    @exercises = @program.program_relations.where( :lecture => @lecture )
+    if params[:order_day]
+      @lesson = @program.lessons.find_by(params[:order_day])
+    else
+      @lesson = @program.lessons.first
+    end
   end
 
   def edit
@@ -48,7 +51,7 @@ class ProgramsController < ApplicationController
   private
 
     def program_params
-      params.require(:program).permit(:min_age, :max_age, :lectures, :name, :description )
+      params.require(:program).permit(:min_age, :max_age, :number_of_lessons, :name, :description )
     end
 
 end

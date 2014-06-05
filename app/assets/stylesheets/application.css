@@ -11,6 +11,7 @@
  *= require jquery.Jcrop
  *= require_self
  *= require bootstrap-wysihtml5
+ *= require jquery.ui.all
  *= require_tree .
  */
 
@@ -125,6 +126,9 @@ body{
 	line-height: 40px;
 	border-radius: 5px;
 }
+.date_class_selector:click{
+
+}
 .day {
 	width: 109px;
 	float: left;	
@@ -207,7 +211,7 @@ body{
 	top: 20px;
 	height: 60px;
 }
-#date_title h4, #header_buttons_class h4 {
+#reorder_days h4, #date_title h4, #header_buttons_class h4 {
 	text-align: center;
 	border-bottom: 1px solid rgba(213, 213, 213, 1);
 	line-height: 30px;
@@ -216,6 +220,12 @@ body{
 	top: -9px;
 	box-shadow: 0px 2px 1px rgba(255, 253, 253, 1);
 	color: #107BD8;
+}
+#reorder_days h4 {
+	text-align: left;
+	top: 0;
+	position: relative;
+	text-indent: 25px;
 }
 #header_buttons_class h4 {
 	text-align: left;
