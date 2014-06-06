@@ -1,1 +1,2 @@
 $("#exercise_" + <%= @exercise.id %> ).html(("<%= escape_javascript(render('create')) %>"));
+$("#exercise_day_" + <%= @exercise.id %> ).fadeOut();

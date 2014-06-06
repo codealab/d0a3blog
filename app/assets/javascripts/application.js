@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.sortable
+//= require jquery.ui.accordion
 //= require bootstrap
 //= require turbolinks
 //= require bootstrap-wysihtml5

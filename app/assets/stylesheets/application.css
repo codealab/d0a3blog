@@ -11,7 +11,6 @@
  *= require jquery.Jcrop
  *= require_self
  *= require bootstrap-wysihtml5
- *= require jquery.ui.all
  *= require_tree .
  */
 
@@ -21,6 +20,12 @@ body{
 	min-height: 100%;
 	top: 0;
 	left: 0;
+}
+.animate{
+	-webkit-transition: all 0.25s ease;
+	-moz-transition: 	all 0.25s ease;
+	-o-transition: 		all 0.25s ease;
+	transition: 		all 0.25s ease;
 }
 
 .left{ float: left; }
@@ -48,7 +53,6 @@ body{
 }
 #container_arrows {
 	position: absolute;
-	height: 40px;
 	width: 20px;
 	top: 80px;
 	left: 125px;
@@ -89,7 +93,7 @@ body{
 	padding: 0px 20px 20px 20px;
 }
 #refresh_programs_relations {
-	width: 80%;
+	width: 100%;
 	float: left;
 	height: 350px;
 	padding: 0px 20px 20px 20px;
@@ -364,11 +368,27 @@ body{
 	top: 4px;
 	position: relative;
 }
-.exercise_content{
-	width: 25%;
+.program_top_title {
+	width: 20%;
+	float: left;
+	font-weight: bold;
+	top: 4px;
+	position: relative;
 }
+.exercise_content{ width: 25%; }
+.program_relation_content{ width: 20%; }
 .negative_payment{ color: red; }
 /*TINY SCROLLBAR*/
+#tiny_program_exercises{
+	position: relative;
+	width: 1060px;
+	top: 23px;
+}
+#tiny_program_exercises .viewport{
+	border-top: 1px solid #dddddd;
+	width: 1045px;
+	height: 200px;
+}
 #tiny_exercises{
 	position: relative;
 	width: 811px;

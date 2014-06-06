@@ -1,5 +1,8 @@
+<div id="loader">
+	<img src="/assets/person_loader.GIF" alt="">
+	GUARDANDO
+</div>
 <% provide(:title, "#{@program.name} ( #{@program.min_age} - #{@program.max_age} semanas )") %>
-
 <div class="boton_der">
 	<div class="top_buttons">
 		<%= link_factory( :_path => programs_path, :_text => "Regresar a Programas", _class: 'btn btn-info', _button: true ) %>
@@ -7,107 +10,98 @@
 	</div>
 	<h1><%= "#{@program.name} ( #{@program.min_age} - #{@program.max_age} semanas )" %><span class="line"></span></h1>
 </div>
-<div class="col-md-12 light_box">
-	<div id="date_title" class="date_class_selector">
-		<h4>Clases</h4>
-	</div>
-	<div id="container_arrows">
-		<div id="up_scroll" class="scroll_arrow" style="top: -18px; ">
-			<span class="glyphicon glyphicon-chevron-up"></span>
-		</div>
-		<div id="down_scroll" class="scroll_arrow" style="top: 255px; ">
-			<span class="glyphicon glyphicon-chevron-down"></span>
+<div id="container_program_relations">
+	<div class="light_box" style="height:352px;">
+		<div id="refresh_programs_relations">
+			<%= render 'program_relations/show' %>
 		</div>
 	</div>
-	<div class="container_large_scroll" id="days_selector">
-		<nav class="large_scroll" id="program_relations">
-			<div class="children_scroll" data-topcenter="90">
-				<% @program.lessons.each do |lesson| %>
-					<div class="date_class_selector date_over future <% if lesson.order_day==1  %>date_active<% end %>">
-						<div class="bg_contour"></div>
-						<a href="/program_relations/<%= @program.id %>?lesson_id=<%= lesson.id %>" class="add_lectures_to_day" data-remote="true">
-							<div class="text_container">
-								<div class="hours">
-									<span><%= "#{lesson.order_day}" %></span>
-								</div>
-								<div class="day">Día</div>
-							</div>
+	<div class="spacer"></div>
+	<div class="light_box">
+		<div id="reorder_container" class="col-md-12">
+			<div class="boton_der">
+				<div id="reorder_days">
+					<h4>Clases</h4>
+					<div id="program_relation_actions">
+						<a href="#" data-remote="true" id="disable_admin">
+						<p><button type="button" class="btn btn-danger btn-xs">Cancelar</button></p>
+						</a>
+						<a href="#" data-remote="true" id="save_admin">
+						<p><button type="button" class="btn btn-default btn-xs">Guardar Cambios</button></p>
+						</a>
+						<a href="#" data-remote="true" id="active_admin">
+						<p><button type="button" class="btn btn-primary btn-xs">Reordenar</button></p>
 						</a>
 					</div>
-				<% end %>
+				</div>
 			</div>
-		</nav>
-	</div>
-	<div id="refresh_programs_relations">
-		<%= render 'program_relations/show' %>
-	</div>
-	<div class="spacer"></div>
-	<div id="reorder_container">
-		<div class="boton_der">
-			<div id="reorder_days">
-				<h4>Reordenar Clases</h4>
-				<div id="close_reorder"></div>
+			<div id="accordion_content">
+				<div class="col-md-12 blue_box">
+					<div class="col-md-12 white_box" id="container_orders">
+						<ul id="reorder-days">
+							<% @program.lessons.each do |lesson| %>
+							<li class="reorder-item  ui-state-default" data-order="<%= lesson.order_day %>">
+								<a href="#" class="remove_day animate" title="Quitar día" data-remote="true">x</a>
+								<a href="/program_relations/<%= @program.id %>?lesson_id=<%= lesson.id %>" class="number_of_activities" data-remote="true" >
+								<div class="order_day">Clase <%= "#{lesson.order_day}" %></div>
+								<div class="program_relations_points">
+									<% lesson.program_relations.count.times do |p| %>
+									<span class="program_relation_point"></span>
+									<% end %>
+								</div>
+								</a>
+							</li>
+							<% end %>
+						</ul>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="spacer"></div>
-		<div class="col-md-12 blue_box">
-			<div class="col-md-12 white_box">
-				<ul id="reorder-days">
-					<% @program.lessons.each do |lecture| %>
-						<li class="reorder-item ui-state-default" data-x="#{" }>
-							<a href="#" class="remove_day">x</a>
-							<a href="/program_relations/<%= @program.id %>?lecture_id=<%= lecture.order_day %>" data-remote="true" class="">
-								Día <%= "#{lecture.order_day}" %>
-							</a>
-						</li>
-					<% end %>
-				</ul>
-			</div>
+			<div class="spacer"></div>
 		</div>
 	</div>
-	<div class="spacer"></div>
-	
-	<div id="add_lectures_to_day">
-		<!-- render --> 
-	</div>
-
 </div>
-<style>
-.reorder-item {
-	width: 100px;
-	height: 100px;
-	float: left;
-	margin: 3.5px;
-	position: relative;
-	border-radius: 5px;
-	background: rgb(255, 255, 255);
-	border: 1px solid rgb(221, 221, 221);
-	text-align: center;
-}
-.remove_day{
-	position: absolute;
-	right: 5px;
-	top: 5px;
-}
-#reorder-days{
-	position: relative;
-	width: 100%;
-	float: left;
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-#reorder-days li{
-	padding: 0;
-	list-style-type: none;
-	list-style: none;
-}
-</style>
 <script>
 	$(document).ready(function() {
-    	$("#reorder-days").sortable();
-    	$("#reorder-days").disableSelection();
-    	$(".remove_day").on("click",function(){
-    		$(this).parent().remove();
-    	});
-	});	
+		
+		$("#active_admin").on("click",active_admin);
+		$("#disable_admin").on("click",disable_admin);
+		$("#save_admin").on("click",send_sessions);
+
+		$("#reorder-days").sortable({ placeholder: "reorder-highlight" });
+		$("#reorder-days").disableSelection();
+
+		disable_admin();
+
+	});
+
+	function send_sessions(){
+		$("#loader").fadeIn();
+		$("#container_program_relations").fadeOut();
+		var order=[];
+		$('.reorder-item').not('.removed_item').each(function(){
+			var day = $(this).data('order');
+			order.push(day);
+		});
+		console.log(order);
+	}
+
+	function active_admin(){
+		$("#active_admin").hide();
+		$("#reorder-days").sortable("enable");
+		$("#disable_admin, #save_admin").show();		
+		$(".number_of_activities").css({cursor:'move'});
+		$(".remove_day").css({opacity:1}).on("click",function(){
+			$(this).parent().fadeOut().addClass('removed_item');
+		});
+	}
+
+	function disable_admin(){
+		$("#active_admin").show();
+		$("#disable_admin, #save_admin").hide();
+		$(".number_of_activities").removeAttr('style');
+		$('.reorder-item').fadeIn().removeClass('removed_item');
+		$(".remove_day").css({opacity:0}).off();
+		$("#reorder-days").sortable("disable");
+	}
+
 </script>
