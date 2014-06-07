@@ -1,4 +1,6 @@
 # encoding: UTF-8
+require 'json'
+
 class ProgramsController < ApplicationController
 
   def index
@@ -24,7 +26,7 @@ class ProgramsController < ApplicationController
     if params[:order_day]
       @lesson = @program.lessons.find_by(params[:order_day])
     else
-      @lesson = @program.lessons.first
+      @lesson = @program.lessons.order('order_day ASC').first
     end
   end
 
@@ -40,6 +42,30 @@ class ProgramsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def reorder
+
+    actives = params[:actives]
+    deleted = params[:deleted]
+    @program = Program.find(params[:id])
+
+    if deleted
+      @deletes = @program.lessons.find(deleted)
+      @deletes.each { |e| e.destroy }
+    end
+
+    actives.each_with_index do |active,index|
+      @lesson = @program.lessons.find_by_id(active)
+      if @lesson
+        @lesson.order_day = index+1
+        @lesson.save
+      end
+    end
+
+    @program.number_of_lessons=actives.count
+    @program.save
+
   end
 
   def destroy

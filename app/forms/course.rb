@@ -7,7 +7,7 @@ class Course
 	include ActiveModel::Conversion
 	include ActiveModel::Validations
 
-	attr_accessor :name, :group, :user_id, :assistant_id, :cost, :location, :init_date, :finish_date, :monday, :tuesday, :wednesday, :thursday, :friday, :monday_hour, :tuesday_hour, :wednesday_hour, :thursday_hour, :friday_hour, :calendar
+	attr_accessor :name, :group, :program, :user_id, :assistant_id, :cost, :location, :init_date, :finish_date, :monday, :tuesday, :wednesday, :thursday, :friday, :monday_hour, :tuesday_hour, :wednesday_hour, :thursday_hour, :friday_hour, :calendar
 	validates_presence_of :name, :user_id, :cost, :location, :init_date
 	validates_presence_of :monday_hour, :unless => lambda { self.monday.blank? }
 	validates_presence_of :tuesday_hour, :unless => lambda { self.tuesday.blank? }
@@ -28,6 +28,7 @@ class Course
 		self.user_id = params[:user_id]
 		self.cost = params[:cost]
 		self.group = Group.new
+		self.program = @program
 		#init_date no es atributo nativo de fecha, parseamos en convert_date
 		self.init_date = convert_date(params)
 		self.location = params[:location]
@@ -144,10 +145,12 @@ class Course
 		#una vez guardado el grupo podemos relacionar clases almacenadas en dates
 		dates.each_with_index do |d,index|
 			lecture = group.lectures.build({ date: d.to_datetime })
-			lesson = @program.lessons.where( :order_day => index+1 ).first
+			lesson = program.lessons.find_by_order_day( index+1 )
 			if group.save
-				lesson.exercises.each do |exercise|
-					Plan.create({ lecture_id: lecture.id, exercise_id: exercise.id })
+				if lesson
+					lesson.exercises.each do |exercise|
+						Plan.create({ lecture_id: lecture.id, exercise_id: exercise.id })
+					end
 				end
 			end
 		end

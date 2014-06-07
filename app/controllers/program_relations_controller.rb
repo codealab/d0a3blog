@@ -48,9 +48,8 @@ class ProgramRelationsController < ApplicationController
 	end
 
 	def search
-
-		@program = Program.find(params[:program_id])
-		@lecture = params[:lecture_id]
+		@lesson = Lesson.find(params[:lesson_id])
+	    @program = @lesson.program
 
 		init = params[:init][0].blank? ? nil:params[:init][0]
 		ended = params[:ended][0].blank? ? nil:params[:ended][0]

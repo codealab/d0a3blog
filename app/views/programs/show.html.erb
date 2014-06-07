@@ -24,13 +24,16 @@
 					<h4>Clases</h4>
 					<div id="program_relation_actions">
 						<a href="#" data-remote="true" id="disable_admin">
-						<p><button type="button" class="btn btn-danger btn-xs">Cancelar</button></p>
+							<p><button type="button" class="btn btn-danger btn-xs">Cancelar</button></p>
 						</a>
 						<a href="#" data-remote="true" id="save_admin">
-						<p><button type="button" class="btn btn-default btn-xs">Guardar Cambios</button></p>
+							<p><button type="button" class="btn btn-default btn-xs">Guardar Cambios</button></p>
+						</a>
+						<a href="#" data-remote="true" id="add_class_to_lesson">
+							<p><button type="button" class="btn btn-primary btn-xs">Nueva Clase</button></p>
 						</a>
 						<a href="#" data-remote="true" id="active_admin">
-						<p><button type="button" class="btn btn-primary btn-xs">Reordenar</button></p>
+							<p><button type="button" class="btn btn-primary btn-xs">Reordenar</button></p>
 						</a>
 					</div>
 				</div>
@@ -39,15 +42,17 @@
 				<div class="col-md-12 blue_box">
 					<div class="col-md-12 white_box" id="container_orders">
 						<ul id="reorder-days">
-							<% @program.lessons.each do |lesson| %>
-							<li class="reorder-item  ui-state-default" data-order="<%= lesson.order_day %>">
+							<% @program.lessons.order('order_day ASC').each do |lesson| %>
+							<li class="reorder-item  ui-state-default" data-order="<%= lesson.id %>" data-id="<%= lesson.id %>">
 								<a href="#" class="remove_day animate" title="Quitar día" data-remote="true">x</a>
 								<a href="/program_relations/<%= @program.id %>?lesson_id=<%= lesson.id %>" class="number_of_activities" data-remote="true" >
 								<div class="order_day">Clase <%= "#{lesson.order_day}" %></div>
 								<div class="program_relations_points">
-									<% lesson.program_relations.count.times do |p| %>
-									<span class="program_relation_point"></span>
-									<% end %>
+									<div id="container_points_<%= lesson.id %>">
+										<% lesson.program_relations.count.times do |p| %>
+											<span class="program_relation_point"></span>
+										<% end %>
+									</div>
 								</div>
 								</a>
 							</li>
@@ -61,11 +66,15 @@
 	</div>
 </div>
 <script>
+	var order, deletes;
+	var obj_order, obj_deletes;
+
 	$(document).ready(function() {
 		
 		$("#active_admin").on("click",active_admin);
 		$("#disable_admin").on("click",disable_admin);
 		$("#save_admin").on("click",send_sessions);
+		// $("#add_class_to_lesson").on("click",add_class_to_lesson);
 
 		$("#reorder-days").sortable({ placeholder: "reorder-highlight" });
 		$("#reorder-days").disableSelection();
@@ -75,21 +84,47 @@
 	});
 
 	function send_sessions(){
-		$("#loader").fadeIn();
-		$("#container_program_relations").fadeOut();
-		var order=[];
+		// $("#loader").fadeIn();
+		// $("#container_program_relations").fadeOut();
+
+		order = [];
+		deletes = [];
+
 		$('.reorder-item').not('.removed_item').each(function(){
-			var day = $(this).data('order');
-			order.push(day);
+			var daId = $(this).data('order');
+			var day = { "id":  daId };
+			order.push(daId);
 		});
-		console.log(order);
+
+		$('.removed_item').each(function(){
+			var daId = $(this).data('id');
+			var del = { "id":  daId };
+			deletes.push(daId);
+		});
+
+		// console.log(order);
+		// console.log(deletes);
+
+		// obj_order = JSON.parse('"'+order+'"');
+		// obj_deletes = JSON.parse('"'+deletes+'"');
+
+		// console.log(obj_order);
+		// console.log(obj_deletes);
+
+		$.ajax({
+			url: "/programs/reorder/<%= @program.id %>",
+			data: { actives: order, deleted: deletes },
+		}).done(function() {
+			location.reload();
+		});
 	}
 
 	function active_admin(){
 		$("#active_admin").hide();
 		$("#reorder-days").sortable("enable");
-		$("#disable_admin, #save_admin").show();		
+		$("#disable_admin, #save_admin, #add_class_to_lesson").show();		
 		$(".number_of_activities").css({cursor:'move'});
+		$('.reorder-item').addClass('reorder-active');
 		$(".remove_day").css({opacity:1}).on("click",function(){
 			$(this).parent().fadeOut().addClass('removed_item');
 		});
@@ -97,9 +132,9 @@
 
 	function disable_admin(){
 		$("#active_admin").show();
-		$("#disable_admin, #save_admin").hide();
+		$("#disable_admin, #save_admin, #add_class_to_lesson").hide();
 		$(".number_of_activities").removeAttr('style');
-		$('.reorder-item').fadeIn().removeClass('removed_item');
+		$('.reorder-item').fadeIn().removeClass('reorder-active removed_item');
 		$(".remove_day").css({opacity:0}).off();
 		$("#reorder-days").sortable("disable");
 	}

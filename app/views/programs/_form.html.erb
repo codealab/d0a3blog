@@ -3,7 +3,11 @@
 		<%= simple_form_for @program, :html => { :multipart => true, :class => 'form-horizontal' } do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
 			<p><%= f.input :name, label:"Nombre del programa" %></p>
-			<p><%= f.input :number_of_lessons, label:"Número de lecciones" %></p>
+			<% if params[:action]=='edit' %>
+				<p><%= f.input :number_of_lessons, label:"Número de lecciones", :disabled => true %></p>
+			<% else %>
+				<p><%= f.input :number_of_lessons, label:"Número de lecciones" %></p>
+			<% end %>
 			<p><%= f.input :min_age, label:"Edad mínima (Semanas)" %></p>
 			<p><%= f.input :max_age, label:"Edad máxima (Semanas)" %></p>
 			<p><%= f.input :description, label:"Descripción" %></p>

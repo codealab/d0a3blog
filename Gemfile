@@ -36,6 +36,7 @@ end
 
 gem "fog"
 gem "unf"
+gem 'thin'
 
 gem 'will_paginate-bootstrap'
 gem 'jquery-rails'

@@ -38,6 +38,9 @@
 	border: 1px solid rgb(221, 221, 221);
 	text-align: center;
 }
+.reorder-active{
+	background-color: #D1E1E5;
+}
 .reorder-item:hover{
 	background: #ECF4F7;
 	border: 1px solid white;
@@ -141,16 +144,15 @@
 	bottom: 0;
 	background: #d6dce0;
 	height: 10px;
-	padding-right: 5px;
+	padding-left: 5px;
 }
-#disable_admin, #save_admin{ display: none; }
-
+#add_class_to_lesson, #disable_admin, #save_admin{ display: none; }
 .program_relation_point{
 	width: 5px;
 	height: 5px;
 	border-radius: 50%;
 	background-color: #377592;
-	float: right;
+	float: left;
 	margin: 2px;
 	top: 1px;
 	position: relative;
