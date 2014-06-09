@@ -291,6 +291,11 @@ es:
         cost: "El costo"
         location: "ubicación"
         init_date: "La Fecha de Inicio"
+        init_date:
+          order:
+            - "year"
+            - "month"
+            - "day"
         monday_hour: "La hora del lunes"
         tuesday_hour: "La hora del martes"
         wednesday_hour: "La hora del miércoles"
