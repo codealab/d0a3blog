@@ -20,7 +20,7 @@
 	  		<p><%= f.input :user_id, label:"Instructor", include_blank: true, collection: User.instructors.map { |p| [ p.name, p.id ] } %></p>
 	  		<p><%= f.input :assistant_id, label:"Asistente", include_blank: true, collection: User.instructors.map { |p| [ p.name, p.id ] } %></p>
 			<div id="selector_fecha">
-				<p><%= f.input :init_date,  as: :date, label:"Inicio de curso", :input_html => { :class => 'date_selector' } %></p>
+				
 			</div>
 			<p><%= f.number_field :program_id, value: @program.id, :readonly => true, :class => 'disabled form-control', :type=>"hidden" %></p>
 			<p><%= f.input :cost, as: :integer,  label:"Costo" %></p>
