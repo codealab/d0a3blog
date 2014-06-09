@@ -270,6 +270,10 @@ es:
         date: "La fecha"
         scholarship: "Pago extraordinario"
         clarification: "La aclaración"
+      program:
+        lesson: "Lección"
+      lesson:
+        order_day: "Orden"
       user: 
         name: "El nombre"
         email: "El email"
