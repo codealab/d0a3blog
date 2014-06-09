@@ -26,7 +26,7 @@ module D0A3
     # config.i18n.load_path += Dir[Rails.root.join('lib', 'locale', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :es
 
-    config.time_zone = 'Buenos Aires'
+    config.time_zone = 'Guadalajara'
     config.i18n.enforce_available_locales = true
     config.i18n.available_locales = [:es, :en]
     config.i18n.default_locale = :es
