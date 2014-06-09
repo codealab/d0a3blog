@@ -23,7 +23,8 @@ gem 'bootstrap-wysihtml5-rails'
 # gem 'therubyracer', platforms: :ruby
 # Use bycrypt to encode keys and restore on cookies sessions
 # Use jquery as the JavaScript library
-gem 'i18n', '~> 0.6.9'
+# gem 'i18n', '~> 0.6.9'
+gem 'rails-i18n'
 gem 'jcrop-rails-v2'
 #gem 'protected_attributes'
 gem "carrierwave"
