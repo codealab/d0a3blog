@@ -64,6 +64,7 @@
         large_scroll: function() {
             $.each(this, function() {
                 $(".large_scroll").hover(function() {
+                    console.log("entro al scollr");
                     var $daChild = $(this).find('.children_scroll'),
                         maxHeight = $(this).height(),
                         totalTop = $(this).offset().top,
@@ -79,6 +80,7 @@
                         });
                     } else $('#container_arrows').hide();
                 }, function() {
+                    console.log("salio al scollr");
                     var topcenter = $(this).find('.children_scroll').data('topcenter');
                     var child_Offset = $('.date_active').position().top;
                     var topValue = child_Offset - topcenter;

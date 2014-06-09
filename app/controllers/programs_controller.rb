@@ -44,6 +44,16 @@ class ProgramsController < ApplicationController
     end
   end
 
+  def lecture
+    @program = Program.find(params[:id])
+    @program.reload
+    @program.number_of_lessons = @program.number_of_lessons
+    lessons = @program.lessons.count
+    @program.number_of_lessons=lessons+1
+    @lesson = @program.lessons.build(:order_day=>"#{@program.number_of_lessons}")
+    @program.save
+  end
+
   def reorder
 
     actives = params[:actives]
@@ -62,10 +72,8 @@ class ProgramsController < ApplicationController
         @lesson.save
       end
     end
-
     @program.number_of_lessons=actives.count
     @program.save
-
   end
 
   def destroy

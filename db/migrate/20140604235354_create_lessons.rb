@@ -6,5 +6,6 @@ class CreateLessons < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :lessons, [:program_id, :order_day], unique: true
   end
 end

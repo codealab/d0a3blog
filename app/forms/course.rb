@@ -95,6 +95,7 @@ class Course
 		#finded en falso, para el ciclo while.
 		finded = false
 		counter = 0
+
 		while counter < active_days.count
    			day_active = active_days[counter]
    			if date<=day_active
@@ -144,7 +145,7 @@ class Course
 
 		#una vez guardado el grupo podemos relacionar clases almacenadas en dates
 		dates.each_with_index do |d,index|
-			lecture = group.lectures.build({ date: d.to_datetime })
+			lecture = group.lectures.build({ date: d })
 			lesson = program.lessons.find_by_order_day( index+1 )
 			if group.save
 				if lesson
@@ -157,3 +158,7 @@ class Course
 	end
 
 end
+
+
+7:30 == 2:30 || -5
+15:00 == 10:00 ||

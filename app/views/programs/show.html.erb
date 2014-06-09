@@ -29,14 +29,16 @@
 						<a href="#" data-remote="true" id="save_admin">
 							<p><button type="button" class="btn btn-default btn-xs">Guardar Cambios</button></p>
 						</a>
-						<a href="#" data-remote="true" id="add_class_to_lesson">
-							<p><button type="button" class="btn btn-primary btn-xs">Nueva Clase</button></p>
-						</a>
 						<a href="#" data-remote="true" id="active_admin">
 							<p><button type="button" class="btn btn-primary btn-xs">Reordenar</button></p>
 						</a>
+						<a href="/programs/lecture/<%= @program.id %>" data-remote="true" id="add_class_to_lesson">
+							<p><button type="button" class="btn btn-primary btn-xs">Nueva Clase</button></p>
+						</a>
 					</div>
 				</div>
+
+
 			</div>
 			<div id="accordion_content">
 				<div class="col-md-12 blue_box">
@@ -84,8 +86,8 @@
 	});
 
 	function send_sessions(){
-		// $("#loader").fadeIn();
-		// $("#container_program_relations").fadeOut();
+		$("#loader").fadeIn();
+		$("#container_program_relations").fadeOut();
 
 		order = [];
 		deletes = [];
@@ -120,9 +122,9 @@
 	}
 
 	function active_admin(){
-		$("#active_admin").hide();
+		$("#add_class_to_lesson, #active_admin").hide();
 		$("#reorder-days").sortable("enable");
-		$("#disable_admin, #save_admin, #add_class_to_lesson").show();		
+		$("#disable_admin, #save_admin").show();		
 		$(".number_of_activities").css({cursor:'move'});
 		$('.reorder-item').addClass('reorder-active');
 		$(".remove_day").css({opacity:1}).on("click",function(){
@@ -131,8 +133,8 @@
 	}
 
 	function disable_admin(){
-		$("#active_admin").show();
-		$("#disable_admin, #save_admin, #add_class_to_lesson").hide();
+		$("#add_class_to_lesson, #active_admin").show();
+		$("#disable_admin, #save_admin").hide();
 		$(".number_of_activities").removeAttr('style');
 		$('.reorder-item').fadeIn().removeClass('reorder-active removed_item');
 		$(".remove_day").css({opacity:0}).off();

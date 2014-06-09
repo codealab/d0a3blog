@@ -123,6 +123,8 @@ ActiveRecord::Schema.define(version: 20140604235354) do
     t.datetime "updated_at"
   end
 
+  add_index "lessons", ["program_id", "order_day"], name: "index_lessons_on_program_id_and_order_day", unique: true, using: :btree
+
   create_table "payments", force: true do |t|
     t.integer  "amount"
     t.date     "date"

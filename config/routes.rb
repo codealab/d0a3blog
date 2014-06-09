@@ -49,6 +49,7 @@ D0A3::Application.routes.draw do
   get "exercises/plan"
   post "program_relations/search"
   get "programs/reorder"
+  get "programs/lecture"
 
   # resources :people do
   #   collection do
