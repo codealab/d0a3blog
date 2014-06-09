@@ -124,8 +124,6 @@ es:
   errors: &errors
     format: ! '%{attribute} %{message}'
     messages:
-      restrict_dependent_destroy:
-        many: mal
       accepted: debe ser aceptado
       blank: no puede estar en blanco
       confirmation: no coincide con la confirmación
@@ -258,44 +256,24 @@ es:
         name: "El nombre"
         location: "La ubicación"
         cost: "El costo"
-        init_date: "La fecha de inicio de curso"
-        finish_date: "La fecha de fin de curso"
+        init_date: "La fecha inicial"
+        finish_date: "La fecha final"
         min_age: "La edad mínima"
         max_age: "La edad máxima"
-      lecture:
-        date: "La fecha"
+      lectures: 
+        date: "la fecha"
         observation: "La observación"
       payment: 
         amount: "La cantidad"
         date: "La fecha"
         scholarship: "Pago extraordinario"
         clarification: "La aclaración"
-      program:
-        lesson: "Lección"
-      lesson:
-        order_day: "Orden"
       user: 
         name: "El nombre"
         email: "El email"
         password_confirmation: "La contraseña" 
         photo: "La foto"
       calendar:
-        monday_hour: "La hora del lunes"
-        tuesday_hour: "La hora del martes"
-        wednesday_hour: "La hora del miércoles"
-        thursday_hour: "La hora del jueves"
-        friday_hour,: "La hora del viernes"
-      course:
-        name: "El nombre"
-        user_id: "El instructor"
-        cost: "El costo"
-        location: "ubicación"
-        init_date: "La Fecha de Inicio"
-        init_date:
-          order:
-            - "year"
-            - "month"
-            - "day"
         monday_hour: "La hora del lunes"
         tuesday_hour: "La hora del martes"
         wednesday_hour: "La hora del miércoles"
