@@ -285,6 +285,17 @@ es:
         wednesday_hour: "La hora del miércoles"
         thursday_hour: "La hora del jueves"
         friday_hour,: "La hora del viernes"
+      course:
+        name: "El nombre"
+        user_id: "El instructor"
+        cost: "El costo"
+        location: "ubicación"
+        init_date: "La Fecha de Inicio"
+        monday_hour: "La hora del lunes"
+        tuesday_hour: "La hora del martes"
+        wednesday_hour: "La hora del miércoles"
+        thursday_hour: "La hora del jueves"
+        friday_hour,: "La hora del viernes"
     forms:
       calendar:
         monday_hour: "La hora del lunes"
