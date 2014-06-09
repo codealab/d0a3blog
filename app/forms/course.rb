@@ -147,7 +147,8 @@ class Course
 		dates.each_with_index do |d,index|
 			puts 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 			puts d.to_time.utc
-			lecture = group.lectures.build({ date: d.to_time.in_time_zone })
+			dif = Time.now.formatted_offset(true)
+			lecture = group.lectures.build({ date: d.to_time+(dif.to_i).hours })
 			lesson = program.lessons.find_by_order_day( index+1 )
 			if group.save
 				if lesson
@@ -158,5 +159,4 @@ class Course
 			end
 		end
 	end
-
 end
