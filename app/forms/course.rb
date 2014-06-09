@@ -145,10 +145,8 @@ class Course
 
 		#una vez guardado el grupo podemos relacionar clases almacenadas en dates
 		dates.each_with_index do |d,index|
-			puts 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-			puts d.to_time.utc
-			dif = Time.now.formatted_offset(true)
-			lecture = group.lectures.build({ date: d.to_time+(dif.to_i).hours })
+			dif = Time.now.to_datetime.formatted_offset(true)
+			lecture = group.lectures.build({ date: d.to_datetime-6.hours })
 			lesson = program.lessons.find_by_order_day( index+1 )
 			if group.save
 				if lesson
