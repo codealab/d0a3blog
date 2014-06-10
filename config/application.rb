@@ -35,4 +35,5 @@ module D0A3
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
   end
+
 end
