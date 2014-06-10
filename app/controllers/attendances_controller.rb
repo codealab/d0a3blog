@@ -3,7 +3,7 @@ class AttendancesController < ApplicationController
 
 	# helper_method :valid_user
 	# before_action :correct_user, only: [:create, :destroy]
-	load_and_authorize_resource
+	# load_and_authorize_resource
 
 	def create
 		@lecture = Lecture.find(params[:lecture_id])

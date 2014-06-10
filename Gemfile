@@ -14,7 +14,7 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 
 #authorization library
-gem 'cancancan'
+# gem 'cancancan'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 gem 'simple_form'
@@ -23,8 +23,8 @@ gem 'bootstrap-wysihtml5-rails'
 # gem 'therubyracer', platforms: :ruby
 # Use bycrypt to encode keys and restore on cookies sessions
 # Use jquery as the JavaScript library
-# gem 'i18n', '~> 0.6.9'
-gem 'rails-i18n'
+gem 'i18n', '~> 0.6.9'
+# gem 'rails-i18n'
 gem 'jcrop-rails-v2'
 #gem 'protected_attributes'
 gem "carrierwave"

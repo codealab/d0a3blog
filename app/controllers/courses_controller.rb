@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class CoursesController < ApplicationController
 
-  load_and_authorize_resource
+  # load_and_authorize_resource
 
   def index
   	@courses = Group.all

@@ -3,7 +3,7 @@ class CalendarsController < ApplicationController
 	
 	# helper_method :valid_user
 	# before_action :correct_user, only: [:edit, :update, :new, :create, :destroy, :delete]
-	load_and_authorize_resource
+	# load_and_authorize_resource
 
 	def index
 		@group = Group.find(params[:calendar][:group_id])

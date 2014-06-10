@@ -5,7 +5,7 @@ class FamiliesController < ApplicationController
 	# before_action :signed_in_user
 	# helper_method :valid_user
 	# before_action :correct_user, only: [:edit, :update, :new, :create, :destroy, :delete]
-	load_and_authorize_resource
+	# load_and_authorize_resource
 
 	def index
 		@families = Family.where(:status=>true).order("name ASC").paginate(page: params[:page])

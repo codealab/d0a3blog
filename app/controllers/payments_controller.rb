@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class PaymentsController < ApplicationController
 	before_action :pasive_family, only: [:create, :new]
-	load_and_authorize_resource
+	# load_and_authorize_resource
 
 	def index
 		@payments = Payment.all.paginate(page: params[:page])

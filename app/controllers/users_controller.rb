@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # before_action :correct_user,   only: [:edit, :update]
   # before_action :admin_user,     only: [:destroy, :new, :update]
 
-  load_and_authorize_resource
+  # load_and_authorize_resource
 
   def index
     @users = User.all

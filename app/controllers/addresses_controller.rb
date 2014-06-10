@@ -2,7 +2,7 @@
 class AddressesController < ApplicationController
 
 	# before_action :signed_in_user
-	load_and_authorize_resource
+	# load_and_authorize_resource
 	# check_authorization
 
 	def new
