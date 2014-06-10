@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   include PaymentsHelper
   
   before_action :require_login
-  before_action :set_locale
+  # before_action :set_locale
 
   # check_authorization
 
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    I18n.locale = :es
+    I18n.locale = :en
   end
   
   private
