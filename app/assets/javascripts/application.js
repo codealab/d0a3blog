@@ -63,7 +63,7 @@
     $.extend(true, jQuery.fn, {
         large_scroll: function() {
             $.each(this, function() {
-                $(document).on(".large_scroll", "mouseenter", function() {
+                $(".large_scroll").on("mouseenter", function() {
                     var $daChild = $(this).find('.children_scroll'),
                         maxHeight = $(this).height(),
                         totalTop = $(this).offset().top,
@@ -79,7 +79,7 @@
                     });
                     // } else $('#container_arrows').hide();
                 });
-                $(document).on(".large_scroll", "mouseleave", function() {
+                $(".large_scroll").on("mouseleave", function() {
                     var topcenter = $(this).find('.children_scroll').data('topcenter');
                     var child_Offset = $('.date_active').position().top;
                     var topValue = child_Offset - topcenter;
