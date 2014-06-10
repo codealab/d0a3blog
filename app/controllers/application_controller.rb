@@ -11,20 +11,20 @@ class ApplicationController < ActionController::Base
   include PaymentsHelper
   
   before_action :require_login
-  # before_action :set_locale
+  before_action :set_locale
 
   # check_authorization
 
-  # rescue_from CanCan::AccessDenied do |exception|
-  #   if !request.env["HTTP_REFERER"].blank? # and request.env["HTTP_REFERER"] != request.env["REQUEST_URI"]
-  #     redirect_to(:back, notice:"No tienes permiso para llevar a cabo esta acción.")
-  #   else
-  #     redirect_to(root_path, notice:"No tienes permiso para llevar a cabo esta acción.")
-  #   end
-  # end
+  rescue_from CanCan::AccessDenied do |exception|
+    if !request.env["HTTP_REFERER"].blank? # and request.env["HTTP_REFERER"] != request.env["REQUEST_URI"]
+      redirect_to(:back, notice:"No tienes permiso para llevar a cabo esta acción.")
+    else
+      redirect_to(root_path, notice:"No tienes permiso para llevar a cabo esta acción.")
+    end
+  end
 
   def set_locale
-    I18n.locale = :en
+    I18n.locale = :es
   end
   
   private
