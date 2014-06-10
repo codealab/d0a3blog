@@ -34,8 +34,8 @@ module ButtonsHelper
 	$action = $path[:action].parameterize.underscore.to_sym
 	$model = $path[:controller].singularize.titleize.constantize
   	
-  	false
-  	true if can? $action, $model
+  	# false
+  	true #if can? $action, $model
 
   end
   
