@@ -1,12 +1,12 @@
 <div id="exercises_container">
 	<div class="boton_der" id="header_buttons_class">
-		<h4><span style="color: rgb(173, 173, 173);">Día <%= @lesson.order_day %> </span>- <%= @lesson.exercises.count %> Ejercicios </h4>
+		<h4><span style="color: rgb(173, 173, 173);">Día <%= @lesson.order_day %> </span>- <%= @lesson.exercises.count %> Actividades </h4>
 	</div>
 </div>
 <div class="boton_der">
 	<div class="top_buttons top_buttons_group">
 		<%= link_to new_lesson_program_relation_path(@lesson) do %>
-			<span data-toggle="tooltip" data-placement="left" title="Seleccionar Ejercicios" class="tip glyphicon glyphicon-plus-sign" style="margin: 10px; font-size: 24px; margin-left: 0px; right: 0; position: absolute; top: -40px; color: #107BD8;"></span>
+			<span data-toggle="tooltip" data-placement="left" title="Seleccionar Actividades" class="tip glyphicon glyphicon-plus-sign" style="margin: 10px; font-size: 24px; margin-left: 0px; right: 0; position: absolute; top: -40px; color: #107BD8;"></span>
 		<% end %>
 	</div>
 </div>

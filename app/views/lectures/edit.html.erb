@@ -11,5 +11,5 @@
 
 <%= render "/lectures/form" %>
 <div class="boton_der">
-	<%= link_factory( :_path=> group_lecture_path(@group, @lecture), :_text=> "Borrar Clase", :_alert=> 'Esta clase cuenta con ejercicios y/o asistencias. No se puede borrar.', :_button=>true, :_destroy => true, :_class=>'btn btn-danger' ) %>
+	<%= link_factory( :_path=> group_lecture_path(@group, @lecture), :_text=> "Borrar Clase", :_alert=> 'Esta clase cuenta con actividades y/o asistencias. No se puede borrar.', :_button=>true, :_destroy => true, :_class=>'btn btn-danger' ) %>
 </div>

@@ -21,7 +21,7 @@
 				<%= f.input :dob, label: "Fecha de Nacimiento", :order => [:day, :month, :year],:start_year => Time.now.year-18, :end_year => Time.now.year-100, :input_html => { :class => 'date_selector' } %>
 			</span>
 			<p><%= f.input :sex, label: "Genero", collection: ["M", "F"], :as => :radio_buttons %></p>
-			<p><%= f.input :family_roll, label: "Roll Familiar", :include_blank => false, collection: [[ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tío', 'Tío', :class => 'man' ], [ 'Tía', 'Tía', :class => 'woman' ], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
+			<p><%= f.input :family_roll, label: "Roll Familiar (Respecto al niño)", :include_blank => false, collection: [[ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tío', 'Tío', :class => 'man' ], [ 'Tía', 'Tía', :class => 'woman' ], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
 				<input id="other_name" type="text" placeholder="Escribe el parentesco" style="margin-top: -34px; width: 95%; display:none; z-index: 1; position: relative; border-bottom-right-radius: 0px; border-top-right-radius: 0px;" name="person[other]" class="form-control">
 			</p>
 			<p><%= f.text_field :oldphoto, label:"safe", value: @oldphoto, :class => 'form-control', :hidden => true, :disabled => true %></p>
@@ -65,11 +65,15 @@
 			function checkSex(){
 				$('.man, .woman').remove();
 				if($("#person_sex_m").is(':checked')){
+					$(".person_family_roll").show();
 					$('.woman').remove();
 					$("#person_family_roll").prepend("<option value='' disabled selected class='man'>Selecciona el parentesco</option><option class='man' value='Padre'>Padre</option> <option class='man' value='Abuelo'>Abuelo</option> <option class='man' value='Tío'>Tío</option>");
-				}else{
+				}else if($("#person_sex_f").is(':checked')){
+					$(".person_family_roll").show();
 					$('.man').remove();
 					$("#person_family_roll").prepend("<option value='' disabled selected class='woman'>Selecciona el parentesco</option><option class='woman' value='Madre'>Madre</option> <option class='woman' value='Abuela'>Abuela</option> <option class='woman' value='Tía'>Tía</option>");
+				}else{
+					$(".person_family_roll").hide();
 				}
 			}
 		</script>

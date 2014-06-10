@@ -1,4 +1,4 @@
-<% provide(:title, "Ejercicios del día #{@lecture} ") %>
+<% provide(:title, "Actividades del día #{@lecture} ") %>
 
 <div class="boton_der">
 	<%= form_tag("/people/search", :method => "post", :remote => true, :id => "search_people") do %>
@@ -6,7 +6,7 @@
 	<% end %>
 	<%= link_factory(:_path => program_path(@program), :_text=> "Regresar a programa", :_button => true, :_class=> "btn btn-info") %>
 	<p><button class="btn btn-primary" data-toggle="modal" data-target="#searcher_exercises">Buscar</button></p>
-	<h1>Ejercicios del día <%= "#{@lecture}" %> <span class="line"></span></h1>
+	<h1>Actividades del día <%= "#{@lecture}" %> <span class="line"></span></h1>
 </div>
 
 <%= render 'program_relations/searcher' %>
@@ -25,9 +25,9 @@
 		<%= render '/exercises/list' %>
 			<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
 		<% else %>
-			<h4 class="counter_is_zero">No se encontraron ejercicios</h4>
+			<h4 class="counter_is_zero">No se encontraron actividades</h4>
 		<% end %>
 	</div>
 </div>
-<h6>Total de ejercicios para este programa: <%= @exercises.count %></h6>
+<h6>Total de actividades para este programa: <%= @exercises.count %></h6>
 <div class="spacer"></div>

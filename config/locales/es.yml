@@ -279,10 +279,3 @@ es:
         wednesday_hour: "La hora del miércoles"
         thursday_hour: "La hora del jueves"
         friday_hour,: "La hora del viernes"
-    forms:
-      calendar:
-        monday_hour: "La hora del lunes"
-        tuesday_hour: "La hora del martes"
-        wednesday_hour: "La hora del miércoles"
-        thursday_hour: "La hora del jueves"
-        friday_hour,: "La hora del viernes"

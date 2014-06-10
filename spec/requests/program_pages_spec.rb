@@ -143,10 +143,10 @@ describe "program pages" do
 		before { visit "/programs/#{program.id}/program_relations/new?lecture_id=1" }
 
 		describe "should show details possible lectures" do
-			it { should have_content("Total de ejercicios para este programa: 1") }
+			it { should have_content("Total de actividades para este programa: 1") }
 			it { should have_content("Exercise") }
-			it { should have_content('Este es un objetivo en ejercicio') }
-			it { should have_content('Este es la descripción del ejercicio') }
+			it { should have_content('Este es un objetivo en actividad') }
+			it { should have_content('Este es la descripción de la actividad') }
 			it { should have_content("Leer más") }
 		end
 

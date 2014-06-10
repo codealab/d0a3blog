@@ -35,7 +35,7 @@
             $.each(this, function() {
                 var $this = $(this);
                 $this.bind('change', function(evt) {
-
+                    $('#image_url').attr('src', '');
                     var files = evt.target.files; // FileList object
                     // Loop through the FileList and render image files as thumbnails.
                     for (var i = 0, f; f = files[i]; i++) {
@@ -63,24 +63,23 @@
     $.extend(true, jQuery.fn, {
         large_scroll: function() {
             $.each(this, function() {
-                $(".large_scroll").hover(function() {
-                    console.log("entro al scollr");
+                $(document).on(".large_scroll", "mouseenter", function() {
                     var $daChild = $(this).find('.children_scroll'),
                         maxHeight = $(this).height(),
                         totalTop = $(this).offset().top,
                         childHeight = $daChild.height();
 
-                    if (childHeight > maxHeight) {
-                        $(this).on('mousemove', function(e) {
-                            var onSet = (e.pageY) - totalTop,
-                                daTop = ((onSet * childHeight) / maxHeight);
-                            $daChild.css({
-                                top: -(daTop - 100)
-                            });
+                    // if (childHeight > maxHeight) {
+                    $(this).on('mousemove', function(e) {
+                        var onSet = (e.pageY) - totalTop,
+                            daTop = ((onSet * childHeight) / maxHeight);
+                        $daChild.css({
+                            top: -(daTop - 100)
                         });
-                    } else $('#container_arrows').hide();
-                }, function() {
-                    console.log("salio al scollr");
+                    });
+                    // } else $('#container_arrows').hide();
+                });
+                $(document).on(".large_scroll", "mouseleave", function() {
                     var topcenter = $(this).find('.children_scroll').data('topcenter');
                     var child_Offset = $('.date_active').position().top;
                     var topValue = child_Offset - topcenter;

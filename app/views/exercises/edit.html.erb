@@ -3,11 +3,11 @@
 <div class="boton_der">
 	<div class="top_buttons">
 		<% if @group && @lecture %>
-			<%= link_factory( :_path => group_lecture_exercises_path(@group, @lecture), :_text =>'Regresar a Ejercicios', :_class => 'btn btn-info', :_button => true ) %>
-			<%= link_factory( :_path => new_group_lecture_exercise_path(@group, @lecture), :_text =>'Nuevo Ejercicio', :_class => 'btn btn-default', :_button => true ) %>
+			<%= link_factory( :_path => group_lecture_exercises_path(@group, @lecture), :_text =>'Regresar a Actividades', :_class => 'btn btn-info', :_button => true ) %>
+			<%= link_factory( :_path => new_group_lecture_exercise_path(@group, @lecture), :_text =>'Nueva Actividad', :_class => 'btn btn-default', :_button => true ) %>
 		<% else %>
-			<%= link_factory( :_path => exercises_path, :_text =>'Regresar a Ejercicios', :_class => 'btn btn-info', :_button => true ) %>
-			<%= link_factory( :_path => new_exercise_path, :_text =>'Nuevo Ejercicio', :_class => 'btn btn-default', :_button => true ) %>
+			<%= link_factory( :_path => exercises_path, :_text =>'Regresar a Actividades', :_class => 'btn btn-info', :_button => true ) %>
+			<%= link_factory( :_path => new_exercise_path, :_text =>'Nueva Actividad', :_class => 'btn btn-default', :_button => true ) %>
 		<% end %>
 	</div>
 	<h1>Editar <%= @exercise.full_name %><span class="line"></span></h1>

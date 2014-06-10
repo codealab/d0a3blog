@@ -16,7 +16,7 @@
 			<p>
 				<% relations = ["Hijo","Hija","Padre","Madre","Abuelo","Tío","Tía","",nil] %>
 				<% if relations.include?(@person.family_roll) %>
-					<%= f.input :family_roll, label: "Roll Familiar", :include_blank => false, collection: [[ 'Hijo', 'Hijo', :class => 'man' ], [ 'Hija', 'Hija', :class => 'woman' ], [ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tío', 'Tío', :class => 'man' ], [ 'Tía', 'Tía', :class => 'woman' ], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
+					<%= f.input :family_roll, label: "Roll Familiar (Respecto al niño)", :include_blank => false, collection: [[ 'Hijo', 'Hijo', :class => 'man' ], [ 'Hija', 'Hija', :class => 'woman' ], [ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tío', 'Tío', :class => 'man' ], [ 'Tía', 'Tía', :class => 'woman' ], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
 				<% else %>
 					<%= f.input :family_roll, label: "Roll Familiar", :include_blank => false, collection: [[ 'Hijo', 'Hijo', :class => 'man' ], [ 'Hija', 'Hija', :class => 'woman' ], [ 'Padre', 'Padre', :class => 'man' ], [ 'Madre', 'Madre', :class => 'woman' ], [ 'Abuelo', 'Abuelo', :class => 'man' ], [ 'Abuela', 'Abuela', :class => 'woman' ], [ 'Tío', 'Tío', :class => 'man' ], [ 'Tía', 'Tía', :class => 'woman' ], [@person.family_roll,@person.family_roll], [ 'Otro', 'Otro', :id => 'other_value' ]] %>
 				<% end %>
@@ -71,10 +71,14 @@
 		$('.man, .woman').remove();
 		if($("#person_sex_m").is(':checked')){
 			$('.woman').remove();
+			$(".person_family_roll").show();
 			$("#person_family_roll").prepend("<option value='' disabled selected class='man'>Selecciona el parentesco</option><option class='man' value='Hijo'>Hijo</option> <option class='man' value='Padre'>Padre</option> <option class='man' value='Abuelo'>Abuelo</option> <option class='man' value='Tío'>Tío</option>");
-		}else{
+		}else if($("#person_sex_f").is(':checked')){
 			$('.man').remove();
+			$(".person_family_roll").show();
 			$("#person_family_roll").prepend("<option value='' disabled selected class='woman'>Selecciona el parentesco</option><option class='woman' value='Hija'>Hija</option> <option class='woman' value='Madre'>Madre</option> <option class='woman' value='Abuela'>Abuela</option> <option class='woman' value='Tía'>Tía</option>");
+		}else{
+			$(".person_family_roll").hide();
 		}
 	}
 </script>

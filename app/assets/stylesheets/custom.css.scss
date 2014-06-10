@@ -376,6 +376,9 @@ footer {
 
 /* Group select */
 .date_selector{ display: inline-block; }
+.person_family_roll{
+  display: none;
+}
 .datetime label, .person_family_roll label, #selector_fecha label{
   width: 100%;
   clear: both;
