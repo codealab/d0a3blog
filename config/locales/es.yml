@@ -36,18 +36,18 @@ es:
     - sáb
     abbr_month_names:
     -
-    - Ene
-    - Feb
-    - Mar
-    - Abr
-    - May
-    - Jun
-    - Jul
-    - Ago
-    - Sep
-    - Oct
-    - Nov
-    - Dic
+    - ene
+    - feb
+    - mar
+    - abr
+    - may
+    - jun
+    - jul
+    - ago
+    - sep
+    - oct
+    - nov
+    - dic
     day_names:
     - Domingo
     - Lunes
@@ -227,10 +227,8 @@ es:
     errors:
       <<: *errors
   activerecord:
-    errors: 
+    errors:
       <<: *errors
-es:
-  activerecord:
     models:
       person: "Miembro"
     attributes:
@@ -253,6 +251,7 @@ es:
         material: "El material"
         music: "La musica"
       group:
+        user_id: "El instructor"
         name: "El nombre"
         location: "La ubicación"
         cost: "El costo"
