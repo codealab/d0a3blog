@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
 	# helper_method :valid_user
 	helper_method :is_child
 	
-	# load_and_authorize_resource except: [:create]
+	load_and_authorize_resource except: [:create]
 	# before_action :correct_user, only: [:edit, :update, :new, :create, :destroy, :delete]
 	# load_and_authorize_resource
 

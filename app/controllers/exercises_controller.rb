@@ -3,7 +3,7 @@ class ExercisesController < ApplicationController
 
 	# helper_method :valid_user
 	# before_action :correct_user, only: [:edit, :update, :show, :new, :create, :destroy, :delete, :index]
-	# load_and_authorize_resource
+	load_and_authorize_resource
 
 	def index
 		@exercises = Exercise.all.order('id desc').paginate(page: params[:page])
