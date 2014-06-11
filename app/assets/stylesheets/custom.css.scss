@@ -474,7 +474,10 @@ footer {
   left: 50px;
   top: 0px;
 }
-.child_appended{ margin: 3px; }
+.child_appended{
+margin: 3px;
+cursor:pointer;
+}
 .child_appended, .child_selected span{
   top: 25px;
   opacity: 0;

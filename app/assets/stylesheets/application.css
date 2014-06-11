@@ -573,3 +573,25 @@ ul.wysihtml5-toolbar > li{ margin-bottom: 0!important; }
 	position: absolute!important;
 	top: 30px!important;
 }
+.spot-deactivated{
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: url(grayscale.svg);
+  filter: gray;
+}
+.deactivated-close{
+	top: -6px;
+	right: -3px;
+	font-size: 15px;
+	position: absolute;
+}
+.deactivated-close a .glyphicon{
+	color: rgb(222, 83, 83);
+	width: 15px;
+	height: 15px;
+	background: white;
+	border-radius: 50%;
+}

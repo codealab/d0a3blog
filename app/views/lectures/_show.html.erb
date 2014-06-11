@@ -30,7 +30,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="boton_der">
 		<div class="top_buttons top_buttons_group">
 			<%= link_to group_lecture_exercises_path(@group, @lecture) do %>
@@ -168,23 +167,7 @@
 									</div>
 								</div>
 								<div id="form_child_container_<%= c.id  %>">
-									<div class="modal-body">
-										<div class="all_width light_box">
-											<h4>Observaciones</h4>
-											<div class="observation_date">
-												<div class="left observation_day"></div>
-												<div class="left observation_number_day"></div>
-												<div class="left observation_month"></div>
-											</div>
-											<div class="spacer"></div>
-											<div class="tiny_scroll tiny_attendances">
-												<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
-												<div class="viewport"><div class="overview"></div></div>
-											</div>
-										</div>
-										<div class="spacer"></div>
-									</div>
-									<div class="modal-footer" id="fadebackdrop"></div>
+									<!-- render ajax -->
 								</div>
 							</div>
 						</div>
@@ -199,15 +182,5 @@
 <script>
 	$(document).ready(function(){
 		$('.tip').tooltip();
-		$('.observation_wysiwyg').wysihtml5({
-			"font-styles": false,
-			"emphasis": true,
-			"lists": true,
-			"html": false,
-			"link": true,
-			"image": false,
-			"color": true,
-			"locale": "es-ES"
-		});
 	});
 </script>

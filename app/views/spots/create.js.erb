@@ -1,12 +1,19 @@
-var total_inscriptions = parseInt("<%= @group.spots.count %>");
+var active = parseInt("<%= @group.active_children.count %>");
+var deactivated = parseInt("<%= @group.deactivate_children.count %>");
 
-$("#total_spots span").html(total_inscriptions);
+$("#total_spots span").html(active + " Inscritos activos / " + deactivated + " Bajas");
 
-if(total_inscriptions>0) $("#alert_inscriptions").hide();
+if (active > 0) $("#alert_inscriptions").hide();
 else $("#alert_inscriptions").show();
 
 var child_active = document.getElementById('child_spot_<%= @spot.child.id %>');
-if(!child_active){
-	$('#enlist_childs').append("<%= escape_javascript(render('create')) %>").show();
-	$("#child_spot_<%= @spot.child.id %>").animate({top:0,opacity:1},600,'easeOutQuart');
+if (!child_active) {
+    $('#enlist_childs').append("<%= escape_javascript(render('create')) %>").show(function() {
+        observationAdjust();
+        $('.tip').tooltip();
+    });
+    $("#child_spot_<%= @spot.child.id %>").animate({
+        top: 0,
+        opacity: 1
+    }, 600, 'easeOutQuart');
 }

@@ -1,0 +1,51 @@
+<% if @spot.deactivated.blank? %>
+	<div class="child_spot child_appended child_spot_<%= @spot.child.id %>" data-toggle="modal" data-target="#child_observation_<%= @spot.id %>" id="child_spot_<%= @spot.child.id %>">
+<% else %>
+	<div class="child_spot child_appended spot-deactivated child_spot_<%= @spot.child.id %>" data-toggle="modal" data-target="#child_observation_<%= @spot.id %>" id="child_spot_<%= @spot.child.id %>">
+<% end %>
+	<div class="child_attendance_over">
+		<span class="glyphicon glyphicon-plus"></span>
+	</div>
+	<% if @spot.child.photo_url.to_s.include?('/default/') %>
+		<img src="<%= @spot.child.photo_url %>" alt="<%= @spot.child.name %>" class="kid_up_photo">
+	<% else %>
+		<img src="<%= @spot.child.photo_url(:thumb) %>" alt="<%= @spot.child.name %>" class="kid_up_photo">
+		<% end %>
+		<div class="kid_stats">
+			<p><%= @spot.child.name %></p>
+		</div>
+		<% if @spot.can_destroy? %>
+			<div class="child_remove">
+				<a href="/spots/destroy?id=<%= @spot.id %>&group_id=<%= @group.id %>" class="tip" data-toggle="tooltip" data-placement="left" data-remote="true" title="Eliminar">
+				<div class="remove"></div>
+				</a>
+			</div>
+		<% else %>
+			<% if @spot.deactivated.blank? %>
+				<div class="deactivated-close">
+					<a href="/spots/deactivated?id=<%= @spot.id %>&group_id=<%= @group.id %>" class="tip" data-toggle="tooltip" data-placement="left" data-remote="true" title="Baja">
+					<div class="glyphicon glyphicon-download"></div>
+					</a>
+				</div>
+			<% else %>
+				<div class="deactivated-close">
+					<a href="/spots/deactivated?id=<%= @spot.id %>&group_id=<%= @group.id %>" class="tip " data-toggle="tooltip" data-placement="left" data-remote="true" title="Alta">
+						<div class="glyphicon glyphicon-upload"></div>
+					</a>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+	<div class="modal fade modal_spot_observation" id="child_observation_<%= @spot.id %>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Historial de registro</h4>
+				</div>
+				<div id="form_spot_container_<%= @spot.id %>">
+					<!-- render ajax -->
+				</div>
+			</div>
+		</div>
+	</div>

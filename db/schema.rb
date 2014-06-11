@@ -185,6 +185,8 @@ ActiveRecord::Schema.define(version: 20140604235354) do
     t.integer  "tutor_id"
     t.integer  "group_id"
     t.integer  "balance"
+    t.text     "observation"
+    t.date     "deactivated"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

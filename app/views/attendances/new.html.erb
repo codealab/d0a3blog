@@ -44,12 +44,12 @@
 			</div>
 		</div>
 		<div class="spacer"></div>
-		<h4><%= @group.spots.count %> Inscritos</h4>
+		<h4><%= @lecture.possible_attendances.count %> inscritos activos</h4>
 		<div class="under_pressure"></div>
 		<div id="posible_attendances" class="all_width blue_box">
-			<% if @group.spots.count>0 %>
+			<% if @lecture.possible_attendances.count>0 %>
 				<div class="white_box">
-					<% @group.spots.each_with_index do |c,index| %>
+					<% @lecture.possible_attendances.each_with_index do |c,index| %>
 						<% if c.child.family_relations.first.family.status? %>
 							<a href="/attendances/create?spot_id=<%= c.id %>&lecture_id=<%= @lecture.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.child.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>">
 								<div class="child_spot child_appended">

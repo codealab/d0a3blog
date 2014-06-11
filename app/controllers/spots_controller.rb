@@ -15,6 +15,7 @@ class SpotsController < ApplicationController
 		@group = Group.find(params[:group_id])
 		person = Person.find(params[:child_id])
 		@spot = @group.spots.build( child_id: person.id )
+		@spot.observation = "<p><b>Fecha de inscripción:</b></br>#{ I18n.l Date.today.to_datetime, :format => '%d de %B del %Y'}<p>"
 		@group.save
 	end
 
@@ -54,6 +55,30 @@ class SpotsController < ApplicationController
 		@spot.destroy
 		# flash[:success] = "Spot borrado"
 		# redirect_to groups_path
+	end
+
+	def observation
+		@spot = Spot.find(params[:id])
+		observation = @spot.observation
+		if params[:observation]
+			@spot.observation = "#{observation} <p><b>Observación</b> (#{I18n.l Date.today.to_datetime, :format => '%d de %B del %Y'})</br> #{params[:observation]}</p>"
+			@spot.save
+		end
+	end
+
+	def deactivated
+		@spot = Spot.find(params[:id])
+		@group = Group.find(params[:group_id])
+		@child = @spot.child
+		observation = @spot.observation
+		if @spot.deactivated.blank?
+			@spot.deactivated = "#{Date.today.to_date}"
+			@spot.observation = "#{observation} <p><b>Fecha de Baja:</b></br>#{ I18n.l Date.today.to_datetime, :format => '%d de %B del %Y'}</p>"
+		else
+			@spot.deactivated = nil
+			@spot.observation = "#{observation} <p><b>Fecha de Reinscripción:</b></br>#{ I18n.l Date.today.to_datetime, :format => '%d de %B del %Y'}</p>"
+		end
+		@spot.save
 	end
 
 	def search

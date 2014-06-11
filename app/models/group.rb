@@ -29,6 +29,14 @@ class Group < ActiveRecord::Base
 		self.user.name
 	end
 
+	def active_children
+		self.spots.where(:deactivated=>nil)
+	end
+
+	def deactivate_children
+	 	self.spots.where("deactivated IS NOT NULL")
+	end
+
 	private
 
 		def finish_date_is_out_of_age_range

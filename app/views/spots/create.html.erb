@@ -1,15 +1,1 @@
-<div class="child_spot" id="child_spot_<%= @spot.child.id %>">
-	<% if @spot.child.photo_url.to_s.include?('/default/') %>
-		<img src="<%= @spot.child.photo_url %>" alt="<%= @spot.child.name %>" class="kid_up_photo">
-	<% else %>
-		<img src="<%= @spot.child.photo_url(:thumb) %>" alt="<%= @spot.child.name %>" class="kid_up_photo">
-	<% end %>
-	<div class="kid_stats">
-		<p><%= @spot.child.name %></p>
-	</div>
-	<div class="child_remove">
-		<a href="/spots/destroy?id=<%= @spot.id %>&group_id=<%= @group.id %>" data-remote="true" id="remove_spot_<%= @spot.child.id %>">
-			<span class="remove"></span>
-		</a>
-	</div>
-</div>
+<%= render 'spots/spot' %>

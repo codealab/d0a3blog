@@ -50,6 +50,8 @@ D0A3::Application.routes.draw do
   post "program_relations/search"
   get "programs/reorder"
   get "programs/lecture"
+  get "spots/deactivated"
+  get "spots/observation"
 
   # resources :people do
   #   collection do

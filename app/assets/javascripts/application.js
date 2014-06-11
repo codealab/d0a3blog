@@ -167,13 +167,8 @@ function over_and_clicks() {
 }
 
 function scrollAdjust() {
+    tiny();
 
-    $('.tiny_scroll').each(function() {
-        var tinyScroll = $(this);
-        tinyScroll.tinyscrollbar();
-        var newScroll = tinyScroll.data("plugin_tinyscrollbar");
-        newScroll.update();
-    });
     $('.modal_attendance').on('show.bs.modal', function() {
         var theID = $(this).attr('id').replace('att_', '');
         $("#form_child_container_" + theID).load("/attendances/observation/" + theID + " #form_child_container", function() {
@@ -199,6 +194,38 @@ function scrollAdjust() {
 
 }
 
+function observationAdjust() {
+    tiny();
+
+    $('.child_appended').hover(function() {
+        $(this).find('.child_attendance_over').stop().fadeIn();
+    }, function() {
+        $(this).find('.child_attendance_over').stop().fadeOut();
+    });
+
+    $('.modal_spot_observation').on('show.bs.modal', function() {
+        var theID = $(this).attr('id').replace('child_observation_', '');
+        $("#form_spot_container_" + theID).load("/spots/observation/" + theID + " #form_child_container", function() {
+            var tinyScroll = $("#tiny_spot_" + theID);
+            tinyScroll.tinyscrollbar();
+        });
+    });
+
+    $('.modal_spot_observation').on('hide.bs.modal', function() {
+        var theID = $(this).attr('id').replace('child_observation_', '');
+        $("#form_spot_container_" + theID + " .observation_wysiwyg").html("");
+    });
+}
+
 function sort_tables() {
     $(".tablesorter").tablesorter();
+}
+
+function tiny() {
+    $('.tiny_scroll').each(function() {
+        var tinyScroll = $(this);
+        tinyScroll.tinyscrollbar();
+        var newScroll = tinyScroll.data("plugin_tinyscrollbar");
+        newScroll.update();
+    });
 }
