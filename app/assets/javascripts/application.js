@@ -112,6 +112,14 @@ function over_and_clicks() {
         }, 600, 'easeOutQuart');
     });
 
+    $(document).on("mouseenter", ".child_appended", function() {
+        $(this).find('.child_attendance_over').stop().fadeIn();
+    });
+
+    $(document).on("mouseleave", ".child_appended", function() {
+        $(this).find('.child_attendance_over').stop().fadeOut();
+    });
+
     $(document).on("click", ".asistente, .inscrito", function() {
         $(this).remove();
     });
@@ -196,12 +204,6 @@ function scrollAdjust() {
 
 function observationAdjust() {
     tiny();
-
-    $('.child_appended').hover(function() {
-        $(this).find('.child_attendance_over').stop().fadeIn();
-    }, function() {
-        $(this).find('.child_attendance_over').stop().fadeOut();
-    });
 
     $('.modal_spot_observation').on('show.bs.modal', function() {
         var theID = $(this).attr('id').replace('child_observation_', '');

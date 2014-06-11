@@ -86,9 +86,15 @@
 			<% end %>
 		</div>
 	</div>
-	<% if @spot.payments.count==0 %>
+	<% if @spot.can_destroy? %>
 		<div style="float: right; padding-right: 15px; padding-top: 13px;">
 			<%= link_factory( :_path => group_spot_path(@group, @spot), :_text => 'Desinscripción', :_button => true, :_class => 'btn btn-danger', :_alert=> 'Este niño tiene asistencias y/o pagos realizados. No se puede eliminar.', :_destroy => true ) %>
 		</div>
+	<% else %>
+		<% if @spot.deactivated.blank? %>
+			dar de baja
+		<% else %>
+			dar de alta
+		<% end %>
 	<% end %>
 </div>

@@ -68,8 +68,8 @@
 						<th>Pagos</th>
 						<th>Observaciones</th>
 					</tr>
-					<% @person.spots.each_with_index do |spot,index| %>
-					<tr>
+					<% @person.spots.order('created_at DESC').each_with_index do |spot,index| %>
+					<tr class="<%= "spot-deactivated" if !spot.deactivated.blank? %>">
 						<td class="text_center">
 							<%= link_to edit_group_spot_path(spot.group, @person.spots.find_by_group_id(spot.group.id )), :title => 'Editar' do %>
 								<span class="glyphicon glyphicon-pencil"></span>
@@ -97,6 +97,12 @@
 					<td></td>
 				</tr>
 			</table>
+			<div class="boton_der">
+				<div class="down_marker_people">
+					<span class="down_marker" style="position: relative; float: left; top: 2px;">*</span>
+					Grupo con baja
+				</div>
+			</div>
 		<% else %>
 			<h4 class="counter_is_zero">Esta persona no está inscrita en ningún grupo</h4>
 		<% end %>
@@ -154,7 +160,7 @@
 					</div>
 					<div class="modal-footer">
 						<%= link_to edit_group_spot_path(spot.group, @person.spots.find_by_group_id(spot.group.id )), :title => 'Editar' do %>
-							<button type="button" class="btn btn-default" data-dismiss="modal">Generar Pago</button>
+							<button type="button" class="btn btn-default">Generar Pago</button>
 						<% end %>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 					</div>

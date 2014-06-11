@@ -20,11 +20,10 @@
 		<div class="under_pressure"></div>
 	</div>
 	<div class="all_width blue_box">
-		<div id="enlist_childs" class="white_box">
+		<div id="enlist_childs" class="white_box animate">
 			<% if @group.spots.count>0 %>
-			<% @group.spots.each do |c| %>
-			<% @spot = c %>
-			<%= render 'spots/spot' %>
+			<% @group.spots.order('observation ASC').each do |c| %>
+			<%= render 'spots/spot', :object => c %>
 				<% end %>
 					<h4 class="counter_is_zero" id="alert_inscriptions" style="display:none;">Aún no hay ningún niño inscrito en este grupo</h4>
 				<% else %>

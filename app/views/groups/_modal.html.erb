@@ -26,14 +26,14 @@
 							<% end %>
 						</thead>
 						<tbody>
-							<% object.spots.each_with_index do |spot,index| %>
-							<tr>
+							<% object.spots.order('observation ASC').each_with_index do |spot,index| %>
+							<tr class="<%= "spot-deactivated" if !spot.deactivated.blank? %>">
 								<% if current_user.admin? || current_user.coordinator? %>
 								<td class="text_center">
 									<% if spot.child.families.first.status? %>
-									<%= link_to edit_group_spot_path(object, spot), :title => "Editar" do %>
-									<span class="glyphicon glyphicon-pencil"></span>
-									<% end %>
+										<%= link_to edit_group_spot_path(object, spot), :title => "Editar" do %>
+											<span class="glyphicon glyphicon-pencil"></span>
+										<% end %>
 									<% else %>
 									<span class="glyphicon glyphicon-pencil disabled_registry"></span>
 									<% end %>
@@ -57,9 +57,13 @@
 						</tbody>
 						<% if current_user.admin? || current_user.coordinator? %>
 						<tr class="total_blue">
-							<td></td>
-							<td></td>
-							<td><b>Total:</b></td>
+							<td>
+								<span class="down_marker">*</span>
+							</td>
+							<td>
+								<span class="down_legend">Niño con baja en el grupo</span>
+							</td>
+							<td class="text_right"><b>Total:</b></td>
 							<td class="text_center"><%= negative_value (total_payments object) %></td>
 							<td class="text_center"><%= negative_value (total_balance object) %></td>
 							<td class="text_center"><%= negative_value (total_scholarship object) %></td>

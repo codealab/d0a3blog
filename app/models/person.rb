@@ -61,7 +61,7 @@ class Person < ActiveRecord::Base
 	def balance
 		balance = 0
 		self.spots.each { |b| balance += b.balance }
-		balance
+		"$#{balance}"
 	end
 
   private
