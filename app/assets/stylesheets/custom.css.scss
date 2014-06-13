@@ -376,6 +376,9 @@ footer {
 
 /* Group select */
 .date_selector{ display: inline-block; }
+.person_family_roll{
+  display: none;
+}
 .datetime label, .person_family_roll label, #selector_fecha label{
   width: 100%;
   clear: both;
@@ -394,11 +397,17 @@ footer {
   margin-top: 35px;
   width: 65px;
 }
+.course_monday_hour label,
+.course_tuesday_hour label,
+.course_wednesday_hour label,
+.course_thursday_hour label,
+.course_friday_hour label{ display: none; }
 .time_selector{ height: 40px; }
-.time_select{
-  display: none;
+.time_select {
   width: 65px;
   margin-bottom: 5px;
+  float: left;
+  margin-left: 11px;
 }
 .kid_up_photo{
   border: 1px solid rgb(202, 202, 202);
@@ -465,7 +474,10 @@ footer {
   left: 50px;
   top: 0px;
 }
-.child_appended{ margin: 3px; }
+.child_appended{
+margin: 3px;
+cursor:pointer;
+}
 .child_appended, .child_selected span{
   top: 25px;
   opacity: 0;
@@ -595,7 +607,11 @@ footer {
   margin: 10px 0 0 0;
   position: relative;
 }
-.large_scroll{ position: relative; }
+.large_scroll{
+  overflow: hidden;
+  float: left;
+  position: relative;
+}
 .navbar-default .navbar-nav > .dropdown > a .caret{
   margin-left: 8px;
   border-top-color: #ffffff;

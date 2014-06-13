@@ -1,11 +1,14 @@
 var total_attendances = parseInt("<%= @lecture.attendances.count %>");
 $("#total_attendances span").html(total_attendances);
 
-if(total_attendances>0) $("#alert_attendances").hide();
+if (total_attendances > 0) $("#alert_attendances").hide();
 else $("#alert_attendances").show();
 
 var attendance = document.getElementById('child_spot_<%= @attendance.spot.child.id %>');
-if(!attendance){
-	$('#attendances').append("<%= escape_javascript(render('create')) %>").fadeIn();
-	$("#child_spot_<%= @attendance.spot.child.id %>").animate({top:0,opacity:1},600,'easeOutQuart');
+if (!attendance) {
+    $('#attendances').append("<%= escape_javascript(render('create')) %>").fadeIn();
+    $("#child_spot_<%= @attendance.spot.child.id %>").animate({
+        top: 0,
+        opacity: 1
+    }, 600, 'easeOutQuart');
 }

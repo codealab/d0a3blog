@@ -26,7 +26,7 @@ class Lecture < ActiveRecord::Base
 	# end
 
 	def possible_attendances
-		self.group.spots.where("created_at <= ?", self.date)
+		self.group.active_children.where("created_at <= ?", self.date)
 	end
 
 	# def uniqueness_combination_of_date_and_group_id

@@ -1,0 +1,40 @@
+<div class="modal fade" id="searcher_exercises" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<%= form_tag( { :controller => :program_relations, :action => :search }, { :remote => true, :id => 'searcher_exercises_form' } ) do %>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Buscar Actividades</h4>
+				</div>
+				<div class="modal-body">
+					<div class="light_box all_width">
+						<%= text_field_tag :name, nil, :class => "form-control date_payment_field", :placeholder => "Nombre de la actividad" %>
+						<div class="search_half">
+							<div class="title_search">
+								<%= label_tag(:init, "Desde:") %>
+							</div>
+							<%= number_field_tag :lesson_id, "#{@lesson.id}", :class => "hidden" %>
+							<%= number_field :init, nil, :class => "form-control date_payment_field" %>
+						</div>
+						  <div class="search_half">
+						  	<div class="title_search">
+						  		<%= label_tag(:ended, "Hasta:") %>
+						  	</div>
+						  	<%= number_field :ended, nil, :class => "form-control date_payment_field" %>
+						  </div>
+						<div class="search_half">
+						 	<div class="title_search">
+						  		<%= label_tag(:area, "Área:") %>
+						  	</div>
+						  	<%= select_tag 'area_id', options_for_select(Area.all.collect{ |u| [u.name, u.id] } ), :prompt => "Todas", :class => "form-control" %>
+						</div>
+					</div>
+				</div>
+				<div class="spacer"></div>
+				<div class="modal-footer">
+					<%= submit_tag "Buscar", :class => "btn btn-sm btn-primary" %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

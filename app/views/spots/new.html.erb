@@ -1,6 +1,5 @@
 <% provide(:title, "Inscripciones") %>
 <div class="alert alert-notice" id="alert_notice">Oops! No tienes los permisos suficientes para llevar a cabo esta tarea.</div>
-
 <div class="boton_der">
 	<div class="top_buttons">
 		<%= link_factory( :_path => group_path(@group), :_text=> 'Regresar al Grupo', :_button=> true, :_class=> 'btn btn-info' ) %>
@@ -11,101 +10,85 @@
 	<div class="group_info">
 		<li><strong>Pagos del Grupo:</strong>$<%= payments_result @group.payments %></li>
 		<li><strong>Saldos del Grupo:</strong>$<%= total_balance @group %></li>
-  </div>
+	</div>
 </div>
 <div class="spacer"></div>
 <% if(@childs) %>
- 	<div class="light_box all_width">
-	 	<div id="total_spots">
-			<h4><span><%= @group.spots.count %></span> Inscritos</h4>
-			<div class="under_pressure"></div>
-		</div>
- 		<div class="all_width blue_box">
- 			<div id="enlist_childs" class="white_box">
- 				<% if @group.spots.count>0 %>
-					<% @group.spots.each_with_index do |c,index| %>
-						<div class="child_spot child_appended child_spot_<%= c.child.id %>" id="child_spot_<%= c.child.id %>">
-							<% if c.child.photo_url.to_s.include?('/default/') %>
-								<img src="<%= c.child.photo_url %>" alt="<%= c.child.name %>" class="kid_up_photo">
-							<% else %>
-								<img src="<%= c.child.photo_url(:thumb) %>" alt="<%= c.child.name %>" class="kid_up_photo">
-							<% end %>
-							<div class="kid_stats">
-								<p><%= c.child.name %></p>
-							</div>
-							<% if c.can_destroy? %>
-								<div class="child_remove">
-									<a href="/spots/destroy?id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true" title="Eliminar" id="remove_spot_<%= index %>">
-										<div class="remove"></div>
-									</a>
-								</div>
-							<% end %>
-						</div>
-					<% end %>
+<div class="light_box all_width">
+	<div id="total_spots">
+		<h4><span><%= @group.spots.count %> Inscritos activos / <%= @group.deactivate_children.count %> Bajas</span></h4>
+		<div class="under_pressure"></div>
+	</div>
+	<div class="all_width blue_box">
+		<div id="enlist_childs" class="white_box animate">
+			<% if @group.spots.count>0 %>
+			<% @group.spots.order('observation ASC').each do |c| %>
+			<%= render 'spots/spot', :object => c %>
+				<% end %>
 					<h4 class="counter_is_zero" id="alert_inscriptions" style="display:none;">Aún no hay ningún niño inscrito en este grupo</h4>
 				<% else %>
 					<h4 class="counter_is_zero" id="alert_inscriptions">Aún no hay ningún niño inscrito en este grupo</h4>
-				<% end %>				
+				<% end %>
 			</div>
 		</div>
-
 		<div class="under_pressure"></div>
 		<h4><%= "Niños de #{@group.min_age} a #{@group.max_age} meses" %></h4>
 		<% if @childs.count>0 %>
-			<div class="under_pressure"></div>
-			<div id="posibble_childs" class="all_width blue_box">
-				<div class="white_box">
-					<% @childs.each_with_index do |c,index| %>
-						<% if c.families.count>0 %>
-							<% if c.families.first.status==true %>
-								<a href="/spots/create?child_id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>" data-weeks="<%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %>">
-									<div class="child_spot child_appended">
-										<% if c.photo_url.to_s.include?('/default/') %>
-											<img src="<%= c.photo_url %>" alt="<%= c.name %>" class="attendance_img">
-										<% else %>
-											<img src="<%= c.photo_url(:thumb) %>" alt="<%= c.name %>" class="attendance_img">
-										<% end %>
-										<div class="weeks_stat">
-											<p><span><%= c.dob_to_weeks %></span><br>
-											<% if c.dob_to_weeks == 1%>Semana</p><% else %>Semanas<% end %></p>
-										</div>
-										<div class="kid_stats">
-											<p><%= c.name %></p>
-										</div>
-										<div class="child_selected">
-											<span class="glyphicon glyphicon-ok"></span>
-										</div>
-									</div>
-								</a>
-							<% end %>
-						<% end %>
+		<div class="under_pressure"></div>
+		<div id="posibble_childs" class="all_width blue_box">
+			<div class="white_box">
+				<% @childs.each_with_index do |c,index| %>
+				<% if c.families.count>0 %>
+				<% if c.families.first.status==true %>
+				<a href="/spots/create?child_id=<%= c.id %>&group_id=<%= @group.id %>" data-remote="true"  class="child_selector child_<%= c.id %>" id="child_selector_<%= index %>" data-childid="<%= c.id %>" data-weeks="<%= ((Date.today.to_date - c.dob.to_date).to_i)/7 %>">
+				<div class="child_spot child_appended">
+					<% if c.photo_url.to_s.include?('/default/') %>
+						<img src="<%= c.photo_url %>" alt="<%= c.name %>" class="attendance_img">
+					<% else %>
+					<img src="<%= c.photo_url(:thumb) %>" alt="<%= c.name %>" class="attendance_img">
 					<% end %>
+					<div class="weeks_stat">
+						<p><span><%= c.dob_to_weeks %></span><br>
+						<% if c.dob_to_weeks == 1%>Semana</p><% else %>Semanas<% end %></p>
+					</div>
+					<div class="kid_stats">
+						<p><%= c.name %></p>
+					</div>
+					<div class="child_selected">
+						<span class="glyphicon glyphicon-ok"></span>
+					</div>
 				</div>
+				</a>
+				<% end %>
+				<% end %>
+				<% end %>
 			</div>
+		</div>
 		<% else %>
-			<div class="under_pressure"></div>
-			<div id="posibble_childs" class="all_width blue_box">
-				<h4 class="counter_is_zero">No se encontraron niños dentro del rango de edad</h4>
-			</div>
+		<div class="under_pressure"></div>
+		<div id="posibble_childs" class="all_width blue_box">
+			<h4 class="counter_is_zero">No se encontraron niños dentro del rango de edad</h4>
+		</div>
 		<% end %>
-
 		<div class="spacer"></div>
 		<h4>Búsqueda</h4>
 		<div class="under_pressure"></div>
 		<div class="blue_box">
 			<div id="searcher" class="all_width white_box">
 				<%= form_tag("/spots/search", :method => "get", remote: true, :id => "search_form") do %>
-						<%= text_field_tag "query", nil, :placeholder => "Buscar", :class => "search_input form-control" %>
-					<%= text_field_tag "group_id", "#{@group.id}", :style => 'display:none;' %>
+				<%= text_field_tag "query", nil, :placeholder => "Buscar", :class => "search_input form-control" %>
+				<%= text_field_tag "group_id", "#{@group.id}", :style => 'display:none;' %>
 				<% end %>
 				<div id="childs_container"></div>
 			</div>
 		</div>
 	</div>
-<% end %>
+	<% end %>
+</div>
 <script>
 	$(document).ready(function() {
 		<%= render "/spots/edit.js.erb" %>
+		observationAdjust();
 		$(".child_appended").each(function(index, el) {
 			$(this).delay(index*30).animate({top:0,opacity:1},600,'easeInOutQuart');
 		});

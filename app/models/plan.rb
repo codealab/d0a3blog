@@ -9,8 +9,8 @@ class Plan < ActiveRecord::Base
   private
 
 	def materials
-		self.material = self.exercise.material
-		self.music = self.exercise.music
+		self.material = self.exercise.material if !self.exercise.material.blank?
+		self.music = self.exercise.music if !self.exercise.music.blank?
 	end
 
 end

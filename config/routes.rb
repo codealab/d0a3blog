@@ -1,5 +1,5 @@
 D0A3::Application.routes.draw do
-  
+
   resources :families do 
     resources :people#, only: [:index, :show]
     resources :addresses, only: [:new, :create, :edit, :update]
@@ -18,6 +18,15 @@ D0A3::Application.routes.draw do
 
   resources :plans
   resources :users
+  resources :program_relations
+  resources :courses
+  resources :programs do
+    resources :courses
+  end
+  resources :lessons do
+    resources :program_relations
+  end
+
   resources :lectures
   resources :payments
   resources :exercises
@@ -38,6 +47,11 @@ D0A3::Application.routes.draw do
   post "people/search"
   post "exercises/search"
   get "exercises/plan"
+  post "program_relations/search"
+  get "programs/reorder"
+  get "programs/lecture"
+  get "spots/deactivated"
+  get "spots/observation"
 
   # resources :people do
   #   collection do

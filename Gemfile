@@ -24,6 +24,7 @@ gem 'bootstrap-wysihtml5-rails'
 # Use bycrypt to encode keys and restore on cookies sessions
 # Use jquery as the JavaScript library
 gem 'i18n', '~> 0.6.9'
+# gem 'rails-i18n'
 gem 'jcrop-rails-v2'
 #gem 'protected_attributes'
 gem "carrierwave"
@@ -36,9 +37,11 @@ end
 
 gem "fog"
 gem "unf"
+gem 'thin'
 
 gem 'will_paginate-bootstrap'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 # gem 'jquery-ui-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

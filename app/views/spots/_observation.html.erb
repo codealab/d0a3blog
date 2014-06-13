@@ -1,0 +1,24 @@
+<div id="form_child_container">
+	<%= form_tag("/spots/observation/#{@spot.id}", :method => "get", remote: true ) do %>
+	<div class="modal-body">
+		<div class="tiny_scroll tiny_attendances" id="tiny_spot_<%= @spot.id %>">
+			<div class="scrollbar">
+				<div class="track">
+					<div class="thumb"></div>
+				</div>
+			</div>
+			<div class="viewport">
+				<div class="overview">
+					<%= @spot.observation.html_safe %>
+				</div>
+			</div>
+		</div>
+		<div class="spacer"></div>
+		<%= text_area_tag "observation", nil, :class => "form-control", placeholder: "Escribe una observación" %>
+	</div>
+	<div class="modal-footer">
+		<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
+		<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+	</div>
+	<% end %>
+</div>

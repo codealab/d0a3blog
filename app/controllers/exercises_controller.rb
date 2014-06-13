@@ -28,20 +28,20 @@ class ExercisesController < ApplicationController
 			if(@exercise.save)
 				if params[:group_id]
 					if in_range
-						flash[:success] = 'Ejercicio creado exitosamente.'
+						flash[:success] = 'Actividad creado exitosamente.'
 					else
-						flash[:success] = 'El Ejercicio ha sido creado exitosamente. Pero está fuera del rango del grupo.'
+						flash[:success] = 'La actividad ha sido creado exitosamente. Pero está fuera del rango del grupo.'
 					end
 					redirect_to group_lecture_exercises_path(params[:exercise][:group_id],params[:exercise][:lecture_id])
 				else
 					redirect_to exercises_path
-					flash[:success] = 'Ejercicio creado exitosamente.'
+					flash[:success] = 'Actividad creado exitosamente.'
 				end
 			else
 				render 'new'
 			end
 		else
-			flash[:danger] ="El ejercicio debe contener al menos un área"
+			flash[:danger] ="La actividad debe contener al menos un área"
 			@exercise.valid?	
 			render 'new'
 		end
@@ -104,7 +104,7 @@ class ExercisesController < ApplicationController
 			@exercises = @area ? (@area.exercises):(Exercise.all)
 
 			if init && ended
-				@exercises = @exercises.where("min_age >= #{init} AND max_age <= #{ended}")
+				@exercises = @exercises.where("min_age <= #{ended} AND max_age >= #{init}")
 			elsif init && !ended
 			 	@exercises = @exercises.where("min_age >= #{init}")
 			elsif !init && ended
@@ -123,7 +123,7 @@ class ExercisesController < ApplicationController
 		if @exercise.lectures.empty?
 			@exercise.areas.delete_all
 			@exercise.destroy
-			flash[:success] = "Ejercicio borrado"
+			flash[:success] = "Actividad borrada"
 			if params[:group] && params[:lecture]
 				@group = Group.find(params[:group_id])
 				@lecture = Lecture.find(params[:lecture_id])
@@ -132,7 +132,7 @@ class ExercisesController < ApplicationController
 				redirect_to exercises_path
 			end
 		else
-			redirect_to(:back, notice: "Este ejercicio está asignado a una o varias clases. No puede llevarse a cabo esta acción.")
+			redirect_to(:back, notice: "Esta actividad está asignada a una o varias clases. No puede llevarse a cabo esta acción.")
 		end
 	end 
 
@@ -167,7 +167,7 @@ class ExercisesController < ApplicationController
 		end
 
 		def correct_user
-			redirect_to(root_path, notice: "No tienes permitido crear, editar o borrar ejercicios.") unless valid_user
+			redirect_to(root_path, notice: "No tienes permitido crear, editar o borrar actividades.") unless valid_user
 		end
 
 		# def valid_user

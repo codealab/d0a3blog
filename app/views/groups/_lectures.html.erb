@@ -11,7 +11,7 @@
 	</div>
 	<div class="container_large_scroll" id="date_selector">
 		<nav id="lectures_dates" class="large_scroll">
-			<div id="dates_container" class="children_scroll">
+			<div id="dates_container" class="children_scroll" data-topcenter="260">
 				<% @group.lectures.order('date ASC').each do |lecture| %>
 					<% if lecture.date.past? %>
 						<%= link_to group_lecture_path(@group, lecture), :remote => true do %>
@@ -47,13 +47,3 @@
 	<div id="refresh_lecture_info">
 		<%= render 'lectures/show' %>
 	</div>
-
-<script>
-	$(document).ready(function() {
-		$('.date_over').on('click',function(){
-			$('.date_over').removeClass('date_active');
-			$(this).addClass('date_active');
-		});
-
-	});
-</script>

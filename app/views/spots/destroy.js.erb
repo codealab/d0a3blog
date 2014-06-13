@@ -1,9 +1,17 @@
-var total_inscriptions = parseInt("<%= @group.spots.count %>");
+var active = parseInt("<%= @group.active_children.count %>");
+var deactivated = parseInt("<%= @group.deactivate_children.count %>");
 
-$("#total_spots span").html(total_inscriptions);
-$(".child_<%= @child.id %>").css({opacity:0,top:30}).show().animate({opacity:1,top:0},600,'easeOutQuart');
+$("#total_spots span").html(active + " Inscritos activos / " + deactivated + " Bajas");
+
+$(".child_<%= @child.id %>").css({
+    opacity: 0,
+    top: 30
+}).show().animate({
+    opacity: 1,
+    top: 0
+}, 600, 'easeOutQuart');
 $("#child_spot_<%= @child.id %>").remove();
 $(".child_<%= @child.id %>").find('.child_selected').hide();
 
-if(total_inscriptions>0) $("#alert_inscriptions").hide();
+if (total_inscriptions > 0) $("#alert_inscriptions").hide();
 else $("#alert_inscriptions").show();

@@ -1,0 +1,10 @@
+$("#exercise_" + <%= @exercise.id %> ).html(("<%= escape_javascript(render('create')) %>"));
+$("#exercise_day_" + <%= @exercise.id %> ).fadeOut();
+$("#container_points_" + <%= @lesson.id %> ).fadeOut(100, function() {
+    $(this).html('');
+    var relations = parseInt( <%= "#{@lesson.program_relations.count}" %> );
+    for (var i = 0; i < relations; i++) {
+        $(this).append('<span class="program_relation_point"></span>');
+    };
+    $(this).fadeIn(100);
+});

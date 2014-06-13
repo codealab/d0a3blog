@@ -4,7 +4,9 @@
 			<%= link_factory(:_path=>edit_group_lecture_path(@group, @lecture), :_text=> 'Editar Clase', :_class=>'btn btn-default btn-xs', :_button=>true) %>
 			<p><button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lecture_observation">Observación</button></p>
 		</div>
-		<h4>Clase del <%= I18n.l @lecture.date, :format => "%d de %B del %Y" %></h4>
+		<h4>Clase del <%= I18n.l @lecture.date, :format => "%d de %B del %Y" %> -
+			<%= @lecture.date.strftime("%H:%M %P") %>
+		</h4>
 	</div>
 
 	<div id="lecture_observation_<%= @lecture.id %>">
@@ -28,15 +30,14 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="boton_der">
 		<div class="top_buttons top_buttons_group">
 			<%= link_to group_lecture_exercises_path(@group, @lecture) do %>
-				<span data-toggle="tooltip" data-placement="left" title="Seleccionar Ejercicios" class="tip glyphicon glyphicon-plus-sign" style="margin: 10px; font-size: 24px; position: relative; top: 7px; margin-left: 0px; right: 0; position: absolute; top: -46px; color: #107BD8;
+				<span data-toggle="tooltip" data-placement="left" title="Seleccionar Actividades" class="tip glyphicon glyphicon-plus-sign" style="margin: 10px; font-size: 24px; position: relative; top: 7px; margin-left: 0px; right: 0; position: absolute; top: -46px; color: #107BD8;
 				"></span>
 			<% end %>
 		</div>
-		<h1>Ejercicios <%= @lecture.exercises.count %></h1>
+		<h1>Actividades <%= @lecture.exercises.count %></h1>
 	</div>
 
 	<div class="all_width blue_box" id="exercises_container_table">
@@ -89,11 +90,11 @@
 														<%= number_field_tag "plan_id", plan.id, :class => "form-control hidden", :hidden => true %>
 														<p>
 															<strong>Música:</strong>
-															<%= text_area_tag "music", plan.music, :class => "form-control", placeholder: "Música del ejercicio" %>
+															<%= text_area_tag "music", plan.music, :class => "form-control", placeholder: "Música de la actividad" %>
 														</p>	
 														<p>
 															<strong>Material:</strong>
-															<%= text_area_tag "material", plan.material, :class => "form-control", placeholder: "Material del ejercicio" %>
+															<%= text_area_tag "material", plan.material, :class => "form-control", placeholder: "Material de la actividad" %>
 														</p>
 													</div>
 													<div class="modal-footer">
@@ -111,7 +112,7 @@
 				</div>
 			</div>
 		<% else %>
-			<h4 class="counter_is_zero">Esta clase no cuenta con ejercicios</h4>
+			<h4 class="counter_is_zero">Esta clase no cuenta con actividades</h4>
 		<% end %>
 		</div>
 	</div>
@@ -166,23 +167,7 @@
 									</div>
 								</div>
 								<div id="form_child_container_<%= c.id  %>">
-									<div class="modal-body">
-										<div class="all_width light_box">
-											<h4>Observaciones</h4>
-											<div class="observation_date">
-												<div class="left observation_day"></div>
-												<div class="left observation_number_day"></div>
-												<div class="left observation_month"></div>
-											</div>
-											<div class="spacer"></div>
-											<div class="tiny_scroll tiny_attendances">
-												<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
-												<div class="viewport"><div class="overview"></div></div>
-											</div>
-										</div>
-										<div class="spacer"></div>
-									</div>
-									<div class="modal-footer" id="fadebackdrop"></div>
+									<!-- render ajax -->
 								</div>
 							</div>
 						</div>
@@ -197,15 +182,5 @@
 <script>
 	$(document).ready(function(){
 		$('.tip').tooltip();
-		$('.observation_wysiwyg').wysihtml5({
-			"font-styles": false,
-			"emphasis": true,
-			"lists": true,
-			"html": false,
-			"link": true,
-			"image": false,
-			"color": true,
-			"locale": "es-ES"
-		});
 	});
 </script>

@@ -21,9 +21,16 @@ body{
 	top: 0;
 	left: 0;
 }
+.animate{
+	-webkit-transition: all 0.25s ease;
+	-moz-transition: 	all 0.25s ease;
+	-o-transition: 		all 0.25s ease;
+	transition: 		all 0.25s ease;
+}
 
 .left{ float: left; }
 .right{ float: right; }
+.text_right{ text-align: right; }
 
 #wrapper_container{ margin-bottom: 100px; }
 #footer_container{
@@ -47,7 +54,6 @@ body{
 }
 #container_arrows {
 	position: absolute;
-	height: 40px;
 	width: 20px;
 	top: 80px;
 	left: 125px;
@@ -73,9 +79,6 @@ body{
 }
 #lectures_dates {
 	height: 540px;
-	overflow-y: hidden;
-	float: left;
-	overflow-x: hidden;
 }
 .text_container span {
 	font-size: 18px;
@@ -88,6 +91,12 @@ body{
 	width: 80%;
 	float: left;
 	height: 600px;
+	padding: 0px 20px 20px 20px;
+}
+#refresh_programs_relations {
+	width: 100%;
+	float: left;
+	height: 350px;
 	padding: 0px 20px 20px 20px;
 }
 /*Default to user*/
@@ -106,7 +115,7 @@ body{
 	margin-top: 30px;
 }
 /*Date Selector on groups*/
-#dates_container{
+.children_scroll{
 	position: relative;
 	float: left;
 }
@@ -122,9 +131,12 @@ body{
 	line-height: 40px;
 	border-radius: 5px;
 }
+.date_class_selector:click{
+
+}
 .day {
 	width: 109px;
-	float: left;
+	float: left;	
 	text-align: right;
 	color: rgb(177, 177, 177);
 }
@@ -204,7 +216,7 @@ body{
 	top: 20px;
 	height: 60px;
 }
-#date_title h4, #header_buttons_class h4 {
+#reorder_days h4, #date_title h4, #header_buttons_class h4 {
 	text-align: center;
 	border-bottom: 1px solid rgba(213, 213, 213, 1);
 	line-height: 30px;
@@ -213,6 +225,12 @@ body{
 	top: -9px;
 	box-shadow: 0px 2px 1px rgba(255, 253, 253, 1);
 	color: #107BD8;
+}
+#reorder_days h4 {
+	text-align: left;
+	top: 0;
+	position: relative;
+	text-indent: 25px;
 }
 #header_buttons_class h4 {
 	text-align: left;
@@ -274,7 +292,7 @@ body{
 	width: 97%;
 	float: left;
 }
-#people_search_container{ display: none; }
+#program_search_container, #people_search_container{ display: none; }
 .counter_is_zero {
 	text-align: center;
 	font-size: 14px;
@@ -351,11 +369,27 @@ body{
 	top: 4px;
 	position: relative;
 }
-.exercise_content{
-	width: 25%;
+.program_top_title {
+	width: 20%;
+	float: left;
+	font-weight: bold;
+	top: 4px;
+	position: relative;
 }
+.exercise_content{ width: 25%; }
+.program_relation_content{ width: 20%; }
 .negative_payment{ color: red; }
 /*TINY SCROLLBAR*/
+#tiny_program_exercises{
+	position: relative;
+	width: 1060px;
+	top: 23px;
+}
+#tiny_program_exercises .viewport{
+	border-top: 1px solid #dddddd;
+	width: 1045px;
+	height: 200px;
+}
 #tiny_exercises{
 	position: relative;
 	width: 811px;
@@ -539,4 +573,54 @@ ul.wysihtml5-toolbar > li{ margin-bottom: 0!important; }
 .wysihtml5-toolbar .dropdown .dropdown-menu{
 	position: absolute!important;
 	top: 30px!important;
+}
+.spot-deactivated{
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: url(grayscale.svg);
+  filter: gray;
+}
+.deactivated-close{
+	top: -6px;
+	right: -3px;
+	font-size: 15px;
+	position: absolute;
+}
+.deactivated-close a .glyphicon{
+	color: rgb(222, 83, 83);
+	width: 15px;
+	height: 15px;
+	background: white;
+	border-radius: 50%;
+}
+.down_marker{
+	width: 10px;
+	height: 0px;
+	font-size: 20px;
+	line-height: 0px;
+	position: relative;
+	top: 6px;
+	margin: 10px;
+	float: right;
+	text-align: right;
+	color: #A8A8A8;
+}
+.down_legend{
+	color: #A8A8A8;
+	top: 0px;
+	font-style: italic;
+	font-size: 12px;
+	position: relative;
+	left: 0px;
+}
+.down_marker_people{
+	color: #A8A8A8;
+	position: relative;
+	top: 5px;
+	font-style: italic;
+	font-size: 12px;
+	left: 8px;
 }

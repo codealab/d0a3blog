@@ -38,6 +38,7 @@
 			<% if @spot.child.family_relations.first.family.status? %>
 				<div class="boton_der">
 					<%= link_factory( :_path => new_group_spot_payment_path(@group, @spot), :_text=> 'Nuevo Pago', :_button=> true, :_class=> 'btn btn-default' ) %>
+				<% else %>
 				</div>
 			<% end %>
 		<% else %>

@@ -26,8 +26,11 @@ class AttendancesController < ApplicationController
 
 	def observation
 		@attendance = Attendance.find(params[:id])
-		@attendance.observation = params[:observation]
-		@attendance.save
+		@lecture = @attendance.lecture
+		if params[:observation]
+			@attendance.observation = params[:observation]
+			@attendance.save
+		end
 	end
 
 	private

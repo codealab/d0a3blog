@@ -20,7 +20,7 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-es:
+en:
   will_paginate:
     previous_label: "&#8592; Anterior"
     next_label: "Siguiente &#8594;"
@@ -222,10 +222,58 @@ es:
       long: ! '%A, %d de %B de %Y a las %I:%M %p'
       short: ! '%d de %b a las %H:%M hrs'
     pm: pm
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
     errors:
       <<: *errors
   activerecord:
     errors:
       <<: *errors
+    models:
+      person: "Miembro"
+    attributes:
+      person:
+        name: "El nombre"
+        first_last_name: "El apellido paterno"
+        second_last_name: "El apellido materno"
+        sex: "El genero"
+        dob: "La fecha de nacimiento"
+        family_roll: "El rol familiar"
+        photo: "La Foto"
+      family:
+        name: "El nombre"  
+      exercise:
+        name: "El nombre"
+        min_age: "La edad mínima"
+        max_age: "La edad máxima"
+        objective: "El objetivo"
+        description: "La descripción"
+        material: "El material"
+        music: "La musica"
+      group:
+        user_id: "El instructor"
+        name: "El nombre"
+        location: "La ubicación"
+        cost: "El costo"
+        init_date: "La fecha inicial"
+        finish_date: "La fecha final"
+        min_age: "La edad mínima"
+        max_age: "La edad máxima"
+      lectures: 
+        date: "la fecha"
+        observation: "La observación"
+      payment: 
+        amount: "La cantidad"
+        date: "La fecha"
+        scholarship: "Pago extraordinario"
+        clarification: "La aclaración"
+      user: 
+        name: "El nombre"
+        email: "El email"
+        password_confirmation: "La contraseña" 
+        photo: "La foto"
+      calendar:
+        monday_hour: "La hora del lunes"
+        tuesday_hour: "La hora del martes"
+        wednesday_hour: "La hora del miércoles"
+        thursday_hour: "La hora del jueves"
+        friday_hour,: "La hora del viernes"

@@ -1,0 +1,15 @@
+var active = parseInt("<%= @group.active_children.count %>");
+var deactivated = parseInt("<%= @group.deactivate_children.count %>");
+
+$("#total_spots span").html(active + " Inscritos activos / " + deactivated + " Bajas");
+$("#child_spot_<%= @child.id %>").remove();
+
+$('#enlist_childs').append("<%= escape_javascript(render('deactivated')) %>").show(function() {
+    $("#child_spot_<%= @child.id %>").show().animate({
+        opacity: 1,
+        top: 0
+    }, 600, 'easeOutQuart');
+    $('.tip').tooltip();
+});
+if (total_inscriptions > 0) $("#alert_inscriptions").hide();
+else $("#alert_inscriptions").show();

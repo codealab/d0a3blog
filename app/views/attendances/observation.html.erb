@@ -1,1 +1,47 @@
-
+<div id="form_child_container">
+	<%= form_tag("/attendances/observation/#{@attendance.id}", :method => "get", remote: true ) do %>
+	<div class="modal-body">
+		<div class="all_width light_box">
+			<h4>Observaciones</h4>
+			<div class="observation_date">
+				<div class="left observation_day"><%= I18n.l @lecture.date, :format => "%A" %></div>
+				<div class="left observation_number_day"><%= I18n.l @lecture.date, :format => "%d" %></div>
+				<div class="left observation_month"><%= I18n.l @lecture.date, :format => "%B" %></div>
+			</div>
+			<%= text_area_tag "observation", @attendance.observation, :class => "observation_wysiwyg form-control", placeholder: "Observación de clase" %>
+			<div class="spacer"></div>
+			<div class="tiny_scroll tiny_attendances" id="tiny_att_<%= @attendance.id %>">
+				<div class="scrollbar">
+					<div class="track">
+						<div class="thumb"></div>
+					</div>
+				</div>
+				<div class="viewport">
+					<div class="overview">
+						<% @attendance.spot.attendances.joins(:lecture).order('date DESC').each do |a| %>
+						<% if (a.lecture.id != @lecture.id) && a.observation %>
+						<div class="container_attendance">
+							<div class="observation_date">
+								<div class="left observation_day"><%= I18n.l a.lecture.date, :format => "%A" %></div>
+								<div class="left observation_number_day"><%= I18n.l a.lecture.date, :format => "%d" %></div>
+								<div class="left observation_month"><%= I18n.l a.lecture.date, :format => "%B" %></div>
+							</div>
+							<div class="lecture_observation">
+								<div class="observation_text">
+									<%= a.observation.html_safe %>
+								</div>
+							</div>
+						</div>
+						<% end %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="spacer"></div>
+	</div>
+	<div class="modal-footer" id="fadebackdrop">
+		<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
+	</div>
+	<% end %>
+</div>

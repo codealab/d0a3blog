@@ -2,10 +2,9 @@
 
 <div class="boton_der">
 	<div class="top_buttons">
-		<% if @group && @lecture %>
-			<%= link_factory( :_path =>group_lecture_exercises_path(@group, @lecture), :_text =>'Regresar a Ejercicios', :_class => 'btn btn-info', :_button => true ) %>
-		<% else %>
-			<%= link_factory( :_path =>exercises_path, :_text =>'Regresar a Ejercicios', :_class => 'btn btn-info', :_button => true ) %>
+		<%= link_to :back do %>
+			<p><button type="button" class="btn btn-info">
+				Regresar a Actividades</button></p>
 		<% end %>
 	</div>
 	<h1><%= @exercise.full_name %><span class="line"></span></h1>
@@ -37,11 +36,11 @@
 	</table>
 	<div class="boton_der">
 		<% if @group && @exercise %>
-			<%= link_factory( :_path => group_lecture_exercise_path(@group,@lecture,@exercise), :_text =>'Borrar Ejercicio', :_class => 'btn btn-danger', :_button => true, :_destroy=>true, :_alert => 'Este ejercicio esta asignado a una o varias clases. No puede llevarse a cabo esta acción.' ) %>
-			<%= link_factory( :_path => edit_group_lecture_exercise_path(@group,@lecture,@exercise), :_text =>'Editar Ejercicio', :_class => 'btn btn-default', :_button => true ) %>
+			<%= link_factory( :_path => group_lecture_exercise_path(@group,@lecture,@exercise), :_text =>'Borrar Actividad', :_class => 'btn btn-danger', :_button => true, :_destroy=>true, :_alert => 'Esta actividad esta asignada a una o varias clases. No puede llevarse a cabo esta acción.' ) %>
+			<%= link_factory( :_path => edit_group_lecture_exercise_path(@group,@lecture,@exercise), :_text =>'Editar Actividad', :_class => 'btn btn-default', :_button => true ) %>
 		<% else %>
-			<%= link_factory( :_path => exercise_path(@exercise), :_text =>'Borrar Ejercicio', :_class => 'btn btn-danger', :_button => true, :_destroy=>true, :_alert => 'Este ejercicio esta asignado a una o varias clases. No puede llevarse a cabo esta acción.' ) %>
-			<%= link_factory( :_path => edit_exercise_path(@exercise), :_text =>'Editar Ejercicio', :_class => 'btn btn-default', :_button => true ) %>
+			<%= link_factory( :_path => exercise_path(@exercise), :_text =>'Borrar Actividad', :_class => 'btn btn-danger', :_button => true, :_destroy=>true, :_alert => 'Esta actividad esta asignado a una o varias clases. No puede llevarse a cabo esta acción.' ) %>
+			<%= link_factory( :_path => edit_exercise_path(@exercise), :_text =>'Editar Actividad', :_class => 'btn btn-default', :_button => true ) %>
 		<% end %>
 	</div>
 </div>

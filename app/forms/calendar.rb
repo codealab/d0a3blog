@@ -22,6 +22,7 @@ class Calendar
 	end
 
 	def submit(params)
+
 		self.monday = params[:monday]
 		self.monday_hour = convert_date(params,'monday') if self.monday_hour.blank?
 		self.tuesday = params[:tuesday]
@@ -52,7 +53,7 @@ class Calendar
 		if hour != '' && minutes
 			return "#{hour}:#{minutes}"
 		else
-			false
+			return false
 		end
 	end
 

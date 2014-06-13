@@ -4,10 +4,10 @@ require 'spec_helper'
 describe 'Exercise' do
 	before do
 		@exercise = Exercise.new(
-			name: 'Ejercicio Uno',
+			name: 'Actividad Uno',
 			min_age:0, max_age: 48,
-			objective: 'Este es un objetivo en ejercicio',
-			description: 'Este es la descripción del ejercicio',
+			objective: 'Este es un objetivo en actividad',
+			description: 'Este es la descripción de una actividad',
 			material: 'Pelota, aros, rodillo',
 			music: 'Canción #1, Canción #2, Canción #3' )
 	end
@@ -48,10 +48,10 @@ describe 'Exercise' do
 	describe "has relation with classes" do
 		let(:lecture) { create(:lecture) }
 		let(:exercise) { lecture.exercises.create(
-			name:'Ejercicio',
+			name:'Actividad',
 			min_age:0, max_age: 48,
-			objective: 'Este es un objetivo en ejercicio',
-			description: 'Este es la descripción del ejercicio',
+			objective: 'Este es un objetivo en actividad',
+			description: 'Este es la descripción de la actividad',
 			material: 'Pelota, aros, rodillo',
 			music: 'Canción #1, Canción #2, Canción #3 ' ) }
 
