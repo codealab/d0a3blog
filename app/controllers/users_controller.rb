@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class UsersController < ApplicationController
 
 	def index
@@ -5,11 +6,11 @@ class UsersController < ApplicationController
 	end
 
 	def new
-		@user = user.new
+		@user = User.new
 	end
 
 	def create
-		@user = user.new(user_params)
+		@user = User.new(user_params)
 		if @user.save
 			flash[:success] = "El usuario se creó exitosamente"
 			redirect_to user_path(@user)
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@user = user.find(params[:id])
+		@user = User.find(params[:id])
 	end
 
 	def edit

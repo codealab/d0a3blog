@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Blog</title>
+  <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>
 </head>
-<body>
+	<body>
 
-<%= yield %>
+	<!-- header -->
+	<%= render 'layouts/header' %>
+	<!-- header -->
+	<div id="blog_wrapper">
+		<div id="flash_messages">
+			<% flash.each do |key, value| %>
+			<%= content_tag(:div, value, class: "alert alert-#{key}") %>
+			<% end %>
+		</div>
+	</div>
+	<%= yield %>
 
-</body>
+	<!-- footer -->
+	<%= render 'layouts/header' %>
+	<!-- footer -->
+
+	</body>
 </html>

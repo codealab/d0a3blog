@@ -1,2 +1,13 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<% unless signed_in? %>
+	<% provide(:title, "Iniciar Sesión") %>
+	<%= form_for(:session, url: sessions_path) do |f| %>
+		<%= f.label :email %>
+		<%= f.text_field :email, { :class => "form-control" } %>
+		<%= f.label :password, :for => "session_password" %>
+		<%= f.password_field :password, { :class => "form-control" } %>
+      	<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+	<% end %>
+<% else %>
+	<h1>Login exitoso</h1>
+	<% provide(:title, "#{current_user.name}") %>
+<% end %>
