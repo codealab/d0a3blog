@@ -15,14 +15,16 @@
 	<div id="blog_wrapper">
 		<div id="flash_messages">
 			<% flash.each do |key, value| %>
-			<%= content_tag(:div, value, class: "alert alert-#{key}") %>
+				<%= content_tag(:div, value, class: "alert alert-#{key}") %>
 			<% end %>
 		</div>
+
+		<%= yield %>
+
 	</div>
-	<%= yield %>
 
 	<!-- footer -->
-	<%= render 'layouts/header' %>
+	<%= render 'layouts/footer' %>
 	<!-- footer -->
 
 	</body>

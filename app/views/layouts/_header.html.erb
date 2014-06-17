@@ -1,0 +1,12 @@
+<nav>
+  <ul>
+    <% if signed_in? %>
+      <a href="<%= user_path(current_user) %>">Perfil</a>
+      <a href="<%= edit_user_path(current_user) %>">Editar Perfil</a>
+      <% if current_user.administrator? %>
+        <a href="<%= users_path %>">Usuarios</a>
+      <% end %>
+      <a data-method="delete" href="<%= signout_path %>">Log Out</a>
+    <% end %>
+  </ul>
+</nav>

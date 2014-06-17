@@ -12,8 +12,12 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			flash[:success] = "El usuario se creó exitosamente"
-			redirect_to user_path(@user)
+			if params[:user][:photo].present?
+				render :crop
+			else
+				flash[:success] = "Usuario creado exitosamente"
+				redirect_to users_path
+			end
 		else
 			render 'new'
 		end
@@ -31,8 +35,12 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		@user.update_attributes(user_params)
 		if @user.save
-			flash[:success] = 'Usuario actualizado correctamente'
-			redirect_to user_path(@user)
+			if params[:user][:photo].present?
+				render :crop
+			else
+				flash[:success] = "Usuario creado exitosamente"
+				redirect_to users_path
+			end
 		else
 			render 'edit'
 		end
@@ -47,7 +55,7 @@ class UsersController < ApplicationController
 	private
 
 	  def user_params
-		params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin )
+		params.require(:user).permit(:name, :email, :password, :photo, :password_confirmation, :administrator, :crop_x, :crop_y, :crop_w, :crop_h )
 	  end
 
 end

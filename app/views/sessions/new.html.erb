@@ -7,6 +7,7 @@
 		<%= f.password_field :password, { :class => "form-control" } %>
       	<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
 	<% end %>
+	<%= link_to 'Registrarse', new_user_path %>
 <% else %>
 	<h1>Login exitoso</h1>
 	<% provide(:title, "#{current_user.name}") %>

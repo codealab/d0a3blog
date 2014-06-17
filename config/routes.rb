@@ -9,6 +9,7 @@ Blog::Application.routes.draw do
   resources :users do
     resources :posts
   end
+  resources :password_resets
   resources :sessions, only: [:new, :create, :destroy]
 
   get "sessions/new"
