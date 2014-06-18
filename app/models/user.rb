@@ -1,10 +1,13 @@
 class User < ActiveRecord::Base
 
+	attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+
 	has_many :posts
 
 	before_create :create_remember_token
 
 	mount_uploader :photo, PhotoUploader
+	after_update :crop_user
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
@@ -23,10 +26,13 @@ class User < ActiveRecord::Base
     	Digest::SHA1.hexdigest(token.to_s)
 	end
 
+	def crop_user
+		photo.recreate_versions! if crop_x.present?			
+	end
+
 	private
 
 		def create_remember_token
 			self.remember_token = User.encrypt(User.new_remember_token)
 		end
-
 end

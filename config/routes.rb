@@ -6,6 +6,7 @@ Blog::Application.routes.draw do
   root 'sessions#new'
   
   resources :users
+  resources :posts
   resources :users do
     resources :posts
   end
