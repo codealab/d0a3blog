@@ -1,0 +1,22 @@
+<%= simple_form_for @user, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+	<p><%= f.input :name, label:"Nombre" %></p>
+	<p><%= image_tag @user.photo_url(:thumb), :id => "photo_thumb" %></p>
+	<p><%= f.input :photo, label:"Foto" %></p>
+	<p><%= f.input :email, label:"Email" %></p>
+	<% if current_user %>
+		<% if !current_user?(@user) && current_user.administrator? %>
+			<p><%= f.input :administrator, label:"Administrador" %></p>
+		<% end %>
+	<% end %>
+	<% if params[:action] == 'new' || params[:action] == 'create' %>
+		<p><%= f.input :password, label:"Contraseña" %></p>
+		<p><%= f.input :password_confirmation, label:"Confirmación de Contraseña" %></p>
+	<% end %>
+	<p><%= f.submit "Guardar" %></p>
+<% end %>
+<% if params[:action] == 'edit' %>
+	<%= link_to edit_password_reset_path(@user) do %>
+		Cambiar contraseña
+	<% end %>
+<% end %>

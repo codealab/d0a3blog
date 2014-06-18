@@ -1,0 +1,8 @@
+<% @posts.each do |post| %>
+	<%= post.title %>
+	<%= image_tag post.cover %>
+	<%= post.body %>
+	<% post.tags.each do |t| %>
+		<%= t.name %>
+	<% end %>
+<% end %>
