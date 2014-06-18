@@ -1,5 +1,9 @@
 Blog::Application.routes.draw do
 
+  get "subcategories/index"
+  get "subcategories/show"
+  get "categories/index"
+  get "categories/show"
   get "post/index"
   get "post/show"
   get "post/new"
@@ -7,6 +11,10 @@ Blog::Application.routes.draw do
   
   resources :users
   resources :posts
+  resources :subcategories
+  resources :categories do
+    resources :subcategories
+  end
   resources :users do
     resources :posts
   end

@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.Jcrop
+//= require bootstrap
 //= require_tree .
 (function($) {
 

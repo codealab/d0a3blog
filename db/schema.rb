@@ -11,11 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617232614) do
+ActiveRecord::Schema.define(version: 20140618232938) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.integer  "post_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "newsletters", force: true do |t|
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -38,11 +44,19 @@ ActiveRecord::Schema.define(version: 20140617232614) do
   add_index "post_tags", ["post_id", "tag_id"], name: "index_post_tags_on_post_id_and_tag_id", unique: true
 
   create_table "posts", force: true do |t|
-    t.integer  "category_id"
+    t.integer  "subcategory_id"
     t.integer  "user_id"
     t.string   "title"
     t.string   "cover"
     t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "subcategories", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

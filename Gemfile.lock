@@ -27,6 +27,8 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.2)
     bcrypt-ruby (3.1.2-x86-mingw32)
+    bootstrap-sass (3.1.1.1)
+      sass (~> 3.2)
     builder (3.1.4)
     capybara (2.2.1)
       mime-types (>= 1.16)
@@ -182,6 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (= 3.1.2)
+  bootstrap-sass (~> 3.1.1)
   capybara (~> 2.2.1)
   carrierwave
   coffee-rails (~> 4.0.0)
@@ -195,7 +198,7 @@ DEPENDENCIES
   rails (= 4.0.4)
   rails_12factor
   rspec-rails
-  sass-rails (~> 4.0.2)
+  sass-rails (>= 3.2)
   sdoc
   simple_form
   sprockets (= 2.11.0)
