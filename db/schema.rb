@@ -44,11 +44,13 @@ ActiveRecord::Schema.define(version: 20140618232938) do
   add_index "post_tags", ["post_id", "tag_id"], name: "index_post_tags_on_post_id_and_tag_id", unique: true
 
   create_table "posts", force: true do |t|
-    t.integer  "subcategory_id"
-    t.integer  "user_id"
     t.string   "title"
     t.string   "cover"
     t.text     "body"
+    t.boolean  "main",           default: false
+    t.integer  "subcategory_id"
+    t.integer  "user_id"
+    t.integer  "views",          default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
