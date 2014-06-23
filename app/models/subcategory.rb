@@ -4,4 +4,7 @@ class Subcategory < ActiveRecord::Base
 	has_many :posts
 	# validates :name, uniqueness: true
 
+	validates :name, presence: true
+	validates :category_id, presence: true
+
 end

@@ -2,10 +2,9 @@
 class PostsController < ApplicationController
 
   def index
-  	@posts = Post.all.order('id DESC').limit(8).paginate( :page=>params[:page] )
-    if params[:author_id]
-      @posts = Post.where(:author_id=>params[:author_id]).order('id DESC').limit(8).paginate( :page=>params[:page] )
-    end
+    @headers = Post.where(:main => true).order('id DESC').limit(5)
+  	@posts = Post.all.order('id DESC').paginate( :page => params[:page] ).limit(8)
+    @hots = Post.all.order('view DESC').limit(5)
   end
 
   def show
