@@ -3,16 +3,42 @@
 		<%= simple_form_for [@group, @spot, @payment] do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
 			<p>
-			<div id="selector_fecha">
-				<%= f.input :date, label: "Fecha", :order => [:day, :month, :year], :include_blank => true, :start_year => Date.today.year, :end_year =>Date.today.year-1, :input_html => { :class => 'date_selector' }  %>
-			</div>
-			<%= f.input :concept_id, label: "Concepto", :include_blank => true, collection: Concept.all.collect {|p| [ "#{p.name}", p.id ] } %>
-		</p>
-			<p><button class="btn btn-sm btn-primary">NUEVO PAGO</button></p>
+				<div id="selector_fecha">
+					<%= f.input :date, label: "Fecha", :order => [:day, :month, :year], :include_blank => true, :start_year => Date.today.year, :end_year =>Date.today.year-1, :input_html => { :class => 'date_selector' }  %>
+				</div>
+				<div id="new_concept_container">
+					<%= f.input :concept_id, label: "Concepto", :include_blank => true, collection: Concept.all.collect {|p| [ "#{p.name}", p.id ] } %>
+					<div id="new_concept">
+						<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#new_concept_modal">NUEVO CONCEPTO</button>
+					</div>
+				</div>
+			</p>
 			<p><%= f.input :amount, label: "Cantidad" %></p>
-			<p><%= f.input :scholarship, label: "Pago extr." %></p>
-			<p><%= f.input :clarification %></p>
+			<p><%= f.input :scholarship, label: "Pago extraordinario" %></p>
+			<p><%= f.input :clarification, label: "Aclaración" %></p>
 			<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
 		<% end %>
+	</div>
+</div>
+<div id="new_concept_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">	
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Nuevo concepto</h4>
+			</div>
+			<div class="modal-body">
+				<%= form_tag( { :controller => :payments, :action => :concept }, { :remote => true, :id => 'concept_payments_form' } ) do %>
+					<div class="modal-body">
+						<%= text_area_tag "concept", nil, :class => "form-control", placeholder: "Escribe el nombre del concepto." %>
+					</div>
+					<div class="modal-footer">
+						<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+					</div>
+				<% end %>
+
+			</div>
+		</div>
 	</div>
 </div>

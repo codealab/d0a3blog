@@ -55,6 +55,15 @@ class PaymentsController < ApplicationController
 		# redirect_to group_spot_path(@group, @spot)
 	end
 
+	def concept
+		puts 'xxxxxxxxxxxxxxxx'
+		puts 'entro a concepto unevo'
+		puts params[:concept]
+		if params[:concept]
+			@concept = Concept.create( name: params[:concept] )
+		end
+	end
+
 	def search
 		init_date = (params[:init][0]).to_date
 		ended_date = (params[:end][0]).to_date

@@ -44,6 +44,7 @@ D0A3::Application.routes.draw do
   get "sessions/create"
   get "sessions/destroy"
   post "payments/search"
+  post "payments/concept"
   post "people/search"
   post "exercises/search"
   get "exercises/plan"

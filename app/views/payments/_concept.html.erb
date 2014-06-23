@@ -1,0 +1,1 @@
+<%= select_tag 'area_id', options_for_select(Concept.all.collect{ |u| [u.name, u.id] } ), :prompt => "", :class => "form-control" %>
