@@ -30,7 +30,7 @@
 				</div>
 
 				<header class="entry-header">
-					<h3 class="entry-title"><a href="single.html"><%= header.body.slice(0..160) %></a> </h3>
+					<h3 class="entry-title"><a href="<%= post_path(header) %>"><%= header.body.slice(0..160) %></a> </h3>
 					<div class="entry-meta">
 						<span class="entry-date"><time datetime="2013-07-04T23:26:34+00:00">Hace <%= (Date.today.to_date - header.created_at.to_date).to_i %> días</time></span>
 						<span class="entry-author"> por <a href="#"><%= header.author %></a></span>
@@ -38,7 +38,7 @@
 				</header>
 				
 				<figure class="entry-thumbnail">
-					<a href="single.html" class="overlay overlay-primary"></a>
+					<a href="<%= post_path(header) %>" class="overlay overlay-primary"></a>
 					<!-- to disable lazy loading, remove data-src and data-src-retina -->
 					<img src="<%= header.cover %>" data-src="<%= header.cover %>" data-src-retina="<%= header.cover %>" width="480" height="280" alt="">
 					<!--fallback for no javascript browsers-->
@@ -73,11 +73,11 @@
 				<div class="media-body">
 					<header class="entry-header">
 						<h3 class="entry-title">
-						<a href="single.html" rel="bookmark"><%= post.title %></a>
+						<a href="<%= post_path(post) %>" rel="bookmark"><%= post.title %></a>
 						</h3>
 						<div class="entry-meta">
 							<span class="author">por <a href="#"><%= post.user.name %></a></span>
-							<span class="entry-date">el <a href="blog.html"><time datetime="<%= post.created_at %>"><%= post.created_at.strftime("%d de %B del %Y") %></time></a></span>
+							<span class="entry-date">el <a href="<%= post_path(post) %>"><time datetime="<%= post.created_at %>"><%= post.created_at.strftime("%d de %B del %Y") %></time></a></span>
 							<span class="category"><a href="<%= category_path(post.subcategory.category.name)  %>"><%= post.subcategory.category.name %></a></span>
 						</div>
 					</header>
