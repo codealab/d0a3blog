@@ -100,7 +100,10 @@ body{
 	padding: 0px 20px 20px 20px;
 }
 /*Default to user*/
-#image_url{ width: 100px; }
+#image_url {
+	width: 100px;
+	border-radius: 5px;
+}
 .attendance_img{ width: 50px; }
 /*Header buttons*/
 .top_buttons{

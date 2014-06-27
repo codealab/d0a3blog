@@ -18,6 +18,7 @@ D0A3::Application.routes.draw do
 
   resources :plans
   resources :users
+  resources :panels
   resources :program_relations
   resources :courses
   resources :programs do

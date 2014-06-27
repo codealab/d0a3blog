@@ -1,11 +1,10 @@
 <header class="navbar navbar-default navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to image_tag("D0A3-logo.png", alt: "De Cero A Tres", :width => 120) , root_path, id: "logo" %>
+      <%= link_to image_tag("#{logo_app}", alt: "#{yield(:title)}", :height => 50) , root_path, id: "logo" %>
       <nav>
         <ul class="nav navbar-nav navbar-right">
           <% if signed_in? %>
-
             <li id="fat-menu" class="dropdown">
               <a href="#" id="drop3" role="button" class="dropdown-toggle families_icon" data-toggle="dropdown">Familias<b class="caret"></b></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
@@ -27,10 +26,10 @@
                 <li role="presentation">
                   <a role="menuitem" tabindex="-1" href="<%= exercises_path %>">Actividades</a>
                 </li>
-                <li role="presentation" class="divider"></li>
+                <!-- <li role="presentation" class="divider"></li>
                 <li role="presentation">
                   <a role="menuitem" tabindex="-1" href="<%= programs_path %>">Programas</a>
-                </li>
+                </li> -->
                 <li role="presentation" class="divider"></li>
                 <li role="presentation">
                   <a role="menuitem" tabindex="-1" href="<%= payments_path %>">Pagos</a>
@@ -51,6 +50,10 @@
                   <li role="presentation" class="divider"></li>
                   <li role="presentation">
                     <a role="menuitem" tabindex="-1" href="<%= users_path %>">Usuarios</a>
+                  </li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="<%= panel_path(Panel.first) %>">Panel de control</a>
                   </li>
                 <% end %>
                 <li role="presentation" class="divider"></li>

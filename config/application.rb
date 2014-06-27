@@ -5,6 +5,8 @@ require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "sprockets/railtie"
+require "active_model"
+require "rails/all"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -26,7 +28,8 @@ module D0A3
     # config.i18n.load_path += Dir[Rails.root.join('lib', 'locale', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :es
 
-    config.time_zone = 'Guadalajara'
+    config.timezone = "Guadalajara"
+
     # config.i18n.enforce_available_locales = true
     # config.i18n.available_locales = [:es, :en]
     # config.i18n.default_locale = :es
