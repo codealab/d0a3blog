@@ -22,15 +22,19 @@ class Person < ActiveRecord::Base
 
 	self.per_page = 10
 	
-	scope :children, proc { where("dob > :years", { years: Date.today - 5.years} )}
-	
 	validates_presence_of :name, :first_last_name, :second_last_name, :sex, :dob, :family_roll
 	validates :name, :first_last_name, :second_last_name, :family_roll, length: { maximum: 50 }
 	validates :sex, inclusion: { in: %w(M F), message: "%{value} is not a gender try M or F"}
 
 	# Custom Methods
-	validate :field_uniqueness 
+	validate :field_uniqueness
 	validate :dob_cannot_be_in_the_future
+
+	child_age = 5
+	panel = Panel.first
+	child_years = Panel.first.child_age if !Panel.first.child_age.blank?
+
+	scope :children, proc { where("dob > :years", { years: Date.today - child_age.years} )}
 
 	def full_name
 		[name,first_last_name,second_last_name].join(" ")

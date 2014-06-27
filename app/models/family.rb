@@ -18,7 +18,7 @@ class Family < ActiveRecord::Base
 	self.per_page = 15
 
 	def styled_address
-	 direccion = "#{self.address.calle},#{self.address.num_ext} ,int #{self.address.num_int},#{self.address.localidad},#{self.address.colonia}, #{self.address.municipio}, #{self.address.ciudad}, #{self.address.estado}, #{self.address.pais}, #{self.address.codigo_postal}"
+		direccion = "#{self.address.calle}, #{self.address.num_ext}, int #{self.address.num_int}, #{self.address.localidad}, #{self.address.colonia}, #{self.address.municipio}, #{self.address.ciudad}, #{self.address.estado}, #{self.address.pais}, #{self.address.codigo_postal}".gsub(',,',',')
 		direccion.titleize
 	end
 
