@@ -6,6 +6,7 @@
 	</div>
 	<h1>Todos los Programas<span class="line"></span></h1>
 </div>
+
 <div class="all_width blue_box">
 	<% if @programs.count>0 %>
 		<table class="table table-striped">
@@ -36,5 +37,9 @@
 	<% else %>
 		<h4 class="counter_is_zero">Aún no existen programas</h4>
 	<% end %>
+	<div class="boton_der">
+		<%= link_factory( :_path => new_group_path, :_text => 'Creación manual', :_class => 'btn btn-primary btn-xs', :_button=>true ) %>
+	</div>
 </div>
+
 <h6>Total de programas: <%= @programs.count %></h6>

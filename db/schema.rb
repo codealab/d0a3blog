@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604235354) do
+ActiveRecord::Schema.define(version: 20140623152932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(version: 20140604235354) do
   end
 
   add_index "attendances", ["spot_id", "lecture_id"], name: "index_attendances_on_spot_id_and_lecture_id", unique: true, using: :btree
+
+  create_table "concepts", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "exercises", force: true do |t|
     t.string   "name"
@@ -123,12 +129,21 @@ ActiveRecord::Schema.define(version: 20140604235354) do
     t.datetime "updated_at"
   end
 
-  add_index "lessons", ["program_id", "order_day"], name: "index_lessons_on_program_id_and_order_day", unique: true, using: :btree
+  create_table "panels", force: true do |t|
+    t.string   "name"
+    t.string   "timezone",        default: "UTC"
+    t.integer  "quota_per_group"
+    t.integer  "child_age"
+    t.string   "logo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "payments", force: true do |t|
     t.integer  "amount"
     t.date     "date"
     t.integer  "spot_id"
+    t.integer  "concept_id"
     t.integer  "group_id"
     t.boolean  "scholarship",   default: false
     t.text     "clarification"

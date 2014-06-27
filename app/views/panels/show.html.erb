@@ -1,0 +1,31 @@
+<% provide(:title, @panel.name) %>
+
+<div class="boton_der">
+	<div class="top_buttons">
+		<%= link_factory( :_path => edit_panel_path(@panel), :_text => 'Editar', :_button => true, :_class => 'btn btn-default' ) %>
+	</div>
+	<h1><%= @panel.name %><span class="line"></span></h1>
+</div>
+
+<div class="all_width light_box">
+	<div class="col-md-12">
+		<p><%= image_tag @panel.logo.url(:thumb).to_s %></p>
+		<div class="blue_box all_width">
+			<table class="table table-striped tablesorter">
+				<thead>
+					<th>Nombre:</th>
+					<th>Niños por grupo:</th>
+					<th>Edad Máxima</th>
+					<th>Timezone:</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%= @panel.name %></td>
+						<td><%= @panel.quota_per_group %></td>
+						<td><%= @panel.timezone %></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

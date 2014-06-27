@@ -28,7 +28,9 @@
 							</div>
 							<div class="lecture_observation">
 								<div class="observation_text">
-									<%= a.observation.html_safe %>
+									<% if !a.observation.blank? %>
+										<%= a.observation.html_safe %>
+									<% end %>
 								</div>
 							</div>
 						</div>

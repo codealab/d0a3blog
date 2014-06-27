@@ -55,7 +55,9 @@
 								<%= negative_value payment.amount %>
 							</td>
 							<td>
-								<%= payment.clarification.html_safe %>
+								<% if !payment.observation.blank? %>
+									<%= payment.clarification.html_safe %>
+								<% end %>
 							</td>
 						</tr>
 					<% end %>
@@ -92,9 +94,9 @@
 		</div>
 	<% else %>
 		<% if @spot.deactivated.blank? %>
-			dar de baja
+			<!-- dar de baja -->
 		<% else %>
-			dar de alta
+			<!-- dar de alta -->
 		<% end %>
 	<% end %>
 </div>

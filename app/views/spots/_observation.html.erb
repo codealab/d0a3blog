@@ -9,7 +9,9 @@
 			</div>
 			<div class="viewport">
 				<div class="overview">
-					<%= @spot.observation.html_safe %>
+					<% if !@spot.observation.blank? %>
+						<%= @spot.observation.html_safe %>
+					<% end %>
 				</div>
 			</div>
 		</div>
