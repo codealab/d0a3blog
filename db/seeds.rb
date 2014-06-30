@@ -15,6 +15,9 @@ load_file("family_relations.csv").each { |line| FamilyRelation.create(line) }
 load_file("exercises.csv").each { |line| Exercise.create(line) }
 load_file("area_relations.csv").each { |line| AreaRelation.create(line) }
 
+
+Panel.create( :name => 'Demo App' )
+
 Family.all.each do |f|
 	f.family_relations.each { |rel| f.update_attributes(responsible_id:rel.person.id) if rel.person.family_roll=='Madre' }
 end

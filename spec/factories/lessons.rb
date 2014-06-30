@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :lesson do
-    program_id 1
+    program
   end
 end

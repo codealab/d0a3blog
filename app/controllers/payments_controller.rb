@@ -56,9 +56,6 @@ class PaymentsController < ApplicationController
 	end
 
 	def concept
-		puts 'xxxxxxxxxxxxxxxx'
-		puts 'entro a concepto unevo'
-		puts params[:concept]
 		if params[:concept]
 			@concept = Concept.create( name: params[:concept] )
 		end

@@ -5,7 +5,7 @@ FactoryGirl.define do
   	name 'Un Programa'
     min_age 0
     max_age 120
-    lectures 30
+    number_of_lessons 30
 	description 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
   end
 end	
