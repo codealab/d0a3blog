@@ -32,7 +32,9 @@ class Person < ActiveRecord::Base
 
 	child_age = 5
 	panel = Panel.first
-	child_years = Panel.first.child_age if !Panel.first.child_age.blank?
+	if panel
+		child_years = Panel.first.child_age if !Panel.first.child_age.blank?
+	end
 
 	scope :children, proc { where("dob > :years", { years: Date.today - child_age.years} )}
 

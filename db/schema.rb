@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20140623152932) do
 
   create_table "panels", force: true do |t|
     t.string   "name"
-    t.string   "timezone",        default: "UTC"
+    t.string   "timezone"
     t.integer  "quota_per_group"
     t.integer  "child_age"
     t.string   "logo"

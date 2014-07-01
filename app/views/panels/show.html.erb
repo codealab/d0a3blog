@@ -4,7 +4,13 @@
 	<div class="top_buttons">
 		<%= link_factory( :_path => edit_panel_path(@panel), :_text => 'Editar', :_button => true, :_class => 'btn btn-default' ) %>
 	</div>
-	<h1><%= @panel.name %><span class="line"></span></h1>
+	<h1>
+		<% if @panel.name.blank? %>
+			Demo App
+		<% else %>
+			<%= @panel.name %>
+		<% end %>
+		<span class="line"></span></h1>
 </div>
 
 <div class="all_width light_box">
@@ -16,13 +22,12 @@
 					<th>Nombre:</th>
 					<th>Niños por grupo:</th>
 					<th>Edad Máxima</th>
-					<th>Timezone:</th>
 				</thead>
 				<tbody>
 					<tr>
 						<td><%= @panel.name %></td>
 						<td><%= @panel.quota_per_group %></td>
-						<td><%= @panel.timezone %></td>
+						<td><%= @panel.child_age %></td>
 					</tr>
 				</tbody>
 			</table>

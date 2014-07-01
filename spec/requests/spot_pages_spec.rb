@@ -80,25 +80,5 @@ describe 'Spot pages' do
 
 	end
 
-	describe "destroy with ajax" do
-
-		before { visit new_group_spot_path(group) }
-		it "should delete a spot" do
-			expect { click_link "remove_spot_0" }.to change(Spot, :count).by(-1)
-		end
-	end
-
-	# describe "search childs" do
-
-	# 	before 'type in input field' do
-	# 		visit new_group_spot_path(group)
-	# 		fill_in "#query", :with => "Garcia"
-	# 		page.should have_selector(".child_result")
-	# 	end
-
-	# 	# wait_until do
-	# 	# 	page.has_css?('.child_result')
-	# 	# end
-	# end
 
 end

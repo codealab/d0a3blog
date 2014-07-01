@@ -24,12 +24,11 @@ describe 'Attendances pages' do
 		visit new_group_lecture_attendance_path(group,lecture)
 	end
 
-
 	describe 'Index Attendances' do
 
 		it { should have_content('Asistencias') }
 		it { should have_content("Inscripciones") }
-		it { should have_content("#{group.spots.count} Inscritos") }
+		it { should have_content("#{lecture.possible_attendances.count} inscritos activos") }
 		it { should have_content("#{lecture.attendances.count} Asistentes") }
 
 	end
@@ -53,7 +52,6 @@ describe 'Attendances pages' do
 		end
 
 		it { should have_content("#{lecture.attendances.count} Asistentes") }
-		it { should have_content("#{group.spots.count} Inscritos") }
 
 	end
 

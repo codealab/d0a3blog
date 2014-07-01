@@ -20,8 +20,8 @@ class Group < ActiveRecord::Base
 
 	#Custom Methods
 	# validate :finish_date_is_out_of_age_range # Preguntar caso en la práctica, se ocupa?
-	# validate :min_age_cannot_be_greater_than_max_age
-	# validate :init_date_cannot_be_greater_than_finish_date
+	validate :min_age_cannot_be_greater_than_max_age
+	validate :init_date_cannot_be_greater_than_finish_date
 
 	self.per_page = 15
 
@@ -42,7 +42,7 @@ class Group < ActiveRecord::Base
 		def finish_date_is_out_of_age_range
 			unless max_age.blank?
 				max_date = init_date+max_age.weeks
-				errors.add(:finish_date, "máxima es el #{I18n.l max_date, :format => '%d de %B del %Y'}, dado que el rango de edad que escojiste, implícitamente tiene una duración de #{max_age-min_age} semanas") if finish_date > max_date
+				errors.add(:finish_date, "máxima es el #{ I18n.l max_date, :format => '%d de %B del %Y'}, dado que el rango de edad que escojiste, implícitamente tiene una duración de #{max_age-min_age} semanas") if finish_date > max_date
 			end
 		end
 

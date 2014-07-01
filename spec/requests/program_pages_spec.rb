@@ -7,18 +7,18 @@ describe "program pages" do
 
 	let(:user) { create(:user, :is_admin) }
 	let(:program) { create(:program) }
+	let(:lesson) { create(:lesson, program: program ) }
 
 	before do
 		sign_in user
-		10.times { create(:program) }
-		create(:exercise)
+		10.times { create(:exercise) }
 		visit programs_path
 	end
 
 	describe "index page" do
-		
+
 		before { visit programs_path }
-		
+
 		describe 'page' do
 			it { should have_title("Todos los Programas") }
 			it { should have_link("Nuevo Programa", href: new_program_path) }
@@ -28,11 +28,10 @@ describe "program pages" do
 			it "should list each program" do
 				Program.all.each do |program|
 					expect(page).to have_link("#{program.name}", href: program_path(program) )
-					expect(page).to have_selector('td', text: program.lectures )
+					expect(page).to have_selector('td', text: program.number_of_lessons )
 				end
 			end
 		end
-
 	end
 
 	describe 'Create a new program' do
@@ -68,11 +67,10 @@ describe "program pages" do
 				fill_in "program[min_age]", :with => 0
 				fill_in "program[max_age]", :with => 120
 				fill_in "program[description]", :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-				fill_in "program[lectures]", :with => 20 
+				fill_in "program[number_of_lessons]", :with => 20 
 				expect { click_button "Guardar" }.to change(Program, :count).by(1)
 			end
 		end
-
 	end
 
 	describe "edit program" do
@@ -92,21 +90,21 @@ describe "program pages" do
 				fill_in "program[name]", :with => " "
 				fill_in "program[min_age]", :with => " "
 				fill_in "program[max_age]", :with => " "
-				fill_in "program[lectures]", :with => " "
+				# fill_in "program[number_of_lessons]", :with => " "
 				fill_in "program[description]", :with => " "
 
 				click_button "Guardar"
 			end
-			it { should have_content("La forma contiene 4 errores") }
+			it { should have_content("La forma contiene 3 errores") }
 		end
 
 		describe "with valid information" do
 
 			before do
 				fill_in "program[name]", :with => "Renamed program"
-				fill_in "program[min_age]", :with => 10
-				fill_in "program[max_age]", :with => 30
-				fill_in "program[lectures]", :with => 40 
+				fill_in "program[min_age]", :with => 0
+				fill_in "program[max_age]", :with => 90
+				# fill_in "program[number_of_lessons]", :with => 40 
 				fill_in "program[description]", :with => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, placeat, sequi, obcaecati error eveniet iure repellendus."
 
 				click_button "Guardar"
@@ -114,7 +112,7 @@ describe "program pages" do
 			
 			it { should have_selector("div.alert.alert-success") }
 			it { should have_content("Actualización exitosa") }
-			it { should have_title("Renamed program ( 10 - 30 semanas )") }
+			it { should have_title("Renamed program ( 0 - 90 semanas )") }
 
 		end
 	end
@@ -138,22 +136,20 @@ describe "program pages" do
 
 	end
 
-	describe "build relation lecture/day/program " do
+	# describe "build relation lecture/day/program " do
 
-		before { visit "/programs/#{program.id}/program_relations/new?lecture_id=1" }
+	# 	before do
+	# 		create( :exercise )
+	# 		visit new_lesson_program_relation_path(lesson) 
+	# 	end
 
-		describe "should show details possible lectures" do
-			it { should have_content("Total de actividades para este programa: 1") }
-			it { should have_content("Exercise") }
-			it { should have_content('Este es un objetivo en actividad') }
-			it { should have_content('Este es la descripción de la actividad') }
-			it { should have_content("Leer más") }
-		end
+	# 	describe "should show details possible activities(exercises)" do
+	# 		it { should have_content('Este es la descripción de una actividad') }
+	# 		it "should create a program relation" do
+	# 			expect { click_link "program_relation_0" }.to change(ProgramRelation, :count).by(1)
+	# 		end
+	# 	end
 
-		it "should create a program relation" do
-			expect { click_link "program_relation_0" }.to change(ProgramRelation, :count).by(1)
-		end
-
-	end
+	# end
 
 end
