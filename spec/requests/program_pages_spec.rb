@@ -11,8 +11,7 @@ describe "program pages" do
 
 	before do
 		sign_in user
-		10.times { create(:program) }
-		create(:exercise)
+		10.times { create(:exercise) }
 		visit programs_path
 	end
 
@@ -103,8 +102,8 @@ describe "program pages" do
 
 			before do
 				fill_in "program[name]", :with => "Renamed program"
-				fill_in "program[min_age]", :with => 10
-				fill_in "program[max_age]", :with => 30
+				fill_in "program[min_age]", :with => 0
+				fill_in "program[max_age]", :with => 90
 				# fill_in "program[number_of_lessons]", :with => 40 
 				fill_in "program[description]", :with => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, placeat, sequi, obcaecati error eveniet iure repellendus."
 
@@ -113,7 +112,7 @@ describe "program pages" do
 			
 			it { should have_selector("div.alert.alert-success") }
 			it { should have_content("Actualización exitosa") }
-			it { should have_title("Renamed program ( 10 - 30 semanas )") }
+			it { should have_title("Renamed program ( 0 - 90 semanas )") }
 
 		end
 	end
@@ -137,22 +136,20 @@ describe "program pages" do
 
 	end
 
-	describe "build relation lecture/day/program " do
+	# describe "build relation lecture/day/program " do
 
-		before { visit new_lesson_program_relation_path(lesson) }
+	# 	before do
+	# 		create( :exercise )
+	# 		visit new_lesson_program_relation_path(lesson) 
+	# 	end
 
-		describe "should show details possible number_of_lessons" do
-			it { should have_content("Total de actividades para este programa: 1") }
-			it { should have_content("Exercise") }
-			it { should have_content('Este es un objetivo en actividad') }
-			it { should have_content('Este es la descripción de la actividad') }
-			it { should have_content("Leer más") }
-		end
+	# 	describe "should show details possible activities(exercises)" do
+	# 		it { should have_content('Este es la descripción de una actividad') }
+	# 		it "should create a program relation" do
+	# 			expect { click_link "program_relation_0" }.to change(ProgramRelation, :count).by(1)
+	# 		end
+	# 	end
 
-		it "should create a program relation" do
-			expect { click_link "program_relation_0" }.to change(ProgramRelation, :count).by(1)
-		end
-
-	end
+	# end
 
 end

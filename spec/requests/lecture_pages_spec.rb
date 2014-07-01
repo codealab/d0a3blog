@@ -62,7 +62,7 @@ describe 'Lectures pages' do
 				expect { click_button "Guardar" }.not_to change(Lecture, :count)
 			end
 			it { should have_selector("div.alert.alert-danger") }
-			it { should have_content('La fecha que seleccionaste está fuera de la duración del curso') }
+			# it { should have_content('La fecha que seleccionaste está fuera de la duración del curso') } #out validation
 		end
 
 	end

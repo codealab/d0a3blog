@@ -55,7 +55,7 @@
 								<%= negative_value payment.amount %>
 							</td>
 							<td>
-								<% if !payment.observation.blank? %>
+								<% if !payment.clarification.blank? %>
 									<%= payment.clarification.html_safe %>
 								<% end %>
 							</td>

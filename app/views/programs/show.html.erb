@@ -102,15 +102,10 @@
 			deletes.push(daId);
 		});
 
-		// console.log(order);
-		// console.log(deletes);
 
 		// obj_order = JSON.parse('"'+order+'"');
 		// obj_deletes = JSON.parse('"'+deletes+'"');
 
-		// console.log(obj_order);
-		// console.log(obj_deletes);
-		console.log(order);
 		$.ajax({
 			url: "/programs/reorder/<%= @program.id %>",
 			data: { actives: order, deleted: deletes },
@@ -133,7 +128,6 @@
 	function disable_admin(){
 
 		$('#reorder-days li').each(function(index, el) {
-			console.log(index+1+" "+el);
 			$("#item_day_"+(index+1)).after($('#item_day_'+(index+2)));
 		});
 

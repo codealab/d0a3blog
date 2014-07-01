@@ -25,7 +25,7 @@ describe "Program" do
 			@program.max_age = " "
 			@program.name = " "
 			@program.number_of_lessons = " "
-		end
+			end
 
 		it { should have(1).error_on(:min_age) }
 		it { should have(1).error_on(:max_age) }
@@ -33,7 +33,5 @@ describe "Program" do
 		it { should have(1).error_on(:number_of_lessons) }
 
 	end
-
-	
 
 end

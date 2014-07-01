@@ -48,7 +48,7 @@ describe "Address pages" do
 
       it { should have_selector('div.alert.alert-success') }
       it { should have_content('Creación Exitosa') }
-      it { should have_content("Nueva Calle,999 ,Int 0,El Cedro,Los Pinos, Santa Barbara, Los Angeles, California, Estados Unidos, 02200") }
+      it { should have_content("Nueva Calle, 999, Int 0, El Cedro, Los Pinos, Santa Barbara, Los Angeles, California, Estados Unidos, 02200") }
       it { should have_content("Tel: 91919191, Cel: 22224444, Email: user@rails.com") }
       it { should have_content("Referencia: Por ahí") }
     end # valid info
@@ -96,7 +96,7 @@ describe "Address pages" do
 
       it { should have_selector('div.alert.alert-success') }
       it { should have_content('Actualización Exitosa') }
-      it { should have_content("Nueva Calle,999 ,Int 0,El Cedro,Los Pinos, Santa Barbara, Los Angeles, California, Estados Unidos, 02200") }
+      it { should have_content("Nueva Calle, 999, Int 0, El Cedro, Los Pinos, Santa Barbara, Los Angeles, California, Estados Unidos, 02200") }
       it { should have_content("Tel: 91919191, Cel: 22224444, Email: user@rails.com") }
       it { should have_content("Referencia: Por ahí") }
 
