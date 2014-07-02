@@ -45,7 +45,7 @@ class LogoUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    resize_to_fill(150,150)
+    resize_to_limit(150,150)
     # process :resize_to_limit => [60, 60]
     # s3_access_policy :public
   end

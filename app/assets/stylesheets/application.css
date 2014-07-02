@@ -27,11 +27,26 @@ body{
 	-o-transition: 		all 0.25s ease;
 	transition: 		all 0.25s ease;
 }
-
+#center_div_program{
+	width: 100%;
+	margin: 5px;
+	top: -2px;
+}
+#center_div_program p{
+	line-height: 20px;
+	padding: 0;
+	margin: 0;
+	color: gray;
+	font-size: 14px;
+}
 .left{ float: left; }
 .right{ float: right; }
 .text_right{ text-align: right; }
-
+.center_div{
+	text-align: center;
+	position: relative;
+	top: 10px;
+}
 #wrapper_container{ margin-bottom: 100px; }
 #footer_container{
 	bottom: 0;

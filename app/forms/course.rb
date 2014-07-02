@@ -6,7 +6,8 @@ class Course
 	extend ActiveModel::Naming
 	include ActiveModel::Conversion
 	include ActiveModel::Validations
-
+	include ActiveView::helpers.sanitize(DatesHelper)
+ 
 	attr_accessor :name, :group, :program, :user_id, :assistant_id, :cost, :location, :init_date, :finish_date, :monday, :tuesday, :wednesday, :thursday, :friday, :monday_hour, :tuesday_hour, :wednesday_hour, :thursday_hour, :friday_hour, :calendar
 	validates_presence_of :name, :user_id, :cost, :location, :init_date
 	validates_presence_of :monday_hour, :unless => lambda { self.monday.blank? }
@@ -21,6 +22,7 @@ class Course
 
 	def initialize(program)
 		@program = program
+		# finish_date
 	end
 
 	def submit(params)
@@ -43,6 +45,7 @@ class Course
 		self.wednesday_hour = convert_hour(params,'wednesday') if self.wednesday_hour.blank?
 		self.thursday_hour = convert_hour(params,'thursday') if self.thursday_hour.blank?
 		self.friday_hour = convert_hour(params,'friday') if self.friday_hour.blank?
+
 		if valid?
 			#si el curso es valido creamos grupo y buscamos fechas para las clases dentro del grupo
 			group.update_attributes(name: name, user_id: user_id, cost: cost, min_age: @program.min_age, max_age: @program.max_age, init_date: init_date, location: location )
@@ -54,9 +57,9 @@ class Course
 	end
 
 	def convert_date(params)
-		day = params["init_date(3i)"]
-		month = params["init_date(2i)"]
-		year = params["init_date(1i)"]
+		day = params["init_date(3i)"] if params["init_date(3i)"]
+		month = params["init_date(2i)"] if params["init_date(2i)"]
+		year = params["init_date(1i)"] if params["init_date(1i)"]
 		return "#{day}/#{month}/#{year}".to_date
 	end
 

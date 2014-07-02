@@ -27,7 +27,11 @@
 			<p><%= f.text_field :oldphoto, label:"safe", value: @oldphoto, :class => 'form-control', :hidden => true, :disabled => true %></p>
 			<%= image_tag @person.photo_url(:thumb).to_s, id: 'image_url' %>
 			<p><%= f.input :photo, label: "Foto" %></p>
-			<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
+			<% if params[:action]=='new' %>
+				<p><%= f.submit "Crear Familia", class: "btn btn-sm btn-primary" %></p>
+			<% else %>
+				<p><%= f.submit "Guardar Familia", class: "btn btn-sm btn-primary" %></p>
+			<% end %>
 		<% end %>
 
 		<script>

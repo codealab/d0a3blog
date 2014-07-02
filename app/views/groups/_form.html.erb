@@ -8,12 +8,6 @@
 			<%= f.input :assistant_id, label:"Asistente", include_blank: true, collection: User.instructors.map { |p| [ p.name, p.id ] } %>
 			<%= f.input :min_age, label:"Edad mínima (Semanas)" %>
 			<%= f.input :max_age, label:"Edad máxima (Semanas)" %>
-			<span id="selector_fecha">
-				<%= f.input :init_date, label: "Inicio de curso", include_blank: true, :order => [:day, :month, :year], :start_year => Time.now.year-1, :end_year => Time.now.year+1 , :input_html => { :class => 'date_selector' } %>
-			</span>
-			<span id="selector_fecha">
-				<%= f.input :finish_date, label: "Fin de curso", include_blank: true, :order => [:day, :month, :year],:start_year => Time.now.year-1, :end_year => Time.now.year+1, :input_html => { :class => 'date_selector' }  %>
-			</span>
 			<% if params[:action] == 'edit' %>
 				<%= f.input :cost, label: "Costo del grupo por alumno", disabled: true %>
 			<% else %>
@@ -21,7 +15,17 @@
 				<%= f.input :cost, label: "Costo del grupo por alumno" %>
 			<% end %>
 			<%= f.input :location, label: "Ubicación" %><br>
-			<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
+			<span id="selector_fecha">
+				<%= f.input :init_date, label: "Inicio de curso", include_blank: true, :order => [:day, :month, :year], :start_year => Time.now.year-1, :end_year => Time.now.year+1 , :input_html => { :class => 'date_selector' } %>
+			</span>
+			<span id="selector_fecha">
+				<%= f.input :finish_date, label: "Fin de curso", include_blank: true, :order => [:day, :month, :year],:start_year => Time.now.year-1, :end_year => Time.now.year+1, :input_html => { :class => 'date_selector' }  %>
+			</span>
+			<% if params[:action]=='new' %>
+				<p><%= f.submit "Crear Grupo", class: "btn btn-sm btn-primary" %></p>
+			<% else %>
+				<p><%= f.submit "Guardar Grupo", class: "btn btn-sm btn-primary" %></p>
+			<% end %>
 		<% end %>
 	</div>
 </div>
