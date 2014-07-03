@@ -155,8 +155,8 @@ body{
 	width: 69px;
 	position: absolute;
 	height: 1px;
-	left: 80px;
-	border-bottom: 1px dashed #b1b1b1;
+	right: 45px;
+	border-bottom: 1px dashed #CFCECE;
 	top: 23px;
 }
 .date_class_selector:click{
