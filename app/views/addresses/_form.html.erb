@@ -22,7 +22,11 @@
 		<p><%= f.input :telefono, label: "Teléfono" %></p>
 		<p><%= f.input :celular, label: "Celular" %></p>
 		<p><%= f.input :email, label: "Email" %></p>
-		<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
+		<% if params[:action]=='new' %>
+			<p><%= f.submit "Crear Dirección", class: "btn btn-sm btn-primary" %></p>
+		<% else %>
+			<p><%= f.submit "Guardar Dirección", class: "btn btn-sm btn-primary" %></p>
+		<% end %>
 	<% end %>
   </div>
 </div>

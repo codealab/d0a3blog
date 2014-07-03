@@ -15,7 +15,6 @@ load_file("family_relations.csv").each { |line| FamilyRelation.create(line) }
 load_file("exercises.csv").each { |line| Exercise.create(line) }
 load_file("area_relations.csv").each { |line| AreaRelation.create(line) }
 
-
 Panel.create( :name => 'Demo App' )
 
 Family.all.each do |f|
@@ -23,7 +22,7 @@ Family.all.each do |f|
 end
 
 User.create([{ name: "Juan", email: "juan.fuentes.cabrera.89@gmail.com", password: "123qwe123", password_confirmation: "123qwe123", admin: true },
-			 { name: "javier", email: "javier@deceroatres.com", password: "deceroatres", password_confirmation: "deceroatres", admin: true, instructor: true }])
+			 { name: "Contacto", email: "contacto@codealab.mx", password: "temporal", password_confirmation: "temporal", admin: true, instructor: true },])
 
 Area.create([{ name: "Motricidad Gruesa" },
 			 { name: "Motricidad Fina" },

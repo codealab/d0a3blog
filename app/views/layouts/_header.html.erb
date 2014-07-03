@@ -26,10 +26,12 @@
                 <li role="presentation">
                   <a role="menuitem" tabindex="-1" href="<%= exercises_path %>">Actividades</a>
                 </li>
-                <!-- <li role="presentation" class="divider"></li>
-                <li role="presentation">
-                  <a role="menuitem" tabindex="-1" href="<%= programs_path %>">Programas</a>
-                </li> -->
+                <% if(current_user.admin?) %>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="<%= programs_path %>">Programas</a>
+                  </li>
+                <% end %>
                 <li role="presentation" class="divider"></li>
                 <li role="presentation">
                   <a role="menuitem" tabindex="-1" href="<%= payments_path %>">Pagos</a>

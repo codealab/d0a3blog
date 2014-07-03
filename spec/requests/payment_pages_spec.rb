@@ -57,7 +57,7 @@ describe "Payment pages" do
         before { click_link('Nuevo Pago') }
 
         describe 'with invalid information' do
-          before { click_button('Guardar') }
+          before { click_button('Crear Pago') }
           it { should have_content('La forma contiene 2 errores') }
         end
 
@@ -68,7 +68,7 @@ describe "Payment pages" do
             select "#{ I18n.l Date.today.to_date, format: '%B' }", from: "payment[date(2i)]"
             select "#{ Date.today.to_date.year }", from: "payment[date(1i)]"
             fill_in "payment[amount]", :with => "999"
-            expect { click_button "Guardar" }.to change(Payment, :count).by(1)
+            expect { click_button "Crear Pago" }.to change(Payment, :count).by(1)
           end
 
           it "should payments info" do

@@ -1,10 +1,10 @@
-<% provide(:title, "Nuevo Curso") %>
+<% provide(:title, "Nuevo Grupo") %>
 
 <div class="boton_der">
 	<div class="top_buttons">
 		<%= link_factory( :_path => groups_path, :_text => "Regresar a los programas", _class: 'btn btn-info', _button: true ) %>
 	</div>
-	<h1>Nuevo Curso<span class="line"></span></h1>
+	<h1>Nuevo Grupo<span class="line"></span></h1>
 </div>
 
 <div id="loader">
@@ -110,7 +110,11 @@
 				</div>
 			<% end %>
 			<br>
-			<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
+			<% if params[:action]=='new' %>
+				<p><%= f.submit "Crear Curso", class: "btn btn-sm btn-primary" %></p>
+			<% else %>
+				<p><%= f.submit "Guardar Curso", class: "btn btn-sm btn-primary" %></p>
+			<% end %>
 		<% end %>
 	</div>
 </div>

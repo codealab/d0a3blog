@@ -34,7 +34,7 @@ describe 'Exercise pages' do
 		# it { should have_link("Regresar a Actividades", href: :back ) }
 		
 		describe "with invalid information" do
-			before { click_button("Guardar") }
+			before { click_button("Crear Actividad") }
 			it { should have_content("errores") }
 		end
 
@@ -49,7 +49,7 @@ describe 'Exercise pages' do
 				fill_in "exercise[music]",	:with => "Canción #1, Canción #2, Canción #3"
 				# select("#{area.name}", :from => 'exercise[area]')
 				# check "area_" #click en check algún area ???
-				expect { click_button "Guardar" }.to change(Exercise, :count).by(0)
+				expect { click_button "Crear Actividad" }.to change(Exercise, :count).by(0)
 			end
 
 			it { should have_content("La actividad debe contener al menos un área") }
@@ -78,7 +78,7 @@ describe 'Exercise pages' do
 		describe "with invalid information" do
 			before do
 				fill_in "exercise[min_age]", :with => " "
-				click_button "Guardar"
+				click_button "Guardar Actividad"
 			end
 			it { should have_content("La forma contiene 1 error") }
 		end
@@ -92,7 +92,7 @@ describe 'Exercise pages' do
 				fill_in "exercise[material]",	:with => "Pelota, rodillo, Pablo"
 				fill_in "exercise[music]",	:with => "Canción #3, Canción #4, Canción #5"
 				
-				click_button "Guardar"
+				click_button "Guardar Actividad"
 
 			end
 

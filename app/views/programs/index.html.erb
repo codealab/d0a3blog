@@ -1,13 +1,17 @@
-<% provide(:title, "Todos los Programas") %>
+<% provide(:title, "Nuevo grupo") %>
 
 <div class="boton_der">
 	<div class="top_buttons">
 		<%= link_factory( :_path => new_program_path, :_text =>'Nuevo Programa', :_class => 'btn btn-default', :_button => true ) %>
 	</div>
-	<h1>Todos los Programas<span class="line"></span></h1>
+	<h1>Nuevo grupo<span class="line"></span></h1>
 </div>
 
 <div class="all_width blue_box">
+	<div class="center_div" id="center_div_program">
+		<p>Para crear el grupo selecciona el programa que deseas utilizar. </p>
+		<p>Si no deseas utilizar un programa, haz click en el botón de crear manualmente.</p>
+	</div>
 	<% if @programs.count>0 %>
 		<table class="table table-striped">
 			<thead>
@@ -26,7 +30,7 @@
 						<td><%= "#{program.min_age} - #{program.max_age} semanas" %></td>
 						<td><%= program.number_of_lessons %></td>
 						<td><%= program.description %></td>
-						<td><%= link_factory( :_path => new_program_course_path(program), :_text=> "Generar", :_button => true, :_class=> 'btn btn-default btn-xs' ) %></td>
+						<td><%= link_factory( :_path => new_program_course_path(program), :_text=> "Usar programa", :_button => true, :_class=> 'btn btn-default btn-xs' ) %></td>
 					</tr>
 				<% end %>
 			</tbody>
@@ -37,8 +41,8 @@
 	<% else %>
 		<h4 class="counter_is_zero">Aún no existen programas</h4>
 	<% end %>
-	<div class="boton_der">
-		<%= link_factory( :_path => new_group_path, :_text => 'Creación manual', :_class => 'btn btn-primary btn-xs', :_button=>true ) %>
+	<div class="center_div">
+		<%= link_factory( :_path => new_group_path, :_text => 'Crear manualmente', :_class => 'btn btn-primary', :_button=>true ) %>
 	</div>
 </div>
 

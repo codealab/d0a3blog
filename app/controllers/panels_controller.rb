@@ -17,7 +17,7 @@ class PanelsController < ApplicationController
   end
 
   def update
-    @panel = Panel.first
+    @panel = Panel.find(params[:id])
     if @panel.update_attributes(panel_params)
       flash[:success] = "Panel actualizado"
       redirect_to panel_path(@panel)

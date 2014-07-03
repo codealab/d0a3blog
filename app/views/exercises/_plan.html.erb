@@ -1,0 +1,20 @@
+<div id="plan_extras_container">
+	<%= form_tag("/exercises/plan/#{@plan.id}", :method => "get", remote: true ) do %>
+	<div class="modal-body">
+		<p><strong>Descripción:</strong> <%= @plan.exercise.description %></p>
+		<p><strong>Objetivo:</strong> <%= @plan.exercise.objective %></p>
+		<p>
+		<strong>Música:</strong>
+		<%= text_area_tag "music", @plan.music, :class => "form-control", placeholder: "Música de la actividad" %>
+		</p>
+		<p>
+		<strong>Material:</strong>
+		<%= text_area_tag "material", @plan.material, :class => "form-control", placeholder: "Material de la actividad" %>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
+		<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+	</div>
+	<% end %>
+</div>

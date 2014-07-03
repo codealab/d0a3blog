@@ -30,10 +30,10 @@ class Person < ActiveRecord::Base
 	validate :field_uniqueness
 	validate :dob_cannot_be_in_the_future
 
-	child_age = 5
-	panel = Panel.first
-	if panel
-		child_years = Panel.first.child_age if !Panel.first.child_age.blank?
+	if Panel.first
+		child_age = Panel.first.child_age if !Panel.first.child_age.blank?
+	else
+		child_age = 5
 	end
 
 	scope :children, proc { where("dob > :years", { years: Date.today - child_age.years} )}

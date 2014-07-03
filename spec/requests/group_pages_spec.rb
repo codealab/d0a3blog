@@ -41,10 +41,10 @@ describe 'Group pages' do
 
 		describe 'with invalid information' do
 			it "should not create a group" do
-				expect { click_button "Guardar" }.not_to change(Group, :count)
+				expect { click_button "Crear Grupo" }.not_to change(Group, :count)
 			end
 			describe "error messages" do
-				before { click_button "Guardar" }
+				before { click_button "Crear Grupo" }
 				it { should have_content('La forma contiene 8 errores') }
 			end
 		end
@@ -73,7 +73,7 @@ describe 'Group pages' do
 				fill_in "group[cost]", :with => "999"
 				fill_in "group[location]", :with => "Aula Uno"
 
-				expect { click_button "Guardar" }.to change(Group, :count).by(1)
+				expect { click_button "Crear Grupo" }.to change(Group, :count).by(1)
 
 			end
 
@@ -110,7 +110,7 @@ describe 'Group pages' do
 				# select("#{user.name}", :from => 'group[user_id]') #activate to return only 1 error. For some reason the test return empty user_id
 				fill_in "group[name]", :with => " "
 			
-				click_button "Guardar" 
+				click_button "Guardar Grupo" 
 			end
 
 			it { should have_content('La forma contiene 2 errores') }
@@ -132,7 +132,7 @@ describe 'Group pages' do
 				fill_in "group[max_age]", :with => "100"
 				fill_in "group[location]", :with => "Aula Dos"
 
-				click_button "Guardar"
+				click_button "Guardar Grupo"
 			end
 
 			it { should have_selector("div.alert.alert-success") }

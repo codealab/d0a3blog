@@ -16,7 +16,11 @@
 			<p><%= f.input :amount, label: "Cantidad" %></p>
 			<p><%= f.input :scholarship, label: "Pago extraordinario" %></p>
 			<p><%= f.input :clarification, label: "Aclaración" %></p>
-			<p><%= f.submit "Guardar", class: "btn btn-sm btn-primary" %></p>
+			<% if params[:action]=='new' %>
+				<p><%= f.submit "Crear Pago", class: "btn btn-sm btn-primary" %></p>
+			<% else %>
+				<p><%= f.submit "Guardar Pago", class: "btn btn-sm btn-primary" %></p>
+			<% end %>
 		<% end %>
 	</div>
 </div>
