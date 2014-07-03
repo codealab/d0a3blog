@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140623152932) do
+ActiveRecord::Schema.define(version: 20140703174547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,10 +200,10 @@ ActiveRecord::Schema.define(version: 20140623152932) do
     t.integer  "tutor_id"
     t.integer  "group_id"
     t.integer  "balance"
-    t.text     "observation"
-    t.date     "deactivated"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "observation"
+    t.date     "deactivated"
   end
 
   add_index "spots", ["child_id", "group_id"], name: "index_spots_on_child_id_and_group_id", unique: true, using: :btree

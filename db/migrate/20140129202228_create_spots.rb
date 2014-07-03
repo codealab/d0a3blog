@@ -5,8 +5,6 @@ class CreateSpots < ActiveRecord::Migration
 		t.integer :tutor_id
 		t.integer :group_id
 		t.integer :balance
-		t.text :observation
-		t.date :deactivated
 
 		t.timestamps
     end

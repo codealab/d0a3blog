@@ -41,7 +41,7 @@ gem 'thin'
 
 gem 'will_paginate-bootstrap'
 gem 'jquery-rails', '~> 3.1.1'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 5.0.0'
 # gem 'jquery-ui-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
