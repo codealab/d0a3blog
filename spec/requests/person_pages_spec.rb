@@ -37,7 +37,7 @@ describe 'Person pages' do
 			before { click_link('Nuevo Miembro') }
 
 			describe "with invalid information" do
-				before { click_button('Guardar') }
+				before { click_button('Crear Miembro') }
 	          	it { should have_content('La forma contiene 5 errores') }
 			end
 
@@ -65,7 +65,7 @@ describe 'Person pages' do
 				fill_in "person[first_last_name]",	:with => " "
 				fill_in "person[second_last_name]",	:with => " "
 
-				click_button "Guardar"
+				click_button "Guardar Miembro"
 			end
 
 			it { should have_content("La forma contiene 3 errores") }
@@ -79,7 +79,7 @@ describe 'Person pages' do
 				fill_in "person[second_last_name]",	:with => "Romero"
 				select 'Madre', from: 'person[family_roll]'
 
-				click_button "Guardar"
+				click_button "Guardar Miembro"
 			end
 
 			it { should have_content("Actualización Exitosa") }

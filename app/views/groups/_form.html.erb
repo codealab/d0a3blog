@@ -21,6 +21,7 @@
 			<span id="selector_fecha">
 				<%= f.input :finish_date, label: "Fin de curso", include_blank: true, :order => [:day, :month, :year],:start_year => Time.now.year-1, :end_year => Time.now.year+1, :input_html => { :class => 'date_selector' }  %>
 			</span>
+			<br>
 			<% if params[:action]=='new' %>
 				<p><%= f.submit "Crear Grupo", class: "btn btn-sm btn-primary" %></p>
 			<% else %>

@@ -86,9 +86,11 @@ class ExercisesController < ApplicationController
 	end
 
 	def plan
-		@plan = Plan.find(params[:plan_id])
-		@plan.update_attributes(material:params[:material],music:params[:music])
-		@plan.save
+		@plan = Plan.find(params[:id])
+		if params[:material] || params[:music]
+			@plan.update_attributes(material:params[:material],music:params[:music])
+			@plan.save
+		end
 	end
 
 	def search

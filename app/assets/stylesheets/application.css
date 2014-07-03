@@ -10,6 +10,7 @@
  *
  *= require jquery.Jcrop
  *= require_self
+ *= require jquery-ui
  *= require bootstrap-wysihtml5
  *= require_tree .
  */
@@ -148,6 +149,15 @@ body{
 	font-size: 12px;
 	line-height: 40px;
 	border-radius: 5px;
+}
+.date_inactive{ background: none; }
+.date_inactive span {
+	width: 69px;
+	position: absolute;
+	height: 1px;
+	left: 80px;
+	border-bottom: 1px dashed #b1b1b1;
+	top: 23px;
 }
 .date_class_selector:click{
 

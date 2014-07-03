@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.sortable
-//= require jquery.ui.accordion
+//= require jquery-ui
+//= require jquery-ui/accordion
+//= require jquery-ui/sortable
 //= require bootstrap
 //= require turbolinks
 //= require bootstrap-wysihtml5
@@ -68,13 +69,13 @@
                         maxHeight = $(this).height(),
                         totalTop = $(this).offset().top,
                         childHeight = $daChild.height();
-
+                    var maxTop = maxHeight - childHeight;
                     // if (childHeight > maxHeight) {
                     $(this).on('mousemove', function(e) {
                         var onSet = (e.pageY) - totalTop,
-                            daTop = ((onSet * childHeight) / maxHeight);
+                            daTop = (onSet * maxTop) / (maxHeight + 60);
                         $daChild.css({
-                            top: -(daTop - 100)
+                            top: (daTop + 30)
                         });
                     });
                     // } else $('#container_arrows').hide();
@@ -200,6 +201,16 @@ function scrollAdjust() {
         $("#form_child_container_" + theID + " .observation_wysiwyg").html("");
     });
 
+    $('.modal_extras_plan').on('show.bs.modal', function() {
+        var theID = $(this).attr('id').replace('ex_', '');
+        $("#plan_extras_container_" + theID).load("/exercises/plan/" + theID + " #plan_extras_container");
+    });
+
+    $('.modal_extras_plan').on('hide.bs.modal', function() {
+        var theID = $(this).attr('id').replace('ex_', '');
+        // $("#plan_extras_container_" + theID + " .observation_wysiwyg").html("");
+    });
+
 }
 
 function observationAdjust() {
@@ -217,6 +228,7 @@ function observationAdjust() {
         var theID = $(this).attr('id').replace('child_observation_', '');
         $("#form_spot_container_" + theID + " .observation_wysiwyg").html("");
     });
+
 }
 
 function sort_tables() {

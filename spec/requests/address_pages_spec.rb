@@ -21,7 +21,7 @@ describe "Address pages" do
     end
 
     describe "just clicking" do
-      before { click_button "Guardar" }
+      before { click_button "Crear Dirección" }
 
       it { should have_title('Crear contacto de la Familia: Vega') }
       it { should have_content('La forma contiene 3 errores') }
@@ -43,7 +43,7 @@ describe "Address pages" do
         fill_in "address[telefono]",           with: "91919191"
         fill_in "address[celular]",            with: "22224444"
         fill_in "address[email]",              with: "user@rails.com"
-        expect { click_button "Guardar" }.to change(Address, :count).by(1)
+        expect { click_button "Crear Dirección" }.to change(Address, :count).by(1)
       end
 
       it { should have_selector('div.alert.alert-success') }
@@ -68,7 +68,7 @@ describe "Address pages" do
     end
 
     describe "just clicking" do
-      before { click_button "Guardar" }
+      before { click_button "Guardar Dirección" }
 
       it { should have_content('Actualización Exitosa') }
       it { should have_content("Arteaga Y Salazar") }
@@ -91,7 +91,7 @@ describe "Address pages" do
         fill_in "address[telefono]",           with: "91919191"
         fill_in "address[celular]",            with: "22224444"
         fill_in "address[email]",              with: "user@rails.com"
-        click_button "Guardar"
+        click_button "Guardar Dirección"
       end
 
       it { should have_selector('div.alert.alert-success') }
@@ -121,7 +121,7 @@ describe "Address pages" do
         fill_in "address[calle]",              with: " "
         fill_in "address[num_ext]",            with: " "
 
-        click_button "Guardar"
+        click_button "Guardar Dirección"
       end
 
       it { should have_title('Editar contacto de la Familia: Vega') }

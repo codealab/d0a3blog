@@ -73,7 +73,7 @@ describe "Family-Person pages" do
 		end
 
 		describe "just clicking" do
-			before { click_button "Guardar" }
+			before { click_button "Crear Miembro" }
 
 			it { should have_title("Nuevo Miembro: Vega") }
 		end
@@ -81,11 +81,11 @@ describe "Family-Person pages" do
 
     describe "with invalid information" do
       it "should not create a person" do
-        expect { click_button "Guardar" }.not_to change(Person, :count)
+        expect { click_button "Crear Miembro" }.not_to change(Person, :count)
       end
 
       describe "after submission" do
-        before { click_button "Guardar" }
+        before { click_button "Crear Miembro" }
 
        	it { should have_title("Nuevo Miembro: Vega") }
       end
@@ -107,7 +107,7 @@ describe "Family-Person pages" do
 		end
 
 		describe "just clicking" do
-			before { click_button "Guardar" }
+			before { click_button "Guardar Miembro" }
 
 			it { should have_content('Actualización Exitosa') }
 			it { should have_selector('td', text:'M') }
@@ -129,7 +129,7 @@ describe "Family-Person pages" do
 				#   find("option[value='21']").select_option
 				# end
 
-				click_button "Guardar"
+				click_button "Guardar Miembro"
 			end
 
 			it { should have_selector('div.alert.alert-success') }
@@ -152,7 +152,7 @@ describe "Family-Person pages" do
 				choose "person_sex_f"
 				select 'Padre', from: 'person[family_roll]'
 
-				click_button "Guardar"
+				click_button "Guardar Miembro"
 			end
 
 			it { should have_selector('div.alert.alert-success') }

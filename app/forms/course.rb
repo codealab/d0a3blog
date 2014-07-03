@@ -6,7 +6,6 @@ class Course
 	extend ActiveModel::Naming
 	include ActiveModel::Conversion
 	include ActiveModel::Validations
-	include ActiveView::helpers.sanitize(DatesHelper)
  
 	attr_accessor :name, :group, :program, :user_id, :assistant_id, :cost, :location, :init_date, :finish_date, :monday, :tuesday, :wednesday, :thursday, :friday, :monday_hour, :tuesday_hour, :wednesday_hour, :thursday_hour, :friday_hour, :calendar
 	validates_presence_of :name, :user_id, :cost, :location, :init_date

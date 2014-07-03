@@ -20,7 +20,7 @@ describe "program pages" do
 		before { visit programs_path }
 
 		describe 'page' do
-			it { should have_title("Todos los Programas") }
+			it { should have_title("Nuevo Grupo") }
 			it { should have_link("Nuevo Programa", href: new_program_path) }
 		end
 
@@ -44,18 +44,18 @@ describe "program pages" do
 		end
 
 		describe 'just clicking' do
-			before { click_button "Guardar" }
+			before { click_button "Crear Programa" }
 			it { should have_title("Nuevo Programa") }
 			it { should have_content("La forma contiene 4 errores") }
 		end
 
 		describe 'with invalid information' do
 			it "should not create a program" do
-				expect { click_button "Guardar" }.not_to change(Program, :count)
+				expect { click_button "Crear Programa" }.not_to change(Program, :count)
 			end
 
 			describe 'after submission form' do
-				before { click_button "Guardar" }
+				before { click_button "Crear Programa" }
 				it { should have_title("Nuevo Programa") }
 				it { should have_content("La forma contiene 4 errores") }
 			end
@@ -68,7 +68,7 @@ describe "program pages" do
 				fill_in "program[max_age]", :with => 120
 				fill_in "program[description]", :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
 				fill_in "program[number_of_lessons]", :with => 20 
-				expect { click_button "Guardar" }.to change(Program, :count).by(1)
+				expect { click_button "Crear Programa" }.to change(Program, :count).by(1)
 			end
 		end
 	end
@@ -93,7 +93,7 @@ describe "program pages" do
 				# fill_in "program[number_of_lessons]", :with => " "
 				fill_in "program[description]", :with => " "
 
-				click_button "Guardar"
+				click_button "Guardar Programa"
 			end
 			it { should have_content("La forma contiene 3 errores") }
 		end
@@ -107,7 +107,7 @@ describe "program pages" do
 				# fill_in "program[number_of_lessons]", :with => 40 
 				fill_in "program[description]", :with => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, placeat, sequi, obcaecati error eveniet iure repellendus."
 
-				click_button "Guardar"
+				click_button "Guardar Programa"
 			end
 			
 			it { should have_selector("div.alert.alert-success") }

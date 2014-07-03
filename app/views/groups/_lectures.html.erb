@@ -11,7 +11,10 @@
 	</div>
 	<div class="container_large_scroll" id="date_selector">
 		<nav id="lectures_dates" class="large_scroll">
-			<div id="dates_container" class="children_scroll" data-topcenter="260">
+			<div id="dates_container" class="children_scroll" data-topcenter="40">
+				<div class="date_class_selector date_inactive">
+					<span></span>
+				</div>
 				<% @group.lectures.order('date ASC').each do |lecture| %>
 					<% if lecture.date.past? %>
 						<%= link_to group_lecture_path(@group, lecture), :remote => true do %>
@@ -40,6 +43,11 @@
 							</div>
 						<% end %>
 					<% end %>
+				<% end %>
+				<% 11.times do %>
+					<div class="date_class_selector date_inactive">
+						<span></span>
+					</div>
 				<% end %>
 			</div>
 		</nav>

@@ -18,7 +18,7 @@ gem 'cancancan'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 gem 'simple_form'
-gem 'bootstrap-wysihtml5-rails'
+gem 'bootstrap-wysihtml5-rails', '~> 0.3.1.23'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 # Use bycrypt to encode keys and restore on cookies sessions
@@ -40,7 +40,7 @@ gem "unf"
 gem 'thin'
 
 gem 'will_paginate-bootstrap'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 3.1.1'
 gem 'jquery-ui-rails'
 # gem 'jquery-ui-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

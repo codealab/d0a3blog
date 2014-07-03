@@ -22,15 +22,15 @@ describe 'Lectures pages' do
 		describe 'Show create class information' do
 			it { should have_title("Nueva Clase") }
 			it { should have_link("Regresar a Grupo") }
-			it { should have_button("Guardar") }
+			it { should have_button("Crear Clase") }
 		end
 
 		describe "with invalid information" do
 			it "should not create a lecture" do
-				expect { click_button "Guardar" }.not_to change(Lecture, :count)
+				expect { click_button "Crear Clase" }.not_to change(Lecture, :count)
 			end
 			describe "error messages" do
-				before { click_button "Guardar" }
+				before { click_button "Crear Clase" }
 				it { should have_title('Nueva Clase') }
 			end
 		end
@@ -44,7 +44,7 @@ describe 'Lectures pages' do
 				select '11', from: 'lecture[date(4i)]'
 				select '30', from: 'lecture[date(5i)]'
 				
-				expect { click_button "Guardar" }.to change(Lecture, :count).by(1)
+				expect { click_button "Crear Clase" }.to change(Lecture, :count).by(1)
 			end
 			it { should have_selector("div.alert.alert-success") }
 			it { should have_content('Clase creada exitosamente') }
@@ -59,7 +59,7 @@ describe 'Lectures pages' do
 				select '12', from: 'lecture[date(4i)]'
 				select '00', from: 'lecture[date(5i)]'
 
-				expect { click_button "Guardar" }.not_to change(Lecture, :count)
+				expect { click_button "Crear Clase" }.not_to change(Lecture, :count)
 			end
 			it { should have_selector("div.alert.alert-danger") }
 			# it { should have_content('La fecha que seleccionaste está fuera de la duración del curso') } #out validation
@@ -85,7 +85,7 @@ describe 'Lectures pages' do
 				select '12', from: 'lecture[date(4i)]'
 				select '00', from: 'lecture[date(5i)]'
 
-				click_button "Guardar"
+				click_button "Guardar Clase"
 			end
 
 			it { should have_selector("div.alert.alert-success") }
