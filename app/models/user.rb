@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 	attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
 	has_many :posts
+	belongs_to :organization
 
 	before_create :create_remember_token
 
