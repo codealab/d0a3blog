@@ -1,19 +1,19 @@
+#encoding: UTF-8
 class Post < ActiveRecord::Base
 
-	belongs_to :subcategory
 	belongs_to :user
-	has_many :post_tags
-	has_many :tags, :through => :post_tags
+	belongs_to :post_type
 
-	mount_uploader :cover, PhotoUploader
+	has_many :post_categories
+	has_many :categories, through: :post_categories
+
+	has_many :post_tags
+	has_many :tags, through: :post_tags
 
 	validates :title, presence: true
 	validates :user_id, presence: true
-	validates :subcategory_id, presence: true
 
-	def category
-		self.subcategory.category.name
-	end
+	mount_uploader :cover, PhotoUploader
 
 	def author
 		self.user.name

@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class User < ActiveRecord::Base
 
 	attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
