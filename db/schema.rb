@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140703223058) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "categories", force: true do |t|
     t.string   "name"
     t.integer  "post_type_id"
@@ -28,7 +31,7 @@ ActiveRecord::Schema.define(version: 20140703223058) do
     t.datetime "updated_at"
   end
 
-  add_index "categories_post_types", ["category_id", "post_type_id"], name: "index_categories_post_types_on_category_id_and_post_type_id", unique: true
+  add_index "categories_post_types", ["category_id", "post_type_id"], name: "index_categories_post_types_on_category_id_and_post_type_id", unique: true, using: :btree
 
   create_table "media", force: true do |t|
     t.string   "title"
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 20140703223058) do
     t.datetime "updated_at"
   end
 
-  add_index "media_posts", ["media_id", "post_id"], name: "index_media_posts_on_media_id_and_post_id", unique: true
+  add_index "media_posts", ["media_id", "post_id"], name: "index_media_posts_on_media_id_and_post_id", unique: true, using: :btree
 
   create_table "organizations", force: true do |t|
     t.string   "name"
@@ -60,7 +63,7 @@ ActiveRecord::Schema.define(version: 20140703223058) do
     t.datetime "updated_at"
   end
 
-  add_index "post_categories", ["category_id", "post_id"], name: "index_post_categories_on_category_id_and_post_id", unique: true
+  add_index "post_categories", ["category_id", "post_id"], name: "index_post_categories_on_category_id_and_post_id", unique: true, using: :btree
 
   create_table "post_tags", force: true do |t|
     t.integer  "post_id"
@@ -69,7 +72,7 @@ ActiveRecord::Schema.define(version: 20140703223058) do
     t.datetime "updated_at"
   end
 
-  add_index "post_tags", ["post_id", "tag_id"], name: "index_post_tags_on_post_id_and_tag_id", unique: true
+  add_index "post_tags", ["post_id", "tag_id"], name: "index_post_tags_on_post_id_and_tag_id", unique: true, using: :btree
 
   create_table "post_types", force: true do |t|
     t.string   "name"
@@ -110,6 +113,6 @@ ActiveRecord::Schema.define(version: 20140703223058) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end
