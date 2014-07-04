@@ -11,28 +11,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140618232938) do
+ActiveRecord::Schema.define(version: 20140703223058) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.text     "description"
+    t.integer  "post_type_id"
+    t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "newsletters", force: true do |t|
-    t.string   "email"
+  create_table "categories_post_types", force: true do |t|
+    t.integer  "category_id"
+    t.integer  "post_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "photos", force: true do |t|
+  add_index "categories_post_types", ["category_id", "post_type_id"], name: "index_categories_post_types_on_category_id_and_post_type_id", unique: true
+
+  create_table "media", force: true do |t|
     t.string   "title"
-    t.string   "file"
     t.text     "description"
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "media_posts", force: true do |t|
+    t.integer  "media_id"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "media_posts", ["media_id", "post_id"], name: "index_media_posts_on_media_id_and_post_id", unique: true
+
+  create_table "organizations", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "post_categories", force: true do |t|
+    t.integer  "category_id"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "post_categories", ["category_id", "post_id"], name: "index_post_categories_on_category_id_and_post_id", unique: true
 
   create_table "post_tags", force: true do |t|
     t.integer  "post_id"
@@ -43,22 +71,23 @@ ActiveRecord::Schema.define(version: 20140618232938) do
 
   add_index "post_tags", ["post_id", "tag_id"], name: "index_post_tags_on_post_id_and_tag_id", unique: true
 
-  create_table "posts", force: true do |t|
-    t.string   "title"
-    t.string   "cover"
-    t.text     "body"
-    t.boolean  "main",           default: false
-    t.integer  "subcategory_id"
-    t.integer  "user_id"
-    t.integer  "views",          default: 0
+  create_table "post_types", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "subcategories", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "category_id"
+  create_table "posts", force: true do |t|
+    t.string   "title"
+    t.string   "cover"
+    t.text     "content"
+    t.boolean  "main",           default: false
+    t.boolean  "status",         default: false
+    t.integer  "views",          default: 0
+    t.integer  "subcategory_id"
+    t.integer  "content_id"
+    t.integer  "user_id"
+    t.text     "credits"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -75,6 +104,7 @@ ActiveRecord::Schema.define(version: 20140618232938) do
     t.string   "email"
     t.string   "password_digest"
     t.string   "remember_token"
+    t.integer  "organization_id"
     t.boolean  "administrator",   default: false
     t.datetime "created_at"
     t.datetime "updated_at"

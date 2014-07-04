@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SubcategoryTest < ActiveSupport::TestCase
+class MediaPostsTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
