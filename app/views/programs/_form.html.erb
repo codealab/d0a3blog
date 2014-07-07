@@ -4,9 +4,9 @@
 			<%= render 'shared/error_messages', object: f.object %>
 			<p><%= f.input :name, label:"Nombre del programa" %></p>
 			<% if params[:action]=='edit' %>
-				<p><%= f.input :number_of_lessons, label:"Número de lecciones", :disabled => true %></p>
+				<p><%= f.input :number_of_lessons, label:"Número de clases", :disabled => true %></p>
 			<% else %>
-				<p><%= f.input :number_of_lessons, label:"Número de lecciones" %></p>
+				<p><%= f.input :number_of_lessons, label:"Número de clases" %></p>
 			<% end %>
 			<p><%= f.input :min_age, label:"Edad mínima (Semanas)" %></p>
 			<p><%= f.input :max_age, label:"Edad máxima (Semanas)" %></p>

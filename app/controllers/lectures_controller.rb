@@ -23,6 +23,12 @@ class LecturesController < ApplicationController
 	   @lecture = @group.lectures.build
 	end
 
+	def objective
+		@lecture = Lecture.find(params[:id])
+		@lecture.objective = params[:objective]
+		@lecture.save
+	end
+
 	def edit
 		@group = Group.find(params[:group_id])
 		@lecture = @group.lectures.find(params[:id])
@@ -60,7 +66,7 @@ class LecturesController < ApplicationController
 	private
 
 	def lecture_params
-      params.require(:lecture).permit( :date, :group_id, :observation )
+      params.require(:lecture).permit( :date, :group_id, :observation, :objective )
     end
 
 end

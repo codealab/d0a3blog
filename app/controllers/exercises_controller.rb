@@ -5,6 +5,14 @@ class ExercisesController < ApplicationController
 	# before_action :correct_user, only: [:edit, :update, :show, :new, :create, :destroy, :delete, :index]
 	load_and_authorize_resource
 
+	def plan
+		@plan = Plan.find(params[:plan_id])
+		if params[:material] || params[:music]
+			@plan.update_attributes(material:params[:material],music:params[:music])
+			@plan.save
+		end
+	end
+
 	def index
 		@exercises = Exercise.all.order('id desc').paginate(page: params[:page])
 		@group = Group.find(params[:group_id]) if params[:group_id]
@@ -82,14 +90,6 @@ class ExercisesController < ApplicationController
 		else
 			@exercise.reload
 			render 'edit'
-		end
-	end
-
-	def plan
-		@plan = Plan.find(params[:id])
-		if params[:material] || params[:music]
-			@plan.update_attributes(material:params[:material],music:params[:music])
-			@plan.save
 		end
 	end
 

@@ -202,7 +202,8 @@ function scrollAdjust() {
 
     $('.modal_extras_plan').on('show.bs.modal', function() {
         var theID = $(this).attr('id').replace('ex_', '');
-        $("#plan_extras_container_" + theID).load("/exercises/plan/" + theID + " #plan_extras_container");
+        var ex_id = $(this).data('exercise');
+        $("#plan_extras_container_" + theID).load("/plan/" + ex_id + "?plan_id=" + theID + " #plan_extras_container");
     });
 
     $('.modal_extras_plan').on('hide.bs.modal', function() {

@@ -31,7 +31,7 @@ class Course
 		self.group = Group.new
 		self.program = @program
 		#init_date no es atributo nativo de fecha, parseamos en convert_date
-		self.init_date = convert_date(params)
+		self.init_date = convert_date(params) if convert_date(params)
 		self.location = params[:location]
 		self.monday = params[:monday]
 		self.tuesday = params[:tuesday]
@@ -47,7 +47,7 @@ class Course
 
 		if valid?
 			#si el curso es valido creamos grupo y buscamos fechas para las clases dentro del grupo
-			group.update_attributes(name: name, user_id: user_id, cost: cost, min_age: @program.min_age, max_age: @program.max_age, init_date: init_date, location: location )
+			group.update_attributes( name: name, user_id: user_id, cost: cost, min_age: @program.min_age, max_age: @program.max_age, init_date: init_date, location: location )
 			find_lectures
 			true
 		else
@@ -59,7 +59,12 @@ class Course
 		day = params["init_date(3i)"] if params["init_date(3i)"]
 		month = params["init_date(2i)"] if params["init_date(2i)"]
 		year = params["init_date(1i)"] if params["init_date(1i)"]
-		return "#{day}/#{month}/#{year}".to_date
+		if !day.blank? && !month.blank? && !year.blank?
+			date = "#{day}/#{month}/#{year}"
+			date.to_date
+		else
+			false
+		end
 	end
 
 	def convert_hour(params,day)
@@ -148,8 +153,8 @@ class Course
 		#una vez guardado el grupo podemos relacionar clases almacenadas en dates
 		dates.each_with_index do |d,index|
 			dif = Time.now.to_datetime.formatted_offset(true)
-			lecture = group.lectures.build({ date: d.to_datetime+6.hours })
 			lesson = program.lessons.find_by_order_day( index+1 )
+			lecture = group.lectures.build({ date: d.to_datetime+6.hours, objective: lesson.objective })
 			if group.save
 				if lesson
 					lesson.exercises.each do |exercise|

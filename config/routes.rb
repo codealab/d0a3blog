@@ -16,7 +16,6 @@ D0A3::Application.routes.draw do
     end
   end
 
-  resources :plans
   resources :users
   resources :panels
   resources :program_relations
@@ -30,7 +29,9 @@ D0A3::Application.routes.draw do
 
   resources :lectures
   resources :payments
-  resources :exercises
+  resources :exercises do
+    resources :plans
+  end
   resources :calendars
   resources :password_resets
   resources :people, only: [:index, :show]
@@ -40,6 +41,7 @@ D0A3::Application.routes.draw do
 
   get "users/index"
   get "lectures/observation"
+  post "lectures/objective"
   get "sessions/new"
   get "sessions/edit"
   get "sessions/create"
@@ -48,8 +50,10 @@ D0A3::Application.routes.draw do
   post "payments/concept"
   post "people/search"
   post "exercises/search"
-  get "exercises/plan"
+  get "plan/:id", to: 'exercises#plan'
   post "program_relations/search"
+  post "program_relations/objective"
+  post "lectures/objective"
   get "programs/reorder"
   get "programs/lecture"
   get "spots/deactivated"

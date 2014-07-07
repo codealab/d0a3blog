@@ -3,10 +3,16 @@
 		<div id="buttons_edit_observation">
 			<%= link_factory(:_path=>edit_group_lecture_path(@group, @lecture), :_text=> 'Editar Clase', :_class=>'btn btn-default btn-xs', :_button=>true) %>
 			<p><button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lecture_observation">Observación</button></p>
+			<div id="add_objective_to_lecture">
+				<button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lesson_objective_modal">Objetivo</button>
+			</div>
 		</div>
 		<h4>Clase del <%= I18n.l @lecture.date, :format => "%d de %B del %Y" %> -
 		<%= @lecture.date.strftime("%H:%M %P") %>
 		</h4>
+	</div>
+	<div id="lecture_objective">
+		<%= render 'lectures/objective' %>
 	</div>
 	<div id="lecture_observation_<%= @lecture.id %>">
 		<div class="modal fade" id="lecture_observation" tabindex="-1" role="dialog" aria-hidden="true">
@@ -74,7 +80,7 @@
 								<td class="exercise_content text_center">
 									<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= plan.id %>">Leer más</button>
 								</td>
-								<div class="modal fade modal_extras_plan" id="ex_<%= plan.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+								<div class="modal fade modal_extras_plan" data-exercise="<%= plan.exercise.id %>" id="ex_<%= plan.id %>" tabindex="-1" role="dialog" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">

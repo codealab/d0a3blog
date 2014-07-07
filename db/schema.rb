@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140703174547) do
+ActiveRecord::Schema.define(version: 20140704234904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20140703174547) do
     t.text     "observation"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "objective"
   end
 
   add_index "lectures", ["group_id", "date"], name: "index_lectures_on_group_id_and_date", unique: true, using: :btree
@@ -127,6 +128,7 @@ ActiveRecord::Schema.define(version: 20140703174547) do
     t.integer  "order_day"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "objective"
   end
 
   create_table "panels", force: true do |t|

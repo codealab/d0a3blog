@@ -47,6 +47,12 @@ class ProgramRelationsController < ApplicationController
 		@program_relation.destroy
 	end
 
+	def objective
+		@lesson = Lesson.find(params[:id])
+		@lesson.objective = params[:objective]
+		@lesson.save
+	end
+
 	def search
 		@lesson = Lesson.find(params[:lesson_id])
 	    @program = @lesson.program
@@ -77,7 +83,7 @@ class ProgramRelationsController < ApplicationController
 	private
 
 	  def program_relation_params
-		params.permit(:program_id, :exercise_id, :lecture)
+		params.permit(:program_id, :exercise_id, :lecture, :objective)
 	  end
 
 end
