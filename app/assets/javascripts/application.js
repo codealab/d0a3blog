@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui/accordion
 //= require jquery-ui/sortable
+//= require jquery-ui/draggable
 //= require bootstrap
 //= require turbolinks
 //= require bootstrap-wysihtml5
@@ -240,6 +241,8 @@ function tiny() {
         var tinyScroll = $(this);
         tinyScroll.tinyscrollbar();
         var newScroll = tinyScroll.data("plugin_tinyscrollbar");
-        newScroll.update();
+        setTimeout(newScroll.update, 100);
     });
 }
+
+// $(window).resize(tiny);

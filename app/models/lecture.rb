@@ -1,5 +1,7 @@
 # encoding: UTF-8
 class Lecture < ActiveRecord::Base
+
+	# before_save :invalid_date
 	has_many :plans
 	has_many :exercises, through: :plans, :dependent => :restrict_with_error
 	belongs_to :group
@@ -9,7 +11,14 @@ class Lecture < ActiveRecord::Base
 	has_many :attendances, :dependent => :restrict_with_error
 
 	validate :date_cannot_be_out_of_group_period_time
+	validate :invalid_date
 	#validate :uniqueness_combination_of_date_and_group_id
+
+	def invalid_date
+		if self.date.to_date < Date.today.to_date
+			errors.add(:date, "debe ser mayor al día de hoy")
+		end
+	end
 
 	def date_cannot_be_out_of_group_period_time
 		if !self.group.blank?

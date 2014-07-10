@@ -1,5 +1,6 @@
-$("#exercises_search_container").fadeOut(100,function(){
-	$(this).html("<%= escape_javascript(render('search')) %>").fadeIn(100,function(){
-		sort_tables();
-	});
+$("#exercises_search_container").fadeOut(100, function() {
+    $(this).html("<%= escape_javascript(render('search')) %>").fadeIn(100, function() {
+        sort_tables();
+    });
 });
+console.log("entre a bsucar");

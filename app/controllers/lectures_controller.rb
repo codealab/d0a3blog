@@ -10,12 +10,12 @@ class LecturesController < ApplicationController
 	def create
 		@group = Group.find(params[:group_id])
 		@lecture = @group.lectures.build(lecture_params)
-		if @group.save  
-		    flash[:success] = "Clase creada exitosamente"
-		    redirect_to @group
-	    else
-	      render 'new'
-	    end
+		if @group.save
+			flash[:success] = "Clase creada exitosamente"
+			redirect_to @group
+		else
+			render 'new'
+		end
 	end
 
 	def new
@@ -42,12 +42,12 @@ class LecturesController < ApplicationController
 	def update
 		@group = Group.find(params[:group_id])
 		@lecture = Lecture.find(params[:id])
-	    if @lecture.update_attributes(lecture_params)
-	    	flash[:success] = "Actualización Exitosa"
-	    	redirect_to @group
+		if @lecture.update_attributes(lecture_params)
+			flash[:success] = "Actualización Exitosa"
+			redirect_to @group
 		else
 			render 'edit'
-	    end
+		end
 	end
 
 	def observation
@@ -60,13 +60,14 @@ class LecturesController < ApplicationController
 		@group = Group.find(params[:group_id])
 		Lecture.find(params[:id]).destroy
     	flash[:success] = "Clase borrada"
-    	redirect_to @group
+    	# redirect_to @group
+    	redirect_to :back
 	end
 
 	private
 
-	def lecture_params
-      params.require(:lecture).permit( :date, :group_id, :observation, :objective )
-    end
+		def lecture_params
+			params.require(:lecture).permit( :date, :group_id, :observation, :objective )
+		end
 
 end

@@ -1,7 +1,7 @@
 <div id="exercises_container">
 	<div class="boton_der" id="header_buttons_class">
 		<div id="buttons_edit_observation">
-			<%= link_factory(:_path=>edit_group_lecture_path(@group, @lecture), :_text=> 'Editar Clase', :_class=>'btn btn-default btn-xs', :_button=>true) %>
+			<!--<%= link_factory(:_path=>edit_group_lecture_path(@group, @lecture), :_text=> 'Editar Clase', :_class=>'btn btn-default btn-xs', :_button=>true) %>-->
 			<p><button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lecture_observation">Observación</button></p>
 			<div id="add_objective_to_lecture">
 				<button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lesson_objective_modal">Objetivo</button>
@@ -23,13 +23,13 @@
 						<h4 class="modal-title">Observación de clase</h4>
 					</div>
 					<%= form_tag("/lectures/observation/#{@lecture.id}", :method => "get", remote: true ) do %>
-						<div class="modal-body">
-							<%= text_area_tag "observation", @lecture.observation, :class => "form-control", placeholder: "Escribe una observación" %>
-						</div>
-						<div class="modal-footer">
-							<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-						</div>
+					<div class="modal-body">
+						<%= text_area_tag "observation", @lecture.observation, :class => "form-control", placeholder: "Escribe una observación" %>
+					</div>
+					<div class="modal-footer">
+						<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+					</div>
 					<% end %>
 				</div>
 			</div>
