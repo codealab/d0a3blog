@@ -1,9 +1,10 @@
 <div class="boton_der">
 	<div class="top_buttons">
 		<% if @group && @lecture %>
-			<a href=<%= "/groups/#{@group.id}?lecture=#{@lecture.id}" %>>
+			<!-- <a href=<%= "/groups/#{@group.id}?lecture=#{@lecture.id}" %>></a> -->
+			<%= link_to :back  do %>
 				<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
-			</a>
+			<% end %>
 			<%= link_factory( :_path => new_group_lecture_exercise_path(@group, @lecture), :_text =>'Nueva Actividad', :_class => 'btn btn-default', :_button => true ) %>
 		<% else %>
 			<%= link_factory( :_path => new_exercise_path, :_text =>'Nueva Actividad', :_class => 'btn btn-default', :_button => true ) %>
@@ -19,7 +20,7 @@
 
 <%= render 'exercises/top_buttons' %>
 <div id="exercises_search_container">
-	
+	<!-- render -->
 </div>
 <div class="all_width blue_box">
 	<% if @exercises.count>0 %>

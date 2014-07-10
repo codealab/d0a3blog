@@ -24,6 +24,11 @@ class GroupsController < ApplicationController
 		end
 	end
 
+	def admin
+		@group = Group.find(params[:id])
+		@lecture = @group.lectures.first
+	end
+
 	def new
 		@group = Group.new
 	end
@@ -60,20 +65,58 @@ class GroupsController < ApplicationController
 		redirect_to groups_path
 	end
 
+	def lecture
+		@lecture = Lecture.new(lecture_params)
+		if @lecture.save
+			@new_lecture = true
+		else
+			@new_lecture = false
+		end
+	end
+
+	def calendar
+		@message = ""
+		# render :layout => false
+		@lecture = Lecture.find(params[:lecture_id])
+		if @lecture.date.to_datetime < Date.today.to_datetime
+			@message = "Error: Esta clase ya ha sido dada, no puede moverse"
+		end
+		if (@lecture.date.to_datetime >= Date.today.to_datetime)
+			if (params[:new_date].to_datetime < Date.today.to_datetime)
+				@message = "Error: Sólo puedes cambiar la clase a días después de hoy"
+			else
+				@lecture.date = params[:new_date].to_datetime
+				if @lecture.save
+					@message = "Actualización exitosa"
+				end
+			end
+		end
+		render :json => @message
+	end
+
+	def relations
+		@group = Group.find(params[:id])
+		@lecture = Lecture.find(params[:lecture_id])
+	end
+
 	private
 
-	def group_params
-      params.require(:group).permit(:name, :user_id, :assistant_id, :location, :cost, :min_age, :max_age, :init_date, :finish_date)
-    end
+		def group_params
+			params.require(:group).permit(:name, :user_id, :assistant_id, :location, :cost, :min_age, :max_age, :init_date, :finish_date)
+		end
 
-    protected
+		def lecture_params
+			params.require(:lecture).permit( :date, :group_id, :observation, :objective )
+		end
 
-    def correct_user
-		redirect_to(:back, notice: "No tienes permitido crear, editar o borrar grupos.") unless valid_user
-	end
+	protected
 
-	def valid_user
-		current_user.admin? || current_user.instructor?
-	end
+	    def correct_user
+			redirect_to(:back, notice: "No tienes permitido crear, editar o borrar grupos.") unless valid_user
+		end
+
+		def valid_user
+			current_user.admin? || current_user.instructor?
+		end
 
 end

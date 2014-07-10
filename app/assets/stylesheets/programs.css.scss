@@ -1,3 +1,15 @@
+#error_success {
+	position: absolute;
+	top: 16px;
+	font-size: 10px;
+	padding-right: 10px;
+	padding-left: 5px;
+	line-height: 9px;
+	padding: 5px;
+	width: 300px;
+	text-align: center;
+	left: 380px;
+}
 #add_lectures_to_day{
 	display: none;
 }
@@ -9,6 +21,9 @@
 	height: 240px;
 	overflow: hidden;
 	float: left;
+}
+.modal-sm{
+	width: 400px;
 }
 #program_relations .day {
 	width: 109px;
@@ -156,6 +171,17 @@
 	top: 1px;
 	position: relative;
 }
+.exercise_relation_point {
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background-color: #377592;
+	display: inline-block;
+	margin: 2px;
+	top: 1px;
+	position: relative;
+	margin-left: 7px;
+}
 #program_relation_actions {
 	position: absolute;
 	right: 0;
@@ -168,6 +194,26 @@
 }
 #add_objective_to_lecture {
 	position: absolute;
-	right: 177px;
+	right: 90px;
 	top: 3px;
+}
+#add_observation{
+	position: absolute;
+	right: 108px;
+	top: -27px;
+}
+#add_objective_admin {
+	position: absolute;
+	right: 145px;
+	top: -27px;
+}
+#add_observation_admin{
+	position: absolute;
+	right: 207px;
+	top: -27px;
+}
+#remove_lecture_admin {
+	position: absolute;
+	right: 45px;
+	top: -27px;
 }

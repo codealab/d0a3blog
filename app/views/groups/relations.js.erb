@@ -1,0 +1,11 @@
+$("#refresh_programs_relations").fadeOut(300, function() {
+    $(this).html("<%= escape_javascript(render('relations')) %>").fadeIn(300, function() {
+        $('.tip').tooltip();
+        $('.tiny_scroll').each(function() {
+            var tinyScroll = $(this);
+            tinyScroll.tinyscrollbar();
+            var newScroll = tinyScroll.data("plugin_tinyscrollbar");
+            newScroll.update();
+        });
+    });
+});

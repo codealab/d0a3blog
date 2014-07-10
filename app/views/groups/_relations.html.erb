@@ -1,0 +1,148 @@
+<div id="exercises_container">
+	<div class="boton_der" id="header_buttons_class">
+		<h4>
+			<%= link_to "Clase del #{I18n.l @lecture.date, :format => "%d de %B del %Y"}", group_path(@group, :lecture => @lecture.id) %>
+			<span style="color: rgb(173, 173, 173);"> - <%= @lecture.exercises.count %> Actividades </span>
+		</h4>
+	</div>
+</div>
+<div class="boton_der">
+	<div class="top_buttons top_buttons_group">
+		<%= link_to group_lecture_exercises_path(@group, @lecture) do %>
+		<span data-toggle="tooltip" data-placement="left" title="Seleccionar Actividades" class="tip glyphicon glyphicon-plus-sign" style="margin: 10px; font-size: 24px; margin-left: 0px; right: 0; position: absolute; top: -40px; color: #107BD8;"></span>
+		<% end %>
+		<div id="add_objective_admin">
+			<button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lesson_objective_modal">Objetivo</button>
+		</div>
+		<div id="add_observation_admin">
+			<button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lecture_observation">Observación</button>
+		</div>
+		<div id="remove_lecture_admin">
+			<button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#remove_lecture_modal">Eliminar Clase</button>
+		</div>
+	</div>
+</div>
+<div id="lecture_objective">
+	<%= render 'lectures/objective' %>
+</div>
+<div class="modal fade bs-example-modal-sm" id="remove_lecture_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<% if @lecture.can_destroy? %>
+					<h4 class="modal-title">¿Estás seguro de eliminar esta clase?</h4>
+				<% else %>
+					<h4 class="modal-title">Esta clase no puede eliminarse.</h4>
+				<% end %>
+			</div>
+			<% if @lecture.can_destroy? %>
+				<div class="modal-body">
+					<p>Se eliminará de tu calendario de clases.</p>
+						<div style="float: left; position: relative;">
+							<%= link_to group_lecture_path(@group, @lecture), :method => 'delete' do %>
+								<button type="button" class="btn btn-danger">Eliminar</button>
+							<% end %>
+						</div>
+						<button style="margin-left: 10px;" type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			<% else %>
+				<div class="modal-body text-center">
+					<p>Para poder borrarla, elimina primero todos sus ejercicios y/o asistencias.</p>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+<!-- remove lecture -->
+<div id="lecture_observation_<%= @lecture.id %>">
+	<div class="modal fade" id="lecture_observation" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Observación de clase</h4>
+				</div>
+				<%= form_tag("/lectures/observation/#{@lecture.id}", :method => "get", remote: true ) do %>
+					<div class="modal-body">
+						<%= text_area_tag "observation", @lecture.observation, :class => "form-control", placeholder: "Escribe una observación" %>
+					</div>
+					<div class="modal-footer">
+						<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="spacer"></div>
+<div class="all_width blue_box" id="exercises_container_table">
+	<div class="all_width white_box" style="height: 222px;">
+		<div id="fixed_top_exercises">
+			<div class="text_center program_top_title">Nombre</div>
+			<div class="text_center program_top_title">Rango</div>
+			<div class="text_center program_top_title">Area</div>
+			<div class="text_center program_top_title">Detalles</div>
+			<div class="text_center program_top_title">Eliminar</div>
+		</div>
+		<div id="tiny_program_exercises" class="tiny_scroll">
+			<div class="scrollbar">
+				<div class="track">
+					<div class="thumb"></div>
+				</div>
+			</div>
+			<div class="viewport">
+				<div class="overview">
+					<table class="table table-striped">
+						<% @lecture.exercises.each_with_index do |exercise, index| %>
+						<tr id="exercise_<%= exercise.id %>">
+							<td class="program_relation_content">
+								<%= link_factory( :_path=>exercise_path(exercise), :_text=>exercise.name) %>
+							</td>
+							<td class="text_center program_relation_content"><%= "#{exercise.min_age} - #{exercise.max_age}" %></td>
+							<td class="text_center program_relation_content">
+								<% if exercise.areas.count==1 %>
+								<%= exercise.areas.first.name %>
+								<% else %>
+								<% exercise.areas.each do |a| %>
+								<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
+								<% end %>
+								<% end %>
+							</td>
+							<td class="program_relation_content text_center">
+								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= exercise.id %>">Leer más</button>
+							</td>
+							<td class="text_center program_relation_content">
+								<a href=<%= "/exercises/status/#{exercise.id}?lecture_id=#{@lecture.id}" %> data-remote="true">
+									<button class="btn btn-danger btn-xs">Eliminar</button>
+								</a>
+							</td>
+							<div class="modal fade" id="ex_<%= exercise.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title"><%= exercise.name %></h4>
+										</div>
+										<div class="modal-body">
+											<p><strong>Descripción:</strong> <%= exercise.description %></p>
+											<p><strong>Objetivo:</strong> <%= exercise.objective %></p>
+											<p><strong>Música: </strong><%= exercise.music %></p>
+											<p><strong>Material: </strong><%= exercise.material %></p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</tr>
+						<% end %>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
