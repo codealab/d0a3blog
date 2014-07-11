@@ -107,15 +107,15 @@
 						// 		revertFunc();
 					// 	}
 				// });
-				$("#error_success").fadeOut(300).load('/groups/calendar/<%= @group.id %>/?lecture_id='+event.id+'&new_date='+event.start.format(), function(response){
+				$("#error_success").stop().fadeOut(300).load('/groups/calendar/<%= @group.id %>/?lecture_id='+event.id+'&new_date='+event.start.format(), function(response){
 					if(response.indexOf("Error") > -1){
 						revertFunc();
-						$("#error_success").addClass("alert alert-danger").removeClass('alert-success').fadeIn(300,function(){
-					$(this).delay(3000).fadeOut(300);
+						$("#error_success").stop().addClass("alert alert-danger").removeClass('alert-success').fadeIn(300,function(){
+					$(this).delay(5000).fadeOut(300);
 				});
 					}else{
-						$("#error_success").addClass("alert alert-success").removeClass('alert-danger').fadeIn(300,function(){
-					$(this).delay(3000).fadeOut(300);
+						$("#error_success").stop().addClass("alert alert-success").removeClass('alert-danger').fadeIn(300,function(){
+					$(this).delay(5000).fadeOut(300);
 				});
 					}
 				});
