@@ -29,7 +29,7 @@
 <!-- Modal Init -->
 	<%= render 'groups/modal', :object => @group %>
 <!-- Modal End -->
-<% if @group.lectures.count < 3 %>
+<% if @group.lectures.count < 3 && @group.finish_date > Date.today %>
 	<%= link_to new_group_calendar_path(@group) do %>
 		<div class="big_button" id="new_class_icon" style="width: 100%; ">
 			<span data-toggle="tooltip" data-placement="left" title="" class="tip glyphicon glyphicon-cog" data-original-title="Utiliza esta función para generar todas las clases dentro del período de duración del curso"></span>Calculadora de Clases

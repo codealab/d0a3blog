@@ -26,7 +26,7 @@
 			<div id="accordion_content">
 				<div class="col-md-12 blue_box">
 					<div class="col-md-12 white_box" id="container_orders">
-						<div id="error_success"></div>
+						<div id="error_success" class="alert alert-danger"></div>
 						<div id="calendar"></div>
 						<div class="spacer"></div>
 					</div>
@@ -80,66 +80,24 @@
 			newScroll.update();
 		});
 		$('#calendar').fullCalendar({
-			// defaultDate: '<%= @group.lectures.first.date.strftime("%F") %>',
 			defaultDate: '<%= DateTime.now.to_datetime %>',
 			editable: true,
 			disableResizing: true,
-			// disableDraggable: false,
-			// weekends: false,
 			selectHelper: true,
 			selectable: true,
-			// droppable: true,
-			// drop: function(moment,allDay){
-				// 	console.log(moment);
-				// 	console.log(allDay);
-			// },
 			lang: 'es',
-			eventClick: function(calEvent, jsEvent, view) {
-				// $("body, html").stop().animate({scrollTop:120},600);
-			},eventDrop: function(event, delta, revertFunc) {
-				// $.ajax({
-					// 	url: '/groups/calendar/<%= @group.id %>/',
-					// 	type: 'GET',
-					// 	data: { id: event.id, new_date: event.start._i },
-				// }).done(function(response) {
-					// 	console.log(response);
-					// 	if(response=="error"){
-						// 		revertFunc();
-					// 	}
-				// });
-				$("#error_success").stop().fadeOut(300).load('/groups/calendar/<%= @group.id %>/?lecture_id='+event.id+'&new_date='+event.start.format(), function(response){
-					if(response.indexOf("Error") > -1){
+			eventDrop: function(event, delta, revertFunc) {
+				$.getJSON('/groups/calendar/<%= @group.id %>/', { lecture_id: event.id, new_date: event.start.format() }, function(json, textStatus) {
+					$("#error_success").fadeOut(300).html("");
+					if(json.length!=0){
+						$.each(json, function(index, el) {
+							$("#error_success").append(el);
+							if(index!=(json.length-1)){ $("#error_success").append(" / "); }
+						});
 						revertFunc();
-						$("#error_success").stop().addClass("alert alert-danger").removeClass('alert-success').fadeIn(300,function(){
-					$(this).delay(5000).fadeOut(300);
-				});
-					}else{
-						$("#error_success").stop().addClass("alert alert-success").removeClass('alert-danger').fadeIn(300,function(){
-					$(this).delay(5000).fadeOut(300);
-				});
 					}
+					$("#error_success").stop().fadeIn(300).delay(5000).fadeOut(300);;
 				});
-				// $.ajax({
-					// 	url: '/groups/calendar/<%= @group.id %>/',
-					// 	type: 'GET',
-					// 	data: { id: event.id, new_date: event.start._i },
-				// }).done(function(response) {
-					// 	console.log(response);
-					// 	if(response=="error"){
-						// 		revertFunc();
-					// 	}
-				// });
-				// var lecture_date = new Date(event.i);
-				// var timeDiff = now.getTime() - lecture_date.getTime();
-				// var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-				// if(diffDays>0){
-					// 	revertFunc();
-					// 	alert("no la puedes mover");
-				// }
-				// alert("la clase con el id"+event.id + "la moviste a" + event.start.format());
-				// if (!confirm("Seguro de cambiar esta clase?")) {
-					// revertFunc();
-				// }
 			},
 			select: function(start, end) {
 				$("#time_select_lecture").modal("show");
@@ -148,9 +106,6 @@
 				$("#lecture_date_1i").val(parseInt(split_date[0]));
 				$("#lecture_date_2i").val(parseInt(split_date[1]));
 				$("#lecture_date_3i").val(parseInt(split_date[2]));
-				// $("#date_select_lecture").val(start.format());
-				// $("#day_title").html(start.format());
-				// $('#calendar').fullCalendar('unselect');
 			},
 			eventRender: function(event, element) {
 				var childrens = element.find('.fc-event-title').text();

@@ -63,5 +63,4 @@ class Group < ActiveRecord::Base
 		def titleize_names
 			self.send("#{:name}=", self.send(:name).titleize) if self.send(:name)
 		end
-
 end

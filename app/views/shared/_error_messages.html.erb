@@ -4,9 +4,9 @@
       La forma contiene <%= object.errors.count %>
       <%  if object.errors.count == 1 %>error<% else %>errores<%end%>
       <ul>
-      <% object.errors.full_messages.each do |msg| %>
+        <% object.errors.full_messages.each do |msg| %>
         <li> <%= msg %></li>
-      <% end %>
+        <% end %>
       </ul>
     </div>
   </div>

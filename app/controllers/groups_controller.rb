@@ -77,28 +77,8 @@ class GroupsController < ApplicationController
 	def calendar
 		@lecture = Lecture.find(params[:lecture_id])
 		@init_time = @lecture.date.to_time
-		new_date = "#{params[:new_date].to_date} #{@init_time}".to_datetime
-		@group = @lecture.group
-		if @lecture.date >= Date.today.beginning_of_day
-			if (new_date < Date.today.to_datetime)
-				@message = "Error: Sólo puedes cambiar la clase a días después de hoy"
-			else
-				lectures_in_day = @group.lectures.where(date: new_date.beginning_of_day..new_date.end_of_day)
-				if lectures_in_day.count>0
-					@message = "Error: Este día ya tiene una clase asignada" 
-				else
-					@lecture.date = new_date
-					if @lecture.save
-						@message = "Actualización exitosa"
-					else
-						@message = "Error: No se pudo guardar el cambio"
-					end
-				end
-			end
-		else
-			@message = "Error: Esta clase ya ha sido dada, no puede moverse"
-		end
-		render :json => @message
+		@lecture.date = "#{params[:new_date].to_date} #{@init_time}".to_datetime
+		render :json => @lecture.errors.full_messages if !@lecture.save
 	end
 
 	def relations

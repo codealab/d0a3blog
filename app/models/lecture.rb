@@ -1,48 +1,50 @@
 # encoding: UTF-8
 class Lecture < ActiveRecord::Base
 
-	# before_save :invalid_date
+	after_validation :when_date_is_before_today
 	has_many :plans
 	has_many :exercises, through: :plans, :dependent => :restrict_with_error
+	after_validation :validate_new_date,  on: [ :update ]
 	belongs_to :group
 
 	validates_presence_of :date, :group_id
 	validates_uniqueness_of :date, :scope => :group_id
 	has_many :attendances, :dependent => :restrict_with_error
 
-	validate :date_cannot_be_out_of_group_period_time
 	validate :invalid_date
-	#validate :uniqueness_combination_of_date_and_group_id
+	validate :uniqueness_combination_of_date_and_group_id
+	# validate :when_date_is_before_today
 
 	def invalid_date
-		if self.date.to_date < Date.today.to_date
-			errors.add(:date, "debe ser mayor al día de hoy")
+		if self.date < Date.today
+			errors.add(:date, "debe ser mayor al día de hoy.")
 		end
 	end
-
-	def date_cannot_be_out_of_group_period_time
-		if !self.group.blank?
-			range = (self.group.init_date..self.group.finish_date)
-			errors.add(:date, "que seleccionaste está fuera de la duración del curso") if 
-			!date.blank? and !range.include?(date.to_date)
-		end
-	end
-
-	# def date_cannot_be_out_of_group_period_time
-	# 	range = (self.group.init_date..self.group.finish_date)
-	# 	errors.add(:date, "La fecha que seleccionaste está fuera de la duración del curso") if 
-	# 	!date.blank? and !range.include?(date.to_date)
-	# end
 
 	def possible_attendances
 		self.group.active_children.where("created_at <= ?", self.date)
 	end
 
-	# def uniqueness_combination_of_date_and_group_id
-	# 	existing_day = Lecture.where("date LIKE ? AND group_id LIKE ? ", date, group_id).first
-	# 	unless existing_day.blank? || existing_day.id == self.id
-	# 		errors.add(:base, "La clase en este día ya existe")
-	# 	end
-	# end
+	private
+
+		def when_date_is_before_today
+			lecture_db = Lecture.find(self.id)
+			if lecture_db.date < Date.today.beginning_of_day
+				errors.add(:base, "No puedes modificar una clase con una fecha menor a hoy.")
+			end
+		end
+
+		def validate_new_date
+			if self.date > Date.today.beginning_of_day
+				errors.add(:date, " nueva que ingresaste debe ser mayor al día de hoy.") if (self.date < Date.today)
+			end
+		end
+
+		def uniqueness_combination_of_date_and_group_id
+			other_lectures = self.group.lectures.where(date:self.date.beginning_of_day..self.date.end_of_day)
+			if other_lectures.count > 0
+				errors.add(:base, "Ya existe una clase en este día.")
+			end
+		end
 
 end
