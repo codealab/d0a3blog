@@ -64,7 +64,7 @@ class Calendar
 
 	def generate_lectures(days,hour)
 		days.each do |day|
-			@group.lectures.build({ date: ("#{day}+" "#{hour}").to_datetime })
+			@group.lectures.build({ date: "#{day}+" "#{hour}" })
 			@group.save
 		end
 	end
