@@ -258,8 +258,8 @@ en:
         finish_date: "La fecha final"
         min_age: "La edad mínima"
         max_age: "La edad máxima"
-      lectures: 
-        date: "la fecha"
+      lecture: 
+        date: "La fecha"
         observation: "La observación"
       payment: 
         amount: "La cantidad"

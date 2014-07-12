@@ -1,9 +1,9 @@
 <div id="exercises_container">
 	<div class="boton_der" id="header_buttons_class">
 		<h4>
-			<%= link_to "Clase del #{I18n.l @lecture.date, :format => "%d de %B del %Y "}", group_path(@group, :lecture => @lecture.id) %>
-			<%= @lecture.date.strftime("%H:%M %P") %>
-			<span style="color: rgb(173, 173, 173);"> - <%= @lecture.exercises.count %> Actividades </span>
+		<%= link_to "Clase del #{I18n.l @lecture.date, :format => "%d de %B del %Y "}", group_path(@group, :lecture => @lecture.id) %>
+		<%= @lecture.date.strftime("%H:%M %P") %>
+		<span style="color: rgb(173, 173, 173);"> - <span id="number_of_activities"><%= @lecture.exercises.count %></span> Actividades </span>
 		</h4>
 	</div>
 </div>
@@ -18,43 +18,29 @@
 		<div id="add_observation_admin">
 			<button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#lecture_observation">Observación</button>
 		</div>
-		<div id="remove_lecture_admin">
-			<button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#remove_lecture_modal">Eliminar Clase</button>
-		</div>
 	</div>
 </div>
 <div id="lecture_objective">
 	<%= render 'lectures/objective' %>
 </div>
-<div class="modal fade bs-example-modal-sm" id="remove_lecture_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-	    <div class="modal-content">
-	    	<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<% if @lecture.can_destroy? %>
-					<h4 class="modal-title">¿Estás seguro de eliminar esta clase?</h4>
-				<% else %>
+<div id="remove_lecture_container">
+	<% if @lecture.can_destroy? %>
+	<%= render "/groups/remove" %>
+	<% else %>
+	<div class="modal fade bs-example-modal-sm" id="remove_lecture_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title">Esta clase no puede eliminarse.</h4>
-				<% end %>
-			</div>
-			<% if @lecture.can_destroy? %>
-				<div class="modal-body">
-					<p>Se eliminará de tu calendario de clases.</p>
-						<div style="float: left; position: relative;">
-							<%= link_to group_lecture_path(@group, @lecture), :method => 'delete' do %>
-								<button type="button" class="btn btn-danger">Eliminar</button>
-							<% end %>
-						</div>
-						<button style="margin-left: 10px;" type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
-					</div>
 				</div>
-			<% else %>
 				<div class="modal-body text-center">
 					<p>Para poder borrarla, elimina primero todos sus ejercicios y/o asistencias.</p>
 				</div>
-			<% end %>
+			</div>
 		</div>
 	</div>
+	<% end %>
 </div>
 <!-- remove lecture -->
 <div id="lecture_observation_<%= @lecture.id %>">
@@ -66,19 +52,27 @@
 					<h4 class="modal-title">Observación de clase</h4>
 				</div>
 				<%= form_tag("/lectures/observation/#{@lecture.id}", :method => "get", remote: true ) do %>
-					<div class="modal-body">
-						<%= text_area_tag "observation", @lecture.observation, :class => "form-control", placeholder: "Escribe una observación" %>
-					</div>
-					<div class="modal-footer">
-						<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-					</div>
+				<div class="modal-body">
+					<%= text_area_tag "observation", @lecture.observation, :class => "form-control", placeholder: "Escribe una observación" %>
+				</div>
+				<div class="modal-footer">
+					<%= submit_tag "Guardar Cambios", :class => "btn btn-default" %>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+				</div>
 				<% end %>
 			</div>
 		</div>
 	</div>
 </div>
 <div class="spacer"></div>
+<a href="/groups/<%= @group.id %>/lectures/<%= @lecture.id %>/edit">
+	<div id="edit_lecture_admin">
+		<button class="btn btn-primary btn-xs">Editar</button>
+	</div>
+</a>
+<div id="remove_lecture_admin">
+	<button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#remove_lecture_modal">Eliminar</button>
+</div>
 <div class="all_width blue_box" id="exercises_container_table">
 	<div class="all_width white_box" style="height: 222px;">
 		<div id="fixed_top_exercises">

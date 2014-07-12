@@ -110,6 +110,7 @@ body{
 	padding: 0px 20px 20px 20px;
 }
 #refresh_programs_relations {
+	position: relative;
 	width: 100%;
 	float: left;
 	height: 350px;

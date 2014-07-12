@@ -1,10 +1,10 @@
 # encoding: UTF-8
 class Lecture < ActiveRecord::Base
 
-	after_validation :when_date_is_before_today
+	after_validation :when_date_is_before_today,  on: [ :update ]
 	has_many :plans
 	has_many :exercises, through: :plans, :dependent => :restrict_with_error
-	after_validation :validate_new_date,  on: [ :update ]
+	after_validation :validate_new_date
 	belongs_to :group
 
 	validates_presence_of :date, :group_id

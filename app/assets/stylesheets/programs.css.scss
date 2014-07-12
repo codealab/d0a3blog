@@ -1,15 +1,5 @@
 #error_success {
-	position: absolute;
-	top: 10px;
-	font-size: 10px;
-	padding-right: 10px;
-	padding-left: 5px;
-	line-height: 9px;
-	padding: 5px;
-	width: 400px;
 	text-align: center;
-	left: 343px;
-	display: none;
 }
 #add_lectures_to_day{
 	display: none;
@@ -205,16 +195,31 @@
 }
 #add_objective_admin {
 	position: absolute;
-	right: 145px;
+	right: 47px;
 	top: -27px;
 }
-#add_observation_admin{
+#add_observation_admin {
 	position: absolute;
-	right: 207px;
+	right: 107px;
 	top: -27px;
 }
 #remove_lecture_admin {
 	position: absolute;
-	right: 45px;
-	top: -27px;
+	right: 76px;
+	bottom: -13px;
+	z-index: 99;
+}
+#remove_lecture_modal h4, #errors_lecture_modal h4{
+	color: red;
+	text-align: center;
+}
+#container_refresh_programs_relations{
+	position: relative;
+	height: 372px;
+	display: none;
+}
+#edit_lecture_admin{
+	position: absolute;
+	bottom: -13px;
+	right: 26px;
 }

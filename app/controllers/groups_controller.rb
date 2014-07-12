@@ -67,11 +67,7 @@ class GroupsController < ApplicationController
 
 	def lecture
 		@lecture = Lecture.new(lecture_params)
-		if @lecture.save
-			@new_lecture = true
-		else
-			@new_lecture = false
-		end
+		@lecture.save
 	end
 
 	def calendar

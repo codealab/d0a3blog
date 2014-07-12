@@ -23,59 +23,80 @@
 					</div>
 				</div>
 			</div>
-			<div id="accordion_content">
-				<div class="col-md-12 blue_box">
-					<div class="col-md-12 white_box" id="container_orders">
-						<div id="error_success" class="alert alert-danger"></div>
-						<div id="calendar"></div>
-						<div class="spacer"></div>
+			<div class="modal fade bs-example-modal-sm" id="errors_lecture_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4>Ha ocurrido un error</h4>
+						</div>
+
+						<div class="modal-body">
+							<div id="error_success"></div>
+						</div>
 					</div>
 				</div>
-				<div class="spacer"></div>
 			</div>
 		</div>
-	</div>
-	<div class="spacer"></div>
-	<div class="light_box" style="height:352px;">
-		<div id="refresh_programs_relations">
-			<%= render '/groups/relations' %>
+		<div id="accordion_content">
+			<div class="col-md-12 blue_box">
+				<div class="col-md-12 white_box" id="container_orders">
+					<div id="calendar"></div>
+					<div class="spacer"></div>
+				</div>
+			</div>
+			<div class="spacer"></div>
 		</div>
 	</div>
+</div>
+<div class="spacer"></div>
+<div class="light_box" id="container_refresh_programs_relations">
+	<div id="refresh_programs_relations">
+		<!--<%= render '/groups/relations' %>-->
+	</div>
+</div>
 </div>
 <div class="modal fade" id="time_select_lecture" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalLabel">Nueva Clase</h4>
-			</div>
-			<%= simple_form_for @lecture, :url => "/groups/lecture/#{@group.id}/", :method => :get, :html => {:multipart => true, :class => 'form-horizontal', remote: true } do |f| %>
-			<div class="modal-body">
-				<div class="col-md-10 col-md-offset-1" style="position: relative; top: -40px;">
-					<p><span id="selector_fecha">
-					<label class="hour_select"><abbr title="required">*</abbr> Hora</label>
-					<div class="hidden">
-						<%= f.input :group_id, value: @group.id, :readonly => true, :class => 'disabled form-control', :type=>"hidden" %>
-					</div>
-					<%= f.input :date, label: "Fecha", :order => [:day, :month, :year], :start_year => @group.init_date.year, :end_year => @group.finish_date.year, start_hour: 7, end_hour: 21, :minute_step => 30, :input_html => { :class => 'date_selector' }  %>
-					</span></p>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<%= f.submit "Crear Clase", class: "btn btn-default" %>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-			</div>
-			<% end %>
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<h4 class="modal-title" id="myModalLabel">Nueva Clase</h4>
 		</div>
+		<%= simple_form_for @lecture, :url => "/groups/lecture/#{@group.id}/", :method => :get, :html => {:multipart => true, :class => 'form-horizontal', remote: true } do |f| %>
+		<div class="modal-body">
+			<div class="col-md-10 col-md-offset-1" style="position: relative; top: -40px;">
+				<p><span id="selector_fecha">
+				<label class="hour_select"><abbr title="required">*</abbr> Hora</label>
+				<div class="hidden">
+					<%= f.input :group_id, value: @group.id, :readonly => true, :class => 'disabled form-control', :type=>"hidden" %>
+				</div>
+				<%= f.input :date, label: "Fecha", :order => [:day, :month, :year], :start_year => @group.init_date.year, :end_year => @group.finish_date.year, start_hour: 7, end_hour: 21, :minute_step => 30, :input_html => { :class => 'date_selector' }  %>
+				</span></p>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<%= f.submit "Crear Clase", class: "btn btn-default" %>
+			<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+		</div>
+		<% end %>
 	</div>
 </div>
+</div>
 <script>
-	var now = new Date('<%= DateTime.now.to_datetime %>');
+	var event_active, now = new Date('<%= DateTime.now.to_datetime %>');
+	var eventos = [<% @group.lectures.each_with_index do |lecture,index| %>{
+					id: <%= lecture.id %>,
+					url: '<%= "/groups/relations/#{@group.id}?lecture_id=#{lecture.id}" %>',
+					title: '<%= lecture.exercises.count %>',
+					start: '<%= lecture.date.strftime("%FT%I:%M") %>',
+					end: '<%= (lecture.date.to_datetime+1.minute).strftime("%FT%I:%M") %>'
+				},<% end %>];
 	$(document).ready(function() {
 		$('.tip').tooltip();
 		$('.tiny_scroll').each(function() {
 			var tinyScroll = $(this);
-				tinyScroll.tinyscrollbar();
+			tinyScroll.tinyscrollbar();
 			var newScroll = tinyScroll.data("plugin_tinyscrollbar");
 			newScroll.update();
 		});
@@ -88,16 +109,16 @@
 			lang: 'es',
 			eventDrop: function(event, delta, revertFunc) {
 				$.getJSON('/groups/calendar/<%= @group.id %>/', { lecture_id: event.id, new_date: event.start.format() }, function(json, textStatus) {
-					$("#error_success").fadeOut(300).html("");
 					if(json.length!=0){
-						$.each(json, function(index, el) {
-							$("#error_success").append(el);
-							if(index!=(json.length-1)){ $("#error_success").append(" / "); }
-						});
 						revertFunc();
+						$("#errors_lecture_modal").modal("show");
+						$("#error_success").html("");
+						$.each(json, function(index, el) { $("#error_success").append("<p>"+el+"</p>"); });
 					}
-					$("#error_success").stop().fadeIn(300).delay(5000).fadeOut(300);;
 				});
+			},
+			eventClick: function(event, element) {
+				event_active = event;
 			},
 			select: function(start, end) {
 				$("#time_select_lecture").modal("show");
@@ -112,23 +133,14 @@
 				element.find('.fc-event-title').html("<span class='glyphicon glyphicon-list-alt'></span>");
 				for (var i = 0; i < parseInt(childrens); i++) {
 					element.find('.fc-event-title').append('<span class="exercise_relation_point"></span>');
+					if(i==4) i=childrens;
 				};
 				var lecture_date = new Date(event.start.format());
 				var timeDiff = now.getTime() - lecture_date.getTime();
 				var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 				if(diffDays>1)element.addClass('fc-past-event');
 			},
-			events: [
-			<% @group.lectures.each_with_index do |lecture,index| %>
-				{
-					id: <%= lecture.id %>,
-					url: '<%= "/groups/relations/#{@group.id}?lecture_id=#{lecture.id}" %>',
-					title: '<%= lecture.exercises.count %>',
-					start: '<%= lecture.date.strftime("%FT%I:%M") %>',
-					end: '<%= (lecture.date.to_datetime+1.minute).strftime("%FT%I:%M") %>'
-				},
-			<% end %>
-			]
+			events: eventos
 		});
 	});
 </script>

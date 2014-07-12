@@ -1,3 +1,16 @@
-$("#exercise_<%= @exercise.id %>").fadeOut(100,function(){
-	$(this).html("<%= escape_javascript(render('status')) %>").fadeIn(100);
+var $tiny = $("#tiny_program_exercises");
+$tiny.tinyscrollbar();
+var exercises = parseInt('<%= @lecture.exercises.count %>')
+    //tiny is only when the active view is admin on groups controller
+$("#exercise_<%= @exercise.id %>").fadeOut(100, function() {
+    $(this).html("<%= escape_javascript(render('status')) %>").fadeIn(100);
+    $("#number_of_activities").html(exercises);
+
+    var tiny = $tiny.data("plugin_tinyscrollbar");
+    if (tiny) tiny.update(); // tiny= groups/admin? true:false
+    if (event_active) {
+        event_active.title = '<%= @lecture.exercises.count %>';
+        $('#calendar').fullCalendar('updateEvent', event_active);
+        if (exercises == 0) $("#remove_lecture_container").html("<%= escape_javascript(render('groups/remove')) %>").fadeIn(100);
+    }
 });
