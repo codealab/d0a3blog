@@ -89,7 +89,7 @@ describe 'Group pages' do
 
 		describe 'Show group information' do
 			it { should have_title("Grupo #{group.name.titleize}: #{group.min_age} a #{group.max_age} meses") }
-			it { should have_link('Nueva Clase') }
+			it { should have_link('Administrar Clases') }
 			it { should have_link('Editar Grupo') }
 		end
 

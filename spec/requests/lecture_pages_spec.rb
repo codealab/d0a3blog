@@ -50,20 +50,21 @@ describe 'Lectures pages' do
 			it { should have_content('Clase creada exitosamente') }
 		end
 
-		describe "with date out of range" do
-			before do
-				fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
-				select "#{ Date.today.year }", from: 'lecture[date(1i)]'
-				select "#{ I18n.l Date.today+11.weeks, format: '%B' }", from: 'lecture[date(2i)]'
-				select '30', from: 'lecture[date(3i)]'
-				select '12', from: 'lecture[date(4i)]'
-				select '00', from: 'lecture[date(5i)]'
+		# this test is obsolet now, for the increase_decrease method. See on lecture model for details
+		# describe "with date out of range" do
+		# 	before do
+		# 		fill_in 'lecture[observation]', :with => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.'
+		# 		select "#{ Date.today.year }", from: 'lecture[date(1i)]'
+		# 		select "#{ I18n.l Date.today+11.weeks, format: '%B' }", from: 'lecture[date(2i)]'
+		# 		select '30', from: 'lecture[date(3i)]'
+		# 		select '12', from: 'lecture[date(4i)]'
+		# 		select '00', from: 'lecture[date(5i)]'
 
-				expect { click_button "Crear Clase" }.not_to change(Lecture, :count)
-			end
-			it { should have_selector("div.alert.alert-danger") }
-			# it { should have_content('La fecha que seleccionaste está fuera de la duración del curso') } #out validation
-		end
+		# 		expect { click_button "Crear Clase" }.not_to change(Lecture, :count)
+		# 	end
+		# 	it { should have_selector("div.alert.alert-danger") }
+		# 	# it { should have_content('La fecha que seleccionaste está fuera de la duración del curso') } #out validation
+		# end
 
 	end
 
@@ -110,9 +111,7 @@ describe 'Lectures pages' do
 
 				it { should have_selector("div.alert.alert-success") }
 				it { should have_content('Clase borrada') }
-				it { should have_title("Grupo #{group.name.titleize}") }
-				it { should have_link("Nueva Clase") }
-
+				
 			end
 		end
 	end

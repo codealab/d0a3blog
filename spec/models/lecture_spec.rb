@@ -20,7 +20,9 @@ describe Lecture do
 	it { should be_valid }
 
 	describe "when date is not present" do
-		before { @class.date = " " }
+		before do
+			@class.date = " "
+		end
 		it { should_not be_valid }
 	end
 

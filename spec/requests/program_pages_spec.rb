@@ -20,7 +20,7 @@ describe "program pages" do
 		before { visit programs_path }
 
 		describe 'page' do
-			it { should have_title("Nuevo Grupo") }
+			it { should have_title("Nuevo grupo") }
 			it { should have_link("Nuevo Programa", href: new_program_path) }
 		end
 
