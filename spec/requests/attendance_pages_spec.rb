@@ -8,13 +8,13 @@ describe 'Attendances pages' do
 
 	let(:user) { create(:user, :is_admin, :is_instructor) }
 
+	let(:group) { create(:group) }
+	let(:lecture) { create( :lecture, group: group ) }
+	
 	let(:person) { create(:person) }
 	let(:family) { Family.create({ name:'Nueva Familia', responsible_id: person.id }) }
 	let(:child) { family.family_members.create( name: "Joaquín", first_last_name:"Garcia", second_last_name:"Lopez",  sex:"M", dob:"20/01/2014", family_roll: "Hijo") }
 	let(:other_child) { family.family_members.create( name: "Mariana", first_last_name:"Garcia", second_last_name:"Lopez",  sex:"F", dob:"20/02/2014", family_roll: "Hija") }
-
-	let(:group) { create(:group) }
-	let(:lecture) { create( :lecture, group: group ) }
 
 	before do
 		sign_in user
