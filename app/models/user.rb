@@ -47,12 +47,11 @@ class User < ActiveRecord::Base
 			self.remember_token = User.encrypt(User.new_remember_token)
 		end
 
-		def downcase_names
-			self.send("#{:name}=", self.send(:name).downcase) if self.send(:name)
-		end
+	  def downcase_names
+	      self.send("#{:name}=", self.send(:name).downcase) if self.send(:name)
+	  end
 
-		def titleize_names
-			self.send("#{:name}=", self.send(:name).titleize) if self.send(:name)
-		end
-
+	  def titleize_names
+	      self.send("#{:name}=", self.send(:name).titleize) if self.send(:name)
+	  end
 end
