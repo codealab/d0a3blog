@@ -78,11 +78,11 @@
 						<div class="entry-meta">
 							<span class="author">por <a href="#"><%= post.user.name %></a></span>
 							<span class="entry-date">el <a href="<%= post_path(post) %>"><time datetime="<%= post.created_at %>"><%= post.created_at.strftime("%d de %B del %Y") %></time></a></span>
-							<span class="category"><a href="<%= category_path(post.subcategory.category.name)  %>"><%= post.subcategory.category.name %></a></span>
+							<span class="category"><a href="#">Categoría</a></span>
 						</div>
 					</header>
 					<p>
-					<%= post.body.html_safe %>
+					<%= post.text.html_safe %>
 					<a href="<%= post_path(post) %>" class="more-link">Continuar leyendo<i class="icon icon-long-arrow-right"></i></a>
 					</p>
 				</div>

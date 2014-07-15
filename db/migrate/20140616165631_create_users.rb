@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :remember_token
       t.integer :organization_id
       t.boolean :administrator, :default => false
+      t.boolean :writer, :default => true
 
       t.timestamps
     end

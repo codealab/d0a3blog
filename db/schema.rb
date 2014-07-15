@@ -83,12 +83,11 @@ ActiveRecord::Schema.define(version: 20140703223058) do
   create_table "posts", force: true do |t|
     t.string   "title"
     t.string   "cover"
-    t.text     "content"
-    t.boolean  "main",           default: false
-    t.boolean  "status",         default: false
-    t.integer  "views",          default: 0
-    t.integer  "subcategory_id"
-    t.integer  "content_id"
+    t.text     "text"
+    t.boolean  "main",         default: false
+    t.boolean  "status",       default: false
+    t.integer  "views",        default: 0
+    t.integer  "post_type_id"
     t.integer  "user_id"
     t.text     "credits"
     t.datetime "created_at"

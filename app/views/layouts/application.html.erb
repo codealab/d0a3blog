@@ -15,18 +15,19 @@
   <%= render 'layouts/shim' %>
 </head>
 	<body>
-
 	<!-- header -->
 	<%= render 'layouts/header' %>
 	<!-- header -->
 	<div id="blog_wrapper">
-		<div id="flash_messages">
-			<% flash.each do |key, value| %>
-				<%= content_tag(:div, value, class: "alert alert-#{key}") %>
-			<% end %>
-		</div>
 		<div id="main" class="container">
-			<%= yield %>
+			<div id="content" class="content section row">
+				<div id="flash_messages">
+					<% flash.each do |key, value| %>
+						<%= content_tag(:div, value, class: "alert alert-#{key}") %>
+					<% end %>
+				</div>
+				<%= yield %>
+			</div>
 		</div>
 	</div>
 
