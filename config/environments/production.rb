@@ -1,7 +1,4 @@
 Blog::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
-
-  # Code is not reloaded between requests.
   config.cache_classes = true
 
   # Eager load code on boot. This eager loads most of Rails and
@@ -13,7 +10,7 @@ Blog::Application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
-
+  config.time_zone = 'Guadalajara'
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
@@ -27,7 +24,7 @@ Blog::Application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
@@ -67,7 +64,8 @@ Blog::Application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
-  config.i18n.fallbacks = true
+  # config.i18n.available_locales = ['en-EU', :es]
+  # config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify

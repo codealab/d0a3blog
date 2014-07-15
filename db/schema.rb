@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20140703223058) do
     t.string   "remember_token"
     t.integer  "organization_id"
     t.boolean  "administrator",   default: false
+    t.boolean  "writer",          default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
