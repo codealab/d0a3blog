@@ -1,6 +1,6 @@
 Blog::Application.routes.draw do
 
-  root 'sessions#new'
+  root 'posts#index'
   
   resources :categories
   resources :sessions

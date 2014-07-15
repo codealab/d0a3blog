@@ -17,6 +17,7 @@ gem 'carrierwave'
 gem 'jcrop-rails-v2'
 gem "mini_magick"
 
+gem 'cancancan', '~> 1.8'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
