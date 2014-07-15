@@ -10,16 +10,21 @@ class SessionsController < ApplicationController
 		user = User.find_by(email: params[:session][:email].downcase)
 		if user && user.authenticate(params[:session][:password])
 			flash.now[:success] = "Hola #{user.name}. Bienvenido al blog de D0a3"
-			if cookies[:previous]
-				redirect_to cookies[:previous]
-			else
-				redirect_to root_url
-			end
+			# if cookies[:previous]
+			# 	redirect_to cookies[:previous]
+			# else
+			# 	redirect_to root_url
+			# end
+			redirect_to user
 			sign_in user
+			# render 'show'
 		else
 			flash.now[:danger] = 'El password o contraseña están mal escritos. Intenta nuevamente.'
 			render 'new'
 		end
+	end
+
+	def show
 	end
 
 	def edit

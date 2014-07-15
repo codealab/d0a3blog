@@ -18,7 +18,7 @@
       <div class="header-navbar-inner container">
       
         <div id="brand" class="navbar-brand">
-          <a href="index.html" rel="bookmark">
+          <a href="/" rel="bookmark">
 
             <!-- to disable lazy loading, remove data-src and data-src-retina -->
             <img src="/assets/light-logo.png" data-src="/assets/light-logo.png" data-src-retina="/assets/logo-retina.png" width="244" height="56" alt="">
@@ -82,9 +82,7 @@
                 <div class="col-md-2 col-sm-2">
                   <strong class="subnav-header"><%= category.name %></strong>
                   <ul class="subnav-full">
-                    <% category.subcategories.each do |subcategory| %>
-                      <li><%= link_to subcategory.name, category_subcategory_path(category.name.gsub(" ","+"),subcategory.name.gsub(" ","+")) %></li>
-                    <% end %>
+                    <li>link</li>
                   </ul>
                 </div>
               <% end %>
@@ -338,15 +336,13 @@
             </div>
 
           </li>
-          <% Category.all.each do |category| %>
+          <% Category.all.limit(2).each do |category| %>
             <li>
               <a href="/category/<%= category.id %>" data-toggle="li"><%= category.name %></a>
-
               <div class="subnav-wrapper">
                 <ul class="subnav-entries">
-                  <% category.subcategories.each do |subcat| %>
-                    <li><%= link_to subcat.name, subcategory_path(subcat.name) %></li>
-                  <% end %>
+                  <li><a href="#">uno</a></li>
+                  <li><a href="#">otro</a></li>
                 </ul>
               </div>
             </li>

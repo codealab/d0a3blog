@@ -1,11 +1,14 @@
 <%= simple_form_for @post, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
 	<p><%= f.input :title, label:"Título" %></p>
+	<p><%= f.input :views, label:"Vista" %></p>
+	<p><%= f.input :status, label:"Aprobado?" %></p>
+	<p><%= f.input :status, label:"Aprobado" %></p>
 	<% if current_user %>
-		<p><%= f.input :user_id, label:"Autor", input_html: { value: 1 }, :disabled => true %></p>
+		<p><%= f.input :user_id, label:"Autor", input_html: { value: current_user.id }, :disabled => true %></p>
 	<% else %>
 		<p><%= f.input :user_id, :collection=> User.all, :label_method => :name, :value_method => :id, :include_blank => false, input_html: { value: 1 } %></p>
 	<% end %>
-	<p><%= f.input :body, label:"Body" %></p>
+	<p><%= f.input :text, label:"Body" %></p>
 	<p><%= f.submit "Guardar" %></p>
 <% end %>

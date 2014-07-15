@@ -1,16 +1,20 @@
-<!--
-<% unless signed_in? %>
-	<% provide(:title, "Iniciar Sesión") %>
-	<%= form_for(:session, url: sessions_path) do |f| %>
+<% provide(:title, "Iniciar Sesión") %>
+<article class="entry style-grid style-hero hero-sm-largest type-post col-sm-12 col-md-8 col-lg-8 col-xl-6 colheight-sm-1 colheight-md-2 colheight-lg-2 colheight-xl-2">
+	<div class="ribbon ribbon-pulled ribbon-small ribbon-highlight">
+		<a href="#">LOGIN</a>
+	</div>
+	<header class="entry-header">
+		<h3 class="entry-title">
+		<% provide(:title, "Iniciar Sesión") %>
+		<%= form_for(:session, url: sessions_path) do |f| %>
 		<%= f.label :email %>
 		<%= f.text_field :email, { :class => "form-control" } %>
 		<%= f.label :password, :for => "session_password" %>
 		<%= f.password_field :password, { :class => "form-control" } %>
-      	<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
-	<% end %>
-	<%= link_to 'Registrarse', new_user_path %>
-<% else %>
-	<h1>Login exitoso</h1>
-	<% provide(:title, "#{current_user.name}") %>
-<% end %>
--->
+		<%= f.submit "Entrar", class: "btn btn-primary" %>
+		<% end %>
+	</header>
+	<figure class="entry-thumbnail">
+		<div class="overlay overlay-primary"></div>
+	</figure>
+</article>

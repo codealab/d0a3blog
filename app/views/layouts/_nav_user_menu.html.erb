@@ -1,0 +1,96 @@
+<div class="sidebar col-md-4 col-lg-4 col-xl-3">
+	<aside class="widget">
+		<h2 class="widget-title ribbon"><span>Acciones</span></h2>
+		<ul class="entries" id="admin_menu">
+			<!-- contenidos -->
+			<li class="entry">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#post_type_collapse">
+							<%= "#{PostType.all.count} Contenidos" %>
+						</a>
+						</h4>
+					</div>
+					<div id="post_type_collapse" class="panel-collapse collapse">
+						<div class="panel-body">
+							<ul>
+								<% PostType.all.each do |type| %>
+									<li><%= link_to type.name, post_type_path(type) %></li>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</li>
+
+			<!-- categorías -->
+			<li class="entry">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#category_collapse">
+							<%= "#{Category.all.count} Categorías" %>
+						</a>
+						</h4>
+					</div>
+					<div id="category_collapse" class="panel-collapse collapse">
+						<div class="panel-body">
+							<ul>
+								<% Category.all.each do |category| %>
+									<li><%= link_to category.name, post_type_path(category) %></li>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</li>
+
+			<!-- Posts -->
+			<li class="entry">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#posts_collapse">
+							<%= "#{Post.all.count} Posts" %>
+						</a>
+						</h4>
+					</div>
+					<div id="posts_collapse" class="panel-collapse collapse">
+						<div class="panel-body">
+							<ul>
+								<% Post.all.each do |post| %>
+									<li><%= link_to post.title, post_path(post) %></li>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</li>
+
+
+			<!-- tags -->
+			<li class="entry">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#tag_collapse">
+							<%= "#{Tag.all.count} Tags" %>
+						</a>
+						</h4>
+					</div>
+					<div id="tag_collapse" class="panel-collapse collapse">
+						<div class="panel-body">
+							<ul>
+								<% Tag.all.each do |tag| %>
+									<li><%= link_to tag.name, tag_path(tag) %></li>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</li>
+
+		</ul>
+	</aside>
+</div>
