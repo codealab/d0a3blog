@@ -15,8 +15,6 @@ class Post < ActiveRecord::Base
 	validates :title, presence: true
 	validates :user_id, presence: true
 
-	mount_uploader :cover, PhotoUploader #, if :type => 'photo'
-
 	def author
 		self.user.name
 	end
