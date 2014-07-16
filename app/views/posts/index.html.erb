@@ -1,54 +1,52 @@
 <% if !@headers.empty?  %>
-	<div class="section row entries bg-primary section-no-margin-bottom">
-		<article class="entry style-grid style-hero hero-sm-largest type-post col-sm-12 col-md-6 colheight-sm-1 colheight-md-2 colheight-lg-2 colheight-xl-2">
-			
-			<div class="ribbon ribbon-pulled ribbon-small ribbon-highlight">
-				<a href="blog.html"><%= @headers.first.category %></a>
+<div class="section row entries bg-primary section-no-margin-bottom">
+	<article class="entry style-grid style-hero hero-sm-largest type-post col-sm-12 col-md-6 colheight-sm-1 colheight-md-2 colheight-lg-2 colheight-xl-2">
+		<div class="ribbon ribbon-pulled ribbon-small ribbon-highlight">
+			<a href="/"><%= @headers.first.post_type.name %></a>
+		</div>
+		<header class="entry-header">
+			<h3 class="entry-title"><a href="single.html"><%= @headers.first.text.slice(0..60) %></a> </h3>
+			<div class="entry-meta">
+				<span class="entry-date"><time datetime="<% @headers.first.created_at %>">Hace <%= (Date.today.to_date - @headers.first.created_at.to_date).to_i %> días</time></span>
+				<span class="entry-author"> por <a href="#"><%= @headers.first.author %></a></span>
 			</div>
-			<header class="entry-header">
-				<h3 class="entry-title"><a href="single.html"><%= @headers.first.body.slice(0..60) %></a> </h3>
-				<div class="entry-meta">
-					<span class="entry-date"><time datetime="<% @headers.first.created_at %>">Hace <%= (Date.today.to_date - @headers.first.created_at.to_date).to_i %> días</time></span>
-					<span class="entry-author"> por <a href="#"><%= @headers.first.author %></a></span>
-				</div>
-			</header>
-			<figure class="entry-thumbnail">
-				<a href="single.html" class="overlay overlay-primary"></a>
-				<!-- to disable lazy loading, remove data-src and data-src-retina -->
-				<img src="<%= @headers.first.cover %>" data-src="<%= @headers.first.cover %>" data-src-retina="<%= @headers.first.cover %>" width="680" height="452" alt="">
-				<!--fallback for no javascript browsers-->
-				<noscript>
-				<img src="<%= @headers.first.cover %>" alt="">
-				</noscript>
-			</figure>
-		</article>
+		</header>
+		<figure class="entry-thumbnail">
+			<a href="single.html" class="overlay overlay-primary"></a>
+			<!-- to disable lazy loading, remove data-src and data-src-retina -->
+			<img src="<%= @headers.first.cover %>" data-src="<%= @headers.first.cover %>" data-src-retina="<%= @headers.first.cover %>" width="680" height="452" alt="">
+			<!--fallback for no javascript browsers-->
+			<noscript>
+			<img src="<%= @headers.first.cover %>" alt="">
+			</noscript>
+		</figure>
+	</article>
+	
+	<% @headers.each do |header| %>
+	<article class="entry style-grid style-hero type-post col-md-6 col-lg-3 colheight-sm-1">
+		<div class="ribbon ribbon-pulled ribbon-small ribbon-highlight">
+			<a href="blog.html"><%= header.post_type.name %></a>
+		</div>
+		<header class="entry-header">
+			<h3 class="entry-title"><a href="<%= post_path(header) %>"><%= header.text.slice(0..160) %></a> </h3>
+			<div class="entry-meta">
+				<span class="entry-date"><time datetime="2013-07-04T23:26:34+00:00">Hace <%= (Date.today.to_date - header.created_at.to_date).to_i %> días</time></span>
+				<span class="entry-author"> por <a href="#"><%= header.author %></a></span>
+			</div>
+		</header>
 		
-		<% @headers.each do |header| %>
-			<article class="entry style-grid style-hero type-post col-md-6 col-lg-3 colheight-sm-1">
-				<div class="ribbon ribbon-pulled ribbon-small ribbon-highlight">
-					<a href="blog.html"><%= header.category %></a>
-				</div>
-
-				<header class="entry-header">
-					<h3 class="entry-title"><a href="<%= post_path(header) %>"><%= header.body.slice(0..160) %></a> </h3>
-					<div class="entry-meta">
-						<span class="entry-date"><time datetime="2013-07-04T23:26:34+00:00">Hace <%= (Date.today.to_date - header.created_at.to_date).to_i %> días</time></span>
-						<span class="entry-author"> por <a href="#"><%= header.author %></a></span>
-					</div>
-				</header>
-				
-				<figure class="entry-thumbnail">
-					<a href="<%= post_path(header) %>" class="overlay overlay-primary"></a>
-					<!-- to disable lazy loading, remove data-src and data-src-retina -->
-					<img src="<%= header.cover %>" data-src="<%= header.cover %>" data-src-retina="<%= header.cover %>" width="480" height="280" alt="">
-					<!--fallback for no javascript browsers-->
-					<noscript>
-						<img src="<%= header.cover %>" alt="">
-					</noscript>
-				</figure>
-			</article>
-		<% end %>
-	</div>
+		<figure class="entry-thumbnail">
+			<a href="<%= post_path(header) %>" class="overlay overlay-primary"></a>
+			<!-- to disable lazy loading, remove data-src and data-src-retina -->
+			<img src="<%= header.cover %>" data-src="<%= header.cover %>" data-src-retina="<%= header.cover %>" width="480" height="280" alt="">
+			<!--fallback for no javascript browsers-->
+			<noscript>
+			<img src="<%= header.cover %>" alt="">
+			</noscript>
+		</figure>
+	</article>
+	<% end %>
+</div>
 <% end %>
 <div id="content" class="content section row">
 	<div class="col-md-8 bg-base col-lg-8 col-xl-9">
@@ -58,7 +56,6 @@
 				<li><a href="/posts">BLOG</a></li>
 			</ol>
 		</div>
-		
 		<div class="entries">
 			<% @posts.each do |post| %>
 			<article class="entry style-media media type-post">
@@ -67,7 +64,7 @@
 					<img src="<%= post.cover %>" data-src="<%= post.cover %>" data-src-retina="<%= post.cover %>" width="230" height="230" class="" alt="">
 					<!--fallback for no javascript browsers-->
 					<noscript>
-						<img src="<%= post.cover %>" alt="">
+					<img src="<%= post.cover %>" alt="">
 					</noscript>
 				</figure>
 				<div class="media-body">
@@ -100,105 +97,24 @@
 			<li><a href="#">&raquo;</a></li>
 		</ul>
 		</div><!--/.col-md-8.col-lg-8.col-xl-9-->
-		<div class="sidebar col-md-4 col-lg-4 col-xl-3">
-			<aside class="widget">
-				<h2 class="widget-title ribbon"><span>Featured Posts</span></h2>
-				<div class="entries row">
-					<article class="type-post style-media-list media col-sm-6 col-md-12">
-						<!-- to disable lazy loading, remove data-src and data-src-retina -->
-						<img src="/assets/placeholder.gif" data-src="http://placehold.it/80x80" data-src-retina="http://placehold.it/160x160" width="80" height="80" class="media-object pull-left" alt="">
-						<!--fallback for no javascript browsers-->
-						<noscript>
-						<img src="http://placehold.it/80x80" alt="">
-						</noscript>
-						<div class="media-body">
-							<h3  class="entry-title">
-							<a href="single.html" rel="bookmark">Excepteur sint occaecat cupidatat non proident.</a>
-							</h3>
-							<div class="entry-meta">
-								<span class="entry-date"><a href="blog.html">on <time datetime="2013-07-04T23:26:34+00:00">September 20 2013</time></a></span>
-								<span class="category">In <a href="blog.html">Technology</a></span>
-							</div>
-						</div>
-					</article>
-				</div>
-				</aside><!--/.widget-->
-				<aside id="reviewCarousel" class="widget carousel slide">
-					<h2 class="widget-title ribbon"><span>Latest Review</span></h2>
-					<div class="carousel-inner">
-						<div class="item active">
-							<article class="entry style-grid style-review type-post">
-								
-								<header class="entry-header">
-									<h3 class="entry-title"><a href="single.html">xPhone 5s Review</a> </h3>
-									<p class="small">Excepteur sint occaecat cupidatat non proident</p>
-								</header>
-								<div class="style-review-score">
-									81
-								</div>
-								
-								<figure class="entry-thumbnail">
-									<a href="single.html" class="overlay overlay-primary"></a>
-									<!-- to disable lazy loading, remove data-src and data-src-retina -->
-									<img src="/assets/placeholder.gif" data-src="http://placehold.it/480x280" data-src-retina="http://placehold.it/720x420" width="480" height="280" alt="">
-									<!--fallback for no javascript browsers-->
-									<noscript>
-									<img src="http://placehold.it/720x420" alt="">
-									</noscript>
-								</figure>
-							</article>
-							</div><!--/.item.active-->
-							</div><!--/.carousel-inner-->
-							<a class="left carousel-control" href="#reviewCarousel" data-slide="prev">
-								<span class="icon icon-angle-left"></span>
-							</a>
-							<a class="right carousel-control" href="#reviewCarousel" data-slide="next">
-								<span class="icon icon-angle-right"></span>
-							</a>
-							</aside><!--/.widget.carousel-->
-							
-							<aside class="widget">
-								<h2 class="widget-title ribbon"><span>What's Hot</span></h2>
-								<div class="entries row">
-									<article class="type-post style-media-list media col-sm-6 col-md-12">
-										<!-- to disable lazy loading, remove data-src and data-src-retina -->
-										<img src="/assets/placeholder.gif" data-src="http://placehold.it/80x80" data-src-retina="http://placehold.it/160x160" width="80" height="80" class="media-object pull-left" alt="">
-										<!--fallback for no javascript browsers-->
-										<noscript>
-										<img src="http://placehold.it/80x80" alt="">
-										</noscript>
-										<div class="media-body">
-											<h3  class="entry-title">
-											<a href="single.html" rel="bookmark">Duis aute irure dolor in reprehenderit in voluptate velit esse.</a>
-											</h3>
-											<div class="entry-meta">
-												<span class="entry-date"><a href="blog.html">on <time datetime="2013-07-04T23:26:34+00:00">September 20 2013</time></a></span>
-												<span class="category">In <a href="blog.html">Technology</a></span>
-											</div>
-										</div>
-									</article>
-								</div>
-								</aside><!--/.widget-->
-								<aside class="widget">
-									<h3 class="widget-title ribbon"><span>Latest Discussion</span></h3>
-									<ul class="entries">
-										<li class="entry style-recent-list type-post">
-											<span class="comments-count-balloon">900</span>
-											<a href="single.html" rel="bookmark" class="entry-title">Ullamco laboris nisi ut aliquip ex ea commodo consequat.</a>
-										</li>
-									</ul>
-									</aside><!--/.widget-->
-									<aside class="widget">
-										<h3 class="widget-title ribbon"><span>Special Coverage</span></h3>
-										<ul class="entries coverageList aligncenter">
-											<li><a href="blog.html">#xPhone launch event</a></li>
-										</ul>
-										</aside><!--/.widget-->
-										<aside class="widget">
-											<h3 class="widget-title ribbon"><span>Tags</span></h3>
-											<div class="tagcloud">
-												<a href="#">Some</a>
-											</div>
-											</aside><!--/.widget-->
-											</div><!--/.sidebar col-md-4 col-lg-4 col-xl-3-->
-											</div><!--/#content-->
+	<div class="sidebar col-md-4 col-lg-4 col-xl-3">
+		<div id="container_featured">
+			<%= render 'sides/featured' %>
+		</div>
+		<div id="reviews_container">
+			<%= render 'sides/reviews' %>
+		</div>
+		<div id="container_whats_hot">
+			<%= render 'sides/whats_hot' %>
+		</div>
+		<div id="container_latest_discussion">
+			<%= render 'sides/latest_discussion' %>
+		</div>
+		<div id="container_special_coverage">
+			<%= render 'sides/special_coverage' %>
+		</div>
+		<div id="container_tags_discussion">
+			<%= render 'sides/tags' %>
+		</div>
+	</div>
+</div><!--/#content-->

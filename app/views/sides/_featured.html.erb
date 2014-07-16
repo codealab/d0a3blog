@@ -1,0 +1,24 @@
+<aside class="widget">
+	<h2 class="widget-title ribbon"><span>Publicaciones recientes</span></h2>
+	<div class="entries row">
+		<% Post.all.order('id DESC').limit(3).each do |post| %>
+			<article class="type-post style-media-list media col-sm-6 col-md-12">
+				<!-- to disable lazy loading, remove data-src and data-src-retina -->
+				<img src="/assets/placeholder.gif" data-src="http://placehold.it/80x80" data-src-retina="http://placehold.it/160x160" width="80" height="80" class="media-object pull-left" alt="">
+				<!--fallback for no javascript browsers-->
+				<noscript>
+				<img src="http://placehold.it/80x80" alt="">
+				</noscript>
+				<div class="media-body">
+					<h3  class="entry-title">
+						<%= link_to post.text.slice(0..60), post_path(post) %>
+					</h3>
+					<div class="entry-meta">
+						<span class="entry-date"><a href="blog.html">del <time datetime="<%= post.created_at %>"><%= post.created_at %></time></a></span>
+						<span class="category">en <a href="blog.html"><%= post.post_type.name %></a></span>
+					</div>
+				</div>
+			</article>
+		<% end %>
+	</div>
+</aside>

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7]>   <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>      <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>      <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
 <head>
   <title><%= full_title(yield(:title)) %></title>
-
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Lato:300,400,700,400italic,700italic|Droid+Serif' rel='stylesheet' type='text/css'>
-
-  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= render 'layouts/shim' %>
+  <%= csrf_meta_tags %>
 </head>
 	<body>
 	<!-- header -->
@@ -20,21 +20,17 @@
 	<!-- header -->
 	<div id="blog_wrapper">
 		<div id="main" class="container">
-			<div id="content" class="content section row">
-				<div id="flash_messages">
-					<% flash.each do |key, value| %>
-						<%= content_tag(:div, value, class: "alert alert-#{key}") %>
-					<% end %>
-				</div>
-				<%= yield %>
+			<div id="flash_messages">
+				<% flash.each do |key, value| %>
+					<%= content_tag(:div, value, class: "alert alert-#{key}") %>
+				<% end %>
 			</div>
+			<%= yield %>
 		</div>
 	</div>
-
 	<!-- footer -->
 	<%= render 'layouts/footer' %>
 	<!-- footer -->
-
 	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	</body>
 </html>

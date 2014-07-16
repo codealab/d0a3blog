@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140703223058) do
+ActiveRecord::Schema.define(version: 20140715220953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20140703223058) do
   end
 
   add_index "categories_post_types", ["category_id", "post_type_id"], name: "index_categories_post_types_on_category_id_and_post_type_id", unique: true, using: :btree
+
+  create_table "comments", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "website"
+    t.text     "text"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "media", force: true do |t|
     t.string   "title"
@@ -103,6 +113,7 @@ ActiveRecord::Schema.define(version: 20140703223058) do
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "photo"
+    t.text     "bio"
     t.string   "email"
     t.string   "password_digest"
     t.string   "remember_token"

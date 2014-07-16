@@ -27,7 +27,7 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.2)
     bcrypt-ruby (3.1.2-x86-mingw32)
-    bootstrap-sass (3.1.1.1)
+    bootstrap-sass (3.0.0.0)
       sass (~> 3.2)
     builder (3.1.4)
     cancancan (1.8.0)
@@ -191,7 +191,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (= 3.1.2)
-  bootstrap-sass (~> 3.1.1)
+  bootstrap-sass (~> 3.0.0.0)
   cancancan (~> 1.8)
   capybara
   carrierwave
