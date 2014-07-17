@@ -4,6 +4,7 @@ Blog::Application.routes.draw do
   
   resources :categories
   resources :sessions
+  resources :resources
   resources :post_types
   resources :users do
     resources :posts
@@ -11,11 +12,12 @@ Blog::Application.routes.draw do
 
   resources :posts do
     resources :categories
+    resources :resources
   end
 
   resources :categories_post_types
   resources :password_resets
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, only: [ :new, :create, :destroy ]
 
   match '/user',    to: 'users#show',           via: 'get'
   match '/edit',    to: 'users#edit',           via: 'get'

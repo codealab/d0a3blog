@@ -43,23 +43,6 @@ ActiveRecord::Schema.define(version: 20140715220953) do
     t.datetime "updated_at"
   end
 
-  create_table "media", force: true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "media_posts", force: true do |t|
-    t.integer  "media_id"
-    t.integer  "post_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "media_posts", ["media_id", "post_id"], name: "index_media_posts_on_media_id_and_post_id", unique: true, using: :btree
-
   create_table "organizations", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -92,7 +75,7 @@ ActiveRecord::Schema.define(version: 20140715220953) do
 
   create_table "posts", force: true do |t|
     t.string   "title"
-    t.string   "cover"
+    t.integer  "cover_id"
     t.text     "text"
     t.boolean  "main",         default: false
     t.boolean  "status",       default: false
@@ -103,6 +86,24 @@ ActiveRecord::Schema.define(version: 20140715220953) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "resources", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "url"
+    t.string   "resource_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resources_posts", force: true do |t|
+    t.integer  "resources_id"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "resources_posts", ["resources_id", "post_id"], name: "index_resources_posts_on_resources_id_and_post_id", unique: true, using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"

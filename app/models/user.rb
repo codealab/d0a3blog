@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 	end
 
 	def crop_user
-		photo.recreate_versions! if crop_x.present?			
+		photo.recreate_versions! if crop_x.present?
 	end
 
 	private
@@ -37,4 +37,5 @@ class User < ActiveRecord::Base
 		def create_remember_token
 			self.remember_token = User.encrypt(User.new_remember_token)
 		end
+
 end

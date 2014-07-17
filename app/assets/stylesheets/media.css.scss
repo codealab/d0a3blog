@@ -1,0 +1,26 @@
+// Place all the styles related to the media controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#button_select_file{
+	width: 100%;
+	top: 0px;
+	height: 32px;
+	cursor: pointer;
+}
+#resource_file, #user_photo{
+	top: 0;
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	left: 0;
+	opacity: 0;
+}
+#select_file_title{
+	top: 5px;
+	left: 10px;
+}
+.crop_container{
+	overflow: hidden;
+	background: transparent;
+	border: 1px solid #444444;
+}

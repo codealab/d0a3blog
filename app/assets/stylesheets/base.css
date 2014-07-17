@@ -70,9 +70,9 @@ h6 {
   font-weight: 300;
   margin-bottom: 20px;
 }
-img {
+/*img {
   max-width: 100%;
-}
+}*/
 js img[data-src] {
   opacity: 0;
   transition: opacity 0.3s ease-in;
