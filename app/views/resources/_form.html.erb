@@ -1,0 +1,26 @@
+<div class="col-md-6 col-sm-offset-3">
+	<div id="container_form">
+		<%= simple_form_for @resource, :html => {:multipart => true, :class => 'form-horizontal'} do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+			<p><%= f.input :title, label:"Nombre", placeholder: "Nombre del archivo" %></p>
+			<p><%= f.input :resource_type, label: "Tipo", :include_blank => "Selecciona el tipo de archivo", collection: [['Foto', 'Foto'],[ 'Audio', 'Audio'], [ 'Video', 'Video']] %></p>
+			<div id="container_media_url" class="hidden">
+				<p><%= f.input :url, label:"URL", placeholder: "Escribe la url del archivo" %></p>
+			</div>
+			<div id="container_select_file" class="hidden">
+				<p><label class="select optional control-label" for="resource_file">Archivo</label></p>
+				<p><%= image_tag @resource.url, :id => "photo_thumb" %></p>
+				<div id="button_select_file" class="relative btn btn-primary">
+					<div class="absolute" id="select_file_title">Seleccionar archivo</div>
+					<p><%= f.input :file, as: :file, label: false %></p>
+				</div>
+			</div>
+			<p><%= f.input :description, label:"Descripción" %></p>
+			<p><%= f.submit "Guardar", :class => 'btn btn-info' %></p>
+		<% end %>
+	</div>
+</div>
+
+<script>
+	$(document).ready(resource_type_select);
+</script>

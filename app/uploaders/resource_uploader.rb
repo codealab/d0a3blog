@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class CoverUploader < CarrierWave::Uploader::Base
+class ResourceUploader < CarrierWave::Uploader::Base
 
    include CarrierWave::MiniMagick
 

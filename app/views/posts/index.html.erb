@@ -1,52 +1,51 @@
 <% if !@headers.empty?  %>
-<div class="section row entries bg-primary section-no-margin-bottom">
-	<article class="entry style-grid style-hero hero-sm-largest type-post col-sm-12 col-md-6 colheight-sm-1 colheight-md-2 colheight-lg-2 colheight-xl-2">
-		<div class="ribbon ribbon-pulled ribbon-small ribbon-highlight">
-			<a href="/"><%= @headers.first.post_type.name %></a>
-		</div>
-		<header class="entry-header">
-			<h3 class="entry-title"><a href="single.html"><%= @headers.first.text.slice(0..60) %></a> </h3>
-			<div class="entry-meta">
-				<span class="entry-date"><time datetime="<% @headers.first.created_at %>">Hace <%= (Date.today.to_date - @headers.first.created_at.to_date).to_i %> días</time></span>
-				<span class="entry-author"> por <a href="#"><%= @headers.first.author %></a></span>
+	<div class="section row entries bg-primary section-no-margin-bottom">
+		<article class="entry style-grid style-hero hero-sm-largest type-post col-sm-12 col-md-6 colheight-sm-1 colheight-md-2 colheight-lg-2 colheight-xl-2">
+			<div class="ribbon ribbon-pulled ribbon-small ribbon-highlight">
+				<a href="/"><%= @headers.first.post_type.name %></a>
 			</div>
-		</header>
-		<figure class="entry-thumbnail">
-			<a href="single.html" class="overlay overlay-primary"></a>
-			<!-- to disable lazy loading, remove data-src and data-src-retina -->
-			<img src="<%= @headers.first.cover %>" data-src="<%= @headers.first.cover %>" data-src-retina="<%= @headers.first.cover %>" width="680" height="452" alt="">
-			<!--fallback for no javascript browsers-->
-			<noscript>
-			<img src="<%= @headers.first.cover %>" alt="">
-			</noscript>
-		</figure>
-	</article>
-	
-	<% @headers.each do |header| %>
-	<article class="entry style-grid style-hero type-post col-md-6 col-lg-3 colheight-sm-1">
-		<div class="ribbon ribbon-pulled ribbon-small ribbon-highlight">
-			<a href="blog.html"><%= header.post_type.name %></a>
-		</div>
-		<header class="entry-header">
-			<h3 class="entry-title"><a href="<%= post_path(header) %>"><%= header.text.slice(0..160) %></a> </h3>
-			<div class="entry-meta">
-				<span class="entry-date"><time datetime="2013-07-04T23:26:34+00:00">Hace <%= (Date.today.to_date - header.created_at.to_date).to_i %> días</time></span>
-				<span class="entry-author"> por <a href="#"><%= header.author %></a></span>
-			</div>
-		</header>
+			<header class="entry-header">
+				<h3 class="entry-title"><a href="single.html"><%= @headers.first.text.slice(0..60) %></a> </h3>
+				<div class="entry-meta">
+					<span class="entry-date"><time datetime="<% @headers.first.created_at %>">Hace <%= (Date.today.to_date - @headers.first.created_at.to_date).to_i %> días</time></span>
+					<span class="entry-author"> por <a href="#"><%= @headers.first.author %></a></span>
+				</div>
+			</header>
+			<figure class="entry-thumbnail">
+				<a href="single.html" class="overlay overlay-primary"></a>
+				<!-- to disable lazy loading, remove data-src and data-src-retina -->
+				<img src="<%= @headers.first.cover %>" data-src="<%= @headers.first.cover %>" data-src-retina="<%= @headers.first.cover %>" width="680" height="452" alt="">
+				<!--fallback for no javascript browsers-->
+				<noscript>
+				<img src="<%= @headers.first.cover %>" alt="">
+				</noscript>
+			</figure>
+		</article>
 		
-		<figure class="entry-thumbnail">
-			<a href="<%= post_path(header) %>" class="overlay overlay-primary"></a>
-			<!-- to disable lazy loading, remove data-src and data-src-retina -->
-			<img src="<%= header.cover %>" data-src="<%= header.cover %>" data-src-retina="<%= header.cover %>" width="480" height="280" alt="">
-			<!--fallback for no javascript browsers-->
-			<noscript>
-			<img src="<%= header.cover %>" alt="">
-			</noscript>
-		</figure>
-	</article>
-	<% end %>
-</div>
+		<% @headers.each do |header| %>
+			<article class="entry style-grid style-hero type-post col-md-6 col-lg-3 colheight-sm-1">
+				<div class="ribbon ribbon-pulled ribbon-small ribbon-highlight">
+					<a href="blog.html"><%= header.post_type.name %></a>
+				</div>
+				<header class="entry-header">
+					<h3 class="entry-title"><a href="<%= post_path(header) %>"><%= header.text.slice(0..160) %></a> </h3>
+					<div class="entry-meta">
+						<span class="entry-date"><time datetime="2013-07-04T23:26:34+00:00">Hace <%= (Date.today.to_date - header.created_at.to_date).to_i %> días</time></span>
+						<span class="entry-author"> por <a href="#"><%= header.author %></a></span>
+					</div>
+				</header>
+				<figure class="entry-thumbnail">
+					<a href="<%= post_path(header) %>" class="overlay overlay-primary"></a>
+					<!-- to disable lazy loading, remove data-src and data-src-retina -->
+					<img src="<%= header.cover %>" data-src="<%= header.cover %>" data-src-retina="<%= header.cover %>" width="480" height="280" alt="">
+					<!--fallback for no javascript browsers-->
+					<noscript>
+					<img src="<%= header.cover %>" alt="">
+					</noscript>
+				</figure>
+			</article>
+		<% end %>
+	</div>
 <% end %>
 <div id="content" class="content section row">
 	<div class="col-md-8 bg-base col-lg-8 col-xl-9">

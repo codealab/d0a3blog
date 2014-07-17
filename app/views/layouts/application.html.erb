@@ -13,6 +13,7 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= render 'layouts/shim' %>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 </head>
 	<body>
 	<!-- header -->
@@ -31,6 +32,5 @@
 	<!-- footer -->
 	<%= render 'layouts/footer' %>
 	<!-- footer -->
-	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	</body>
 </html>

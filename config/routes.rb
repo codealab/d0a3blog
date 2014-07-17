@@ -4,7 +4,7 @@ Blog::Application.routes.draw do
   
   resources :categories
   resources :sessions
-  resources :media
+  resources :resources
   resources :post_types
   resources :users do
     resources :posts
@@ -12,6 +12,7 @@ Blog::Application.routes.draw do
 
   resources :posts do
     resources :categories
+    resources :resources
   end
 
   resources :categories_post_types

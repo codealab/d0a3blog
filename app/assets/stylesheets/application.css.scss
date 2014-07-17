@@ -15,6 +15,42 @@
 
 @import "bootstrap";
 
+.absolute{ position: absolute; }
+.relative{ position: relative; }
+
+input, select, textarea{
+	border: 1px solid #444444;
+	background-color: transparent;
+	color: #444444;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	padding: 5px;
+	width: 100%;
+}
+.all_width{
+	width: 100%;
+	left: 0;
+	margin: 0;
+	padding: 0;
+}
+input, select{ height: 30px; }
+textarea { resize:vertical; }
+
 #admin_menu .panel {
 	margin-bottom: 0px;
+}
+#photo_thumb{
+	background: rgb(233, 233, 233);
+	border: 1px solid #444444;
+	width: 100%;
+}
+.container_preview{
+	position: relative;
+	overflow: hidden;
+	width: 100px;
+	height: 100px;
+}
+.container_preview img{
+	max-width: auto;
 }

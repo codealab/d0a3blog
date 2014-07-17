@@ -16,6 +16,7 @@
 //= require jquery.Jcrop
 //= require bootstrap
 //= require_tree .
+
 (function($) {
 
     $.extend(true, jQuery.fn, {
@@ -26,27 +27,26 @@
             }
             $.each(this, function() {
                 var $this = $(this);
+                console.log($this);
                 $this.bind('change', function(evt) {
                     $('#image_url').attr('src', '');
-                    var files = evt.target.files; // FileList object
-                    // Loop through the FileList and render image files as thumbnails.
-                    for (var i = 0, f; f = files[i]; i++) {
-                        // Only process image files.
-                        if (!f.type.match('image.*')) {
-                            continue;
+                    console.log(evt);
+                    var files = evt.target.files;
+                    if (files.length == 0) {
+                        $("#photo_thumb").attr('src', "/assets/default.png");
+                    } else {
+                        for (var i = 0, f; f = files[i]; i++) {
+                            if (!f.type.match('image.*')) continue;
+                            var reader = new FileReader();
+                            reader.onload = (function(theFile) {
+                                return function(e) {
+                                    console.log(e);
+                                    $("#photo_thumb").attr('src', e.target.result);
+                                };
+                            })(f);
+                            reader.readAsDataURL(f);
                         }
-                        var reader = new FileReader();
-                        // Closure to capture the file information.
-                        reader.onload = (function(theFile) {
-                            return function(e) {
-                                // Render thumbnail.
-                                $("#photo_thumb").attr('src', e.target.result);
-                            };
-                        })(f);
-                        // Read in the image file as a data URL.
-                        reader.readAsDataURL(f);
                     }
-
                 });
             });
         }
