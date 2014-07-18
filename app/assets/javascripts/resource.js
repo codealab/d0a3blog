@@ -1,5 +1,5 @@
 function resource_type_select() {
-    $("#resource_file").imagePreview();
+    $("#resource_photo_path").imagePreview();
     $("#resource_resource_type").change(function() {
         var type = $(this).val();
         switch (type) {

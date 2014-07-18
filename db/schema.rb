@@ -90,8 +90,9 @@ ActiveRecord::Schema.define(version: 20140715220953) do
   create_table "resources", force: true do |t|
     t.string   "title"
     t.text     "description"
-    t.string   "url"
+    t.string   "photo_path"
     t.string   "resource_type"
+    t.string   "file_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

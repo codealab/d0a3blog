@@ -5,14 +5,14 @@
 			<p><%= f.input :title, label:"Nombre", placeholder: "Nombre del archivo" %></p>
 			<p><%= f.input :resource_type, label: "Tipo", :include_blank => "Selecciona el tipo de archivo", collection: [['Foto', 'Foto'],[ 'Audio', 'Audio'], [ 'Video', 'Video']] %></p>
 			<div id="container_media_url" class="hidden">
-				<p><%= f.input :url, label:"URL", placeholder: "Escribe la url del archivo" %></p>
+				<p><%= f.input :file_url, as: :string, label: false, placeholder: "Escribe la url del archivo" %></p>
 			</div>
 			<div id="container_select_file" class="hidden">
 				<p><label class="select optional control-label" for="resource_file">Archivo</label></p>
-				<p><%= image_tag @resource.url, :id => "photo_thumb" %></p>
+				<p><%= image_tag @resource.photo_path, :id => "photo_thumb" %></p>
 				<div id="button_select_file" class="relative btn btn-primary">
 					<div class="absolute" id="select_file_title">Seleccionar archivo</div>
-					<p><%= f.input :file, as: :file, label: false %></p>
+					<p><%= f.input :photo_path, label: false %></p>
 				</div>
 			</div>
 			<p><%= f.input :description, label:"Descripción" %></p>

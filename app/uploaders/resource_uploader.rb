@@ -2,7 +2,7 @@
 
 class ResourceUploader < CarrierWave::Uploader::Base
 
-   include CarrierWave::MiniMagick
+ include CarrierWave::MiniMagick
 
   if Rails.env.production?
     storage :fog
@@ -20,6 +20,14 @@ class ResourceUploader < CarrierWave::Uploader::Base
 
   version :large do
     resize_to_limit(752, 500)
+  end
+
+  version :medium do
+    resize_to_limit(250, 250)
+  end
+
+  version :thumb do
+    resize_to_fill(125,125)
   end
 
 end

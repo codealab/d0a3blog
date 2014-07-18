@@ -24,7 +24,7 @@ Tag.create([{ name: 'Desarrollo' }, { name: 'D0A3' }, { name: 'Motricidad' }, { 
 		text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, non ad aut officiis, odio, quaerat facere perspiciatis repudiandae ipsum reiciendis maiores doloremque eveniet laboriosam suscipit earum et id nesciunt officia.",
 		status: true,
 		post_type_id: 1,
-		user_id: 1,
+		user_id: rand(2),
 		credits: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, non ad aut officiis, odio, quaerat facere perspiciatis"
 	})
 end

@@ -1,0 +1,2 @@
+<%= @resource.title %>
+<%= image_tag(@resource.photo_path.url(:thumb)) if @resource.photo_path? %>

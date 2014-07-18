@@ -22,9 +22,7 @@
     $.extend(true, jQuery.fn, {
         imagePreview: function(options) {
             var defaults = {};
-            if (options) {
-                $.extend(true, defaults, options);
-            }
+            if (options) $.extend(true, defaults, options);
             $.each(this, function() {
                 var $this = $(this);
                 console.log($this);
