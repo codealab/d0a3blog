@@ -6,6 +6,9 @@ Blog::Application.routes.draw do
   resources :sessions
   resources :resources
   resources :post_types
+  resources :tags do
+    resources :posts
+  end
   resources :users do
     resources :posts
   end

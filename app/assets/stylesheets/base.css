@@ -480,6 +480,7 @@ body.scrolled .header-navbar  .nav-pages {
 }
 .page-title,
 .page-title.full-page-title {
+  min-height: 75px;
   font-size: 36px;
   line-height: 43px;
   margin-bottom: 5px;

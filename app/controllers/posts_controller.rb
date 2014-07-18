@@ -3,12 +3,15 @@ class PostsController < ApplicationController
 
   def index
     @headers = Post.where(:main => true).order('id DESC').limit(5)
-  	@posts = Post.all.order('id DESC').paginate( :page => params[:page] ).limit(8)
+    query = params[:user_id]?(User.find(params[:user_id]).posts):(Post.all)
+    @posts = query.order('id DESC').paginate(:page => params[:page])
     @hots = Post.all.order('view DESC').limit(5)
   end
 
   def show
   	@post = Post.find(params[:id])
+    @prev_post = Post.all.order('id DESC').where("id < #{@post.id}").limit(1).first || Post.last
+    @next_post = Post.all.order('id ASC').where("id > #{@post.id}").limit(1).first || Post.first
     @post.views+=1
     @post.save
   end
@@ -18,7 +21,7 @@ class PostsController < ApplicationController
   end
 
   def create
-  	@post = Post.new(post_params)
+  	@post = current_user.posts.build(post_params)
   	if @post.save
   		flash[:success] = "Post creado correctamente"
       redirect_to posts_path
@@ -43,7 +46,7 @@ class PostsController < ApplicationController
   private
 
   	def post_params
-  		params.require(:post).permit(:title, :author_id, :body)
+  		params.require(:post).permit(:title, :text, :post_type_id)
   	end
 
 end

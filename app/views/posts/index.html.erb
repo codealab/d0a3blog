@@ -1,4 +1,4 @@
-<% if !@headers.empty?  %>
+<% if !@headers.empty? %>
 	<div class="section row entries bg-primary section-no-margin-bottom">
 		<article class="entry style-grid style-hero hero-sm-largest type-post col-sm-12 col-md-6 colheight-sm-1 colheight-md-2 colheight-lg-2 colheight-xl-2">
 			<div class="ribbon ribbon-pulled ribbon-small ribbon-highlight">
@@ -78,7 +78,7 @@
 						</div>
 					</header>
 					<p>
-					<%= post.text.html_safe %>
+					<%= post.text %>
 					<a href="<%= post_path(post) %>" class="more-link">Continuar leyendo<i class="icon icon-long-arrow-right"></i></a>
 					</p>
 				</div>
@@ -86,16 +86,10 @@
 			<% end %>
 		</div>
 		<!--/.entries-->
-		<ul class="pagination">
-			<li><a href="#">&laquo;</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li class="active"><span>3</span></li>
-			<li><span> ... </span></li>
-			<li><a href="#">1234</a></li>
-			<li><a href="#">&raquo;</a></li>
-		</ul>
-		</div><!--/.col-md-8.col-lg-8.col-xl-9-->
+		<div id="pagination">
+			<%= will_paginate @posts %>
+		</div>
+	</div><!--/.col-md-8.col-lg-8.col-xl-9-->
 	<div class="sidebar col-md-4 col-lg-4 col-xl-3">
 		<div id="container_featured">
 			<%= render 'sides/featured' %>

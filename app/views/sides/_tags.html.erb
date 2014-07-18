@@ -2,7 +2,7 @@
 	<h3 class="widget-title ribbon"><span>Tags</span></h3>
 	<div class="tagcloud">
 		<% Tag.all.order('name ASC').each do |tag| %>
-			<a href='<%= "#{tag.name}" %>'><%= "#{tag.name.downcase}" %></a>
+			<%= link_to "#{tag.name.downcase}", tag_posts_path(tag) %>
 		<% end %>
 	</div>
 </aside>

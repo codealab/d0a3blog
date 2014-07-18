@@ -300,7 +300,7 @@ ul.entries {
   text-transform: uppercase;
   position: absolute;
   top: 100%;
-  left: 0px;
+  left: -8px;
 }
 .lead {
   font-weight: normal;

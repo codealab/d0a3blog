@@ -14,11 +14,9 @@ class ResourcesController < ApplicationController
 	end
 
 	def create
-		puts 'xxxxxxxxxxxxxxxx'
-		puts params
 		@resource = Resource.new(resource_params)
 		if @resource.save
-			if params[:resource][:file].present?
+			if params[:resource][:photo_path].present?
 				render :crop
 			else
 				flash[:success] = "Se creo el multimedia exitosamente"
@@ -37,7 +35,7 @@ class ResourcesController < ApplicationController
 		@resource = Resource.find(params[:id])
 		@resource.update_attributes(resource_params)
 		if @resource.save
-			if params[:resource][:file].present?
+			if params[:resource][:photo_path].present?
 				render :crop
 			else
 				flash[:success] = "Multimedia creado exitosamente"
@@ -57,7 +55,7 @@ class ResourcesController < ApplicationController
 	private
 
 		def resource_params
-			params.require(:resource).permit( :title, :resource_type, :url, :description, :file )
+			params.require(:resource).permit( :title, :resource_type, :photo_path, :description, :file_url )
 		end
 
 end

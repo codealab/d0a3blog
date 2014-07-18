@@ -1,0 +1,40 @@
+<div class="section section-no-margin-bottom row entries bg-primary">
+    <% if @prev_post %>
+        <article class="entry style-grid style-hero hero-nav type-post col-xs-6 col-sm-6">
+            <%= link_to post_path(@prev_post) do %>
+                <header class="entry-header">
+                    <p class="small">Post Anterior</p>
+                    <h3 class="entry-title"><%= @prev_post.title %></h3> 
+                </header>
+                <figure class="entry-thumbnail">
+                    <div class="overlay overlay-primary"></div>
+                    <!-- to disable lazy loading, remove data-src and data-src-retina -->
+                    <img src="../img/placeholder.gif" data-src="http://placehold.it/480x280" data-src-retina="http://placehold.it/720x420" width="480" height="280" alt="">
+                    <!--fallback for no javascript browsers-->
+                    <noscript>
+                        <img src="http://placehold.it/480x280" alt="">
+                    </noscript>
+                </figure>
+            <% end %>
+        </article>
+    <% end %>
+    <% if @next_post %>
+        <article class="entry style-grid style-hero hero-nav type-post col-xs-6 col-sm-6">
+            <%= link_to post_path(@next_post) do %>
+                <header class="entry-header">
+                    <p class="small">Siguiente Post</p>
+                    <h3 class="entry-title"><%= @next_post.title %></h3> 
+                </header>
+                <figure class="entry-thumbnail">
+                    <div class="overlay overlay-primary"></div>
+                    <!-- to disable lazy loading, remove data-src and data-src-retina -->
+                    <img src="../img/placeholder.gif" data-src="http://placehold.it/480x280" data-src-retina="http://placehold.it/720x420" width="480" height="280" alt="">
+                    <!--fallback for no javascript browsers-->
+                    <noscript>
+                        <img src="http://placehold.it/480x280" alt="">
+                    </noscript>
+                </figure>
+            <% end %>
+        </article>
+    <% end %>
+</div>
