@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require jquery.Jcrop
 //= require bootstrap
+//= require bootstrap-wysihtml5
 //= require_tree .
 
 (function($) {
@@ -54,6 +55,7 @@
 
 function init() {
     $("#user_photo").imagePreview();
+    posts();
 }
 
 $(document).ready(init);

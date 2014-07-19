@@ -5,9 +5,10 @@ User.create([{ name: "Juan", email: "juan.fuentes.cabrera.89@gmail.com", passwor
 
 PostType.create([
 	{ name:'Blog' },
-	{ name:'Noticias' },
-	{ name:'Eventos' },
-	{ name:'Calendario' }
+	{ name:'Artículos' },
+	{ name:'Actividades' },
+	{ name:'Tips'},
+	{ name:'Módulos Educativos' }
 ])
 
 categories = ["Interacción oportuna", "Areas del Desarrollo", "Motricidad Gruesa", "Motricidad Delgada", "Edades"]
@@ -24,7 +25,7 @@ Tag.create([{ name: 'Desarrollo' }, { name: 'D0A3' }, { name: 'Motricidad' }, { 
 		text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, non ad aut officiis, odio, quaerat facere perspiciatis repudiandae ipsum reiciendis maiores doloremque eveniet laboriosam suscipit earum et id nesciunt officia.",
 		status: true,
 		post_type_id: 1,
-		user_id: rand(2),
+		user_id: (rand(1))+1,
 		credits: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, non ad aut officiis, odio, quaerat facere perspiciatis"
 	})
 end

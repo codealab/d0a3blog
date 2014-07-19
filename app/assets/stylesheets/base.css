@@ -462,6 +462,7 @@ body.scrolled .header-navbar  .nav-pages {
   position: relative;
 }
 .page-header {
+  position: relative;
   border: none;
   margin-top: 15px;
   margin-bottom: 20px;
@@ -1025,3 +1026,48 @@ body.scrolled .header-navbar  .nav-pages {
     display: block;
   }
 }
+
+/* controls */
+.inline-block{
+  display: inline-block;
+  position: relative;
+}
+.live_editable { width: 100%; }
+.live_controls {
+  min-height: 80px;
+  display: none;
+  background: rgba(0, 0, 0, 0.75);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  color: white!important;
+  padding-right: 15px;
+}
+.live_controls_icon {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 21px;
+}
+.container_editable_action {
+  background: transparent!important;
+  position: relative;
+  float: right;
+  top: 15px;
+  border: 1px solid white;
+  height: 48px;
+  margin: 2px;
+  color: white;
+  padding: 3px;
+}
+.container_editable_action:hover{
+  background: white!important;
+  color: black!important;
+}
+.redo_editable_action{ width: 70px; }
+.save_editable_action{ width: 125px; }
+.edit_editable_action{ width: 50px; }
+.container_editable_action .glyphicon{ position: relative; }

@@ -1,8 +1,9 @@
 <aside class="widget">
 	<h3 class="widget-title ribbon"><span>Tags</span></h3>
 	<div class="tagcloud">
-		<% Tag.all.order('name ASC').each do |tag| %>
-			<%= link_to "#{tag.name.downcase}", tag_posts_path(tag) %>
+		<% q = @post?(@post.tags):(Tag.all) %>
+		<% q.each do |tag| %>
+			<%= link_to "#{tag.name}", tag_posts_path(tag.name) %>
 		<% end %>
 	</div>
 </aside>
