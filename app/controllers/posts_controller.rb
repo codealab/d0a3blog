@@ -3,7 +3,13 @@ class PostsController < ApplicationController
 
   def index
     @headers = Post.where(:main => true).order('id DESC').limit(5)
-    query = params[:user_id]?(User.find(params[:user_id]).posts):(Post.all)
+    if params[:user_id]
+      query = User.find(params[:user_id]).posts
+    elsif params[:tag_id]
+      query = Tag.find_by_name(params[:tag_id]).posts
+    else 
+      query = Post.all
+    end
     @posts = query.order('id DESC').paginate(:page => params[:page])
     @hots = Post.all.order('view DESC').limit(5)
   end
@@ -12,7 +18,6 @@ class PostsController < ApplicationController
   	@post = Post.find(params[:id])
     @prev_post = Post.all.order('id DESC').where("id < #{@post.id}").limit(1).first || Post.last
     @next_post = Post.all.order('id ASC').where("id > #{@post.id}").limit(1).first || Post.first
-    @post.views+=1
     @post.save
   end
 

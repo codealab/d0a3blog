@@ -1,1 +1,352 @@
-<%= render "posts/form" %>
+<%= render 'posts/header_stories' %>
+<div id="content" class="content section row">
+    <div class="col-md-8 bg-base col-lg-8 col-xl-9">
+        <div class="ribbon ribbon-highlight">
+            <ol class="breadcrumb ribbon-inner">
+                <li><%= link_to "D0A3", root_path %></li>
+                <li><a href="#">blog</a></li>
+                <li class="active post-title" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit." %>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                </li>
+            </ol>
+        </div>
+        <div class="modal fade" id="post-title-modal" tabindex="-1" role="dialog" aria-labelledby="post-title-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="post-title-label">Nuevo Post | Título</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" placeholder="Escribe el título">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">Guardar Cambios</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header class="page-header live_editable">
+            <div class="page-meta pull-right hidden-xs">
+                <a href="#comments"> <span class="comments-count-balloon bg-primary"><%= @post.comments.count %><em>comentarios</em></span>
+                </a>
+            </div>
+            <h2 class="page-title post-title" id="post-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h2>
+            <div id="" class="live_controls">
+                <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    <div class="live_controls_icon">
+                        <div class="editable-action-title">Deshacer</div>
+                    </div>
+                </a>
+                <a class="container_editable_action save_editable_action" href="#" data-remote="true">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <div class="live_controls_icon">
+                        <div class="editable-action-title">Guardar Cambios</div>
+                    </div>
+                </a>
+                <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#post-title-modal">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <div class="live_controls_icon">
+                        <div class="editable-action-title">Editar</div>
+                    </div>
+                </a>
+            </div>
+        </header>
+        <!-- foto -->
+        <div class="modal fade" id="post-photo-modal" tabindex="-1" role="dialog" aria-labelledby="post-photo-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-photo" id="post-photo-label">Nuevo Post | Cover </h4>
+                    </div>
+                    <div class="modal-body">
+                        <img src="/assets/thumb_default.png">
+                        <label for="file">Selecciona el cover</label>
+                        <input type="file">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">Guardar Cambios</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <article class="entry style-single type-post">
+            <figure class="entry-thumbnail live_editable">
+                <img src="/assets/thumb_default.png" width="680" height="452" alt="">
+                <div id="" class="live_controls">
+                    <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <div class="live_controls_icon">
+                            <div class="editable-action-title">Deshacer</div>
+                        </div>
+                    </a>
+                    <a class="container_editable_action save_editable_action" href="#" data-remote="true">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <div class="live_controls_icon">
+                            <div class="editable-action-title">Guardar Cambios</div>
+                        </div>
+                    </a>
+                    <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#post-photo-modal">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <div class="live_controls_icon">
+                            <div class="editable-action-title">Editar</div>
+                        </div>
+                    </a>
+                </div>
+            </figure>
+            <div class="entry-meta indented">
+                <span class="author">Escrito por <%= link_to current_user.name, user_posts_path(current_user) %></span>
+                <span class="entry-date">
+                <a href="blog.html">/
+                    <time datetime="<%= @post.created_at %>"><%= I18n.l DateTime.now.to_datetime, :format => '%d de %B del %Y' %></time>
+                </a>
+                </span>
+                <div class="category">
+                    Visto en
+                    <a href="#">Categoría</a> /
+                    <a href="#">Categoría</a> /
+                    <a href="#">Categoría</a> /
+                    <a href="#">Categoría</a>
+                </div>
+            </div>
+            <!-- texto -->
+            <div class="modal fade" id="post-text-modal" tabindex="-1" role="dialog" aria-labelledby="post-text-label" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-text" id="post-text-label">Nuevo Post | Contenido </h4>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class="wysiwyg-post" name="" id="" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success">Guardar Cambios</button>
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- texto modal -->
+            <div class="entry-content indented">
+                <div class="live_editable inline-block">
+                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <blockquote class="pulled-left">
+                        <p>Better to remain silent and be thought a fool than to speak out and remove all doubt, <small> Abraham Lincoln</small>
+                        </p>
+                    </blockquote>
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <div id="" class="live_controls">
+                        <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            <div class="live_controls_icon">
+                                <div class="editable-action-title">Deshacer</div>
+                            </div>
+                        </a>
+                        <a class="container_editable_action save_editable_action" href="#" data-remote="true">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <div class="live_controls_icon">
+                                <div class="editable-action-title">Guardar Cambios</div>
+                            </div>
+                        </a>
+                        <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#post-text-modal">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <div class="live_controls_icon">
+                                <div class="editable-action-title">Editar</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="gallery bg-page flushed-left">
+                    <!-- <h4 class="gallery-title">Gallery</h4> -->
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                </div>
+                <!--/.gallery-->
+                <!-- creditos modal -->
+                <div class="modal fade" id="post-credits-modal" tabindex="-1" role="dialog" aria-labelledby="post-credits-label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-credits" id="post-credits-label">Nuevo Post | Créditos / Referencias </h4>
+                            </div>
+                            <div class="modal-body">
+                                <textarea class="wysiwyg-post" name="" id="" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success">Guardar Cambios</button>
+                                <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- creditos modal -->
+                <div class="live_editable inline-block">
+                    <h3>Créditos</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe consequatur ipsum sunt soluta quidem deleniti delectus nostrum quas, dolore eos fugit consequuntur ipsa ad ex voluptatum! Voluptates ipsam, architecto nemo.</p>
+                    <div id="" class="live_controls">
+                        <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            <div class="live_controls_icon">
+                                <div class="editable-action-title">Deshacer</div>
+                            </div>
+                        </a>
+                        <a class="container_editable_action save_editable_action" href="#" data-remote="true">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <div class="live_controls_icon">
+                                <div class="editable-action-title">Guardar Cambios</div>
+                            </div>
+                        </a>
+                        <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#post-credits-modal">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <div class="live_controls_icon">
+                                <div class="editable-action-title">Editar</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- tags modal -->
+                <div class="modal fade" id="post-tags-modal" tabindex="-1" role="dialog" aria-labelledby="post-tags-label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-tags" id="post-tags-label">Nuevo Post | Etiquetas </h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Selecciona las etiquetas</p>
+                                <% Tag.all.each do |t| %>
+                                    <p><%= link_to t.name, t %></p>
+                                <% end %>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success">Guardar Cambios</button>
+                                <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- tags modal -->
+        <div class="after-entry indented">
+            <hr>
+            <aside class="widget post-tags live_editable inline-block">
+                <i class="icon-tags"></i> Tags:
+                <a href="#">taguno</a>
+                <a href="#">tagdos</a>
+                <a href="#">tagtres</a>
+                <a href="#">tagcuatro</a>
+                <a href="#">tagcinco</a>
+                <a href="#">tagseis</a>
+                <a href="#">tagsiete</a>
+                <div id="" class="live_controls">
+                    <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <div class="live_controls_icon">
+                            <div class="editable-action-title">Deshacer</div>
+                        </div>
+                    </a>
+                    <a class="container_editable_action save_editable_action" href="#" data-remote="true">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <div class="live_controls_icon">
+                            <div class="editable-action-title">Guardar Cambios</div>
+                        </div>
+                    </a>
+                    <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#post-tags-modal">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <div class="live_controls_icon">
+                            <div class="editable-action-title">Editar</div>
+                        </div>
+                    </a>
+                </div>
+            </aside>
+            <hr>
+            <aside class="widget widget-author media">
+                <figure class="entry-author-avatar media-object avatar pull-left">
+                    <!-- to disable lazy loading, remove data-src and data-src-retina -->
+                    <img src="../img/placeholder.gif" data-src="http://placehold.it/230x230" data-src-retina="http://placehold.it/460x460" width="230" height="230" class="img-circle" alt="">
+                    <!--fallback for no javascript browsers-->
+                    <noscript>
+                    <img src="http://placehold.it/230x230" alt="">
+                    </noscript>
+                </figure>
+                <div class="media-body">
+                    <h4 class="entry-author-name">Por <%= link_to current_user.name, user_path(current_user) %></h4>
+                    <p><%= current_user.bio %></p>
+                </div>
+            </aside>
+            <hr>
+            <% @post = Post.first %>
+            <%= render 'posts/related' %>
+            <hr>
+            <aside class="widget">Comparte: <a href="#" class="" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-facebook icon-light"></i></span></a>  <a href="#" class="" onclick="window.open('http://twitter.com/home?status='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-twitter icon-light"></i></span></a>  <a href="#" class="" onclick="window.open('https://plus.google.com/share?url='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=500,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-google-plus icon-light"></i></span></a>  <a href="#" class="" onclick="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)})());"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-pinterest icon-light"></i></span></a>
+        </aside>
+    </div>
+    <!-- comments -->
+    <!--<%= render '/posts/comments' %>-->
+    <!-- end comments -->
+    <div class="sidebar col-md-4 col-lg-4 col-xl-3">
+        <div id="container_featured">
+            <%= render '/sides/featured' %>
+        </div>
+        <div id="reviews_container">
+            <%= render '/sides/reviews' %>
+        </div>
+        <div id="container_whats_hot">
+            <%= render '/sides/whats_hot' %>
+        </div>
+        <div id="container_latest_discussion">
+            <%= render '/sides/latest_discussion' %>
+        </div>
+        <div id="container_special_coverage">
+            <%= render 'sides/special_coverage' %>
+        </div>
+        <div id="container_tags_discussion">
+            <%= render 'sides/tags' %>
+        </div>
+    </div>
+</div>
+<!--/#content-->

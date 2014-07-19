@@ -15,23 +15,25 @@ gem 'will_paginate', '~> 3.0'
 gem 'carrierwave'
 gem 'jcrop-rails-v2'
 gem "mini_magick"
+gem 'i18n'
 gem 'rails-i18n'
 gem 'cancancan', '~> 1.8'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
+gem "bootstrap-wysihtml5-rails"
 
 group :production do
 	gem 'fog'
 	gem 'unf'
 	gem 'thin'
-  gem 'rails_12factor'
+	gem 'rails_12factor'
 end
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem "capybara"
-  gem 'factory_girl_rails'
-  gem "database_cleaner"
+	gem 'rspec-rails'
+	gem "capybara"
+	gem 'factory_girl_rails'
+	gem "database_cleaner"
 end
 
 gem 'sdoc', require: false, group: :doc
