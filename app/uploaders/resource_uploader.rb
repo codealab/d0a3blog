@@ -33,7 +33,7 @@ class ResourceUploader < CarrierWave::Uploader::Base
 
   version :thumb do
     process :crop_resource
-    resize_to_fill(300, 200)
+    # resize_to_fill(300, 200)
   end
 
   def crop_resource
