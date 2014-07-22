@@ -2,7 +2,11 @@
 
 class PhotoUploader < CarrierWave::Uploader::Base
 
-  include CarrierWave::MiniMagick
+  if RbConfig::CONFIG["target_os"] =~ /mswin|mingw|cygwin/i
+    include CarrierWave::MiniMagick
+  else
+    include CarrierWave::RMagick
+  end
 
   if Rails.env.production?
     storage :fog

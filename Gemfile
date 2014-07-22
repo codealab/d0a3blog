@@ -14,13 +14,18 @@ gem 'simple_form'
 gem 'kaminari'
 gem 'carrierwave'
 gem 'jcrop-rails-v2'
-gem "mini_magick"
 gem 'i18n'
 gem 'rails-i18n'
 gem 'cancancan', '~> 1.8'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem "bootstrap-wysihtml5-rails"
+
+if RbConfig::CONFIG["target_os"] =~ /mswin|mingw|cygwin/i
+  gem "mini_magick"
+else
+  gem "rmagick", :require => "RMagick"
+end
 
 group :production do
 	gem 'fog'
