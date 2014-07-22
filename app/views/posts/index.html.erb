@@ -86,7 +86,7 @@
 		</div>
 		<!--/.entries-->
 		<div id="pagination">
-			<%= will_paginate @posts %>
+			<%= paginate @posts %>
 		</div>
 	</div><!--/.col-md-8.col-lg-8.col-xl-9-->
 	<div class="sidebar col-md-4 col-lg-4 col-xl-3">
@@ -102,11 +102,12 @@
 		<div id="container_latest_discussion">
 			<%= render 'sides/latest_discussion' %>
 		</div>
-		<div id="container_special_coverage">
-			<%= render 'sides/special_coverage' %>
+		<div id="container_categories">
+			<%= render 'sides/categories' %>
 		</div>
 		<div id="container_tags_discussion">
 			<%= render 'sides/tags' %>
 		</div>
 	</div>
-</div><!--/#content-->
+</div>
+<!--/#content-->

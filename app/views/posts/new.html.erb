@@ -17,14 +17,17 @@
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h4 class="modal-title" id="post-title-label">Nuevo Post | Título</h4>
                     </div>
-                    <div class="modal-body">
-                        <input type="text" placeholder="Escribe el título">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success">Guardar Cambios</button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    </div>
+                    <%= form_tag("/posts/title/}", :method => "get", remote: true ) do %>
+                        <div class="modal-body">
+                            <%= text_field_tag "title", @post.title, :class => "form-control", placeholder: "Escribe el título del post." %>
+                            <!--<input type="text" placeholder="Escribe el título">-->
+                        </div>
+                        <div class="modal-footer">
+                            <%= submit_tag "Guardar Cambios", :class => "btn btn-success" %>
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    <% end %>
                 </div>
             </div>
         </div>
@@ -79,6 +82,54 @@
         <article class="entry style-single type-post">
             <figure class="entry-thumbnail live_editable">
                 <img src="/assets/thumb_default.png" width="680" height="452" alt="">
+                <!-- galerry -->
+                <div class="gallery bg-page flushed-left">
+                    <!-- <h4 class="gallery-title">Gallery</h4> -->
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 1" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 3" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 4" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 5" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 6" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 6" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <a href="http://placehold.it/460x460" title="Image 6" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                </div>
+                <!--/.gallery-->
                 <div id="" class="live_controls">
                     <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
                         <span class="glyphicon glyphicon-remove"></span>
@@ -164,43 +215,6 @@
                         </a>
                     </div>
                 </div>
-                <div class="gallery bg-page flushed-left">
-                    <!-- <h4 class="gallery-title">Gallery</h4> -->
-                    <div class="row">
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
-                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
-                            </a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
-                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
-                            </a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
-                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
-                            </a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
-                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
-                            </a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
-                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
-                            </a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
-                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <!--/.row-->
-                </div>
-                <!--/.gallery-->
                 <!-- creditos modal -->
                 <div class="modal fade" id="post-credits-modal" tabindex="-1" role="dialog" aria-labelledby="post-credits-label" aria-hidden="true">
                     <div class="modal-dialog">
@@ -209,14 +223,16 @@
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                 <h4 class="modal-credits" id="post-credits-label">Nuevo Post | Créditos / Referencias </h4>
                             </div>
-                            <div class="modal-body">
-                                <textarea class="wysiwyg-post" name="" id="" cols="30" rows="10"></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success">Guardar Cambios</button>
-                                <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                            </div>
+                            <%= form_tag("/posts/credits/}", :method => "get", remote: true ) do %>
+                                <div class="modal-body">
+                                    <%= text_area_tag "title", @post.credits, :class => "form-control", placeholder: "Escribe el contenido del post." %>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success">Guardar Cambios</button>
+                                    <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            <% end %>
                         </div>
                     </div>
                 </div>
@@ -329,6 +345,12 @@
     <!--<%= render '/posts/comments' %>-->
     <!-- end comments -->
     <div class="sidebar col-md-4 col-lg-4 col-xl-3">
+        <div id="container_special_coverage">
+            <%= render 'sides/categories' %>
+        </div>
+        <div id="container_tags_discussion">
+            <%= render 'sides/tags' %>
+        </div>
         <div id="container_featured">
             <%= render '/sides/featured' %>
         </div>
@@ -340,12 +362,6 @@
         </div>
         <div id="container_latest_discussion">
             <%= render '/sides/latest_discussion' %>
-        </div>
-        <div id="container_special_coverage">
-            <%= render 'sides/special_coverage' %>
-        </div>
-        <div id="container_tags_discussion">
-            <%= render 'sides/tags' %>
         </div>
     </div>
 </div>

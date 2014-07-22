@@ -341,6 +341,7 @@ ul.entries {
 .content .md-pull-right .ribbon {
   z-index: 22;
 }
+.sidebar{ z-index: 99; }
 .content .sidebar .ribbon {
   z-index: 24;
 }

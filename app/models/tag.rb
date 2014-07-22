@@ -14,4 +14,5 @@ class Tag < ActiveRecord::Base
 		def remove_spaces
 			self.name = self.name.downcase.gsub(" ","")
 		end
+
 end

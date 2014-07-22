@@ -117,24 +117,6 @@
                         </a>
                     </div>
                 </div>
-                <div class="gallery bg-page flushed-left">
-                    <!-- <h4 class="gallery-title">Gallery</h4> -->
-                    <div class="row">
-                        <!--/.col-xs-2.col-sm-2-->
-                        <% PostType.find(@post.post_type.id).posts.where(status: true).limit(12).each do |post| %>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="http://placehold.it/460x460" title="Image 2" class="thumbnail" data-rel="prettyPhoto[gallery]">
-                                <img src="../img/placeholder.gif" data-src="http://placehold.it/80x80" data-src-retina="http://placehold.it/160x160" width="80" height="80" alt="">
-                                <noscript>
-                                <img src="http://placehold.it/80x80" alt="">
-                                </noscript>
-                            </a>
-                        </div>
-                        <% end %>
-                        <!--/.col-xs-2.col-sm-2-->
-                    </div>
-                    <!--/.row-->
-                </div>
                 <!--/.gallery-->
                 <div class="live_editable inline-block">
                     <h3>Créditos</h3>
@@ -163,33 +145,35 @@
             </div>
         </article>
         <div class="after-entry indented">
-            <hr>
-            <aside class="widget post-tags live_editable inline-block">
-                <i class="icon-tags"></i> Tags:
-                <% @post.tags.each do |tag| %>
-                <%= link_to tag.name, tag_posts_path(tag.name) %>
-                <% end %>
-                <div id="" class="live_controls">
-                    <a class="container_editable_action save_editable_action" href="#" data-remote="true">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <div class="live_controls_icon">
-                            <div class="editable-action-title">Guardar Cambios</div>
-                        </div>
-                    </a>
-                    <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
-                        <span class="glyphicon glyphicon-remove"></span>
-                        <div class="live_controls_icon">
-                            <div class="editable-action-title">Deshacer</div>
-                        </div>
-                    </a>
-                    <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        <div class="live_controls_icon">
-                            <div class="editable-action-title">Editar</div>
-                        </div>
-                    </a>
-                </div>
-            </aside>
+            <% if @post.tags.count>0 %>
+                <hr>
+                <aside class="widget post-tags live_editable inline-block">
+                    <i class="icon-tags"></i> Tags:
+                    <% @post.tags.each do |tag| %>
+                        <%= link_to tag.name, tag_posts_path(tag.name) %>
+                    <% end %>
+                    <div id="" class="live_controls">
+                        <a class="container_editable_action save_editable_action" href="#" data-remote="true">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <div class="live_controls_icon">
+                                <div class="editable-action-title">Guardar Cambios</div>
+                            </div>
+                        </a>
+                        <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            <div class="live_controls_icon">
+                                <div class="editable-action-title">Deshacer</div>
+                            </div>
+                        </a>
+                        <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <div class="live_controls_icon">
+                                <div class="editable-action-title">Editar</div>
+                            </div>
+                        </a>
+                    </div>
+                </aside>
+            <% end %>
             <hr>
             <aside class="widget widget-author media">
                 <figure class="entry-author-avatar media-object avatar pull-left">
@@ -210,29 +194,27 @@
             <hr>
             <aside class="widget">Comparte: <a href="#" class="" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-facebook icon-light"></i></span></a>  <a href="#" class="" onclick="window.open('http://twitter.com/home?status='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-twitter icon-light"></i></span></a>  <a href="#" class="" onclick="window.open('https://plus.google.com/share?url='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=500,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-google-plus icon-light"></i></span></a>  <a href="#" class="" onclick="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)})());"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-pinterest icon-light"></i></span></a>
         </aside>
+    </div> 
+</div>
+<div class="sidebar col-md-4 col-lg-4 col-xl-3">
+    <div id="reviews_container">
+        <%= render '/sides/reviews' %>
     </div>
-    <!-- comments -->
-    <!--<%= render '/posts/comments' %>-->
-    <!-- end comments -->
-    <div class="sidebar col-md-4 col-lg-4 col-xl-3">
-        <div id="container_featured">
-            <%= render '/sides/featured' %>
+    <% if @post.categories.count > 0 %>
+        <div id="container_categories">
+            <%= render 'sides/categories' %>
         </div>
-        <div id="reviews_container">
-            <%= render '/sides/reviews' %>
-        </div>
-        <div id="container_whats_hot">
-            <%= render '/sides/whats_hot' %>
-        </div>
-        <div id="container_latest_discussion">
-            <%= render '/sides/latest_discussion' %>
-        </div>
-        <div id="container_special_coverage">
-            <%= render 'sides/special_coverage' %>
-        </div>
+    <% end %>
+    <% if @post.tags.count > 0 %>
         <div id="container_tags_discussion">
             <%= render 'sides/tags' %>
         </div>
+    <% end %>
+    
+    <%= render '/sides/featured' %>
+
+    <div id="container_whats_hot">
+        <%= render '/sides/whats_hot' %>
     </div>
 </div>
 <!--/#content-->

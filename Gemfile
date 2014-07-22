@@ -11,7 +11,7 @@ gem 'jquery-rails'
 gem 'sprockets', '2.11.0'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'simple_form'
-gem 'will_paginate', '~> 3.0'
+gem 'kaminari'
 gem 'carrierwave'
 gem 'jcrop-rails-v2'
 gem "mini_magick"

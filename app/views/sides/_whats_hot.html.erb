@@ -4,11 +4,7 @@
 		<% Post.all.order('views ASC').limit(3).each do |post| %>
 			<article class="type-post style-media-list media col-sm-6 col-md-12">
 				<!-- to disable lazy loading, remove data-src and data-src-retina -->
-				<img src="/assets/placeholder.gif" data-src="http://placehold.it/80x80" data-src-retina="http://placehold.it/160x160" width="80" height="80" class="media-object pull-left" alt="">
-				<!--fallback for no javascript browsers-->
-				<noscript>
-				<img src="http://placehold.it/80x80" alt="">
-				</noscript>
+				<img src="/assets/placeholder.gif" width="80" height="80" class="media-object pull-left" alt="">
 				<div class="media-body">
 					<h3  class="entry-title">
 						<%= link_to post.text.slice(0..60), post_path(post) %>

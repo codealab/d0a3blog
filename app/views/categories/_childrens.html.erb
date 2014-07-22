@@ -1,0 +1,8 @@
+<% if object.childrens.count>0 %>
+	<ul>
+		<% object.childrens.each do |object| %>
+			<li><%= link_to object.name, category_path(object) %></li>
+			<%= render 'categories/childrens', object: object %>
+		<% end %>
+	</ul>
+<% end %>

@@ -28,6 +28,9 @@ input, select, textarea{
 	padding: 5px;
 	width: 100%;
 }
+input[type="submit"]{
+	width: auto;
+}
 .all_width{
 	width: 100%;
 	left: 0;

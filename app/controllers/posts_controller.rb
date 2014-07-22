@@ -10,7 +10,7 @@ class PostsController < ApplicationController
     else 
       query = Post.all
     end
-    @posts = query.order('id DESC').paginate(:page => params[:page])
+    @posts = query.order('id DESC').page(params[:page])
     @hots = Post.all.order('view DESC').limit(5)
   end
 
@@ -23,6 +23,30 @@ class PostsController < ApplicationController
 
   def new
   	@post = Post.new
+  end
+
+  def title
+    @post = @post.find(params[:post_id]) || Post.new
+    @post.title = params[:text]
+    @post.save
+  end
+
+  def text
+    @post = @post.find(params[:post_id]) || Post.new
+    @post.title = params[:text]
+    @post.save
+  end
+
+  def credits
+    @post = @post.find(params[:post_id]) || Post.new
+    @post.title = params[:credits]
+    @post.save
+  end
+
+  def tags
+    @post = @post.find(params[:post_id]) || Post.new
+    @post.title = params[:tags]
+    @post.save
   end
 
   def create
