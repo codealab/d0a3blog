@@ -38,7 +38,7 @@ class ResourceUploader < CarrierWave::Uploader::Base
 
   def crop_resource(width,height)
     if model.crop_x.present?
-      resize_to_limit(x,y)
+      resize_to_limit(width,height)
       manipulate! do |img|
         x = model.crop_x.to_i
         y = model.crop_y.to_i
