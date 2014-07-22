@@ -32,7 +32,6 @@ AvatarCropper = (function() {
 	this.update = __bind(this.update, this);
 	$('#crop_resource').Jcrop({
 		aspectRatio: 4/3,
-		setSelect: [0, 0, 400, 300],
 		onSelect: this.update,
 		onChange: this.update
 	});
