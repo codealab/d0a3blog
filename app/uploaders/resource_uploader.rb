@@ -32,8 +32,8 @@ class ResourceUploader < CarrierWave::Uploader::Base
   end
 
   version :thumb do
+    resize_to_limit(900, 600)
     process :crop_resource
-    # resize_to_fill(300, 200)
   end
 
   def crop_resource
