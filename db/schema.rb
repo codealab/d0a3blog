@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20140715220953) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.integer  "post_type_id"
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -98,13 +97,13 @@ ActiveRecord::Schema.define(version: 20140715220953) do
   end
 
   create_table "resources_posts", force: true do |t|
-    t.integer  "resources_id"
+    t.integer  "resource_id"
     t.integer  "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "resources_posts", ["resources_id", "post_id"], name: "index_resources_posts_on_resources_id_and_post_id", unique: true, using: :btree
+  add_index "resources_posts", ["resource_id", "post_id"], name: "index_resources_posts_on_resource_id_and_post_id", unique: true, using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"

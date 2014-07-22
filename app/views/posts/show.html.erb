@@ -8,7 +8,6 @@
                 <li class="active" title="<%= @post.title %>"><%= "#{@post.title.slice(0..30)}..." %></li>
             </ol>
         </div>
-
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -54,9 +53,14 @@
                 </a>
             </div>
         </header>
+        <div class="entry-meta">
+            <%= link_to posts_path(date: @post.created_at.to_date) do %>
+            <time datetime="<%= @post.created_at %>"><%= I18n.l @post.created_at.to_datetime, :format => '%d de %B del %Y' %></time>
+            <% end %>
+        </div>
         <article class="entry style-single type-post">
             <figure class="entry-thumbnail live_editable">
-                <img src="../img/placeholder.gif" width="680" height="452" alt="">
+                <img src="http://placehold.it/600x400" width="680" height="452" alt="">
                 <div id="" class="live_controls">
                     <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
                         <span class="glyphicon glyphicon-pencil"></span>
@@ -78,25 +82,35 @@
                     </a>
                 </div>
             </figure>
-            <div class="entry-meta indented">
-                <span class="author">Escrito por <%= link_to @post.author, user_posts_path(@post.user) %></span>  <span class="entry-date">
-                <a href="blog.html">/
-                    <time datetime="<%= @post.created_at %>"><%= I18n.l @post.created_at.to_datetime, :format => '%d de %B del %Y' %></time>
-                </a>
-                </span>
-                <div class="category">
-                    Visto en <%= link_to @post.post_type.name, post_type_path(@post.post_type_id) %>
+            <div id="post_slider">
+                <div class="thumb_slide slide_active">
+                    <%= image_tag(@post.cover_url(:thumb)) if @post.cover %>
                 </div>
-            </div>
-            <div class="entry-content indented">
-                <div class="live_editable inline-block">
-                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <blockquote class="pulled-left">
-                        <p>Better to remain silent and be thought a fool than to speak out and remove all doubt, <small> Abraham Lincoln</small>
-                        </p>
-                    </blockquote>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
-                    <div id="" class="live_controls">
+                <% @post.resources.each do |r| %>
+                <div class="thumb_slide">
+                    <% case r.resource_type %>
+                    <% when 'Foto' %>
+                    es foto
+                    <% when 'Video' %>
+                    es video
+                    <% when 'Audio' %>
+                    es audio
+                    <% end %>
+                    <% end %>
+                </div>
+                <div class="live_editable">
+                    <div class="entry-content indented">
+                        <div class="inline-block">
+                            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <blockquote class="pulled-left">
+                                <p>Better to remain silent and be thought a fool than to speak out and remove all doubt, <small> Abraham Lincoln</small>
+                                </p>
+                            </blockquote>
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                        </div>
+                        <!--/.gallery-->
+                    </div>
+                    <div class="live_controls">
                         <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
                             <span class="glyphicon glyphicon-pencil"></span>
                             <div class="live_controls_icon">
@@ -117,40 +131,40 @@
                         </a>
                     </div>
                 </div>
-                <!--/.gallery-->
-                <div class="live_editable inline-block">
-                    <h3>Créditos</h3>
-                    <p><%= @post.credits %></p>
-                    <div id="" class="live_controls">
-                        <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            <div class="live_controls_icon">
-                                <div class="editable-action-title">Editar</div>
-                            </div>
-                        </a>
-                        <a class="container_editable_action save_editable_action" href="#" data-remote="true">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            <div class="live_controls_icon">
-                                <div class="editable-action-title">Guardar Cambios</div>
-                            </div>
-                        </a>
-                        <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
-                            <span class="glyphicon glyphicon-remove"></span>
-                            <div class="live_controls_icon">
-                                <div class="editable-action-title">Deshacer</div>
-                            </div>
-                        </a>
+                <div class="entry-content indented">
+                    <div class="live_editable inline-block">
+                        <h3>Créditos</h3>
+                        <p><%= @post.credits %></p>
+                        <div id="" class="live_controls">
+                            <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <div class="live_controls_icon">
+                                    <div class="editable-action-title">Editar</div>
+                                </div>
+                            </a>
+                            <a class="container_editable_action save_editable_action" href="#" data-remote="true">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <div class="live_controls_icon">
+                                    <div class="editable-action-title">Guardar Cambios</div>
+                                </div>
+                            </a>
+                            <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                <div class="live_controls_icon">
+                                    <div class="editable-action-title">Deshacer</div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </article>
-        <div class="after-entry indented">
-            <% if @post.tags.count>0 %>
+            </article>
+            <div class="after-entry indented">
+                <% if @post.tags.count>0 %>
                 <hr>
                 <aside class="widget post-tags live_editable inline-block">
                     <i class="icon-tags"></i> Tags:
                     <% @post.tags.each do |tag| %>
-                        <%= link_to tag.name, tag_posts_path(tag.name) %>
+                    <%= link_to tag.name, tag_posts_path(tag.name) %>
                     <% end %>
                     <div id="" class="live_controls">
                         <a class="container_editable_action save_editable_action" href="#" data-remote="true">
@@ -173,48 +187,52 @@
                         </a>
                     </div>
                 </aside>
-            <% end %>
-            <hr>
-            <aside class="widget widget-author media">
-                <figure class="entry-author-avatar media-object avatar pull-left">
-                    <!-- to disable lazy loading, remove data-src and data-src-retina -->
-                    <img src="../img/placeholder.gif" data-src="http://placehold.it/230x230" data-src-retina="http://placehold.it/460x460" width="230" height="230" class="img-circle" alt="">
-                    <!--fallback for no javascript browsers-->
-                    <noscript>
-                    <img src="http://placehold.it/230x230" alt="">
-                    </noscript>
-                </figure>
-                <div class="media-body">
-                    <h4 class="entry-author-name">Por <%= link_to @post.author, user_path(@post.user) %></h4>
-                    <p><%= @post.user.bio %></p>
-                </div>
+                <% end %>
+                <hr>
+                <aside class="widget widget-author media">
+                    <figure class="entry-author-avatar media-object avatar pull-left">
+                        <!-- to disable lazy loading, remove data-src and data-src-retina -->
+                        <img src="../img/placeholder.gif" data-src="http://placehold.it/230x230" data-src-retina="http://placehold.it/460x460" width="230" height="230" class="img-circle" alt="">
+                        <!--fallback for no javascript browsers-->
+                        <noscript>
+                        <img src="http://placehold.it/230x230" alt="">
+                        </noscript>
+                    </figure>
+                    <div class="media-body">
+                        <h4 class="entry-author-name">Por <%= link_to @post.author, user_path(@post.user) %></h4>
+                        <p><%= @post.user.bio %></p>
+                    </div>
+                </aside>
+                <hr>
+                <%= render 'posts/related' %>
+                <hr>
+                <aside class="widget">Comparte: <a href="#" class="" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-facebook icon-light"></i></span></a>  <a href="#" class="" onclick="window.open('http://twitter.com/home?status='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-twitter icon-light"></i></span></a>  <a href="#" class="" onclick="window.open('https://plus.google.com/share?url='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=500,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-google-plus icon-light"></i></span></a>  <a href="#" class="" onclick="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)})());"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-pinterest icon-light"></i></span></a>
             </aside>
-            <hr>
-            <%= render 'posts/related' %>
-            <hr>
-            <aside class="widget">Comparte: <a href="#" class="" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-facebook icon-light"></i></span></a>  <a href="#" class="" onclick="window.open('http://twitter.com/home?status='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-twitter icon-light"></i></span></a>  <a href="#" class="" onclick="window.open('https://plus.google.com/share?url='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=500,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-google-plus icon-light"></i></span></a>  <a href="#" class="" onclick="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)})());"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-pinterest icon-light"></i></span></a>
-        </aside>
-    </div> 
-</div>
-<div class="sidebar col-md-4 col-lg-4 col-xl-3">
-    <div id="reviews_container">
-        <%= render '/sides/reviews' %>
+        </div>
     </div>
-    <% if @post.categories.count > 0 %>
+    <div class="sidebar col-md-4 col-lg-4 col-xl-3">
+        <div id="reviews_container">
+            <%= render '/sides/reviews' %>
+        </div>
+        <% if @post.categories.count > 0 %>
         <div id="container_categories">
             <%= render 'sides/categories' %>
         </div>
-    <% end %>
-    <% if @post.tags.count > 0 %>
-        <div id="container_tags_discussion">
+        <% end %>
+        <% if @post.tags.count > 0 %>
+        <div id="container_tags">
             <%= render 'sides/tags' %>
         </div>
-    <% end %>
-    
-    <%= render '/sides/featured' %>
-
-    <div id="container_whats_hot">
-        <%= render '/sides/whats_hot' %>
+        <% end %>
+        
+        <%= render '/sides/featured' %>
+        <div id="container_whats_hot">
+            <%= render '/sides/whats_hot' %>
+        </div>
     </div>
-</div>
-<!--/#content-->
+    <script>
+    $(document).ready(function() {
+    $("body,html").stop().delay(600).animate({scrollTop:169},400);
+    });
+    </script>
+    <!--/#content-->

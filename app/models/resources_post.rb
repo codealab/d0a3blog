@@ -1,5 +1,5 @@
 #encoding: UTF-8
-class ResourcesPosts < ActiveRecord::Base
+class ResourcesPost < ActiveRecord::Base
 
 	belongs_to :post 
 	belongs_to :resource 

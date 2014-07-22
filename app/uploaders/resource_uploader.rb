@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 class ResourceUploader < CarrierWave::Uploader::Base
 
  include CarrierWave::MiniMagick
@@ -19,15 +18,29 @@ class ResourceUploader < CarrierWave::Uploader::Base
   # end
 
   version :large do
-    resize_to_limit(752, 500)
+    resize_to_limit(900, 600)
   end
 
   version :medium do
-    resize_to_limit(250, 250)
+    resize_to_limit(600, 400)
   end
 
   version :thumb do
-    resize_to_fill(125,125)
+    process :crop_resource
+    # resize_to_fill(300, 200)
+  end
+
+  def crop_resource
+    if model.crop_x.present?
+      resize_to_limit(300,200)
+      manipulate! do |img|
+        x = model.crop_x.to_i
+        y = model.crop_y.to_i
+        w = model.crop_w.to_i
+        h = model.crop_h.to_i
+        img.crop!(x, y, w, h)
+      end
+    end
   end
 
 end

@@ -4,7 +4,10 @@ class Resource < ActiveRecord::Base
 	# before_save :thumb_resource
 	# mount_uploader :file_url, ResourceUploader, :mount_on => :photo_path
 
+	attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+
 	mount_uploader :photo_path, ResourceUploader
+	after_update :crop_resource
 
 	paginates_per 10
 
@@ -29,5 +32,9 @@ class Resource < ActiveRecord::Base
 	# 		self.photo_path = "/assets/audio_thumb.png"
 	# 	end
 	# end
+
+	def crop_resource
+		photo_path.recreate_versions! if crop_x.present?
+	end
 
 end

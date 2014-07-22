@@ -55,7 +55,7 @@ class ResourcesController < ApplicationController
 	private
 
 		def resource_params
-			params.require(:resource).permit( :title, :resource_type, :photo_path, :description, :file_url )
+			params.require(:resource).permit( :title, :resource_type, :photo_path, :description, :file_url, :crop_x, :crop_y, :crop_w, :crop_h )
 		end
 
 end

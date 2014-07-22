@@ -462,14 +462,15 @@ body.scrolled .header-navbar  .nav-pages {
   position: relative;
 }
 .page-header {
+  margin: 0;
+  padding: 0;
   position: relative;
   border: none;
-  margin-top: 15px;
-  margin-bottom: 20px;
+  /*margin-top: 15px;
+  margin-bottom: 20px;*/
   border-bottom: 1px solid #ccc;
 }
 .page-header .page-meta.pull-right {
-  margin-top: 10px;
   margin-right: 20px;
   margin-left: 20px;
 }
@@ -621,10 +622,10 @@ body.scrolled .header-navbar  .nav-pages {
   .sm-pull-right {
     float: right;
   }
-  .page-header {
+  /*.page-header {
     margin-top: 15px;
     margin-bottom: 15px;
-  }
+  }*/
   .page-title,
   .page-title.full-page-title {
     font-size: 41px;
@@ -742,10 +743,10 @@ body.scrolled .header-navbar  .nav-pages {
   .lt-ie9 .nav.navbar-nav > li:first-child + li + li + li + li {
     display: block;
   }
-  .page-header {
+/*  .page-header {
     margin-top: 15px;
     margin-bottom: 20px;
-  }
+  }*/
 }
 @media (min-width: 1150px) {
   .nav.navbar-nav > li:nth-child(6) {
@@ -1032,7 +1033,11 @@ body.scrolled .header-navbar  .nav-pages {
   display: inline-block;
   position: relative;
 }
-.live_editable { width: 100%; }
+.live_editable {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+}
 .live_controls {
   min-height: 80px;
   display: none;

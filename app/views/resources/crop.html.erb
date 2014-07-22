@@ -1,6 +1,60 @@
-seleccionaron multimeadia, ajusta la foto
-<% if params[:controller]=='post' %>
-	renderear crop de large cover, ajustar tamaños de share
-<% else %>
-	ajustar????
-<% end %>
+<% provide(:title, "Multimedia") %>
+
+<div class="col-md-6 col-sm-offset-3">
+  <div id="container_form">
+    <div id="photo_container">
+      <h4>Ajusta el cover del post</h4>
+      <div class="all_width crop_container">
+        <%= image_tag @resource.photo_path_url(:large).to_s, id: "crop_resource" %>
+      </div>
+      <div class="container_preview">
+        <%= image_tag @resource.photo_path_url(:large).to_s, :id => "preview" %>
+      </div>
+      <%= form_for @resource do |f| %>
+      <% %w[x y w h].each do |attribute| %>
+      <%= f.hidden_field "crop_#{attribute}" %>
+      <% end %>
+      <p>Así se verá tu foto</p>
+      <%= f.submit "Aceptar", :class => 'btn btn-sm btn-primary form-control' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+var AvatarCropper,
+__bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+jQuery(function() {
+	return new AvatarCropper();
+});
+AvatarCropper = (function() {
+	function AvatarCropper() {
+	this.updatePreview = __bind(this.updatePreview, this);
+	this.update = __bind(this.update, this);
+	$('#crop_resource').Jcrop({
+		aspectRatio: 4/3,
+		setSelect: [0, 0, 400, 300],
+		onSelect: this.update,
+		onChange: this.update
+	});
+}
+
+AvatarCropper.prototype.update = function(coords) {
+	console.log("update");
+	$('#resource_crop_x').val(coords.x);
+	$('#resource_crop_y').val(coords.y);
+	$('#resource_crop_w').val(coords.w);
+	$('#resource_crop_h').val(coords.h);
+	return this.updatePreview(coords);
+};
+
+AvatarCropper.prototype.updatePreview = function(coords) {
+	return $('#preview').css({
+		width: Math.round(100 / coords.w * $('#crop_resource').width()) + 'px',
+		height: Math.round(100 / coords.h * $('#crop_resource').height()) + 'px',
+		marginLeft: '-' + Math.round(100 / coords.w * coords.x) + 'px',
+		marginTop: '-' + Math.round(100 / coords.h * coords.y) + 'px'
+	});
+};
+return AvatarCropper;
+})();
+</script>
