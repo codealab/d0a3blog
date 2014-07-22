@@ -32,13 +32,13 @@ class ResourceUploader < CarrierWave::Uploader::Base
   end
 
   version :thumb do
-    resize_to_limit(900, 600)
     process :crop_resource
+    resize_to_fill(300, 200)
   end
 
   def crop_resource
     if model.crop_x.present?
-      resize_to_fill(300,200)
+      resize_to_limit(900,600)
       manipulate! do |img|
         x = model.crop_x.to_i
         y = model.crop_y.to_i
