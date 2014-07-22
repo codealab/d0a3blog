@@ -22,12 +22,12 @@ class ResourceUploader < CarrierWave::Uploader::Base
   # end
 
   version :large do
-    resize_to_limit(900, 600)
+    # resize_to_limit(900, 600)
     process :crop_resource(900,600)
   end
 
   version :medium do
-    resize_to_limit(600, 400)
+    # resize_to_limit(600, 400)
     process :crop_resource(600,400)
   end
 
