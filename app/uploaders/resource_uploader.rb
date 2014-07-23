@@ -21,14 +21,18 @@ class ResourceUploader < CarrierWave::Uploader::Base
   #   "/assets/" + [version_name, "default.png"].compact.join('_')
   # end
 
-  version :large do
+  version :croppeable do
     resize_to_limit(900, 600)
-    # process :crop_resource(900,600)
+  end
+
+  version :large do
+    process :crop_resource
+    resize_to_fill(900, 600)
   end
 
   version :medium do
-    resize_to_limit(600, 400)
-    # process :crop_resource(600,400)
+    process :crop_resource
+    resize_to_fill(600, 400)
   end
 
   version :thumb do

@@ -5,10 +5,10 @@
     <div id="photo_container">
       <h4>Ajusta el cover del post</h4>
       <div class="all_width crop_container">
-        <%= image_tag @resource.photo_path_url(:large).to_s, id: "crop_resource" %>
+        <%= image_tag @resource.photo_path_url(:croppeable).to_s, id: "crop_resource" %>
       </div>
       <div class="container_preview">
-        <%= image_tag @resource.photo_path_url(:large).to_s, :id => "preview" %>
+        <%= image_tag @resource.photo_path_url(:croppeable).to_s, :id => "preview" %>
       </div>
       <%= form_for @resource do |f| %>
       <% %w[x y w h].each do |attribute| %>

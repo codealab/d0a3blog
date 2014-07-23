@@ -34,7 +34,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   def crop
     if model.crop_x.present?
-      resize_to_limit(400,400)
+      resize_to_limit(900,900)
       manipulate! do |img|
         x = model.crop_x.to_i
         y = model.crop_y.to_i
