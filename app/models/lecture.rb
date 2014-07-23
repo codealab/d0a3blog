@@ -9,11 +9,11 @@ class Lecture < ActiveRecord::Base
 	belongs_to :group
 
 	validates_presence_of :date, :group_id
-	# validates_uniqueness_of :date, :scope => :group_id
+	validates_uniqueness_of :date, :scope => :group_id
 	has_many :attendances, :dependent => :restrict_with_error
 
 	validate :invalid_date, :if => :date
-	# validate :uniqueness_combination_of_date_and_group_id, :if => :group
+	validate :uniqueness_combination_of_date_and_group_id, :if => :group
 	# validate :when_date_is_before_today
 
 	def invalid_date
