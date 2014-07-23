@@ -13,7 +13,7 @@ class Lecture < ActiveRecord::Base
 	has_many :attendances, :dependent => :restrict_with_error
 
 	validate :invalid_date, :if => :date
-	validate :uniqueness_combination_of_date_and_group_id, :if => :group
+	# validate :uniqueness_combination_of_date_and_group_id, :if => :group
 	# validate :when_date_is_before_today
 
 	def invalid_date
