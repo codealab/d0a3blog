@@ -4,6 +4,8 @@ class Resource < ActiveRecord::Base
 	# before_save :thumb_resource
 	# mount_uploader :file_url, ResourceUploader, :mount_on => :photo_path
 
+	after_create :delete_original_file
+
 	attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
 	mount_uploader :photo_path, ResourceUploader
@@ -17,6 +19,10 @@ class Resource < ActiveRecord::Base
 	validates :resource_type, presence: true
 
 	# private
+
+	def delete_original_file
+	  File.delete self.original_file_path if File.exists? self.original_file_path
+	end
 
 	# def thumb_resource
 	# 	case self.resource_type
