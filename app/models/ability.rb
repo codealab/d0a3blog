@@ -9,7 +9,7 @@ class Ability
 
     alias_action :create, :read, :update, :destroy, :status, :search, :to => :crud
     alias_action :read, :search, :to => :default_actions
-    alias_action :edit, :update, :to => :user_actions
+    alias_action :edit, :update, :show, :to => :user_actions
 
     can :user_actions, User, :id => current_user.id
 

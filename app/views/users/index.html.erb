@@ -37,11 +37,13 @@
 					</th>
 					<% if !current_user?(user) %>
 						<th>
-							<%= link_factory( :_path => edit_user_path(user), :_text=> 'Editar', :_button=> true, :_class=> 'btn btn-danger btn-xs', :_alert=> "¿Estás seguro de borrar a #{user.name}?", :_destroy=>true ) %>
+							<%= link_factory( :_path => user_path(user), :_text=> 'Eliminar', :_button=> true, :_class=> 'btn btn-danger btn-xs', :_alert=> "¿Estás seguro de borrar a #{user.name}?", :_destroy=>true ) %>
 						</th>
 					<% else %>
 						<th>
-							<button type="button" class="btn btn-danger btn-xs disabled">Borrar</button>
+							<a href="#">
+								<p><button type="button" class="btn btn-danger btn-xs disabled">Borrar</button></p>
+							</a>
 						</th>
 					<% end %>
 				<% end %>

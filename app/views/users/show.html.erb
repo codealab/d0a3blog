@@ -1,9 +1,8 @@
 <% provide(:title, "#{@user.name}") %>
-
 <div class="boton_der">
 	<div class="top_buttons">
 		<%= link_to root_path do %>
-			<p><button type="button" class="btn btn-info">Regresar a Home</button></p>
+		<p><button type="button" class="btn btn-info">Home</button></p>
 		<% end %>
 		<%= link_factory( :_path => users_path, :_class=>'btn btn-default', :_button => true, :_text=>'Regresar a usuarios' ) %>
 	</div>
@@ -17,9 +16,9 @@
 			<div class="white_box">
 				<div class="text_center">
 					<% if @user.photo_url.include?('/default/') %>
-						<%= image_tag @user.photo_url.to_s, id: 'image_url' %>
+					<%= image_tag @user.photo_url.to_s, id: 'image_url' %>
 					<% else %>
-						<%= image_tag @user.photo_url(:thumb).to_s, :class => "profile_thumb" %>
+					<%= image_tag @user.photo_url(:thumb).to_s, :class => "profile_thumb" %>
 					<% end %>
 					<div class="spacer"></div>
 				</div>
@@ -40,23 +39,23 @@
 						<tr>
 							<td></td>
 							<% if @user.admin %>
-								<td>Administrador</td>
+							<td>Administrador</td>
 							<% else %>
-								<td></td>
+							<td></td>
 							<% end %>
 						</tr>
 						<% if @user.coordinator %>
-							<tr>
-								<td></td>
-								<td>Coordinador</td>
-							</tr>
+						<tr>
+							<td></td>
+							<td>Coordinador</td>
+						</tr>
 						<% end %>
 						<tr>
 							<td></td>
 							<% if @user.instructor %>
-								<td>Instructor</td>
+							<td>Instructor</td>
 							<% else %>
-								<td></td>
+							<td></td>
 							<% end %>
 						</tr>
 					</tbody>
@@ -64,37 +63,36 @@
 			</div>
 		</div>
 	</div>
-
 	<% if @user.instructor? %>
-		<div class="col-md-8">
-			<h4>Grupos</h4>
-			<div class="under_pressure"></div>
-			<div class="blue_box">
-				<% if @user.groups.count>0 %>
-					<table class="table table-striped tablesorter">
-						<thead>
-							<th>Grupo</th>
-							<th>Edad</th>
-							<th>Período</th>
-							<th>Costo</th>
-							<th>Ubicación</th>
-						</thead>
-						<tbody>
-							<% @user.groups.each do |g|  %>
-								<tr>
-									<td><%= g.name %></td>
-									<td><%= "#{g.min_age} a #{g.max_age} meses"%></td>
-									<td><%= g.init_date.strftime('%d/%m/%Y') %> - <%= g.finish_date.strftime('%d/%m/%Y') %></td>
-									<td><%= g.cost %></td>
-									<td><%= g.location %></td>
-								</tr>
-							<% end %>
-						</tbody>
-					</table>
-				<% else %>
-					<h4 class="counter_is_zero">Este usuario (Instructor) no tiene ningún grupo a su cargo</h4>
-				<% end %>
-			</div>
+	<div class="col-md-8">
+		<h4>Grupos</h4>
+		<div class="under_pressure"></div>
+		<div class="blue_box">
+			<% if @user.groups.count>0 %>
+			<table class="table table-striped tablesorter">
+				<thead>
+					<th>Grupo</th>
+					<th>Edad</th>
+					<th>Período</th>
+					<th>Costo</th>
+					<th>Ubicación</th>
+				</thead>
+				<tbody>
+					<% @user.groups.each do |g|  %>
+					<tr>
+						<td><%= g.name %></td>
+						<td><%= "#{g.min_age} a #{g.max_age} meses"%></td>
+						<td><%= g.init_date.strftime('%d/%m/%Y') %> - <%= g.finish_date.strftime('%d/%m/%Y') %></td>
+						<td><%= g.cost %></td>
+						<td><%= g.location %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<% else %>
+			<h4 class="counter_is_zero">Este usuario (Instructor) no tiene ningún grupo a su cargo</h4>
+			<% end %>
 		</div>
+	</div>
 	<% end %>
 </div>

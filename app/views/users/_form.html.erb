@@ -26,9 +26,9 @@
 			<p><%= f.input :password_confirmation, label:"Confirmación de Contraseña" %></p>
 		<% end %>
 		<% if params[:action]=='new' %>
-	<p><%= f.submit "Crear Programa", class: "btn btn-sm btn-primary" %></p>
+	<p><%= f.submit "Crear Usuario", class: "btn btn-sm btn-primary" %></p>
 <% else %>
-	<p><%= f.submit "Guardar Programa", class: "btn btn-sm btn-primary" %></p>
+	<p><%= f.submit "Guardar Cambios", class: "btn btn-sm btn-primary" %></p>
 <% end %>
     <% end %>
   </div>

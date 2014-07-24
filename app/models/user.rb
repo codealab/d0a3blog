@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
 	validates :name, length: { maximum: 50 }
 	validates :password, length: { minimum: 6 }, :if => :password
 	validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+	validate :verify_rolls
 
 	has_secure_password
 
@@ -39,6 +40,12 @@ class User < ActiveRecord::Base
 
 	def crop_user
 		photo.recreate_versions! if crop_x.present?
+	end
+
+	def verify_rolls
+		if !self.instructor?  && !self.coordinator? && !self.admin?
+			errors.add(:base, "El usuario debe tener por lo menos un tipo de rol")
+		end
 	end
 
 	private
