@@ -1,7 +1,8 @@
 # encoding: UTF-8
 class Group < ActiveRecord::Base
 
-	
+	attr_accessor :skip_validation
+
 	before_save :downcase_names
 	after_initialize :titleize_names
 
@@ -50,6 +51,12 @@ class Group < ActiveRecord::Base
 		def min_age_cannot_be_greater_than_max_age
 			errors.add(:min_age, "es mayor a la máxima") if 
 			!min_age.blank? and !max_age.blank? and min_age > max_age
+		end
+
+		def date_cannot_be_less_than_today
+			if self.date < Date.today && !self.skip_validation
+				errors.add(:date, "debe ser mayor al día de hoy.")
+			end
 		end
 
 		def init_date_cannot_be_greater_than_finish_date

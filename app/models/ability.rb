@@ -5,13 +5,17 @@ class Ability
   def coordinator_instructor
     can :crud, Payment
     can :crud, Family
-    can :crud, Group
     can :crud, Person
+    can :read, Program
+    can :crud, Course
+    can :crud, Group
     can :crud, Spot
+    can :crud, Attendance
+    can :crud, Exercise
   end
 
   def initialize(current_user)
-    
+
     current_user ||= User.new
 
     alias_action :create, :read, :update, :destroy, :status, :search, :to => :crud
@@ -28,7 +32,9 @@ class Ability
                 coordinator_instructor
             else
                 if current_user.instructor?
-                    can :read, Group
+                    can :crud, Group
+                    can :read, Program
+                    can :crud, Course
                     can :crud, Address
                     can :crud, Area
                     can :crud, Lecture
@@ -51,7 +57,6 @@ class Ability
             end
         end
     end
-
   end
 
 end

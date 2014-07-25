@@ -1,6 +1,8 @@
 # encoding: UTF-8
 class Lecture < ActiveRecord::Base
 
+	attr_accessor :skip_validation
+
 	after_validation :when_date_is_before_today,  on: [ :update ]
 	after_save :increase_decrease_duration_group, :if => :date
 	has_many :plans
@@ -17,7 +19,7 @@ class Lecture < ActiveRecord::Base
 	# validate :when_date_is_before_today
 
 	def invalid_date
-		if self.date < Date.today
+		if self.date < Date.today && !self.skip_validation
 			errors.add(:date, "debe ser mayor al día de hoy.")
 		end
 	end

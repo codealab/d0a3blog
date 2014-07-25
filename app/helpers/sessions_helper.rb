@@ -12,6 +12,10 @@ module SessionsHelper
     @current_user = user
   end
 
+  # def skype_validation(current_user)
+  #   flash[:message] = "No puedes eliminar, borrar o esto."
+  # end
+
   def current_user
     remember_token = User.encrypt(cookies[:remember_token])
     @current_user ||= User.find_by(remember_token: remember_token)

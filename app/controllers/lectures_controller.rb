@@ -10,6 +10,7 @@ class LecturesController < ApplicationController
 	def create
 		@group = Group.find(params[:group_id])
 		@lecture = @group.lectures.build(lecture_params)
+		@lecture.skip_validation = current_user.admin?
 		if @group.save
 			flash[:success] = "Clase creada exitosamente"
 			redirect_to @group
