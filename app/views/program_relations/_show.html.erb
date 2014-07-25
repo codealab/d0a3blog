@@ -54,11 +54,11 @@
 								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= exercise.id %>">Leer más</button>
 							</td>
 							<td class="text_center program_relation_content">
-								<%= link_to lesson_program_relations_path(@lesson, :exercise_id => exercise.id), :remote => true, :id => "exercise_#{exercise.id}", :method => 'post', :id => "program_relation_#{index}" do %>
+								<a href="/lessons/<%= @lesson.id %>/program_relations/destroy?exercise_id=<%= exercise.id %>" data-remote="true" title="Eliminar" id="program_relation_#{index}">
 								<button class="btn btn-danger btn-xs">
 								Eliminar
 								</button>
-								<% end %>
+								</a>
 							</td>
 							<div class="modal fade" id="ex_<%= exercise.id %>" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog">

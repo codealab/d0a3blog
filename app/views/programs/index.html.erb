@@ -1,16 +1,28 @@
-<% provide(:title, "Nuevo grupo") %>
+<% if current_user.admin? %>
+	<% provide(:title, "Todos los programas") %>
+<% else %>
+	<% provide(:title, "Nuevo grupo") %>
+<% end %>
 
 <div class="boton_der">
-	<div class="top_buttons">
-		<%= link_factory( :_path => new_program_path, :_text =>'Nuevo Programa', :_class => 'btn btn-default', :_button => true ) %>
-	</div>
-	<h1>Nuevo grupo<span class="line"></span></h1>
+	<% if current_user.admin? %>
+		<div class="top_buttons">
+			<%= link_factory( :_path => new_program_path, :_text =>'Nuevo Programa', :_class => 'btn btn-default', :_button => true ) %>
+		</div>
+	<% end %>
+	<% if current_user.admin? %>
+		<h1>Todos los Programas<span class="line"></span></h1>
+	<% else %>
+		<h1>Nuevo grupo<span class="line"></span></h1>
+	<% end %>
 </div>
 
 <div class="all_width blue_box">
 	<div class="center_div" id="center_div_program">
-		<p>Para crear el grupo selecciona el programa que deseas utilizar. </p>
-		<p>Si no deseas utilizar un programa, haz click en el botón de crear manualmente.</p>
+		<% if !current_user.admin? %>
+			<p>Para crear el grupo selecciona el programa que deseas utilizar. </p>
+			<p>Si no deseas utilizar un programa, haz click en el botón de crear manualmente.</p>
+		<% end %>
 	</div>
 	<% if @programs.count>0 %>
 		<table class="table table-striped">
@@ -22,7 +34,7 @@
 					<th class="text_center">Descripción</th>
 					<th class="text_center">Crear grupo</th>
 				</tr>
-			</thead>
+			</thead>			
 			<tbody>
 				<% @programs.each do |program| %>
 					<tr class="text_center">
@@ -41,9 +53,11 @@
 	<% else %>
 		<h4 class="counter_is_zero">Aún no existen programas</h4>
 	<% end %>
-	<div class="center_div">
-		<%= link_factory( :_path => new_group_path, :_text => 'Crear manualmente', :_class => 'btn btn-primary', :_button=>true ) %>
-	</div>
+	<% if !current_user.admin? %>
+		<div class="center_div">
+			<%= link_factory( :_path => new_group_path, :_text => 'Crear manualmente', :_class => 'btn btn-primary', :_button=>true ) %>
+		</div>
+	<% end %>
 </div>
 
 <h6>Total de programas: <%= @programs.count %></h6>

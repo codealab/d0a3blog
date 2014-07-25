@@ -42,6 +42,10 @@ class Person < ActiveRecord::Base
 		[name,first_last_name,second_last_name].join(" ")
 	end
 
+	def active_groups
+		self.groups.where(hidden:false)
+	end
+
 	include PgSearch
 	
 	pg_search_scope :search, against: [:name, :first_last_name, :second_last_name],

@@ -2,7 +2,7 @@ class Program < ActiveRecord::Base
 
 	after_create :generate_lessons
 
-	has_many :lessons
+	has_many :lessons, :dependent => :restrict_with_error
 	has_many :exercises, through: :lessons
 
 	validates_presence_of :name, :min_age, :max_age

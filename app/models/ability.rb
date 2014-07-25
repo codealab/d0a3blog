@@ -2,10 +2,17 @@ class Ability
 
   include CanCan::Ability
 
+  def coordinator_instructor
+    can :crud, Payment
+    can :crud, Family
+    can :crud, Group
+    can :crud, Person
+    can :crud, Spot
+  end
+
   def initialize(current_user)
-    # Define abilities for the passed in user here. For example:
     
-    current_user ||= User.new # guest user (not logged in)
+    current_user ||= User.new
 
     alias_action :create, :read, :update, :destroy, :status, :search, :to => :crud
     alias_action :read, :search, :to => :default_actions
@@ -15,26 +22,34 @@ class Ability
 
     if current_user.admin?
         can :manage, :all
-    elsif current_user.coordinator?
-        can :crud, Address
-        can :crud, Group
-        can :crud, Payment
-        can :crud, Family
-        can :crud, Person
-    elsif current_user.instructor?
-        can :crud, Address
-        can :crud, Area
-        can :crud, Lecture
-        can :crud, Group
-        can :crud, Exercise
-        can :crud, Family
-        can :crud, Person
-        can :crud, Spot
-        can :crud, Attendance
     else
-        can :default_actions, :all
-        can :new, Spot
-        can :new, Attendance
+        if current_user.instructor? || current_user.coordinator?
+            if current_user.instructor? && current_user.coordinator?
+                coordinator_instructor
+            else
+                if current_user.instructor?
+                    can :read, Group
+                    can :crud, Address
+                    can :crud, Area
+                    can :crud, Lecture
+                    can :crud, Exercise
+                    can :crud, Family
+                    can :crud, Person
+                    can :crud, Spot
+                    can :crud, Attendance
+                else
+                    can :crud, Group
+                    can :crud, Address
+                    can :crud, Area
+                    can :crud, Lecture
+                    can :crud, Exercise
+                    can :crud, Family
+                    can :crud, Person
+                    can :crud, Spot
+                    can :crud, Attendance
+                end
+            end
+        end
     end
 
   end

@@ -9,8 +9,8 @@
 
 <%= render 'groups/form' %>
 
-<% if(@group.can_destroy?) %>
+<% if @group.can_destroy? || current_user.admin? %>
 	<div class="boton_der">
-		<%= link_factory( :_path => group_path(@group), :_text => "Borrar Grupo", :_class=>'btn btn-danger', :_button => true, :_alert => "¿Estás Seguro?", :_destroy => true ) %>
+		<%= link_factory( :_path => group_path(@group), :_text => "Borrar Grupo", :_class=>'btn btn-danger', :_button => true, :_alert => "¿Estás Seguro de borrar este grupo?", :_destroy => true ) %>
 	</div>
 <% end %>

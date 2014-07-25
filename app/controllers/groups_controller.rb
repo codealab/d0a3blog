@@ -8,9 +8,9 @@ class GroupsController < ApplicationController
 
 	def index
 		if params[:filter]
-			@groups = Group.where("finish_date <= :start_date", { start_date: Date.today }).paginate(page: params[:page])
+			@groups = Group.where("finish_date <= :start_date", { start_date: Date.today }).paginate( page: params[:page])
 		else
-			@groups = Group.where("finish_date >= :start_date", { start_date: Date.today }).paginate(page: params[:page])
+			@groups = Group.where("finish_date >= :start_date", { start_date: Date.today }).paginate( page: params[:page])
 		end
 	end
 
@@ -40,12 +40,8 @@ class GroupsController < ApplicationController
 	def show
 		@group = Group.find(params[:id])
 		@lecture = @group.lectures.where( "date >= :start_date", { start_date: Date.today }).order('date ASC').first
-		if !@lecture
-			@lecture = @group.lectures.where( "date <= :start_date", { start_date: Date.today }).order('date DESC').first
-		end
-		if params[:lecture]
-			@lecture = @group.lectures.find(params[:lecture])
-		end
+		@lecture = @group.lectures.where( "date <= :start_date", { start_date: Date.today }).order('date DESC').first if !@lecture
+		@lecture = @group.lectures.find(params[:lecture]) if params[:lecture]
 	end
 
 	def update
@@ -59,9 +55,13 @@ class GroupsController < ApplicationController
 	end
 
 	def destroy
-		flash[:success] = "Grupo Borrado"
 		group = Group.find(params[:id])
-		group.destroy
+		group.remove(:current_user=>current_user)
+		if !group.have_dependencies? || current_user.admin?
+			flash[:success] = "Grupo Borrado Exitosamente"
+		else
+			flash[:danger] = "El grupo no se puede borrar. Elimina primero todas sus clases y niños inscritos."
+		end
 		redirect_to groups_path
 	end
 

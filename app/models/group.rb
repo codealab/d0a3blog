@@ -1,14 +1,15 @@
 # encoding: UTF-8
 class Group < ActiveRecord::Base
+
 	
 	before_save :downcase_names
 	after_initialize :titleize_names
 
 	belongs_to :user
 	belongs_to :assistant, :class_name => 'User'
-	has_many :spots, :dependent => :restrict_with_error
+	has_many :spots, :dependent => :delete_all
 	has_many :childs, through: :spots
-	has_many :lectures, :dependent => :restrict_with_error
+	has_many :lectures, :dependent => :delete_all
 	has_many :attendances, through: :lectures
 	has_many :payments, through: :spots
 
