@@ -26,7 +26,8 @@ class GroupsController < ApplicationController
 
 	def admin
 		@group = Group.find(params[:id])
-		@lecture = @group.lectures.first
+		@lecture = Lecture.new()
+		# @lecture = Lecture.new
 	end
 
 	def new
@@ -66,7 +67,8 @@ class GroupsController < ApplicationController
 	end
 
 	def lecture
-		@lecture = Lecture.new(lecture_params)
+		@group = Group.find(params[:group_id])
+		@lecture = @group.lectures.build(date: params[:date] )
 		@lecture.save
 	end
 
@@ -78,6 +80,7 @@ class GroupsController < ApplicationController
 	end
 
 	def relations
+		puts 'entro a relations'
 		@group = Group.find(params[:id])
 		@lecture = Lecture.find(params[:lecture_id])
 	end
@@ -86,10 +89,6 @@ class GroupsController < ApplicationController
 
 		def group_params
 			params.require(:group).permit(:name, :user_id, :assistant_id, :location, :cost, :min_age, :max_age, :init_date, :finish_date)
-		end
-
-		def lecture_params
-			params.require(:lecture).permit( :date, :group_id, :observation, :objective )
 		end
 
 	protected

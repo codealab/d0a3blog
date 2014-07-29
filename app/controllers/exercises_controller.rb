@@ -85,7 +85,7 @@ class ExercisesController < ApplicationController
 		@exercise = Exercise.find(params[:id])
 		areas @exercise
 		if @exercise.update_attributes(exercise_params)
-			redirect_to group_path(@group)
+			redirect_to exercises_path
 			flash[:success] = "Actualización exitosa"
 		else
 			@exercise.reload
@@ -104,7 +104,6 @@ class ExercisesController < ApplicationController
 		if init || ended || name || area
 			@area = Area.find_by_id(area) if area
 			@exercises = @area ? (@area.exercises):(Exercise.all)
-
 			if init && ended
 				@exercises = @exercises.where("min_age <= #{ended} AND max_age >= #{init}")
 			elsif init && !ended
@@ -123,16 +122,9 @@ class ExercisesController < ApplicationController
 	def destroy
 		@exercise = Exercise.find(params[:id])
 		if @exercise.lectures.empty?
-			@exercise.areas.delete_all
 			@exercise.destroy
 			flash[:success] = "Actividad borrada"
-			if params[:group] && params[:lecture]
-				@group = Group.find(params[:group_id])
-				@lecture = Lecture.find(params[:lecture_id])
-				redirect_to group_lecture_path(@group,@lecture)
-			else
-				redirect_to exercises_path
-			end
+			redirect_to exercises_path
 		else
 			redirect_to(:back, notice: "Esta actividad está asignada a una o varias clases. No puede llevarse a cabo esta acción.")
 		end

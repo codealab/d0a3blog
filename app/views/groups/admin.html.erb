@@ -52,7 +52,7 @@
 <div class="spacer"></div>
 <div class="light_box" id="container_refresh_programs_relations">
 	<div id="refresh_programs_relations">
-		<!--<%= render '/groups/relations' %>-->
+		<!-- render -->
 	</div>
 </div>
 </div>
@@ -63,22 +63,22 @@
 			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			<h4 class="modal-title" id="myModalLabel">Nueva Clase</h4>
 		</div>
-		<%= simple_form_for @lecture, :url => "/groups/lecture/#{@group.id}/", :method => :get, :html => {:multipart => true, :class => 'form-horizontal', remote: true } do |f| %>
-		<div class="modal-body">
-			<div class="col-md-10 col-md-offset-1" style="position: relative; top: -40px;">
-				<p><span id="selector_fecha">
-				<label class="hour_select"><abbr title="required">*</abbr> Hora</label>
-				<div class="hidden">
-					<%= f.input :group_id, value: @group.id, :readonly => true, :class => 'disabled form-control', :type=>"hidden" %>
+		<%= simple_form_for @lecture, :url => "/groups/lecture/#{@group.id}/", :method => :get, :html => {:multipart => true, :class => 'form-horizontal' } do |f| %>
+			<div class="modal-body">
+				<div class="col-md-10 col-md-offset-1" style="position: relative; top: -40px;">
+					<p><span id="selector_fecha">
+					<label class="hour_select"><abbr title="required">*</abbr> Hora</label>
+					<div class="hidden">
+						<%= f.input :group_id, value: @group.id, :readonly => true, :class => 'disabled form-control', :type=>"hidden" %>
+					</div>
+					<%= f.input :date, label: "Fecha", :order => [:day, :month, :year], :start_year => (@group.init_date-1.year).year, :end_year => @group.finish_date.year, start_hour: 7, end_hour: 21, :minute_step => 30, :input_html => { :class => 'date_selector' }  %>
+					</span></p>
 				</div>
-				<%= f.input :date, label: "Fecha", :order => [:day, :month, :year], :start_year => (@group.init_date-1.year).year, :end_year => @group.finish_date.year, start_hour: 7, end_hour: 21, :minute_step => 30, :input_html => { :class => 'date_selector' }  %>
-				</span></p>
 			</div>
-		</div>
-		<div class="modal-footer">
-			<%= f.submit "Crear Clase", class: "btn btn-default" %>
-			<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-		</div>
+			<div class="modal-footer">
+				<%= f.submit "Crear Clase", class: "btn btn-default" %>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+			</div>
 		<% end %>
 	</div>
 </div>
@@ -92,6 +92,17 @@
 					start: '<%= lecture.date.strftime("%FT%I:%M") %>',
 					end: '<%= (lecture.date.to_datetime+1.minute).strftime("%FT%I:%M") %>'
 				},<% end %>];
+	<% if @group.lectures.count > 0 %>
+		<% if (@group.finish_date.to_datetime < Date.today.to_datetime) %>
+			var default_date = "<%= @group.lectures.last.date.to_date %>";
+		<% elsif (@group.init_date.to_datetime > Date.today.to_datetime) %>
+			var default_date = "<%= @group.lectures.first.date.to_date %>";
+		<% else %>
+			var default_date = "<%= DateTime.now.to_date %>";
+		<% end %>
+	<% else %>
+		var default_date = "<%= DateTime.now.to_date %>";
+	<% end %>
 	$(document).ready(function() {
 		$('.tip').tooltip();
 		$('.tiny_scroll').each(function() {
@@ -101,7 +112,7 @@
 			newScroll.update();
 		});
 		$('#calendar').fullCalendar({
-			defaultDate: '<%= DateTime.now.to_datetime %>',
+			defaultDate: default_date,
 			editable: true,
 			disableResizing: true,
 			selectHelper: true,

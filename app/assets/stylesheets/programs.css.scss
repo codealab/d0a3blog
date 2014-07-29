@@ -209,9 +209,13 @@
 	bottom: -13px;
 	z-index: 99;
 }
-#remove_lecture_modal h4, #errors_lecture_modal h4{
-	color: red;
-	text-align: center;
+#remove_lecture_modal h4, #errors_lecture_modal h4 {
+	text-align: left;
+	color: #595959;
+	font-size: 18px;
+}
+#remove_lecture_container .modal-header{
+	background-color: #EEEEEE;
 }
 #container_refresh_programs_relations{
 	position: relative;
@@ -222,4 +226,17 @@
 	position: absolute;
 	bottom: -13px;
 	right: 26px;
+}
+#container_program_relations .light_box{
+	padding: 0px 20px 5px 20px;
+}
+#delete_lecture_button {
+	display: none;
+	position: absolute;
+	left: 120px;
+	bottom: 20px;
+}
+#remove_lecture_modal h6{
+	margin-bottom: 20px;
+	position: relative;
 }

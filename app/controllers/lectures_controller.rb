@@ -58,10 +58,14 @@ class LecturesController < ApplicationController
 	end
 
 	def destroy
-		@group = Group.find(params[:group_id])
-		Lecture.find(params[:id]).destroy
+		@lecture = Lecture.find(params[:id])
+		@lecture.remove(:current_user => current_user)
+		if !@lecture.have_dependencies? || current_user.admin?
+			flash[:success] = "Clase Borrada Exitosamente"
+		else
+			flash[:danger] = "La clase no se puede borrar. Elimina primero todos sus ejercicios relacionados."
+		end
     	flash[:success] = "Clase borrada"
-    	# redirect_to @group
     	redirect_to :back
 	end
 

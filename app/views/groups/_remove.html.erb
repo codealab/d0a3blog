@@ -3,17 +3,46 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title">¿Estás seguro de eliminar esta clase?</h4>
+				<% if !@lecture.have_dependencies? %>
+					<h4 class="modal-title">¿Estás seguro de eliminar esta clase?</h4>
+				<% else %>
+					<h4 class="modal-title">Confirmación de eliminación</h4>
+				<% end %>
 			</div>
 			<div class="modal-body">
-				<p>Se eliminará de tu calendario de clases.</p>
-				<div style="float: left; position: relative;">
-					<a data-method="delete" href="/groups/<%= @lecture.group.id %>/lectures/<%= @lecture.id %>" rel="nofollow">
-						<button type="button" class="btn btn-danger">Eliminar</button>
-					</a>
-				</div>
-				<button style="margin-left: 10px;" type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+				<% if !@lecture.have_dependencies? %>
+					<p>Se eliminará de tu calendario de clases.</p>
+					<div style="float: left; position: relative;">
+						<a data-method="delete" href="/groups/<%= @lecture.group.id %>/lectures/<%= @lecture.id %>" rel="nofollow">
+							<button type="button" class="btn btn-danger">Eliminar</button>
+						</a>
+					</div>
+					<button style="margin-left: 10px;" type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+				<% else %>
+					<p>Escribe <b>ELIMINAR</b> para confirmar.</p>
+					<h6>Nota: Se eliminarán <b><%= @lecture.exercises.count %> actividades</b> relacionadas.</h6>
+					<input class="string optional form-control" id="delete_confirmation" type="text">
+					<br>
+					<button style="margin-left: 10px;" type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+					<div id="delete_lecture_button">
+						<a data-method="delete" href="/groups/<%= @lecture.group.id %>/lectures/<%= @lecture.id %>" rel="nofollow">
+							<button type="button" class="btn btn-danger">Eliminar</button>
+						</a>
+					</div>
+				<% end %>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function() {
+		$("#delete_confirmation").on("keyup", function(){
+			var word=$(this).val();
+			if(word=="eliminar"){
+				$("#delete_lecture_button").fadeIn(100);
+			}else{
+				$("#delete_lecture_button").fadeOut(100);
+			}
+		});
+	});
+</script>

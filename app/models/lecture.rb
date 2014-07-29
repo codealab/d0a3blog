@@ -6,13 +6,15 @@ class Lecture < ActiveRecord::Base
 	after_validation :when_date_is_before_today,  on: [ :update ]
 	after_save :increase_decrease_duration_group, :if => :date
 	has_many :plans
-	has_many :exercises, through: :plans, :dependent => :restrict_with_error
+	has_many :exercises, through: :plans, :dependent => :delete_all
 	after_validation :validate_new_date, :if => :date
+
+	before_destroy :adjust_finish_date_group
 	belongs_to :group
 
 	validates_presence_of :date, :group_id
 	validates_uniqueness_of :date, :scope => :group_id
-	has_many :attendances, :dependent => :restrict_with_error
+	has_many :attendances, :dependent => :delete_all
 
 	validate :invalid_date, :if => :date
 	validate :uniqueness_combination_of_date_and_group_id, :if => :group
@@ -29,6 +31,13 @@ class Lecture < ActiveRecord::Base
 	end
 
 	private
+
+		def adjust_finish_date_group
+			if self.group.lectures.order('date ASC').last.id == self.id
+				self.group.finish_date = self.date.to_date
+				self.group.save
+			end
+		end
 
 		def increase_decrease_duration_group
 			lectures = self.group.lectures.order('date ASC')

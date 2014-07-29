@@ -25,8 +25,8 @@
 	<%= render 'lectures/objective' %>
 </div>
 <div id="remove_lecture_container">
-	<% if @lecture.can_destroy? %>
-	<%= render "/groups/remove" %>
+	<% if @lecture.can_destroy? || current_user.admin? %>
+		<%= render "/groups/remove" %>
 	<% else %>
 	<div class="modal fade bs-example-modal-sm" id="remove_lecture_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-sm">
@@ -36,7 +36,7 @@
 					<h4 class="modal-title">Esta clase no puede eliminarse.</h4>
 				</div>
 				<div class="modal-body text-center">
-					<p>Para poder borrarla, elimina primero todos sus ejercicios y/o asistencias.</p>
+					<p>Para poder borrarla, elimina primero todos sus ejercicios relacionados.</p>
 				</div>
 			</div>
 		</div>
@@ -81,7 +81,6 @@
 			<div class="text_center program_top_title">Rango</div>
 			<div class="text_center program_top_title">Area</div>
 			<div class="text_center program_top_title">Detalles</div>
-			<div class="text_center program_top_title">Eliminar</div>
 		</div>
 		<div id="tiny_program_exercises" class="tiny_scroll">
 			<div class="scrollbar">
@@ -109,11 +108,6 @@
 							</td>
 							<td class="program_relation_content text_center">
 								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= exercise.id %>">Leer más</button>
-							</td>
-							<td class="text_center program_relation_content">
-								<a href=<%= "/exercises/status/#{exercise.id}?lecture_id=#{@lecture.id}" %> data-remote="true">
-									<button class="btn btn-danger btn-xs">Eliminar</button>
-								</a>
 							</td>
 							<div class="modal fade" id="ex_<%= exercise.id %>" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog">
