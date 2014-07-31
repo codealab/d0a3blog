@@ -149,18 +149,17 @@
 	bottom: 0;
 	background: #d6dce0;
 	height: 10px;
-	padding-left: 5px;
 }
 #disable_admin, #save_admin{ display: none; }
-.program_relation_point{
+.program_relation_point {
 	width: 5px;
 	height: 5px;
 	border-radius: 50%;
 	background-color: #377592;
-	float: left;
 	margin: 2px;
-	top: 1px;
+	top: -5px;
 	position: relative;
+	display: inline-block;
 }
 .exercise_relation_point {
 	width: 5px;
@@ -216,6 +215,7 @@
 }
 #remove_lecture_container .modal-header{
 	background-color: #EEEEEE;
+	border-radius: 5px 5px 0px 0px;
 }
 #container_refresh_programs_relations{
 	position: relative;
@@ -232,11 +232,38 @@
 }
 #delete_lecture_button {
 	display: none;
-	position: absolute;
-	left: 120px;
-	bottom: 20px;
 }
-#remove_lecture_modal h6{
-	margin-bottom: 20px;
+#remove_lecture_modal h6 {
+	margin-bottom: 10px;
 	position: relative;
+	top: -5px;
+	text-align: left;
+	color: red;
 }
+.arrows-move-exercises{
+	width: 30px;
+	margin: 0;
+	padding: 0!important;
+}
+.arrow-asc {
+	cursor: pointer;
+	width: 35px;
+	height: 19px;
+	background-image: url(/assets/desc.gif);
+	position: relative;
+	background-repeat: no-repeat;
+	background-position: 6px 13px;
+	opacity: 0.6;
+}
+.arrow-asc:hover{ background-position: 6px 11px; }
+.arrow-desc {
+	cursor: pointer;
+	width: 35px;
+	height: 19px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-image: url(/assets/asc.gif);
+	background-position: 7px 2px;
+	opacity: 0.6;
+}
+.arrow-desc:hover{ background-position: 7px 4px; }

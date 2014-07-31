@@ -161,9 +161,17 @@ function over_and_clicks() {
         $("#" + modalID).modal('hide');
     });
 
+    $(document).on("keyup", "#delete_confirmation", function() {
+        var word = $(this).val();
+        if (word == "ELIMINAR") {
+            $("#delete_lecture_button").fadeIn(100);
+        } else {
+            $("#delete_lecture_button").fadeOut(100);
+        }
+    });
+
     $('.tip').tooltip();
     // $(document).on('click', '.date_over', function() {
-    //     alert("click")
     //     $(this).addClass('date_active');
     //     $('.date_over').not(this).removeClass('date_active');
     // });

@@ -1,9 +1,14 @@
 <div class="boton_der">
 	<div class="top_buttons">
 		<% if @group && @lecture %>
-			<!-- <a href=<%= "/groups/#{@group.id}?lecture=#{@lecture.id}" %>></a> -->
-			<%= link_to :back  do %>
-				<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
+			<% if params[:show] %>
+				<%= link_to "/groups/#{@group.id}" do %>
+					<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
+				<% end %>
+			<% else %>
+				<%= link_to "/groups/admin/#{@group.id}?lecture=#{@lecture.id}" do %>
+					<p><button type="button" class="btn btn-info">Regresar a Grupo</button></p>
+				<% end %>
 			<% end %>
 			<%= link_factory( :_path => new_group_lecture_exercise_path(@group, @lecture), :_text =>'Nueva Actividad', :_class => 'btn btn-default', :_button => true ) %>
 		<% else %>
@@ -32,7 +37,7 @@
 		<%= render '/exercises/list' %>
 		<%= will_paginate @exercises, renderer: BootstrapPagination::Rails %>
 	<% else %>
-	<h4 class="counter_is_zero">No se encontraron actividades</h4>
+		<h4 class="counter_is_zero">No se encontraron actividades</h4>
 	<% end %>
 </div>
 <h6>Total de Actividades: <%= @exercises.count %></h6>

@@ -31,8 +31,8 @@ Area.create([{ name: "Motricidad Gruesa" },
 			 { name: "Socio Emocional" },
 			 { name: "Otro" }])
 
-
 Concept.create({ name:'Colegiatura' })
+
 Group.create([{ name:"Principiantes",
 				user_id:2,
 				assistant_id:1,

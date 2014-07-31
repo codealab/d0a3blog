@@ -67,4 +67,5 @@ class Lecture < ActiveRecord::Base
 				errors.add(:base, "Ya existe una clase en este día.") unless existing_record.blank? || existing_record.id == self.id
 			end
 		end
+
 end

@@ -405,17 +405,17 @@ body{
 	position: relative;
 }
 .exercise_content{ width: 25%; }
-.program_relation_content{ width: 20%; }
+.program_relation_content{ width: 200px; }
 .negative_payment{ color: red; }
 /*TINY SCROLLBAR*/
 #tiny_program_exercises{
 	position: relative;
-	width: 1060px;
+	width: 1024px;
 	top: 23px;
 }
 #tiny_program_exercises .viewport{
 	border-top: 1px solid #dddddd;
-	width: 1045px;
+	width: 1005px;
 	height: 200px;
 }
 #tiny_exercises{

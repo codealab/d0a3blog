@@ -15,8 +15,8 @@ class ProgramRelationsController < ApplicationController
     	@relation_exists = @lesson.program_relations.where(exercise_id:@exercise.id).first
     	if @relation_exists
     		@relation_exists.destroy
-    	else
-    		@program_relation = @lesson.program_relations.create(exercise_id: @exercise.id )
+    	else	
+    		@program_relation = @lesson.program_relations.create( exercise_id: @exercise.id, :position => "#{@lesson.program_relations.count+1}" )
     	end
 	end
 

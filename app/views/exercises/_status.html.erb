@@ -1,8 +1,5 @@
 <% if @exercise.lectures.include?(@lecture) %>
-	<button type="button" class="btn status_button btn-danger btn-xs">DESACTIVAR</button>
+	<button type="button" class="btn status_button btn-danger btn-xs">DESAGREGAR</button>
 <% else %>
-	<% if !params[:action]=='admin' %>
-		<button type="button" class="btn status_button btn-success btn-xs">		ACTIVAR
-		</button>
-	<% end %>
+	<button type="button" class="btn status_button btn-success btn-xs">AGREGAR</button>
 <% end %>

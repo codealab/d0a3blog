@@ -26,8 +26,16 @@ class GroupsController < ApplicationController
 
 	def admin
 		@group = Group.find(params[:id])
-		@lecture = Lecture.new()
-		# @lecture = Lecture.new
+		if !@group.lectures.empty?
+			if @group.finish_date.to_datetime < Date.today.to_datetime
+				@lecture = @group.lectures.last
+			elsif @group.init_date.to_datetime > Date.today.to_datetime
+				@lecture = @group.lectures.first
+			else
+				@lecture = @group.lectures.order('date ASC').where("date >= :today", { today: DateTime.now }).first
+			end
+		end
+		@lecture = Lecture.find(params[:lecture]) if params[:lecture]
 	end
 
 	def new
@@ -67,8 +75,14 @@ class GroupsController < ApplicationController
 	end
 
 	def lecture
+		day = params[:lecture]["date(3i)"]
+		month = params[:lecture]["date(2i)"]
+		year = params[:lecture]["date(1i)"]
+		hour = params[:lecture]["date(4i)"]
+		minutes = params[:lecture]["date(5i)"]
+		date = "#{year}/#{month}/#{day} #{hour}:#{minutes}"
 		@group = Group.find(params[:group_id])
-		@lecture = @group.lectures.build(date: params[:date] )
+		@lecture = @group.lectures.build( date: date )
 		@lecture.save
 	end
 
@@ -80,7 +94,6 @@ class GroupsController < ApplicationController
 	end
 
 	def relations
-		puts 'entro a relations'
 		@group = Group.find(params[:id])
 		@lecture = Lecture.find(params[:lecture_id])
 	end

@@ -174,7 +174,7 @@ ActiveRecord::Schema.define(version: 20140724192528) do
     t.text     "music"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order"
+    t.integer  "position"
   end
 
   add_index "plans", ["lecture_id", "exercise_id"], name: "index_plans_on_lecture_id_and_exercise_id", unique: true, using: :btree
@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(version: 20140724192528) do
     t.integer  "exercise_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order"
+    t.integer  "position"
   end
 
   add_index "program_relations", ["lesson_id", "exercise_id"], name: "index_program_relations_on_lesson_id_and_exercise_id", unique: true, using: :btree

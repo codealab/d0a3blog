@@ -43,19 +43,21 @@
 					<div class="col-md-12 white_box" id="container_orders">
 						<ul id="reorder-days">
 							<% @program.lessons.order('order_day ASC').each_with_index do |lesson,index| %>
-								<li class="reorder-item  ui-state-default" data-order="<%= lesson.id %>" data-id="<%= lesson.id %>" id="item_day_<%= index+1 %>">
-									<a href="#" class="remove_day animate" title="Quitar día" data-remote="true">x</a>
-									<a href="/program_relations/<%= @program.id %>?lesson_id=<%= lesson.id %>" class="number_of_activities" data-remote="true" >
+							<li class="reorder-item  ui-state-default" data-order="<%= lesson.id %>" data-id="<%= lesson.id %>" id="item_day_<%= index+1 %>">
+								<a href="#" class="remove_day animate" title="Quitar día" data-remote="true">x</a>
+								<a href="/program_relations/<%= @program.id %>?lesson_id=<%= lesson.id %>" class="number_of_activities" data-remote="true" >
 									<div class="order_day">Clase <%= "#{lesson.order_day}" %></div>
 									<div class="program_relations_points">
 										<div id="container_points_<%= lesson.id %>">
-											<% lesson.program_relations.count.times do |p| %>
-												<span class="program_relation_point"></span>
+											<% lesson.program_relations.count.times do |index| %>
+												<% if index<5 %>
+													<span class="program_relation_point"></span>
+												<% end %>
 											<% end %>
 										</div>
 									</div>
-									</a>
-								</li>
+								</a>
+							</li>
 							<% end %>
 						</ul>
 					</div>
@@ -68,44 +70,32 @@
 <script>
 	var order, deletes;
 	var obj_order, obj_deletes;
-
 	$(document).ready(function() {
-
 		$("#active_admin").on("click",active_admin);
 		$("#disable_admin").on("click",disable_admin);
 		$("#save_admin").on("click",send_sessions);
 		// $("#add_class_to_lesson").on("click",add_class_to_lesson);
-
 		$("#reorder-days").sortable({ placeholder: "reorder-highlight" });
 		$("#reorder-days").disableSelection();
-
 		disable_admin();
-
 	});
-
 	function send_sessions(){
 		$("#loader").fadeIn();
 		$("#container_program_relations").fadeOut();
-
 		order = [];
 		deletes = [];
-
 		$('.reorder-item').not('.removed_item').each(function(){
 			var daId = $(this).data('order');
 			var day = { "id":  daId };
 			order.push(daId);
 		});
-
 		$('.removed_item').each(function(){
 			var daId = $(this).data('id');
 			var del = { "id":  daId };
 			deletes.push(daId);
 		});
-
-
 		// obj_order = JSON.parse('"'+order+'"');
 		// obj_deletes = JSON.parse('"'+deletes+'"');
-
 		$.ajax({
 			url: "/programs/reorder/<%= @program.id %>",
 			data: { actives: order, deleted: deletes },
@@ -113,24 +103,20 @@
 			location.reload();
 		});
 	}
-
 	function active_admin(){
 		$("#add_class_to_lesson, #active_admin").hide();
 		$("#reorder-days").sortable("enable");
-		$("#disable_admin, #save_admin").show();		
+				$("#disable_admin, #save_admin").show();
 		$(".number_of_activities").css({cursor:'move'});
 		$('.reorder-item').addClass('reorder-active');
 		$(".remove_day").css({opacity:1}).on("click",function(){
 			$(this).parent().fadeOut().addClass('removed_item');
 		});
 	}
-
 	function disable_admin(){
-
 		$('#reorder-days li').each(function(index, el) {
 			$("#item_day_"+(index+1)).after($('#item_day_'+(index+2)));
 		});
-
 		$("#add_class_to_lesson, #active_admin").show();
 		$("#disable_admin, #save_admin").hide();
 		$(".number_of_activities").removeAttr('style');
@@ -138,5 +124,4 @@
 		$(".remove_day").css({opacity:0}).off();
 		$("#reorder-days").sortable("disable");
 	}
-
 </script>

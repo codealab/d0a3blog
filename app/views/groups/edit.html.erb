@@ -9,8 +9,49 @@
 
 <%= render 'groups/form' %>
 
-<% if @group.can_destroy? || current_user.admin? %>
-	<div class="boton_der">
-		<%= link_factory( :_path => group_path(@group), :_text => "Borrar Grupo", :_class=>'btn btn-danger', :_button => true, :_alert => "¿Estás Seguro de borrar este grupo?", :_destroy => true ) %>
+<div class="boton_der">
+	<div id="remove_lecture_admin">
+		<button class="btn btn-danger" data-toggle="modal" data-target="#remove_lecture_modal">Borrar Grupo</button>
 	</div>
-<% end %>
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="remove_lecture_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<% if !@group.have_dependencies? %>
+					<h4 class="modal-title">¿Estás seguro de eliminar este grupo?</h4>
+				<% else %>
+					<% if current_user.admin? %>
+						<h4 class="modal-title">Confirmación de eliminación</h4>
+					<% else %>
+						<h4 class="modal-title">Este grupo no se puede eliminar.</h4>
+					<% end %>
+				<% end %>
+			</div>
+			<div class="modal-body">
+				<% if !@group.have_dependencies? %>
+					<p>Este grupo ya no podrá ser utilizado en el futuro.</p>
+					<a href="/groups/<%= @group.id %>" data-method="delete">
+						<p><button type="button" class="btn btn-danger">Eliminar</button></p>
+					</a>
+				<% else %>
+					<% if current_user.admin? %>
+						<p>Escribe <b>ELIMINAR</b> para confirmar.</p>
+						<h6><b>Nota:</b> Se eliminarán <b><%= @group.spots.count %> niños inscritos</b> y <b><%= @group.lectures.count %> clases.</b></h6>
+						<input class="string optional form-control" id="delete_confirmation" type="text">
+						<br>
+						<div id="delete_lecture_button">
+							<a href="/groups/<%= @group.id %>" data-method="delete">
+								<p><button type="button" class="btn btn-danger">Eliminar</button></p>
+							</a>
+						</div>
+					<% else %>
+						<p>Para poder borrar este grupo, antes debes eliminar los niños inscritos y clases relacionadas.</p>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

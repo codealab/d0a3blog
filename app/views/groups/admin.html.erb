@@ -5,7 +5,11 @@
 <% provide(:title, "Grupo #{ @group.name }: #{@group.min_age} a #{@group.max_age} meses") %>
 <div class="boton_der">
 	<div class="top_buttons">
-		<%= link_factory( :_path => programs_path, :_text => "Regresar a Programas", _class: 'btn btn-info', _button: true ) %>
+		<% if current_user.admin? %>
+		<%= link_factory( :_path => programs_path, :_text => "Todos los Programas", _class: 'btn btn-info', _button: true ) %>
+		<% else %>
+		<%= link_factory( :_path => group_path(@group), :_text => "Regresar a Grupo", _class: 'btn btn-info', _button: true ) %>
+		<% end %>
 		<%= link_factory( :_path => edit_group_path(@group), :_text => "Editar Grupo", _class: 'btn btn-default', _button: true ) %>
 	</div>
 	<h1><%= "#{@group.name} ( #{@group.min_age} - #{@group.max_age} semanas )" %><span class="line"></span></h1>
@@ -30,7 +34,6 @@
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h4>Ha ocurrido un error</h4>
 						</div>
-
 						<div class="modal-body">
 							<div id="error_success"></div>
 						</div>
@@ -52,36 +55,117 @@
 <div class="spacer"></div>
 <div class="light_box" id="container_refresh_programs_relations">
 	<div id="refresh_programs_relations">
-		<!-- render -->
-	</div>
-</div>
-</div>
-<div class="modal fade" id="time_select_lecture" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<h4 class="modal-title" id="myModalLabel">Nueva Clase</h4>
-		</div>
-		<%= simple_form_for @lecture, :url => "/groups/lecture/#{@group.id}/", :method => :get, :html => {:multipart => true, :class => 'form-horizontal' } do |f| %>
-			<div class="modal-body">
-				<div class="col-md-10 col-md-offset-1" style="position: relative; top: -40px;">
-					<p><span id="selector_fecha">
-					<label class="hour_select"><abbr title="required">*</abbr> Hora</label>
-					<div class="hidden">
-						<%= f.input :group_id, value: @group.id, :readonly => true, :class => 'disabled form-control', :type=>"hidden" %>
-					</div>
-					<%= f.input :date, label: "Fecha", :order => [:day, :month, :year], :start_year => (@group.init_date-1.year).year, :end_year => @group.finish_date.year, start_hour: 7, end_hour: 21, :minute_step => 30, :input_html => { :class => 'date_selector' }  %>
-					</span></p>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<%= f.submit "Crear Clase", class: "btn btn-default" %>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-			</div>
+		<% if @lecture %>
+			<%= render 'groups/relations' %>
+			<script>
+				$(document).ready(function() {
+					$("#container_refresh_programs_relations").fadeIn();
+				});
+			</script>
 		<% end %>
 	</div>
 </div>
+<div class="modal fade" id="time_select_lecture" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="Nueva Clase">Nueva Clase</h4>
+			</div>
+			<%= form_tag( { :controller => :groups, :action => :lecture, :method => 'post' }, { :remote => true } ) do %>
+			<div class="modal-body">
+				<div class="col-md-10 col-md-offset-1" style="position: relative; top: -40px;">
+					<div class="hidden">
+						<%= number_field_tag 'group_id', "#{@group.id}", :readonly => true, :class => 'disabled', :type => "hidden" %>
+					</div>
+					<p>
+					<span id="selector_fecha">
+					<label class="hour_select"><abbr title="required">*</abbr> Hora</label>
+					</span>
+					</p>
+					<div class="input datetime required lecture_date"><label class="datetime required" for="lecture_date_3i"><abbr title="required">*</abbr> Fecha</label><select aria-required="true" class="datetime required form-control date_selector" id="lecture_date_3i" name="lecture[date(3i)]" required="required">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+					<option value="24">24</option>
+					<option value="25">25</option>
+					<option value="26">26</option>
+					<option value="27">27</option>
+					<option value="28">28</option>
+					<option value="29">29</option>
+					<option value="30">30</option>
+					<option value="31">31</option>
+				</select>
+				<select aria-required="true" class="datetime required form-control date_selector" id="lecture_date_2i" name="lecture[date(2i)]" required="required">
+					<option value="1">Enero</option>
+					<option value="2">Febrero</option>
+					<option value="3">Marzo</option>
+					<option value="4">Abril</option>
+					<option value="5">Mayo</option>
+					<option value="6">Junio</option>
+					<option value="7">Julio</option>
+					<option value="8">Agosto</option>
+					<option value="9">Septiembre</option>
+					<option value="10">Octubre</option>
+					<option value="11">Noviembre</option>
+					<option value="12">Diciembre</option>
+				</select>
+				<select aria-required="true" class="datetime required form-control date_selector" id="lecture_date_1i" name="lecture[date(1i)]" required="required">
+					<% year = @group.init_date.year.to_i-1 %>
+					<% 3.times do |index| %>
+					<option value="<%= year %>"><%= year %></option>
+					<% year+=1 %>
+					<% end %>
+				</select>
+				— <select aria-required="true" class="datetime required form-control date_selector" id="lecture_date_4i" name="lecture[date(4i)]" required="required">
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+				</select>
+				: <select aria-required="true" class="datetime required form-control date_selector" id="lecture_date_5i" name="lecture[date(5i)]" required="required">
+					<option value="00">00</option>
+					<option value="30">30</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<%= submit_tag "Crear Clase", class: "btn btn-default" %>
+		<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+	</div>
+	<% end %>
 </div>
 <script>
 	var event_active, now = new Date('<%= DateTime.now.to_datetime %>');
@@ -92,14 +176,8 @@
 					start: '<%= lecture.date.strftime("%FT%I:%M") %>',
 					end: '<%= (lecture.date.to_datetime+1.minute).strftime("%FT%I:%M") %>'
 				},<% end %>];
-	<% if @group.lectures.count > 0 %>
-		<% if (@group.finish_date.to_datetime < Date.today.to_datetime) %>
-			var default_date = "<%= @group.lectures.last.date.to_date %>";
-		<% elsif (@group.init_date.to_datetime > Date.today.to_datetime) %>
-			var default_date = "<%= @group.lectures.first.date.to_date %>";
-		<% else %>
-			var default_date = "<%= DateTime.now.to_date %>";
-		<% end %>
+	<% if @lecture %>
+		var default_date = "<%= @lecture.date.to_date %>";
 	<% else %>
 		var default_date = "<%= DateTime.now.to_date %>";
 	<% end %>

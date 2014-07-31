@@ -18,7 +18,7 @@ class Ability
 
     current_user ||= User.new
 
-    alias_action :relations, :admin, :create, :read, :update, :destroy, :status, :search, :to => :crud
+    alias_action :relations, :lecture,:admin, :observation, :objective, :create, :read, :search, :update, :destroy, :status, :search, :to => :crud
     alias_action :read, :search, :to => :default_actions
     alias_action :edit, :update, :show, :to => :user_actions
 

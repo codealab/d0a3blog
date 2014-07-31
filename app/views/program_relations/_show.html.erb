@@ -34,36 +34,42 @@
 			<div class="viewport">
 				<div class="overview">
 					<table class="table table-striped">
-						<% @lesson.exercises.each_with_index do |exercise, index| %>
-						<tr id="exercise_day_<%= exercise.id %>">
-							<td class="program_relation_content">
-								<%= link_factory( :_path=>exercise_path(exercise), :_text=>exercise.name) %>
+						<% @lesson.program_relations.order('position ASC').each_with_index do |relation, index| %>
+						<tr id="exercise_day_<%= relation.exercise.id %>" class="exercise_order_<%= relation.position %>">
+							<td class="arrows-move-exercises">
+								<div class="arrow-asc"></div>
+								<div class="arrow-desc"></div>
 							</td>
-							<td class="text_center program_relation_content"><%= "#{exercise.min_age} - #{exercise.max_age}" %></td>
+							<td class="program_relation_content">
+								<%= link_factory( :_path=>exercise_path(relation.exercise), :_text=>relation.exercise.name) %>
+							</td>
+							<td class="text_center program_relation_content"><%= "#{relation.exercise.min_age} - #{relation.exercise.max_age}" %></td>
 							<td class="text_center program_relation_content">
-								<% if exercise.areas.count==1 %>
-								<%= exercise.areas.first.name %>
-								<% else %>
-								<% exercise.areas.each do |a| %>
-								<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
-								<% end %>
+							<% if relation.exercise.areas.count==0 %>
+								-
+							<% elsif relation.exercise.areas.count==1 %>
+								<%= relation.exercise.areas.first.name %>
+							<% else %>
+								<% relation.exercise.areas.each do |a| %>
+									<span data-toggle="tooltip" data-placement="left" title="<%= a.name %>" class="tip" data-original-title="<%= a.name %>"><%= a.name.slice(0..1) %></span>
+									<% end %>
 								<% end %>
 							</td>
 							<td class="program_relation_content text_center">
-								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= exercise.id %>">Leer más</button>
+								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ex_<%= relation.exercise.id %>">Leer más</button>
 							</td>
-							<div class="modal fade" id="ex_<%= exercise.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal fade" id="ex_<%= relation.exercise.id %>" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											<h4 class="modal-title"><%= exercise.name %></h4>
+											<h4 class="modal-title"><%= relation.exercise.name %></h4>
 										</div>
 										<div class="modal-body">
-											<p><strong>Descripción:</strong> <%= exercise.description %></p>
-											<p><strong>Objetivo:</strong> <%= exercise.objective %></p>
-											<p><strong>Música: </strong><%= exercise.music %></p>
-											<p><strong>Material: </strong><%= exercise.material %></p>
+											<p><strong>Descripción:</strong> <%= relation.exercise.description %></p>
+											<p><strong>Objetivo:</strong> <%= relation.exercise.objective %></p>
+											<p><strong>Música: </strong><%= relation.exercise.music %></p>
+											<p><strong>Material: </strong><%= relation.exercise.material %></p>
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

@@ -5,7 +5,7 @@
 			<th>Area</th>
 			<th class="text_center">Descripción</th>
 			<th class="text_center">Objetivo</th>
-			<% if params[:group_id] %>
+			<% if params[:group_id] %>                                 
 				<th class="text_center">Seleccionar</th>
 			<% elsif params[:program_id] %>
 				<th class="text_center">Seleccionar</th>
@@ -94,3 +94,6 @@
 		<% end %>
 	</tbody>
 </table>
+<script>
+	var event_active=false;
+</script>
