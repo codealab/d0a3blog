@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
 
 	validates :title, presence: true
 	validates :user_id, presence: true
-	validates :post_type_id, presence: true
+	# validates :post_type_id, presence: true
 
 	paginates_per 10
 

@@ -52,16 +52,14 @@
 					<div class="panel-heading">
 						<h4 class="panel-title">
 						<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#posts_collapse">
-							<%= "#{Post.all.count} Posts" %>
+							Posts
 						</a>
 						</h4>
 					</div>
 					<div id="posts_collapse" class="panel-collapse collapse">
 						<div class="panel-body">
 							<ul>
-								<% Post.all.each do |post| %>
-									<li><%= link_to post.title, post_path(post) %></li>
-								<% end %>
+								<li><%= link_to "Nuevo Post", new_post_path %></li>
 							</ul>
 						</div>
 					</div>

@@ -22,25 +22,16 @@ class PostsController < ApplicationController
   end
 
   def new
-  	@post = Post.new
-  end
-
-  def title
-    @post = @post.find(params[:post_id]) || Post.new
-    @post.title = params[:text]
-    @post.save
-  end
-
-  def text
-    @post = @post.find(params[:post_id]) || Post.new
-    @post.title = params[:text]
-    @post.save
-  end
-
-  def credits
-    @post = @post.find(params[:post_id]) || Post.new
-    @post.title = params[:credits]
-    @post.save
+  	@post = Post.new({
+      user_id: current_user.id,
+      title: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      credits: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe consequatur ipsum sunt soluta quidem deleniti delectus nostrum quas, dolore eos fugit consequuntur ipsa ad ex voluptatum! Voluptates ipsam, architecto nemo."
+      })
+    if @post.save
+      redirect_to edit_post_path(@post)
+    else
+      flash[:warning] = "Ocurrió un error al crear el post"
+    end
   end
 
   def tags
@@ -50,22 +41,27 @@ class PostsController < ApplicationController
   end
 
   def create
-  	@post = current_user.posts.build(post_params)
-  	if @post.save
-  		flash[:success] = "Post creado correctamente"
-      redirect_to posts_path
-  	else
-  		render 'new'
-  	end
+  	# @post = current_user.posts.build(post_params)
+  	# if @post.save
+  	# 	flash[:success] = "Post creado correctamente"
+   #    redirect_to posts_path
+  	# else
+  	# 	render 'new'
+  	# end
   end
 
   def edit
   	@post = Post.find(params[:id])
-  	if @post.save
-  		flash[:success] = "Post actualizado exitosamente"
-  	else
-  		render 'edit'
-  	end
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update_attributes(post_params)
+      flash[:success] = "Post actualizado exitosamente"
+      redirect_to @post
+    else
+      render "edit"
+    end
   end
 
   def destroy
@@ -75,7 +71,7 @@ class PostsController < ApplicationController
   private
 
   	def post_params
-  		params.require(:post).permit(:title, :text, :post_type_id)
+  		params.require(:post).permit(:title, :cover_id, :text, :main, :post_type_id, :user_id, :credits)
   	end
 
 end

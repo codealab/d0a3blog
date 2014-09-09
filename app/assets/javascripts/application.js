@@ -54,8 +54,12 @@
 })(jQuery);
 
 function init() {
+    alert("cargue");
     $("#user_photo").imagePreview();
-    posts();
+    $('.wysihtml5').each(function(i, elem) {
+        $(elem).wysihtml5();
+    });
 }
 
 $(document).ready(init);
+$(document).on('page:load', init);

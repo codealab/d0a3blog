@@ -1,11 +1,14 @@
-<aside class="widget">
-	<h3 class="widget-title ribbon"><span>Categorías</span></h3>
-	<div id="categories">
-		<% @post.categories.each do |cat| %>
-			<ul>
-				<li><%= link_to "#{cat.name}", category_path(cat) %></li>
-				<%= render 'categories/childrens', object: cat %>
-			</ul>
-		<% end %>
-	</div>
-</aside>
+<% @post = @post || Post.first %>
+<% if @post %>
+	<aside class="widget">
+		<h3 class="widget-title ribbon"><span>Categorías</span></h3>
+		<div id="categories">
+			<% @post.categories.each do |cat| %>
+				<ul>
+					<li><%= link_to "#{cat.name}", category_path(cat) %></li>
+					<%= render 'categories/childrens', object: cat %>
+				</ul>
+			<% end %>
+		</div>
+	</aside>
+<% end %>

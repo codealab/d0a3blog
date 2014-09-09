@@ -4,7 +4,9 @@
         <div class="ribbon ribbon-highlight">
             <ol class="breadcrumb ribbon-inner">
                 <li><%= link_to "D0A3", root_path %></li>
-                <li><%= link_to @post.post_type.name, post_type_path(@post.post_type) %></li>
+                <% if !@post.post_type.blank? %>
+                    <li><%= link_to @post.post_type.name, post_type_path(@post.post_type) %></li>
+                <% end %>
                 <li class="active" title="<%= @post.title %>"><%= "#{@post.title.slice(0..30)}..." %></li>
             </ol>
         </div>
@@ -232,7 +234,7 @@
     </div>
     <script>
     $(document).ready(function() {
-    $("body,html").stop().delay(600).animate({scrollTop:169},400);
+        $("body,html").stop().delay(600).animate({scrollTop:169},400);
     });
     </script>
     <!--/#content-->

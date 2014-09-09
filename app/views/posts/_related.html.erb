@@ -1,15 +1,17 @@
 <aside class="widget">
     <h4 class="widget-title">Post relacionados</h4>
     <div class="entries row">
-        <% @post.post_type.posts.limit(4).each do |post| %>
-            <article class="entry type-post style-thumbnail col-xs-3 col-sm-3">
-                <figure class="entry-thumbnail">
-                    <img src="../img/placeholder.gif" height="230" alt="">
-                </figure>
-                <h3 class="entry-title">
-                <%= link_to post.title, post_path(post) %>
-                </h3>
-            </article>
+        <% if @post.post_type %>
+            <% @post.post_type.posts.limit(4).each do |post| %>
+                <article class="entry type-post style-thumbnail col-xs-3 col-sm-3">
+                    <figure class="entry-thumbnail">
+                        <img src="../img/placeholder.gif" height="230" alt="">
+                    </figure>
+                    <h3 class="entry-title">
+                    <%= link_to post.title, post_path(post) %>
+                    </h3>
+                </article>
+            <% end %>
         <% end %>
     </div>
 </aside>

@@ -1,17 +1,11 @@
-function posts() {
-    posts_admin();
-}
+var posts_actions = {
+    posts_admin: function(event) {
+        $(document).on("mouseenter", ".live_editable", function() {
+            $(this).find('.live_controls').show();
+        });
 
-
-function posts_admin() {
-    $('.wysiwyg-post').each(function(i, elem) {
-        $(elem).wysihtml5();
-    });
-    $(document).on("mouseenter", ".live_editable", function() {
-        $(this).find('.live_controls').show();
-    });
-
-    $(document).on("mouseleave", ".live_editable", function() {
-        $(this).find('.live_controls').hide();
-    });
+        $(document).on("mouseleave", ".live_editable", function() {
+            $(this).find('.live_controls').hide();
+        });
+    }
 }
