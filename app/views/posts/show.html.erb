@@ -10,50 +10,12 @@
                 <li class="active" title="<%= @post.title %>"><%= "#{@post.title.slice(0..30)}..." %></li>
             </ol>
         </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Nuevo Post | Título</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" placeholder="Escribe el título">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success">Guardar Cambios</button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <header class="page-header live_editable">
+        <header class="page-header ">
             <div class="page-meta pull-right hidden-xs">
                 <a href="#comments"> <span class="comments-count-balloon bg-primary"><%= @post.comments.count %><em>comentarios</em></span>
                 </a>
             </div>
             <h2 class="page-title"><%= @post.title %></h2>
-            <div id="" class="live_controls">
-                <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
-                    <span class="glyphicon glyphicon-remove"></span>
-                    <div class="live_controls_icon">
-                        <div class="editable-action-title">Deshacer</div>
-                    </div>
-                </a>
-                <a class="container_editable_action save_editable_action" href="#" data-remote="true">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    <div class="live_controls_icon">
-                        <div class="editable-action-title">Guardar Cambios</div>
-                    </div>
-                </a>
-                <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    <div class="live_controls_icon">
-                        <div class="editable-action-title">Editar</div>
-                    </div>
-                </a>
-            </div>
         </header>
         <div class="entry-meta">
             <%= link_to posts_path(date: @post.created_at.to_date) do %>
@@ -61,33 +23,10 @@
             <% end %>
         </div>
         <article class="entry style-single type-post">
-            <figure class="entry-thumbnail live_editable">
-                <img src="http://placehold.it/600x400" width="680" height="452" alt="">
-                <div id="" class="live_controls">
-                    <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        <div class="live_controls_icon">
-                            <div class="editable-action-title">Editar</div>
-                        </div>
-                    </a>
-                    <a class="container_editable_action save_editable_action" href="#" data-remote="true">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <div class="live_controls_icon">
-                            <div class="editable-action-title">Guardar Cambios</div>
-                        </div>
-                    </a>
-                    <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
-                        <span class="glyphicon glyphicon-remove"></span>
-                        <div class="live_controls_icon">
-                            <div class="editable-action-title">Deshacer</div>
-                        </div>
-                    </a>
-                </div>
+            <figure class="entry-thumbnail ">
+                <%= image_tag(@post.cover_url(:thumb)) if @post.cover %>
             </figure>
             <div id="post_slider">
-                <div class="thumb_slide slide_active">
-                    <%= image_tag(@post.cover_url(:thumb)) if @post.cover %>
-                </div>
                 <% @post.resources.each do |r| %>
                 <div class="thumb_slide">
                     <% case r.resource_type %>
@@ -100,7 +39,7 @@
                     <% end %>
                     <% end %>
                 </div>
-                <div class="live_editable">
+                <div class="">
                     <div class="entry-content indented">
                         <div class="inline-block">
                             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -112,82 +51,22 @@
                         </div>
                         <!--/.gallery-->
                     </div>
-                    <div class="live_controls">
-                        <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            <div class="live_controls_icon">
-                                <div class="editable-action-title">Editar</div>
-                            </div>
-                        </a>
-                        <a class="container_editable_action save_editable_action" href="#" data-remote="true">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            <div class="live_controls_icon">
-                                <div class="editable-action-title">Guardar Cambios</div>
-                            </div>
-                        </a>
-                        <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
-                            <span class="glyphicon glyphicon-remove"></span>
-                            <div class="live_controls_icon">
-                                <div class="editable-action-title">Deshacer</div>
-                            </div>
-                        </a>
-                    </div>
                 </div>
                 <div class="entry-content indented">
-                    <div class="live_editable inline-block">
+                    <div class=" inline-block">
                         <h3>Créditos</h3>
-                        <p><%= @post.credits %></p>
-                        <div id="" class="live_controls">
-                            <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <div class="live_controls_icon">
-                                    <div class="editable-action-title">Editar</div>
-                                </div>
-                            </a>
-                            <a class="container_editable_action save_editable_action" href="#" data-remote="true">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                <div class="live_controls_icon">
-                                    <div class="editable-action-title">Guardar Cambios</div>
-                                </div>
-                            </a>
-                            <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
-                                <span class="glyphicon glyphicon-remove"></span>
-                                <div class="live_controls_icon">
-                                    <div class="editable-action-title">Deshacer</div>
-                                </div>
-                            </a>
-                        </div>
+                        <p><%= @post.credits.html_safe %></p>
                     </div>
                 </div>
             </article>
             <div class="after-entry indented">
                 <% if @post.tags.count>0 %>
                 <hr>
-                <aside class="widget post-tags live_editable inline-block">
+                <aside class="widget post-tags  inline-block">
                     <i class="icon-tags"></i> Tags:
                     <% @post.tags.each do |tag| %>
                     <%= link_to tag.name, tag_posts_path(tag.name) %>
                     <% end %>
-                    <div id="" class="live_controls">
-                        <a class="container_editable_action save_editable_action" href="#" data-remote="true">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            <div class="live_controls_icon">
-                                <div class="editable-action-title">Guardar Cambios</div>
-                            </div>
-                        </a>
-                        <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
-                            <span class="glyphicon glyphicon-remove"></span>
-                            <div class="live_controls_icon">
-                                <div class="editable-action-title">Deshacer</div>
-                            </div>
-                        </a>
-                        <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#myModal">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            <div class="live_controls_icon">
-                                <div class="editable-action-title">Editar</div>
-                            </div>
-                        </a>
-                    </div>
                 </aside>
                 <% end %>
                 <hr>

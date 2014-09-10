@@ -55,10 +55,12 @@ class PostsController < ApplicationController
   end
 
   def update
-    puts 'xxxxxxxxxxxxxxxxxxxxxx'
-    puts params
     @post = Post.find(params[:id])
-    @post.update_attributes(post_params)
+    respond_to do |format|
+      if @post.update_attributes(post_params)
+        format.js
+      end
+    end
   end
 
   def destroy

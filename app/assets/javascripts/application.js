@@ -12,9 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require turbolinks
 //= require jquery.Jcrop
-//= require jquery.remotipart
 //= require bootstrap
 //= require bootstrap-wysihtml5
 //= require_tree .
