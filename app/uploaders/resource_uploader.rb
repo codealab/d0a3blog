@@ -26,17 +26,17 @@ class ResourceUploader < CarrierWave::Uploader::Base
   end
 
   version :large do
-    process :crop_resource
+    # process :crop_resource
     resize_to_fill(900, 600)
   end
 
   version :medium do
-    process :crop_resource
+    # process :crop_resource
     resize_to_fill(600, 400)
   end
 
   version :thumb do
-    process :crop_resource
+    # process :crop_resource
     resize_to_fill(300, 200)
   end
 

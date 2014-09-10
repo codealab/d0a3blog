@@ -1,0 +1,14 @@
+var attr_modified = "<%= @post.attr_modified %>";
+<% if @post.valid? %>
+	$(".post-modal").modal("hide");
+	switch(attr_modified){
+		case "title":
+			$('#post-title').html("<%= @post.title %>");
+		break;
+		case "cover":
+		
+		break;
+	}
+<% else %>
+	$("#errors-post-"+attr_modified).html("<%= escape_javascript(render('shared/error_messages', object: @post)) %>");
+<% end %>

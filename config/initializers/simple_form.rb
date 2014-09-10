@@ -22,6 +22,6 @@ SimpleForm.setup do |config|
   config.error_notification_class = 'alert alert-error'
   config.label_class = 'control-label'
   config.browser_validations = false
-  # config.input_class = "btn btn-default"
+  config.input_class = "form-control"
 
 end

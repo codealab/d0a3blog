@@ -3,7 +3,7 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
       
       t.string :title #title of post
-      t.integer :cover_id #Image for shares
+      t.string :cover #Image for shares
       t.text :text, :default => "" #Post Content
       
       t.boolean :main, :default => false  #the post is importatn? set true to appear in index header?

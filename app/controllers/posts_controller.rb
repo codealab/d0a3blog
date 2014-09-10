@@ -35,7 +35,7 @@ class PostsController < ApplicationController
   end
 
   def tags
-    @post = @post.find(params[:post_id]) || Post.new
+    @post = @post.find(params[:post_id])
     @post.title = params[:tags]
     @post.save
   end
@@ -55,13 +55,10 @@ class PostsController < ApplicationController
   end
 
   def update
+    puts 'xxxxxxxxxxxxxxxxxxxxxx'
+    puts params
     @post = Post.find(params[:id])
-    if @post.update_attributes(post_params)
-      flash[:success] = "Post actualizado exitosamente"
-      redirect_to @post
-    else
-      render "edit"
-    end
+    @post.update_attributes(post_params)
   end
 
   def destroy
@@ -71,7 +68,7 @@ class PostsController < ApplicationController
   private
 
   	def post_params
-  		params.require(:post).permit(:title, :cover_id, :text, :main, :post_type_id, :user_id, :credits)
+  		params.require(:post).permit(:title, :cover, :text, :main, :post_type_id, :user_id, :credits, :attr_modified)
   	end
 
 end

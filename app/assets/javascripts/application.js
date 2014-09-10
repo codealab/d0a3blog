@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.Jcrop
+//= require jquery.remotipart
 //= require bootstrap
 //= require bootstrap-wysihtml5
 //= require_tree .
@@ -54,7 +55,6 @@
 })(jQuery);
 
 function init() {
-    alert("cargue");
     $("#user_photo").imagePreview();
     $('.wysihtml5').each(function(i, elem) {
         $(elem).wysihtml5();

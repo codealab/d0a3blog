@@ -20,6 +20,7 @@ gem 'cancancan', '~> 1.8'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem "bootstrap-wysihtml5-rails"
+gem 'remotipart', '~> 1.2'
 
 if RbConfig::CONFIG["target_os"] =~ /mswin|mingw|cygwin/i
   gem "mini_magick"

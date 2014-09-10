@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20140715220953) do
 
   create_table "posts", force: true do |t|
     t.string   "title"
-    t.integer  "cover_id"
+    t.string   "cover"
     t.text     "text",         default: ""
     t.boolean  "main",         default: false
     t.boolean  "status",       default: false

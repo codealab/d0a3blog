@@ -1,11 +1,11 @@
 #encoding: UTF-8
 class Post < ActiveRecord::Base
+	
+	attr_accessor :attr_modified
 
 	belongs_to :user
 	belongs_to :post_type
 	has_many :comments
-
-	belongs_to :cover, :class_name => 'resource'
 
 	has_many :post_categories
 	has_many :categories, through: :post_categories
@@ -19,6 +19,8 @@ class Post < ActiveRecord::Base
 	validates :title, presence: true
 	validates :user_id, presence: true
 	# validates :post_type_id, presence: true
+
+	mount_uploader :cover, ResourceUploader
 
 	paginates_per 10
 
