@@ -942,6 +942,10 @@ ul.coverageList {
   zoom: 1;
   *display: inline;
 }
+.post-tags .active{
+  background: #73488b;
+  color: #ffffff;
+}
 .tagcloud a:before,
 .post-tags a:before {
   content: '#';

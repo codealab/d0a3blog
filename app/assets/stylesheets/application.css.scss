@@ -15,6 +15,10 @@
  */
 
 @import "bootstrap";
+.modal-sm{ width:300px; }
+@media (min-width:992px){
+	.modal-lg{ width:900px; }
+}
 
 .absolute{ position: absolute; }
 .relative{ position: relative; }

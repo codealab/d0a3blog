@@ -144,32 +144,36 @@
             </div>
             <!-- texto -->
             <div class="modal fade post-modal" id="post-text-modal" tabindex="-1" role="dialog" aria-labelledby="post-text-label" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                             <h4 class="modal-text" id="post-text-label">Nuevo Post | Contenido </h4>
                         </div>
-                        <div class="modal-body">
-                            <textarea class="wysihtml5" name="" id="" cols="30" rows="10"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success">Guardar Cambios</button>
-                            <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        </div>
+
+                        <%= simple_form_for @post, :html => {:multipart => true}, :controller => "posts", :action => "update", remote: true do |f| %>
+                            <div class="modal-body">
+                                <div id="errors-post-text">
+                                    <%= render 'shared/error_messages', object: f.object %>
+                                </div>
+                                <%= f.input :attr_modified, :as => :hidden, :input_html => { value: "text" } %>
+                                <%= f.input :text, label: false, :input_html => { :class => "wysihtml5" } %>
+                            </div>
+                            <div class="modal-footer">
+                                <%= f.submit "Guardar", :class => "btn btn-success" %>
+                                <input type="button" class="btn btn-info" data-dismiss="modal" value="Previsualizar">
+                                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+                            </div>
+                        <% end %>
                     </div>
                 </div>
             </div>
             <!-- texto modal -->
             <div class="entry-content indented">
                 <div class="live_editable inline-block" onmouseenter="$(event.target).find('.live_controls').show();" onmouseleave="$(event.target).find('.live_controls').hide();">
-                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <blockquote class="pulled-left">
-                        <p>Better to remain silent and be thought a fool than to speak out and remove all doubt, <small> Abraham Lincoln</small>
-                        </p>
-                    </blockquote>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <div id="post-text">
+                        <%= @post.text.html_safe %>
+                    </div>
                     <div id="" class="live_controls">
                         <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
                             <span class="glyphicon glyphicon-remove"></span>
@@ -253,10 +257,14 @@
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h4 class="modal-tags" id="post-tags-label">Nuevo Post | Etiquetas </h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body post-tags">
                         <p>Selecciona las etiquetas</p>
-                        <% Tag.all.each do |t| %>
-                        <p><%= link_to t.name, t %></p>
+                        <% Tag.all.order("name ASC").each do |t| %>
+                            <% if @post.tags.include?(t) %>
+                                <%= link_to t.name, { controller: "posts", action: "tag", post_id: @post.id, tag_id: t.id }, remote: true, id: "tag_#{t.id}", :class => "active" %>
+                            <% else %>
+                                <%= link_to t.name, { controller: "posts", action: "tag", post_id: @post.id, tag_id: t.id }, remote: true, id: "tag_#{t.id}" %>
+                            <% end %>
                         <% end %>
                     </div>
                     <div class="modal-footer">
@@ -272,13 +280,13 @@
             <hr>
             <aside class="widget post-tags live_editable inline-block" onmouseenter="$(event.target).find('.live_controls').show();" onmouseleave="$(event.target).find('.live_controls').hide();">
                 <i class="icon-tags"></i> Tags:
-                <a href="#">taguno</a>
-                <a href="#">tagdos</a>
-                <a href="#">tagtres</a>
-                <a href="#">tagcuatro</a>
-                <a href="#">tagcinco</a>
-                <a href="#">tagseis</a>
-                <a href="#">tagsiete</a>
+                <div id="post-tags">
+                    <% @post.tags.each do |t| %>
+                        <a href="#">
+                            <%= t.name %>
+                        </a>
+                    <% end %>
+                </div>
                 <div id="" class="live_controls">
                     <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
                         <span class="glyphicon glyphicon-remove"></span>

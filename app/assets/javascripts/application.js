@@ -57,7 +57,15 @@
 function init() {
     $("#user_photo").imagePreview();
     $('.wysihtml5').each(function(i, elem) {
-        $(elem).wysihtml5();
+        $(elem).wysihtml5({
+            "font-styles": true,
+            "emphasis": true,
+            "lists": true,
+            "html": false,
+            "link": true,
+            "image": false,
+            "color": false
+        });
     });
 }
 

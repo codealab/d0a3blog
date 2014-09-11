@@ -1034,6 +1034,7 @@ body.scrolled .header-navbar  .nav-pages {
   position: relative;
 }
 .live_editable {
+  min-height: 80px;
   width: 100%;
   display: inline-block;
   position: relative;
@@ -1051,6 +1052,9 @@ body.scrolled .header-navbar  .nav-pages {
   color: white!important;
   padding-right: 15px;
 }
+/*.glyphicon, .editable-action-title, .live_controls .live_controls_icon .tagcloud a, .live_controls .live_controls_icon .post-tags a{
+  color: white!important;
+}*/
 .live_controls_icon {
   position: absolute;
   width: 100%;
@@ -1067,6 +1071,7 @@ body.scrolled .header-navbar  .nav-pages {
   margin: 2px;
   color: white;
   padding: 3px;
+  color: white!important;
 }
 .container_editable_action:hover{
   background: white!important;

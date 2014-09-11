@@ -1,0 +1,5 @@
+<% if @post.tags.include?(@tag) %>
+	$("#tag_<%= @tag.id %>").addClass('active');
+<% else %>
+	$("#tag_<%= @tag.id %>").removeClass('active');
+<% end %>

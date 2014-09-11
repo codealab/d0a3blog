@@ -11,14 +11,10 @@ var attr_modified = "<%= @post.attr_modified %>";
 		case "credits":
 			$("#post-credits").html("<%= @post.credits.html_safe %>");
 		break;
+		case "text":
+			$("#post-text").html("<%= @post.text.html_safe %>");
+		break;
 	}
 <% else %>
 	$("#errors-post-"+attr_modified).html("<%= escape_javascript(render('shared/error_messages', object: @post)) %>");
-<% end %>
-
-
-<% if remotipart_submitted? %>
- // 'submitted via remotipart'
-<% else %>
- // 'submitted via native jquery-ujs'
 <% end %>

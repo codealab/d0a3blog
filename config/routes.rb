@@ -1,6 +1,8 @@
 Blog::Application.routes.draw do
 
   root 'posts#index'
+
+  get "posts/tag"
   
   resources :categories
   resources :sessions
@@ -13,6 +15,7 @@ Blog::Application.routes.draw do
     resources :posts
   end
 
+  resources :posts
   resources :posts do
     resources :categories
     resources :resources
