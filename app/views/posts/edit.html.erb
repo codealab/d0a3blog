@@ -10,103 +10,40 @@
                 </li>
             </ol>
         </div>
-        <div class="modal fade post-modal" id="post-title-modal" tabindex="-1" role="dialog" aria-labelledby="post-title-label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="post-title-label">Nuevo Post | Título</h4>
-                    </div>
-                    <%= simple_form_for @post, :controller => "posts", :action => "update", remote: true do |f| %>
-                    <div class="modal-body">
-                        <div id="errors-post-title">
-                            <%= render 'shared/error_messages', object: f.object %>
-                        </div>
-                        <%= f.input :attr_modified, :as => :hidden, :input_html => { value: "title" } %>
-                        <% if @post.title == "Lorem ipsum dolor sit amet, consectetur adipisicing elit." %>
-                        <%= f.input :title, :input_html => { value: "" }, placeholder: "Escribe el título del Post" %>
-                        <% else %>
-                        <%= f.input :title, placeholder: "Escribe el título del Post" %>
-                        <% end %>
-                    </div>
-                    <div class="modal-footer">
-                        <%= f.submit "Guardar", :class => "btn btn-success" %>
-                        <input type="button" class="btn btn-info" data-dismiss="modal" value="Previsualizar">
-                        <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
-                    </div>
-                    <% end %>
-                </div>
-            </div>
-        </div>
         <header class="page-header live_editable" onmouseenter="$(event.target).find('.live_controls').show();" onmouseleave="$(event.target).find('.live_controls').hide();">
             <div class="page-meta pull-right hidden-xs">
-                <a href="#comments"> <span class="comments-count-balloon bg-primary"><%= @post.comments.count %><em>comentarios</em></span>
+                <a href="#comments">
+                    <span class="comments-count-balloon bg-primary">
+                    <%= @post.comments.count %><em>comentarios</em>
+                    </span>
                 </a>
             </div>
             <h2 class="page-title post-title" id="post-title"><%= @post.title %></h2>
             <div id="" class="live_controls">
-                <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
-                    <span class="glyphicon glyphicon-remove"></span>
-                    <div class="live_controls_icon">
-                        <div class="editable-action-title">Deshacer</div>
-                    </div>
-                </a>
-                <a class="container_editable_action save_editable_action" href="#" data-remote="true">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    <div class="live_controls_icon">
-                        <div class="editable-action-title">Guardar Cambios</div>
-                    </div>
-                </a>
-                <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#post-title-modal">
+                <div class="editable_section">
+                    Título
+                </div>
+                <a class="container_editable_action save_editable_action" href="javascript:void(null)" data-toggle="modal" data-target="#post-title-modal">
                     <span class="glyphicon glyphicon-pencil"></span>
                     <div class="live_controls_icon">
-                        <div class="editable-action-title">Editar</div>
+                        <div class="editable-action-title">Cambiar título</div>
                     </div>
                 </a>
             </div>
         </header>
-        <!-- foto -->
-        <div class="modal fade post-modal" id="post-photo-modal" tabindex="-1" role="dialog" aria-labelledby="post-photo-label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-photo" id="post-photo-label">Nuevo Post | Cover </h4>
-                    </div>
-                    <%= simple_form_for @post, :html => {:multipart => true}, :controller => "posts", :action => "update", remote: true do |f| %>
-                    <div class="modal-body">
-                        <div id="errors-post-cover">
-                            <%= render 'shared/error_messages', object: f.object %>
-                        </div>
-                        <%= f.input :attr_modified, :as => :hidden, :input_html => { value: "cover" } %>
-                        <%= f.input :cover, label: "Selecciona el cover del post" %>
-                    </div>
-                    <div class="modal-footer">
-                        <%= f.submit "Guardar", :class => "btn btn-success" %>
-                        <input type="button" class="btn btn-info" data-dismiss="modal" value="Previsualizar">
-                        <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
-                    </div>
-                    <% end %>
-                </div>
-            </div>
+        <div class="entry-meta">
+            Escrito por <%= link_to @post.author, user_posts_path(@post.user) %>. El
+            <%= link_to posts_path(date: @post.created_at.to_date) do %>
+            <time datetime="<%= @post.created_at %>"><%= I18n.l @post.created_at.to_datetime, :format => '%d de %B del %Y' %></time>
+            <% end %>
         </div>
         <article class="entry style-single type-post">
             <figure class="entry-thumbnail live_editable" onmouseenter="$(event.target).find('.live_controls').show();" onmouseleave="$(event.target).find('.live_controls').hide();">
                 <%= image_tag @post.cover, id: "post-cover" %>
-                <!-- galerry -->
-                <div class="gallery bg-page flushed-left">
-                    <!-- <h4 class="gallery-title">Gallery</h4> -->
-                    <div class="row">
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="http://placehold.it/460x460" title="Image 1" class="thumbnail" data-rel="prettyPhoto[gallery]">
-                                <img src="../img/placeholder.gif" width="80" height="80" alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <!--/.row-->
-                </div>
-                <!--/.gallery-->
                 <div id="" class="live_controls">
+                    <div class="editable_section">
+                        Cover
+                    </div>
                     <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
                         <span class="glyphicon glyphicon-remove"></span>
                         <div class="live_controls_icon">
@@ -119,7 +56,7 @@
                             <div class="editable-action-title">Guardar Cambios</div>
                         </div>
                     </a>
-                    <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#post-photo-modal">
+                    <a class="container_editable_action edit_editable_action" href="javascript:void(null)" data-toggle="modal" data-target="#post-cover-modal">
                         <span class="glyphicon glyphicon-pencil"></span>
                         <div class="live_controls_icon">
                             <div class="editable-action-title">Editar</div>
@@ -127,54 +64,46 @@
                     </a>
                 </div>
             </figure>
-            <div class="entry-meta indented">
-                <span class="author">Escrito por <%= link_to current_user.name, user_posts_path(current_user) %></span>
-                <span class="entry-date">
-                <a href="blog.html">/
-                    <time datetime="<%= @post.created_at %>"><%= I18n.l DateTime.now.to_datetime, :format => '%d de %B del %Y' %></time>
-                </a>
-                </span>
-                <div class="category">
-                    Visto en
-                    <a href="#">Categoría</a> /
-                    <a href="#">Categoría</a> /
-                    <a href="#">Categoría</a> /
-                    <a href="#">Categoría</a>
+            <!-- galerry -->
+            <div class="gallery bg-page flushed-left live_editable" onmouseenter="$(event.target).find('.live_controls').show();" onmouseleave="$(event.target).find('.live_controls').hide();">
+                <!-- <h4 class="gallery-title">Gallery</h4> -->
+                <div class="row">
+                    <% @post.resources.each do |resource| %>
+                    <div class="col-xs-3 col-sm-2">
+                        <a href="<%= resource.file_url %>" title="<%= resource.title %>" class="thumbnail" data-rel="prettyPhoto[gallery]">
+                            <img src="<%= resource.file_url %>" width="80" height="80" alt="">
+                        </a>
+                    </div>
+                    <% end %>
+                </div>
+                <div id="" class="live_controls">
+                    <div class="editable_section">
+                        Multimedia
+                    </div>
+                    <a class="container_editable_action more_editable_action" href="javascript:void(null)" data-toggle="modal" data-target="#post-multimedia-modal">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <div class="live_controls_icon">
+                            <div class="editable-action-title">Agregar multimedia</div>
+                        </div>
+                    </a>
+                    <a class="container_editable_action edit_editable_action" href="javascript:void(null)" data-toggle="modal" data-target="#post-resources-modal">
+                        <span class="glyphicon glyphicon-cog"></span>
+                        <div class="live_controls_icon">
+                            <div class="editable-action-camera">Administrar</div>
+                        </div>
+                    </a>
                 </div>
             </div>
             <!-- texto -->
-            <div class="modal fade post-modal" id="post-text-modal" tabindex="-1" role="dialog" aria-labelledby="post-text-label" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-text" id="post-text-label">Nuevo Post | Contenido </h4>
-                        </div>
-
-                        <%= simple_form_for @post, :html => {:multipart => true}, :controller => "posts", :action => "update", remote: true do |f| %>
-                            <div class="modal-body">
-                                <div id="errors-post-text">
-                                    <%= render 'shared/error_messages', object: f.object %>
-                                </div>
-                                <%= f.input :attr_modified, :as => :hidden, :input_html => { value: "text" } %>
-                                <%= f.input :text, label: false, :input_html => { :class => "wysihtml5" } %>
-                            </div>
-                            <div class="modal-footer">
-                                <%= f.submit "Guardar", :class => "btn btn-success" %>
-                                <input type="button" class="btn btn-info" data-dismiss="modal" value="Previsualizar">
-                                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
-                            </div>
-                        <% end %>
-                    </div>
-                </div>
-            </div>
-            <!-- texto modal -->
             <div class="entry-content indented">
                 <div class="live_editable inline-block" onmouseenter="$(event.target).find('.live_controls').show();" onmouseleave="$(event.target).find('.live_controls').hide();">
                     <div id="post-text">
                         <%= @post.text.html_safe %>
                     </div>
                     <div id="" class="live_controls">
+                        <div class="editable_section">
+                            Contenido
+                        </div>
                         <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
                             <span class="glyphicon glyphicon-remove"></span>
                             <div class="live_controls_icon">
@@ -187,37 +116,12 @@
                                 <div class="editable-action-title">Guardar Cambios</div>
                             </div>
                         </a>
-                        <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#post-text-modal">
+                        <a class="container_editable_action edit_editable_action" href="javascript:void(null)" data-toggle="modal" data-target="#post-text-modal">
                             <span class="glyphicon glyphicon-pencil"></span>
                             <div class="live_controls_icon">
                                 <div class="editable-action-title">Editar</div>
                             </div>
                         </a>
-                    </div>
-                </div>
-                <!-- creditos modal -->
-                <div class="modal fade post-modal" id="post-credits-modal" tabindex="-1" role="dialog" aria-labelledby="post-credits-label" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-credits" id="post-credits-label">Nuevo Post | Créditos / Referencias </h4>
-                            </div>
-                            <%= simple_form_for @post, :html => {:multipart => true}, :controller => "posts", :action => "update", remote: true do |f| %>
-                            <div class="modal-body">
-                                <div id="errors-post-credits">
-                                    <%= render 'shared/error_messages', object: f.object %>
-                                </div>
-                                <%= f.input :attr_modified, :as => :hidden, :input_html => { value: "credits" } %>
-                                <%= f.input :credits, label: false, input_html: { class: "wysihtml5" } %>
-                            </div>
-                            <div class="modal-footer">
-                                <%= f.submit "Guardar", :class => "btn btn-success" %>
-                                <input type="button" class="btn btn-info" data-dismiss="modal" value="Previsualizar">
-                                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
-                            </div>
-                            <% end %>
-                        </div>
                     </div>
                 </div>
                 <!-- creditos modal -->
@@ -227,6 +131,9 @@
                         <%= @post.credits.html_safe %>
                     </div>
                     <div id="" class="live_controls">
+                        <div class="editable_section">
+                            Créditos
+                        </div>
                         <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
                             <span class="glyphicon glyphicon-remove"></span>
                             <div class="live_controls_icon">
@@ -239,7 +146,7 @@
                                 <div class="editable-action-title">Guardar Cambios</div>
                             </div>
                         </a>
-                        <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#post-credits-modal">
+                        <a class="container_editable_action edit_editable_action" href="javascript:void(null)" data-toggle="modal" data-target="#post-credits-modal">
                             <span class="glyphicon glyphicon-pencil"></span>
                             <div class="live_controls_icon">
                                 <div class="editable-action-title">Editar</div>
@@ -249,106 +156,234 @@
                 </div>
             </div>
         </article>
-        <!-- tags modal -->
-        <div class="modal fade post-modal" id="post-tags-modal" tabindex="-1" role="dialog" aria-labelledby="post-tags-label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-tags" id="post-tags-label">Nuevo Post | Etiquetas </h4>
-                    </div>
-                    <div class="modal-body post-tags">
-                        <p>Selecciona las etiquetas</p>
-                        <% Tag.all.order("name ASC").each do |t| %>
-                            <% if @post.tags.include?(t) %>
-                                <%= link_to t.name, { controller: "posts", action: "tag", post_id: @post.id, tag_id: t.id }, remote: true, id: "tag_#{t.id}", :class => "active" %>
-                            <% else %>
-                                <%= link_to t.name, { controller: "posts", action: "tag", post_id: @post.id, tag_id: t.id }, remote: true, id: "tag_#{t.id}" %>
-                            <% end %>
-                        <% end %>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success">Guardar Cambios</button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Previsualizar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- tags modal -->
         <div class="after-entry indented">
             <hr>
             <aside class="widget post-tags live_editable inline-block" onmouseenter="$(event.target).find('.live_controls').show();" onmouseleave="$(event.target).find('.live_controls').hide();">
                 <i class="icon-tags"></i> Tags:
                 <div id="post-tags">
                     <% @post.tags.each do |t| %>
-                        <a href="#">
-                            <%= t.name %>
-                        </a>
+                    <a href="#">
+                        <%= t.name %>
+                    </a>
                     <% end %>
                 </div>
                 <div id="" class="live_controls">
-                    <a class="container_editable_action redo_editable_action" href="#" data-remote="true">
-                        <span class="glyphicon glyphicon-remove"></span>
+                    <div class="editable_section">
+                        Tags
+                    </div>
+                    <a class="container_editable_action select_tags_editable_action" href="javascript:void(null)" data-toggle="modal" data-target="#post-tags-modal">
+                        <span class="glyphicon glyphicon-tags"></span>
                         <div class="live_controls_icon">
-                            <div class="editable-action-title">Deshacer</div>
-                        </div>
-                    </a>
-                    <a class="container_editable_action save_editable_action" href="#" data-remote="true">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <div class="live_controls_icon">
-                            <div class="editable-action-title">Guardar Cambios</div>
-                        </div>
-                    </a>
-                    <a class="container_editable_action edit_editable_action" href="#" data-remote="true" data-toggle="modal" data-target="#post-tags-modal">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        <div class="live_controls_icon">
-                            <div class="editable-action-title">Editar</div>
+                            <div class="editable-action-title">Seleccionar tags</div>
                         </div>
                     </a>
                 </div>
             </aside>
             <hr>
-            <aside class="widget widget-author media">
-                <figure class="entry-author-avatar media-object avatar pull-left">
-                    <!-- to disable lazy loading, remove data-src and data-src-retina -->
-                    <img src="../img/placeholder.gif" data-src="http://placehold.it/230x230" data-src-retina="http://placehold.it/460x460" width="230" height="230" class="img-circle" alt="">
-                    <!--fallback for no javascript browsers-->
-                    <noscript>
-                    <img src="http://placehold.it/230x230" alt="">
-                    </noscript>
-                </figure>
-                <div class="media-body">
-                    <h4 class="entry-author-name">Por <%= link_to current_user.name, user_path(current_user) %></h4>
-                    <p><%= current_user.bio %></p>
-                </div>
-            </aside>
-            <hr>
-            <% @post = Post.first %>
-            <%= render 'posts/related' %>
-            <hr>
-            <aside class="widget">Comparte: <a href="#" class="" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-facebook icon-light"></i></span></a>  <a href="#" class="" onclick="window.open('http://twitter.com/home?status='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-twitter icon-light"></i></span></a>  <a href="#" class="" onclick="window.open('https://plus.google.com/share?url='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=500,height=436'); return false;"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-google-plus icon-light"></i></span></a>  <a href="#" class="" onclick="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)})());"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-pinterest icon-light"></i></span></a>
         </aside>
     </div>
-    <!-- comments -->
-    <!--<%= render '/posts/comments' %>-->
-    <!-- end comments -->
-    <div class="sidebar col-md-4 col-lg-4 col-xl-3">
-        <div id="container_special_coverage">
-            <%= render 'sides/categories' %>
-        </div>
-        <div id="container_tags_discussion">
-            <%= render 'sides/tags' %>
-        </div>
-        <div id="container_featured">
-            <%= render '/sides/featured' %>
-        </div>
-        <div id="reviews_container">
-            <%= render '/sides/reviews' %>
-        </div>
-        <div id="container_whats_hot">
-            <%= render '/sides/whats_hot' %>
+</div>
+<div class="sidebar col-md-4 col-lg-4 col-xl-3">
+    <div id="container_special_coverage">
+        <aside class="widget">
+            <h3 class="widget-title ribbon"><span>+ Acciones</span></h3>
+            <div id="categories">
+                <ul>
+                    <li></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+<!-- modals -->
+<!-- post title modal -->
+<div class="modal fade post-modal" id="post-title-modal" tabindex="-1" role="dialog" aria-labelledby="post-title-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="post-title-label">Nuevo Post | Título</h4>
+            </div>
+            <%= simple_form_for @post, :controller => "posts", :action => "update", remote: true do |f| %>
+            <div class="modal-body">
+                <div id="errors-post-title">
+                    <%= render 'shared/error_messages', object: f.object %>
+                </div>
+                <%= f.input :attr_modified, :as => :hidden, :input_html => { value: "title" } %>
+                <% if @post.title == "Lorem ipsum dolor sit amet, consectetur adipisicing elit." %>
+                <%= f.input :title, label: false, :input_html => { value: "" }, placeholder: "Escribe el título del Post" %>
+                <% else %>
+                <%= f.input :title, label: false, placeholder: "Escribe el título del Post" %>
+                <% end %>
+            </div>
+            <div class="modal-footer">
+                <%= f.submit "Guardar", :class => "btn btn-success" %>
+                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+            </div>
+            <% end %>
         </div>
     </div>
 </div>
-<!--/#content-->
+<!-- post text modal -->
+<div class="modal fade post-modal" id="post-text-modal" tabindex="-1" role="dialog" aria-labelledby="post-text-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-text" id="post-text-label">Nuevo Post | Contenido </h4>
+            </div>
+            <%= simple_form_for @post, :html => { :multipart => true }, :controller => "posts", :action => "update", remote: true do |f| %>
+            <div class="modal-body">
+                <div id="errors-post-text">
+                    <%= render 'shared/error_messages', object: f.object %>
+                </div>
+                <%= f.input :attr_modified, :as => :hidden, :input_html => { value: "text" } %>
+                <%= f.input :text, label: false, :input_html => { :class => "wysihtml5" } %>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-info" data-dismiss="modal" value="Previsualizar">
+                <%= f.submit "Guardar", :class => "btn btn-success" %>
+                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<!-- foto -->
+<div class="modal fade post-modal" id="post-cover-modal" tabindex="-1" role="dialog" aria-labelledby="post-photo-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-photo" id="post-photo-label">Nuevo Post | Cover </h4>
+            </div>
+            <%= simple_form_for @post, :html => {:multipart => true}, :controller => "posts", :action => "update", remote: true do |f| %>
+            <div class="modal-body">
+                <div id="errors-post-cover">
+                    <%= render 'shared/error_messages', object: f.object %>
+                </div>
+                <%= f.input :attr_modified, :as => :hidden, :input_html => { value: "cover" } %>
+                <%= f.input :cover, label: "Selecciona el cover del post" %>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-info" data-dismiss="modal" value="Previsualizar">
+                <%= f.submit "Guardar", :class => "btn btn-success" %>
+                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<!-- end cover modal -->
+<!-- multimedia -->
+<div class="modal fade post-modal" id="post-multimedia-modal" tabindex="-1" role="dialog" aria-labelledby="post-photo-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-photo" id="post-photo-label">Nuevo Post | Agregar Multimedia </h4>
+            </div>
+            <%= simple_form_for @resource, :html => {:multipart => true}, :controller => "posts", :action => "update", remote: true do |f| %>
+            <div class="modal-body">
+                <div id="errors-post-cover">
+                    <%= render 'shared/error_messages', object: f.object %>
+                </div>
+                <%= f.input :title, label:"Nombre", placeholder: "Nombre del archivo" %>
+                <%= f.input :resource_type, label: "Tipo", :include_blank => "Selecciona el tipo de archivo", collection: [['Foto', 'Foto'],[ 'Audio', 'Audio'], [ 'Video', 'Video']] %>
+                <div id="container_media_url" class="hidden">
+                    <%= f.input :file_url, as: :string, label: false, placeholder: "Escribe la url del archivo" %>
+                </div>
+                <div id="container_select_file" class="hidden">
+                    <label class="select optional control-label" for="resource_file">Archivo</label>
+                    <%= image_tag @resource.photo_path, :id => "photo_thumb" %>
+                    <div id="button_select_file" class="relative btn btn-primary">
+                        <div class="absolute" id="select_file_title">Seleccionar archivo</div>
+                        <%= f.input :photo_path, label: false %>
+                    </div>
+                </div>
+                <%= f.input :description, label: false, input_html: { class: "wysihtml5" }, placeholder: "Descripción" %>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-info" data-dismiss="modal" value="Previsualizar">
+                <%= f.submit "Guardar", :class => "btn btn-success" %>
+                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<!-- resources -->
+<div class="modal fade post-modal" id="post-resources-modal" tabindex="-1" role="dialog" aria-labelledby="post-photo-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-photo" id="post-photo-label">Nuevo Post | Administración de multimedia </h4>
+            </div>
+            <%= simple_form_for @post, :html => {:multipart => true}, :controller => "posts", :action => "update", remote: true do |f| %>
+            <div class="modal-body">
+                <div id="errors-post-cover">
+                    <%= render 'shared/error_messages', object: f.object %>
+                </div>
+                <%= f.input :attr_modified, :as => :hidden, :input_html => { value: "cover" } %>
+                <%= f.input :cover, label: "Selecciona el cover del post" %>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-info" data-dismiss="modal" value="Previsualizar">
+                <%= f.submit "Guardar", :class => "btn btn-success" %>
+                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<!-- tags modal -->
+<div class="modal fade post-modal" id="post-tags-modal" tabindex="-1" role="dialog" aria-labelledby="post-tags-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-tags" id="post-tags-label">Nuevo Post | Etiquetas </h4>
+            </div>
+            <div class="modal-body post-tags">
+                <p>Selecciona los tags para el post</p>
+                <% Tag.all.order("name ASC").each do |t| %>
+                <% if @post.tags.include?(t) %>
+                <%= link_to t.name, { controller: "posts", action: "tag", post_id: @post.id, tag_id: t.id }, remote: true, id: "tag_#{t.id}", :class => "active" %>
+                <% else %>
+                <%= link_to t.name, { controller: "posts", action: "tag", post_id: @post.id, tag_id: t.id }, remote: true, id: "tag_#{t.id}" %>
+                <% end %>
+                <% end %>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- tags modal -->
+<!-- creditos modal -->
+<div class="modal fade post-modal" id="post-credits-modal" tabindex="-1" role="dialog" aria-labelledby="post-credits-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-credits" id="post-credits-label">Nuevo Post | Créditos / Referencias </h4>
+            </div>
+            <%= simple_form_for @post, :html => {:multipart => true}, :controller => "posts", :action => "update", remote: true do |f| %>
+            <div class="modal-body">
+                <div id="errors-post-credits">
+                    <%= render 'shared/error_messages', object: f.object %>
+                </div>
+                <%= f.input :attr_modified, :as => :hidden, :input_html => { value: "credits" } %>
+                <%= f.input :credits, label: false, input_html: { class: "wysihtml5" } %>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-info" data-dismiss="modal" value="Previsualizar">
+                <%= f.submit "Guardar", :class => "btn btn-success" %>
+                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>

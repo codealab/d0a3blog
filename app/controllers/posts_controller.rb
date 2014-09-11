@@ -48,6 +48,7 @@ class PostsController < ApplicationController
 
   def edit
   	@post = Post.find(params[:id])
+    @resource = @post.resources.build
   end
 
   def update

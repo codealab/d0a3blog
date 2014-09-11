@@ -18,6 +18,7 @@
             <h2 class="page-title"><%= @post.title %></h2>
         </header>
         <div class="entry-meta">
+            Escrito por <%= link_to @post.author, user_posts_path(@post.user) %>. El 
             <%= link_to posts_path(date: @post.created_at.to_date) do %>
             <time datetime="<%= @post.created_at %>"><%= I18n.l @post.created_at.to_datetime, :format => '%d de %B del %Y' %></time>
             <% end %>
@@ -42,12 +43,7 @@
                 <div class="">
                     <div class="entry-content indented">
                         <div class="inline-block">
-                            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <blockquote class="pulled-left">
-                                <p>Better to remain silent and be thought a fool than to speak out and remove all doubt, <small> Abraham Lincoln</small>
-                                </p>
-                            </blockquote>
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                            <%= @post.text.html_safe %>
                         </div>
                         <!--/.gallery-->
                     </div>
